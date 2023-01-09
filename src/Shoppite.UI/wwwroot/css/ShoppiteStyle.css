@@ -1,0 +1,44 @@
+﻿ul.breadcrumblinks {
+    padding-left: 0px;
+    padding-top: 10px;
+    list-style: none;
+    background-color: none;
+}
+
+    /* Display list items side by side */
+    ul.breadcrumblinks li {
+        display: inline;
+        font-size: 18px;
+    }
+
+        /* Add a slash symbol (/) before/behind each list item */
+        ul.breadcrumblinks li + li:before {
+            padding: 8px;
+            color: black;
+            content: "/\00a0";
+        }
+
+        /* Add a color to all links inside the list */
+        ul.breadcrumblinks li a {
+            color: #0275d8;
+            text-decoration: none;
+        }
+
+            /* Add a color on mouse-over */
+            ul.breadcrumblinks li a:hover {
+                color: #01447e;
+                text-decoration: underline;
+            }
+
+.padding15 {
+    padding: 15px;
+}
+
+.deletemodalheader {
+    background: black;
+    color: white;
+    font-size: 22px;
+}
+.table-struct-data {
+    padding:0px 15px 15px 15px;
+}
