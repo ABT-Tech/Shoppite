@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Shoppite.Application.Models.MainModel
+
+@{
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -3947,9 +3949,14 @@
     <div class="container">
         <div class="brand-logo">
             <div class="producttabcarosel pos-logo-slide owl-carousel">
-                <div class="carosel-lo">
-                    <a href="#"><img src="img/brand-logo/1.jpg" alt=""></a>
-                </div>
+
+                @foreach (var BLogo in Model.BrandsModel)
+                {
+                    <div class="carosel-lo">
+                        <a href="#"><img src="@BLogo.BrandImage" alt="@BLogo.BrandName"></a>
+                    </div>
+                }
+
                 <div class="carosel-lo">
                     <a href="#"><img src="img/brand-logo/2.jpg" alt=""></a>
                 </div>

@@ -1,0 +1,28 @@
+﻿using AutoMapper;
+using Shoppite.Application.Interfaces;
+using Shoppite.Application.Models;
+using Shoppite.UI.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Shoppite.UI.Services
+{
+    public class BrandPageServices:IBrandPageServices
+    {
+        private readonly IBrandServices _BrandService;
+        private readonly IMapper _mapper;
+
+        public BrandPageServices(IBrandServices BrandService, IMapper mapper)
+        {
+            _BrandService = BrandService ?? throw new ArgumentNullException(nameof(BrandService));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+        }
+
+        public Task<MainModel> GetBrands(int orgId)
+        {
+            
+        }
+    }
+}
