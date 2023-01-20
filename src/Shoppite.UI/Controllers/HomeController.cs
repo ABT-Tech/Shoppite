@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Shoppite.Application.Models;
+using Shoppite.UI.Helpers;
+using Shoppite.UI.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,15 +14,31 @@ namespace Shoppite.UI.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IBrandPageServices _BrandPageService;
+        private readonly CommonHelper commonHelper = new CommonHelper();
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IBrandPageServices brandPageServices, ILogger<HomeController> logger)
         {
-            _logger = logger;
+            _logger = logger ?? throw new ArgumentNullException();
+            _BrandPageService = brandPageServices ?? throw new ArgumentNullException(nameof(brandPageServices));
         }
 
-        public IActionResult Index()
+        //public async Task <IActionResult> Index()
+        //{
+        //    return View();
+        //}
+        //public async Task<IActionResult>NewProducts(MainModel mainModel)
+        //{
+        //    int orgid = commonHelper.GetOrgID(HttpContext);
+            
+        //    return RedirectToAction("Index");
+        //}
+        public async Task<IActionResult>Index()
         {
-            return View();
+          int OrgId  = commonHelper.GetOrgID(HttpContext);
+          var brands = await _BrandPageService.GetBrands(OrgId);
+
+            return View(brands);
         }
     }
 }

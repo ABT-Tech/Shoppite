@@ -21,6 +21,10 @@ using Shoppite.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Shoppite.Application.Interfaces;
+using Shoppite.Application.Services;
+using Shoppite.UI.Interfaces;
+using Shoppite.UI.Services;
 
 namespace Shoppite.UI
 {
@@ -47,6 +51,7 @@ namespace Shoppite.UI
             services.AddMvc(option => option.EnableEndpointRouting = false);
 
             services.Configure<HtmlHelperOptions>(o => o.ClientValidationEnabled = false);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -86,11 +91,13 @@ namespace Shoppite.UI
             ConfigureDatabases(services);
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
+            services.AddScoped<IBrandRepository, BrandRepository>();
 
             // Add Application Layer
-           
+            services.AddScoped<IBrandServices, BrandServices>();
             // Add Web Layer
-           
+            services.AddAutoMapper(typeof(Startup));
+            services.AddScoped<IBrandPageServices, BrandPageServices>();
             // Add Miscellaneous
             services.AddHttpContextAccessor();
             services.AddHealthChecks()

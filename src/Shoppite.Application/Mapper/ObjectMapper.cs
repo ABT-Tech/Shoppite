@@ -3,6 +3,7 @@ using Shoppite.Core.Entities;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Shoppite.Application.Mapper
 {
@@ -27,7 +28,13 @@ namespace Shoppite.Application.Mapper
     {
         public ShoppiteDtoMapper()
         {
-            
+            CreateMap<Brands, BrandsModel>().ReverseMap();
+            CreateMap<List<Brands>, BrandsModel>().ReverseMap();
+            CreateMap<List<f_getproducts_By_NewArrivals>, f_getproducts_By_NewArrivalsModel>().ReverseMap();
+            CreateMap<f_getproducts_By_NewArrivals, f_getproducts_By_NewArrivalsModel>().ReverseMap();
+            CreateMap<IQueryable<f_getproducts_By_NewArrivals>, List<f_getproducts_By_NewArrivalsModel>>().ReverseMap();
+            CreateMap<f_getproducts_By_NewArrivals, f_getproducts_By_NewArrivalsModel>().ReverseMap();
+
         }
     }
 }

@@ -8,6 +8,8 @@ namespace Shoppite.UI.Interfaces
 {
    public interface IBrandPageServices
     {
-        Task<MainModel>GetBrands(int orgId);
+        Task<MainModel> GetBrands(int orgId);
+        Task<MainModel> GetNewProduct(int orgId);
+        Task<MainModel> GetnewProduct(int orgid);
     }
 }

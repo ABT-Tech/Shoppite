@@ -20,9 +20,19 @@ namespace Shoppite.UI.Services
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public Task<MainModel> GetBrands(int orgId)
+        public async Task<MainModel> GetBrands(int orgId)
         {
-            
+            return await _BrandService.GetBrands(orgId);
+        }
+
+        public async Task<MainModel> GetNewProduct(int orgId)
+        {
+            return await _BrandService.GetNewProducts(orgId);
+        }
+
+        public async Task<MainModel> GetnewProduct(int orgid)
+        {
+            return await _BrandService._Getproducts_By_NewArrivals(orgid);
         }
     }
 }

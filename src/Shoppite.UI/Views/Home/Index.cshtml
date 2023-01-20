@@ -3069,6 +3069,65 @@
         <!-- Start new product -->
         <div class="new-products">
             <div class="producttabcarosel carosel-product5 owl-carousel">
+
+                @foreach(var product in Model.ProductNewArrivalModel)
+            {
+                <div class="product-item">
+                    <div class="top-item">
+                        <a href="#">
+                            <img src="@product.image" alt="Product image">
+                        </a>
+                        <div class="top-cocial">
+                            <p>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="bottom-item">
+                        <div class="product-info">
+                            <h5><a href="single-product.html">@product.ProductName</a></h5>
+                            <span>₹ @product.Price</span>
+                            <p>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                            </p>
+                        </div>
+                        <div class="product-social">
+                            <ul>
+                                <li><a href="#"><i class="fa fa-external-link"></i></a></li>
+                                <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
+                                <li><a href="#"><i class="fa fa-bar-chart"></i></a></li>
+                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            }
+               
+        </div>
+        <!-- End new product -->
+    </div>
+</div>
+<!-- End new product area -->
+
+<!-- Start top selar area -->
+<div class="top-selar-area">
+    <div class="container">
+        <!-- Start product title -->
+        <div class="new-product-title">
+            <h4><span>Top sellers</span></h4>
+        </div>
+        <!-- End product title -->
+        <!-- Start top sell product -->
+        <div class="top-sell-product mb-4">
+            <div class="producttabcarosel carosel-product5 owl-carousel">
                 <div class="product-item">
                     <div class="top-item">
                         <a href="single-product.html">
@@ -3589,285 +3648,6 @@
                 </div>
             </div>
         </div>
-        <!-- End new product -->
-    </div>
-</div>
-<!-- End new product area -->
-<!-- Start top selar area -->
-<div class="top-selar-area">
-    <div class="container">
-        <!-- Start product title -->
-        <div class="new-product-title">
-            <h4><span>Top sellers</span></h4>
-        </div>
-        <!-- End product title -->
-        <!-- Start top sell product -->
-        <div class="top-sell-product">
-            <div class="top-sell-row">
-                <div class="row">
-                    <div class="col-md-3">
-                        <!-- Start top sell product -->
-                        <div class="top-sell-item">
-                            <div class="item-image pull-left">
-                                <a href="single-product.html">
-                                    <img src="img/top-sell/faded-short-sleeves-tshirt1.jpg" alt="">
-                                </a>
-                            </div>
-                            <div class="top-slee-details">
-                                <h5><a href="single-product.html">Faded Short T-shirt</a></h5>
-                                <span>£ 19.81</span>
-                                <p>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                </p>
-                                <a href="#" title="Add to cart" class="cart"><i class="fa fa-shopping-cart"></i></a>
-                            </div>
-                        </div>
-                        <!-- End top sell product -->
-                        <!-- Start top sell product -->
-                        <div class="top-sell-item">
-                            <div class="item-image pull-left">
-                                <a href="single-product.html">
-                                    <img src="img/top-sell/blous1e.jpg" alt="top sell product">
-                                </a>
-                            </div>
-                            <div class="top-slee-details">
-                                <h5><a href="single-product.html">Blouse</a></h5>
-                                <span>£ 32.40</span>
-                                <p>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                </p>
-                                <a href="#" title="Add to cart" class="cart"><i class="fa fa-shopping-cart"></i></a>
-                            </div>
-                        </div>
-                        <!-- End top sell product -->
-                        <!-- Start top sell product -->
-                        <div class="top-sell-item">
-                            <div class="item-image pull-left">
-                                <a href="single-product.html">
-                                    <img src="img/top-sell/printed-summer-dress1.jpg" alt="top sell product">
-                                </a>
-                            </div>
-                            <div class="top-slee-details">
-                                <h5><a href="#">Printed Summer Dress</a></h5>
-                                <span>£ 36.60</span>
-                                <p>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                </p>
-                                <a href="single-product.html" title="Add to cart" class="cart"><i class="fa fa-shopping-cart"></i></a>
-                            </div>
-                        </div>
-                        <!-- End top sell product -->
-                    </div>
-                    <div class="col-md-3">
-                        <!-- Start top sell product -->
-                        <div class="top-sell-item">
-                            <div class="item-image pull-left">
-                                <a href="single-product.html">
-                                    <img src="img/top-sell/printed-summer-dress2.jpg" alt="top sell product">
-                                </a>
-                            </div>
-                            <div class="top-slee-details">
-                                <h5><a href="single-product.html">Printed Summer Dress</a></h5>
-                                <span>£ 34.78 <del>£ 36.61</del></span>
-                                <p>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                </p>
-                                <a href="#" title="Add to cart" class="cart"><i class="fa fa-shopping-cart"></i></a>
-                            </div>
-                        </div>
-                        <!-- End top sell product -->
-                        <!-- Start top sell product -->
-                        <div class="top-sell-item">
-                            <div class="item-image pull-left">
-                                <a href="single-product.html">
-                                    <img src="img/top-sell/printed-dress1.jpg" alt="top sell product">
-                                </a>
-                            </div>
-                            <div class="top-slee-details">
-                                <h5><a href="single-product.html">Printed Dress</a></h5>
-                                <span>£ 31.20</span>
-                                <p>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                </p>
-                                <a href="#" title="Add to cart" class="cart"><i class="fa fa-shopping-cart"></i></a>
-                            </div>
-                        </div>
-                        <!-- End top sell product -->
-                        <!-- Start top sell product -->
-                        <div class="top-sell-item">
-                            <div class="item-image pull-left">
-                                <a href="single-product.html">
-                                    <img src="img/top-sell/printed-dress2.jpg" alt="top sell product">
-                                </a>
-                            </div>
-                            <div class="top-slee-details">
-                                <h5><a href="single-product.html">Printed Dress</a></h5>
-                                <span>£ 61.19</span>
-                                <p>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                </p>
-                                <a href="#" title="Add to cart" class="cart"><i class="fa fa-shopping-cart"></i></a>
-                            </div>
-                        </div>
-                        <!-- End top sell product -->
-                    </div>
-                    <div class="col-md-3">
-                        <!-- Start top sell product -->
-                        <div class="top-sell-item">
-                            <div class="item-image pull-left">
-                                <a href="single-product.html">
-                                    <img src="img/top-sell/printed-dress3.jpg" alt="top sell product">
-                                </a>
-                            </div>
-                            <div class="top-slee-details">
-                                <h5><a href="single-product.html">Printed Dress</a></h5>
-                                <span>£ 31.20</span>
-                                <p>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                </p>
-                                <a href="#" title="Add to cart" class="cart"><i class="fa fa-shopping-cart"></i></a>
-                            </div>
-                        </div>
-                        <!-- End top sell product -->
-                        <!-- Start top sell product -->
-                        <div class="top-sell-item">
-                            <div class="item-image pull-left">
-                                <a href="single-product.html">
-                                    <img src="img/top-sell/blouse.jpg" alt="top sell product">
-                                </a>
-                            </div>
-                            <div class="top-slee-details">
-                                <h5><a href="single-product.html">Blouse</a></h5>
-                                <span>£ 32.40</span>
-                                <p>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                </p>
-                                <a href="#" title="Add to cart" class="cart"><i class="fa fa-shopping-cart"></i></a>
-                            </div>
-                        </div>
-                        <!-- End top sell product -->
-                        <!-- Start top sell product -->
-                        <div class="top-sell-item">
-                            <div class="item-image pull-left">
-                                <a href="single-product.html">
-                                    <img src="img/top-sell/faded-short-sleeves-tshirt.jpg" alt="top sell product">
-                                </a>
-                            </div>
-                            <div class="top-slee-details">
-                                <h5><a href="single-product.html">Faded Short T-shirt</a></h5>
-                                <span>£ 19.81</span>
-                                <p>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                </p>
-                                <a href="#" title="Add to cart" class="cart"><i class="fa fa-shopping-cart"></i></a>
-                            </div>
-                        </div>
-                        <!-- End top sell product -->
-                    </div>
-                    <div class="col-md-3">
-                        <!-- Start top sell product -->
-                        <div class="top-sell-item">
-                            <div class="item-image pull-left">
-                                <a href="single-product.html">
-                                    <img src="img/top-sell/printed-chiffon-dress1.jpg" alt="top sell product">
-                                </a>
-                            </div>
-                            <div class="top-slee-details">
-                                <h5><a href="single-product.html">Printed Chiffon Dress</a></h5>
-                                <span>£ 20.91 <del>£ 24.60</del></span>
-                                <p>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                </p>
-                                <a href="#" title="Add to cart" class="cart"><i class="fa fa-shopping-cart"></i></a>
-                            </div>
-                        </div>
-                        <!-- End top sell product -->
-                        <!-- Start top sell product -->
-                        <div class="top-sell-item">
-                            <div class="item-image pull-left">
-                                <a href="single-product.html">
-                                    <img src="img/top-sell/printed-chiffon-dress2.jpg" alt="top sell product">
-                                </a>
-                            </div>
-                            <div class="top-slee-details">
-                                <h5><a href="single-product.html">Printed Chiffon Dress</a></h5>
-                                <span>£ 22.14 <del>£ 24.60</del></span>
-                                <p>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                </p>
-                                <a href="#" title="Add to cart" class="cart"><i class="fa fa-shopping-cart"></i></a>
-                            </div>
-                        </div>
-                        <!-- End top sell product -->
-                        <!-- Start top sell product -->
-                        <div class="top-sell-item">
-                            <div class="item-image pull-left">
-                                <a href="single-product.html">
-                                    <img src="img/top-sell/printed-summer-dress.jpg" alt="top sell product">
-                                </a>
-                            </div>
-                            <div class="top-slee-details">
-                                <h5><a href="single-product.html">Printed Summer Dress</a></h5>
-                                <span>£ 36.60</span>
-                                <p>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                </p>
-                                <a href="#" title="Add to cart" class="cart"><i class="fa fa-shopping-cart"></i></a>
-                            </div>
-                        </div>
-                        <!-- End top sell product -->
-                    </div>
-                </div>
-            </div>
-        </div>
         <!-- End top sell product -->
     </div>
 </div>
@@ -3903,47 +3683,7 @@
     </div>
 </div>
 <!-- End static bolg area -->
-<!-- Start theme fetured area -->
-<div class="theme-fetured-area">
-    <div class="container">
-        <div class="theme-fetured-title">
-            <h4>template features</h4>
-        </div>
-        <div class="theme-fetured-content">
-            <div class="row g-0">
-                <div class="col-md-3">
-                    <div class="theme-content item1">
-                        <i class="fa fa-gift"></i>
-                        <h3>Custom template</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat.</p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="theme-content">
-                        <i class="fa fa-pencil"></i>
-                        <h3>Fully Customizable</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat.</p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="theme-content item1">
-                        <i class="fa fa-laptop"></i>
-                        <h3>Fluid width</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat.</p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="theme-content item4">
-                        <i class="fa fa-th"></i>
-                        <h3>Customizable grid</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- End theme fetured area -->
+
 <!-- Start brand logo area -->
 <div class="brand-logo-area">
     <div class="container">
@@ -3953,31 +3693,10 @@
                 @foreach (var BLogo in Model.BrandsModel)
                 {
                     <div class="carosel-lo">
-                        <a href="#"><img src="@BLogo.BrandImage" alt="@BLogo.BrandName"></a>
+                        <a href="#"><img id="Brand_Logo_Img" src="@BLogo.BrandImage" alt="@BLogo.BrandName" style="max-height: 68px; max-width: 130px;"></a>
                     </div>
                 }
-
-                <div class="carosel-lo">
-                    <a href="#"><img src="img/brand-logo/2.jpg" alt=""></a>
-                </div>
-                <div class="carosel-lo">
-                    <a href="#"><img src="img/brand-logo/3.jpg" alt=""></a>
-                </div>
-                <div class="carosel-lo">
-                    <a href="#"><img src="img/brand-logo/4.jpg" alt=""></a>
-                </div>
-                <div class="carosel-lo">
-                    <a href="#"><img src="img/brand-logo/5.jpg" alt=""></a>
-                </div>
-                <div class="carosel-lo">
-                    <a href="#"><img src="img/brand-logo/6.jpg" alt=""></a>
-                </div>
-                <div class="carosel-lo">
-                    <a href="#"><img src="img/brand-logo/7.jpg" alt=""></a>
-                </div>
-                <div class="carosel-lo">
-                    <a href="#"><img src="img/brand-logo/8.jpg" alt=""></a>
-                </div>
+ 
             </div>
         </div>
     </div>
