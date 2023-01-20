@@ -27,7 +27,10 @@ namespace Shoppite.Application.Mapper
     {
         public ShoppiteDtoMapper()
         {
-            
+            CreateMap<CategoryMasterModel, CategoryMaster>().ReverseMap();
+            CreateMap<CategoryMasterModel, AdsDetail>().ReverseMap();
+            CreateMap<CategoryMasterModel, ProductBasic>().ReverseMap();
+
         }
     }
 }

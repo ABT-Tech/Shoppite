@@ -1,0 +1,36 @@
+﻿@model Shoppite.Application.Models.CategoryMasterModel
+           @* @if (Model.CategoryDetails != null)
+            {
+                @foreach (var item in Model.CategoryDetails)
+                {
+                    <a class="title" href="shop-grid.html"><span>@item.CategoryName</span></a>
+                    <a href="#"><span>@item.ProductName</span></a>
+                }
+            }    *@
+<li>
+    <a href="shop-grid.html">Electronic</a>
+    <div class="megamenudown">
+        <div class="mega-top">
+            @if (Model.CategoryDetails != null)
+            {
+                @foreach (var item in Model.CategoryDetails)
+                {
+                    <a class="title" href="shop-grid.html"><span>@item.CategoryName</span></a>
+                    <a href="#"><span>@item.ProductName</span></a>
+                }
+            }
+            <div class="mega-item-menu">
+                <a class="title" href="shop-grid.html"><span>Laptop</span></a>
+                <a href="#"><span>Vaio</span></a>
+                <a href="#"><span>Samsung</span></a>
+                <a href="#"><span>Toshiba</span></a>
+                <a href="#"><span>Hp</span></a>
+            </div>
+        </div>
+        <div class="mega-bottom">
+            <a href="#"><img src="img/menu/banner_menu_1.jpg" alt=""></a>
+            <a href="#"><img src="img/menu/banner_menu_2.jpg" alt=""></a>
+            <a href="#"><img src="img/menu/banner_menu_3.jpg" alt=""></a>
+        </div>
+    </div>
+</li>
