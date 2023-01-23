@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Shoppite.Application.Models;
 using Shoppite.Core.Entities;
@@ -61,8 +62,18 @@ namespace Shoppite.Infrastructure.Repository
         public async Task<IEnumerable<ProductBasic>> GetProductList(int orgId)
         {
             //var list = await _dbContext.CategoryMaster.ToListAsync();
-            var q = from c in _dbContext.ProductBasic
-                    where c.OrgId == orgId && c.IsPublished==true
+            /* var q = from c in _dbContext.ProductBasic
+                     where c.OrgId == orgId && c.IsPublished==true
+                     select c;
+             return q;*/
+            string sql = "select * from f_getproducts_By_CategoryID(@ID)";
+            List<SqlParameter> parms = new List<SqlParameter>
+        {
+            new SqlParameter { ParameterName = "@ID", Value = orgId }
+        };
+            var productlist = await _dbContext.Set<f_getproducts_By_CategoryID_Result>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
+            var q = from f in productlist
+                    join c in _dbContext.ProductBasic on f.ProductId equals c.ProductId
                     select c;
             return q;
 

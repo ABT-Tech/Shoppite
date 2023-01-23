@@ -11,6 +11,6 @@ namespace Shoppite.Web.Interfaces
         Task<IEnumerable<CategoryMasterModel>> GetCategoryList(int orgId);
         Task<CategoryMasterModel> GetBannerImage(int orgId);
         Task<CategoryMasterModel> GetBottomImage(int orgId);
-        Task<IEnumerable<CategoryMasterModel>> GetProductList(int orgId);
+        Task<List<CategoryMasterModel>> GetProductList(int orgId);
     }
 }

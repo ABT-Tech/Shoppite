@@ -28,11 +28,10 @@ namespace Shoppite.UI.Controllers
             var model = new CategoryMasterModel();
             var orgid = commonHelper.GetOrgID(HttpContext);
             
-            model= await _categoryPageService.GetBannerImage(orgid);
+           // model= await _categoryPageService.GetBannerImage(orgid);
             model= await _categoryPageService.GetBottomImage(orgid);
-            
-            model.CategoryDetails = await _categoryPageService.GetCategoryList(orgid);
-           // model.CategoryDetails = await _categoryPageService.GetProductList(orgid);
+            model.products = await _categoryPageService.GetProductList(orgid);
+            //model.CategoryDetails = await _categoryPageService.GetCategoryList(orgid);
             return View(model);
         }
     }

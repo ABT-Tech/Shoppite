@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shoppite.Core.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -14,5 +15,6 @@ namespace Shoppite.Application.Models
         public string Image { get; set; }
         public string ProductName { get; set; }
         public IEnumerable<CategoryMasterModel> CategoryDetails { get; set; }
+        public List<CategoryMasterModel> products { get; set; }
     }
 }
