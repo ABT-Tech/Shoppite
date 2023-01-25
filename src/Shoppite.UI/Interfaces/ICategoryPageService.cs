@@ -8,9 +8,11 @@ namespace Shoppite.Web.Interfaces
 {
     public interface ICategoryPageService
     {
-        Task<IEnumerable<CategoryMasterModel>> GetCategoryList(int orgId);
-        Task<CategoryMasterModel> GetBannerImage(int orgId);
-        Task<CategoryMasterModel> GetBottomImage(int orgId);
-        Task<List<CategoryMasterModel>> GetProductList(int orgId);
+        Task<List<CategoryMasterModel>> GetTopBannerImage(int orgId);
+        Task<List<CategoryMasterModel>> GetMiddelBannerImage(int orgId);
+        Task<IEnumerable<CategoryProductModel>> GetProductList(int orgId);
+        Task<List<CategoryMasterModel>> GetCategories(int CAtegoryId);
+        Task<CategoryMasterModel> DisplayLogo(int orgId);
+        Task<List<CategoryMasterModel>> GetHorizontalBanner(int orgID);
     }
 }

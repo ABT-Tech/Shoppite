@@ -23,15 +23,16 @@ namespace Shoppite.UI.Controllers
 
              return View();
          }*/
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int CategoryId)
         {
-            var model = new CategoryMasterModel();
             var orgid = commonHelper.GetOrgID(HttpContext);
-            
-           // model= await _categoryPageService.GetBannerImage(orgid);
-            model= await _categoryPageService.GetBottomImage(orgid);
-            model.products = await _categoryPageService.GetProductList(orgid);
-            //model.CategoryDetails = await _categoryPageService.GetCategoryList(orgid);
+            var model = new CategoryMasterModel();
+            model = await _categoryPageService.DisplayLogo(orgid);
+            model.BottomBanner = await _categoryPageService.GetMiddelBannerImage(orgid);
+            model.topBanner = await _categoryPageService.GetTopBannerImage(orgid);       
+            model.ProductsDetails = await _categoryPageService.GetProductList(orgid);          
+            model.Categories=await _categoryPageService.GetCategories(CategoryId);
+            model.HorizontalBanner = await _categoryPageService.GetHorizontalBanner(orgid);
             return View(model);
         }
     }

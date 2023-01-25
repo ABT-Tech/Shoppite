@@ -1,0 +1,7 @@
+﻿@model Shoppite.Application.Models.CategoryMasterModel
+@foreach (var image in Model.HorizontalBanner)
+{
+    <div class="tab-contant-static-image">
+        <a href="#"><img src="@Url.Content("~")@image.Image" alt="Static image"></a>
+    </div>
+}

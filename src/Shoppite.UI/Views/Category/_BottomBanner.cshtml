@@ -1,2 +1,8 @@
 ﻿@model Shoppite.Application.Models.CategoryMasterModel
-<a href="#"><img src="@Url.Content("~")/@Model.Image" alt="slider image" /></a>
+@foreach (var image in Model.BottomBanner)
+{
+    <div class="col-md-6">
+        <a href="#"><img src="@Url.Content("~")@image.Image" alt="slider image" /></a>
+    </div>
+}
+

@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model Shoppite.Application.Models.CategoryMasterModel
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -122,9 +123,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-3 col-md-12">
-                            <div class="logo res">
-                                <a href="index.html"><img src="img/logo.png" alt=""></a>
-                            </div>
+                            @Html.Partial("~/Views/Category/_Logo.cshtml", Model)
                         </div>
                         <div class="col-lg-9 col-md-12">
                             <div class="meddil-services">

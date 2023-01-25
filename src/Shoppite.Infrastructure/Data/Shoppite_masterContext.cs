@@ -83,6 +83,7 @@ namespace Shoppite.Infrastructure.Data
         public virtual DbSet<SP_Status_HasProducts_Result> SP_Status_hasProducts_results { get; set; }
         public virtual DbSet<F_Topcat_Result> F_Topcat_Results { get; set; }
         public virtual DbSet<f_getproducts_By_CategoryID_Result> f_getproducts_By_CategoryID_Result { get; set; }
+        public virtual DbSet<f_All_getcat_Result> f_All_getcat_Result { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

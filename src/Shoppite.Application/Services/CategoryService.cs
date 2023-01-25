@@ -21,29 +21,57 @@ namespace Shoppite.Application.Services
             _categoryRepository = categoryRepository ?? throw new ArgumentNullException(nameof(categoryRepository));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
-
-        public async Task <IEnumerable<CategoryMasterModel>> GetCategoryList(int orgId)
+        public async Task<List<CategoryMasterModel>> GetTopBannerImage(int orgId)
         {
-            var categoryList = await _categoryRepository.GetCategoryList(orgId);
-            var mapped = ObjectMapper.Mapper.Map<IEnumerable<CategoryMasterModel>>(categoryList);
-            return mapped;
-        }
-        public async Task<CategoryMasterModel>  GetBannerImage(int orgId)
-        {
-           var image= await _categoryRepository.GetBannerImage(orgId);
-            var mapped = ObjectMapper.Mapper.Map<CategoryMasterModel>(image);
+           var image= await _categoryRepository.GetTopBannerImage(orgId);
+            var mapped = ObjectMapper.Mapper.Map<List<CategoryMasterModel>>(image);
             return mapped;           
         }
-        public async Task<CategoryMasterModel> GetBottomImage(int orgId)
+        public async Task<List<CategoryMasterModel>> GetMiddelBannerImage(int orgId)
         {
-            var image = await _categoryRepository.GetBottomImage(orgId);
-            var mapped = ObjectMapper.Mapper.Map<CategoryMasterModel>(image);
+            var image = await _categoryRepository.GetMiddelBannerImage(orgId);
+            var mapped = ObjectMapper.Mapper.Map<List<CategoryMasterModel>>(image);
             return mapped;
         }
-        public async Task<IEnumerable<CategoryMasterModel>> GetProductList(int orgId)
+        public async Task<IEnumerable<CategoryProductModel>> GetProductList(int orgId)
         {
+            List<CategoryProductModel> categoryProductsModel = new List<CategoryProductModel>();
             var productList = await _categoryRepository.GetProductList(orgId);
-            var mapped = ObjectMapper.Mapper.Map<IEnumerable<CategoryMasterModel>>(productList);
+            var Products = productList.GroupBy(x => new { x.Category_Id,x.category_name}, (key, g) => new { CatId = key.Category_Id, CatName = key.category_name , Products = g.ToList() }).Take(2);
+            foreach (var Product in Products) {
+                CategoryProductModel categoryProductModel = new CategoryProductModel();
+                categoryProductModel.CategoryId = Product.CatId;
+                categoryProductModel.CategoryName = Product.CatName;
+                categoryProductModel.ProductsDetails = categoryProductModel.ProductsDetails == null ? new List<ProductBaseModel>() : categoryProductModel.ProductsDetails;
+                foreach (var prod in Product.Products) 
+                {
+                    ProductBaseModel productBaseModel = new ProductBaseModel();
+                    productBaseModel.ProductGuid = prod.ProductGUID;
+                    productBaseModel.ProductId = prod.ProductId;
+                    productBaseModel.ProductName = prod.ProductName;
+                    productBaseModel.CoverImage = prod.image;
+                    categoryProductModel.ProductsDetails.Add(productBaseModel);
+                }
+                categoryProductsModel.Add(categoryProductModel);
+            }
+            return categoryProductsModel;
+        }
+        public async Task<List<CategoryMasterModel>> GetCategories(int CategoryId)
+        {
+            var categories = await _categoryRepository.GetCategories(CategoryId);
+            var mapped = ObjectMapper.Mapper.Map<List<CategoryMasterModel>>(categories);
+            return mapped;
+        }
+        public async Task<CategoryMasterModel> DisplayLogo(int orgId)
+        {
+            var logo = await _categoryRepository.DisplayLogo(orgId);
+            var mapped = ObjectMapper.Mapper.Map< CategoryMasterModel > (logo);
+            return mapped;
+        }
+        public async Task<List<CategoryMasterModel>> GetHorizontalBanner(int orgId)
+        {
+            var image = await _categoryRepository.GetHorizontalBanner(orgId);
+            var mapped = ObjectMapper.Mapper.Map<List<CategoryMasterModel>>(image);
             return mapped;
         }
     }

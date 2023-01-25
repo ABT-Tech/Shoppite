@@ -30,6 +30,9 @@ namespace Shoppite.Application.Mapper
             CreateMap<CategoryMasterModel, CategoryMaster>().ReverseMap();
             CreateMap<CategoryMasterModel, AdsDetail>().ReverseMap();
             CreateMap<CategoryMasterModel, ProductBasic>().ReverseMap();
+            CreateMap<CategoryMasterModel, f_All_getcat_Result>().ReverseMap();
+            CreateMap<CategoryMasterModel, f_getproducts_By_CategoryID_Result>().ReverseMap();
+            CreateMap<CategoryMasterModel, Logo>().ReverseMap();
 
         }
     }

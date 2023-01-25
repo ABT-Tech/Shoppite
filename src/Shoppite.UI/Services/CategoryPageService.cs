@@ -17,29 +17,37 @@ namespace Shoppite.Web.Services
             _categoryService = categoryService ?? throw new ArgumentNullException(nameof(categoryService));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
-        public async Task<IEnumerable<CategoryMasterModel>> GetCategoryList(int orgId)
+        public async Task<List<CategoryMasterModel>> GetTopBannerImage(int orgId)
         {
-            var list = await _categoryService.GetCategoryList(orgId);
-            var mapped = _mapper.Map<IEnumerable<CategoryMasterModel>>(list);
+            var image = await _categoryService.GetTopBannerImage(orgId);
+            var mapped = _mapper.Map<List<CategoryMasterModel>>(image);
             return mapped;
         }
-        public async Task<CategoryMasterModel> GetBannerImage(int orgId)
+        public async Task<List<CategoryMasterModel>> GetMiddelBannerImage(int orgId)
         {
-            var image = await _categoryService.GetBannerImage(orgId);
-            var mapped = _mapper.Map<CategoryMasterModel>(image);
-            return mapped;
-
-        }
-        public async Task<CategoryMasterModel> GetBottomImage(int orgId)
-        {
-            var image = await _categoryService.GetBottomImage(orgId);
-            var mapped = _mapper.Map<CategoryMasterModel>(image);
+            var image = await _categoryService.GetMiddelBannerImage(orgId);
+            var mapped = _mapper.Map<List<CategoryMasterModel>>(image);
             return mapped;
         }
-        public async Task<List<CategoryMasterModel>> GetProductList(int orgId)
+        public async Task<IEnumerable<CategoryProductModel>> GetProductList(int orgId)
         {
             var productList = await _categoryService.GetProductList(orgId);
-            var mapped = _mapper.Map<List<CategoryMasterModel>>(productList);
+            return productList;
+        }
+        public async Task<List<CategoryMasterModel>> GetCategories(int CategoryId)
+        {
+            var categories= await _categoryService.GetCategories(CategoryId);
+            return categories;
+        }
+        public async Task<CategoryMasterModel> DisplayLogo(int orgId)
+        {
+            var logo = await _categoryService.DisplayLogo(orgId);
+            return logo;
+        }
+        public async Task<List<CategoryMasterModel>> GetHorizontalBanner(int orgId)
+        {
+            var image = await _categoryService.GetHorizontalBanner(orgId);
+            var mapped = _mapper.Map<List<CategoryMasterModel>>(image);
             return mapped;
         }
     }
