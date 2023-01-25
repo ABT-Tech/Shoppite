@@ -87,16 +87,9 @@ namespace Shoppite.Infrastructure.Data
         public virtual DbSet<SP_Status_HasProducts_Result> SP_Status_hasProducts_results { get; set; }
         public virtual DbSet<F_Topcat_Result> F_Topcat_Results { get; set; }
         public virtual DbSet<f_getproducts_By_NewArrivals> F_Getproducts_By_NewArrivals { get; set; }
+        public virtual DbSet<f_getproducts_By_OrgID> F_Getproducts_By_OrgID { get; set; }
+        public virtual DbSet<f_getproducts_By_CategoryID> F_Getproducts_By_CategoryID { get; set; }
 
-        //[DbFunction("Shoppite_masterContext", "f_getproducts_By_getmegaoffers")]
-        //public virtual IQueryable<f_getproducts_By_NewArrivals> f_getproducts_By_getmegaoffers(Nullable<int> orgid)
-        //{
-        //    var orgidParameter = orgid.HasValue ?
-        //        new ObjectParameter("orgid", orgid) :
-        //        new ObjectParameter("orgid", typeof(int));
-
-        //    return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<f_getproducts_By_NewArrivals>("[Entities].[f_getproducts_By_getmegaoffers](@orgid)", orgidParameter);
-        //}
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -1303,7 +1296,11 @@ namespace Shoppite.Infrastructure.Data
                 entity.HasNoKey();
             });
 
-            modelBuilder.Entity<List<f_getproducts_By_NewArrivals>>(entity =>
+            modelBuilder.Entity<f_getproducts_By_OrgID>(entity =>
+            {
+                entity.HasNoKey();
+            });
+            modelBuilder.Entity<f_getproducts_By_CategoryID>(entity =>
             {
                 entity.HasNoKey();
             });

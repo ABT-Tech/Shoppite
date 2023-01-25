@@ -37,8 +37,13 @@ namespace Shoppite.UI.Controllers
         {
           int OrgId  = commonHelper.GetOrgID(HttpContext);
           var brands = await _BrandPageService.GetBrands(OrgId);
-
             return View(brands);
+        }
+       [HttpGet]
+        public async Task<JsonResult> Get_Product_By_Cat(int ID)
+        {
+           var AA = await _BrandPageService.Get_Product_By_Cat(ID);
+            return Json(AA.F_Getproducts_By_CategoryIDModels);
         }
     }
 }

@@ -10,7 +10,9 @@ namespace Shoppite.Core.Repositories
    public interface IBrandRepository
     {
         Task<List<Brands>> GetBrands(int orgid);
-        Task<IQueryable<f_getproducts_By_NewArrivals>> GetNewProducts(int orgid);
+        Task<List<f_getproducts_By_OrgID>> GetCategoryBy_Org(int orgid);
         Task<List<f_getproducts_By_NewArrivals>> _Getproducts_By_NewArrivals(int orgid);
+        Task<List<sp_getcat_Result>> Sp_Getcat(int orgid);
+        Task<List<f_getproducts_By_CategoryID>> Get_Product_By_Cat(int ID);
     }
 }

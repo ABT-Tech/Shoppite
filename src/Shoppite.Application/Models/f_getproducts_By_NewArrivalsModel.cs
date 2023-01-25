@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Shoppite.Application.Models
 {
-   public partial class f_getproducts_By_NewArrivalsModel
+   public class f_getproducts_By_NewArrivalsModel
     {
         public string image { get; set; }
         public int ProductId { get; set; }
@@ -27,6 +27,7 @@ namespace Shoppite.Application.Models
         public Nullable<decimal> OldPrice { get; set; }
         public string maincaturlpath { get; set; }
         public Nullable<int> maincatid { get; set; }
+        public int StatusId { get; set; }
         public string deals { get; set; }
         public string badgestatus { get; set; }
         public string CurrencyName { get; set; }
