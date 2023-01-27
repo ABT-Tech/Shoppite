@@ -37,11 +37,13 @@ namespace Shoppite.Application.Services
         {
             List<CategoryProductModel> categoryProductsModel = new List<CategoryProductModel>();
             var productList = await _categoryRepository.GetProductList(orgId);
-            var Products = productList.GroupBy(x => new { x.Category_Id,x.category_name}, (key, g) => new { CatId = key.Category_Id, CatName = key.category_name , Products = g.ToList() }).Take(2);
+            var Products = productList.GroupBy(x => new { x.maincatid,x.maincaturlpath,x.Category_Id,x.category_name}, (key, g) => new { CatId = key.Category_Id,maincatid=key.maincatid, CatName = key.category_name,maincatname=key.maincaturlpath , Products = g.ToList() });
             foreach (var Product in Products) {
                 CategoryProductModel categoryProductModel = new CategoryProductModel();
                 categoryProductModel.CategoryId = Product.CatId;
+                categoryProductModel.maincatid = Product.maincatid;
                 categoryProductModel.CategoryName = Product.CatName;
+                categoryProductModel.maincaturlpath = Product.maincatname;
                 categoryProductModel.ProductsDetails = categoryProductModel.ProductsDetails == null ? new List<ProductBaseModel>() : categoryProductModel.ProductsDetails;
                 foreach (var prod in Product.Products) 
                 {

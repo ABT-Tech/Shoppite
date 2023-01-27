@@ -4,14 +4,14 @@
     @foreach (var item in Model.ProductsDetails)
     {
         <li>
-            <a href="shop-grid.html">@item.CategoryName</a>
+            <a href="shop-grid.html">@item.maincaturlpath</a>
             <div class="megamenudown">
                 <div class="mega-top">
                     <div class="mega-item-menu">
-                        @*<a class="title" href="shop-grid.html"><span></span></a>*@
-                        @foreach (var product in item.ProductsDetails)
+                        <a class="title" href="shop-grid.html"><span>@item.CategoryName</span></a>
+                        @foreach (var categories in item.ProductsDetails)
                         {
-                            <a href="#"><span>@product.ProductName</span></a>
+                            <a href="#"><span>@categories.ProductName</span></a>
                         }
                     </div>
                 </div>

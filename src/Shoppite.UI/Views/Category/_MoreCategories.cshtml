@@ -1,22 +1,17 @@
 ﻿@model Shoppite.Application.Models.CategoryMasterModel
 @if (Model.ProductsDetails != null)
 {
-
-        <li>
-            <a href="shop-grid.html">More</a>
-            <div class="megamenudown-mini home-ve">
-                <div class="mega-top">
-                    <div class="mega-item-menu">
-                        @*<a class="title" href="shop-grid.html"><span></span></a>*@
-                        @foreach (var item in Model.Categories)
-                        {
-                            <a href="#"><span>@item.CategoryName</span></a>
-                        }
-                    </div>
-                </div>
-                <div class="mega-bottom">
+    <li style="float:right">
+        <a href="#">More</a>
+        <div class="megamenudown-mini home-ve">
+            <div class="mega-top">
+                <div class="mega-item-menu">
+                    @foreach (var item in Model.Categories)
+                    {
+                        <a href="#"><span>@item.CategoryName</span></a>
+                    }
                 </div>
             </div>
-        </li>
-    
+        </div>
+    </li>
 }
