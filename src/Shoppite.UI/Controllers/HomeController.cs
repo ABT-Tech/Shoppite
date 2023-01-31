@@ -23,6 +23,7 @@ namespace Shoppite.UI.Controllers
         {
             _logger = logger ?? throw new ArgumentNullException();
             _BrandPageService = brandPageServices ?? throw new ArgumentNullException(nameof(brandPageServices));
+            _categoryPageService = categoryPageService ?? throw new ArgumentNullException(nameof(categoryPageService));
         }
 
         //public async Task <IActionResult> Index()

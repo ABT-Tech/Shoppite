@@ -1,4 +1,4 @@
-﻿@model Shoppite.Application.Models.CategoryMasterModel
+﻿
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <!-- Favicon
         ============================================ -->
-    @await Html.PartialAsync("~/Views/Category/_Favicon.cshtml", Model)
+    @*@await Html.PartialAsync("~/Views/Home/_Favicon.cshtml", Model.CategoryMaster)*@
     @*<link rel="shortcut icon" type="image/x-icon" href="~/img/favicon.ico">*@
     <!-- Fonts  -->
 
@@ -98,7 +98,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-3 col-md-12">
-                            @await Html.PartialAsync("~/Views/Category/_Logo.cshtml", Model)
+                           @* @await Html.PartialAsync("~/Views/Category/_Logo.cshtml", Model)*@
                         </div>
                         <div class="col-lg-9 col-md-12">
                             <div class="meddil-services">
