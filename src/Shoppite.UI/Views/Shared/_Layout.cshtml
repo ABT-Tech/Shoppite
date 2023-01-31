@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model Shoppite.Application.Models.CategoryMasterModel
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -8,7 +9,8 @@
     <meta name="description" content="">
     <!-- Favicon
         ============================================ -->
-    <link rel="shortcut icon" type="image/x-icon" href="~/img/favicon.ico">
+    @await Html.PartialAsync("~/Views/Category/_Favicon.cshtml", Model)
+    @*<link rel="shortcut icon" type="image/x-icon" href="~/img/favicon.ico">*@
     <!-- Fonts  -->
 
     <link href='https://fonts.googleapis.com/css?family=Raleway:400,500,600,700,300,800' rel='stylesheet' type='text/css'>
@@ -77,39 +79,13 @@
                         <div class="col-md-5 col-12 pull-left">
                             <nav>
                                 <ul>
-                                    <li>
-                                        <a href="#">GBP<i class="fa fa-angle-down"></i></a>
-                                        <ul>
-                                            <li><a href="#">Dollar (USD)</a></li>
-                                            <li><a href="#">Pound (GBP)</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="#">English<i class="fa fa-angle-down"></i></a>
-                                        <ul>
-                                            <li><a href="#">English</a></li>
-                                            <li><a href="#">Français</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="#">My account<i class="fa fa-angle-down"></i></a>
-                                        <ul>
-                                            <li><a href="#">My account</a></li>
-                                            <li><a href="wishlists.html">My wishlis</a></li>
-                                            <li><a href="cart.html">My cart</a></li>
-                                            <li><a href="#">Sign in</a></li>
-                                        </ul>
-                                    </li>
                                 </ul>
                             </nav>
                         </div>
                         <div class="col-md-7 col-12 pull-right">
                             <div class="call-to-acction pull-right">
-                                <div class="top-email">
-                                    <span><i class="fa fa-envelope-o"></i> Support: <strong><a href="mailto:sales@yourcompany.com">admin@bootexperts.com</a></strong></span>
-                                </div>
-                                <div class="top-phone">
-                                    <span><i class="fa fa-phone"></i> Call us now: <strong><a href="tel:0123-456-789">0123-456-789</a></strong></span>
+                                <div>
+                                    <span><a href="#" class="btn  btn-sm btn-secondary">Join to Shoppite</a></span>
                                 </div>
                             </div>
                         </div>
@@ -122,9 +98,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-3 col-md-12">
-                            <div class="logo res">
-                                <a href="index.html"><img src="img/logo.png" alt=""></a>
-                            </div>
+                            @await Html.PartialAsync("~/Views/Category/_Logo.cshtml", Model)
                         </div>
                         <div class="col-lg-9 col-md-12">
                             <div class="meddil-services">

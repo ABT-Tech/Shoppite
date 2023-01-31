@@ -242,6 +242,12 @@ body {
     width: 57px;
     background: #363636;
 }
+.user-icon {
+	position: relative;
+	height: 37px;
+	width: 47px;
+	/*background: #363636;*/
+}
 .service-icon:after{
     border: 1px solid transparent;
     bottom: 5px;
@@ -258,7 +264,12 @@ body {
 .service-icon i{
     color: #fff;
     font-size: 20px;
-    padding: 18px; 
+    padding: 10px; 
+}
+.user-icon i {
+	color: #fff;
+	font-size: 20px;
+	padding: 18px;
 }
 .service-icon-text:hover .service-icon{
     background: #FE5B5A;

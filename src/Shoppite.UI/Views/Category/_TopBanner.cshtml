@@ -1,0 +1,10 @@
+﻿@model Shoppite.Application.Models.CategoryMasterModel
+@if (Model.TopBanner != null)
+{
+    @foreach (var image in Model.TopBanner)
+    {
+        <a href="#"><img src="@Url.Content("~")@image.Image" alt="slider image" /></a>
+    }
+
+}
+

@@ -11,11 +11,6 @@ using Shoppite.Core.Repositories.Base;
 using Shoppite.Infrastructure.Logging;
 using Shoppite.Infrastructure.Repository;
 using Shoppite.Infrastructure.Repository.Base;
-using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Shoppite.Web.HealthChecks;
 using Shoppite.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +20,10 @@ using Shoppite.Application.Interfaces;
 using Shoppite.Application.Services;
 using Shoppite.UI.Interfaces;
 using Shoppite.UI.Services;
+using Shoppite.Application.Services;
+using Shoppite.Application.Interfaces;
+using Shoppite.Web.Interfaces;
+using Shoppite.Web.Services;
 
 namespace Shoppite.UI
 {
@@ -78,7 +77,7 @@ namespace Shoppite.UI
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Category}/{action=Index}/{id?}");
             });
         }
 
@@ -92,12 +91,18 @@ namespace Shoppite.UI
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
             services.AddScoped<IBrandRepository, BrandRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
 
             // Add Application Layer
             services.AddScoped<IBrandServices, BrandServices>();
+            services.AddScoped<ICategoryService, CategoryService>();
+
             // Add Web Layer
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IBrandPageServices, BrandPageServices>();
+            services.AddAutoMapper(typeof(Startup));
+            services.AddScoped<ICategoryPageService, CategoryPageService>();
+
             // Add Miscellaneous
             services.AddHttpContextAccessor();
             services.AddHealthChecks()

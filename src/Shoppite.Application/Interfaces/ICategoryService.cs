@@ -1,0 +1,17 @@
+﻿using Shoppite.Application.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace Shoppite.Application.Interfaces
+{
+    public interface ICategoryService
+    {
+        Task<List<CategoryMasterModel>> GetTopBannerImage(int orgId);
+        Task<List<CategoryMasterModel>> GetMiddelBannerImage(int orgId);
+        Task<IEnumerable<MainCategoryModel>> GetProductList(int orgId);
+        Task<List<CategoryMasterModel>> GetCategories(int categoryId);
+        Task<CategoryMasterModel> DisplayLogo(int orgId);
+        Task<List<CategoryMasterModel>> GetHorizontalBanner(int orgId);
+
+    }
+}
