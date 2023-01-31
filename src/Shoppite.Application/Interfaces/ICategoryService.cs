@@ -8,7 +8,7 @@ namespace Shoppite.Application.Interfaces
     {
         Task<List<CategoryMasterModel>> GetTopBannerImage(int orgId);
         Task<List<CategoryMasterModel>> GetMiddelBannerImage(int orgId);
-        Task<IEnumerable<CategoryProductModel>> GetProductList(int orgId);
+        Task<IEnumerable<MainCategoryModel>> GetProductList(int orgId);
         Task<List<CategoryMasterModel>> GetCategories(int categoryId);
         Task<CategoryMasterModel> DisplayLogo(int orgId);
         Task<List<CategoryMasterModel>> GetHorizontalBanner(int orgId);

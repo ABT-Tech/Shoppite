@@ -8,19 +8,26 @@
             <div class="megamenudown">
                 <div class="mega-top">
                     <div class="mega-item-menu">
-                        <a class="title" href="shop-grid.html"><span>@item.CategoryName</span></a>
-                        @foreach (var categories in item.ProductsDetails)
+                        @foreach (var subcat in item.SubcategoryDetails)
                         {
-                            <a href="#"><span>@categories.ProductName</span></a>
+                            <a class="title" href="shop-grid.html"><span>@subcat.CategoryName</span></a>
+                            @foreach (var categories in subcat.ProductsDetails)
+                            {
+                                <a href="#"><span>@categories.ProductName</span></a>
+                            }
+
                         }
                     </div>
                 </div>
-            <div class="mega-bottom">
-                @foreach (var product in item.ProductsDetails)
-                {
-                    <a href="#"><img src="@Url.Content("~")@product.CoverImage" alt=""></a>
-                }
-            </div>
+                <div class="mega-bottom">
+                    @foreach (var cat in item.SubcategoryDetails)
+                    {
+                        @foreach (var product in cat.ProductsDetails)
+                        {
+                            <a href="#"><img src="@Url.Content("~")@product.CoverImage" alt=""></a>
+                        }
+                    }
+                </div>
             </div>
         </li>
     }

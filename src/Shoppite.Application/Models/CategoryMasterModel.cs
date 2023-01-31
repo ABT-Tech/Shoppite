@@ -24,23 +24,30 @@ namespace Shoppite.Application.Models
         public string CoverImage { get; set; }
         public List<CategoryMasterModel> TopBanner { get; set; }
         public List<CategoryMasterModel> BottomBanner { get; set; }
-        public IEnumerable<CategoryProductModel> ProductsDetails { get; set; }
+        public IEnumerable<MainCategoryModel> ProductsDetails { get; set; }
         public List<CategoryMasterModel> Categories { get; set; }
         public List<CategoryMasterModel> HorizontalBanner { get; set; }
     }
-    public class CategoryProductModel
+    public class MainCategoryModel
     {
         public string maincaturlpath { get; set; }
         public Nullable<int> maincatid { get; set; }
         public int? CategoryId { get; set; }
+        public List<CategoryProductModel> SubcategoryDetails { get; set; }
+    }
+    public class CategoryProductModel
+    {
+        public int? CategoryId { get; set; }
         public string CategoryName { get; set; }
-        public int ParentCAtegoryId { get; set; }
+        public int ParentCategoryId { get; set; }
         public List<ProductBaseModel> ProductsDetails { get; set; }
     }
     public class ProductBaseModel
     {
         public int? ProductId { get; set; }
         public Guid? ProductGuid { get; set; }
+        public int? CategoryId { get; set; }
+        public string CategoryName { get; set; }
         public string ProductName { get; set; }
         public string ProductDescription { get; set; }
         public string CoverImage { get; set; }

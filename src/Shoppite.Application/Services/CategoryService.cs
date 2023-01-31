@@ -33,30 +33,39 @@ namespace Shoppite.Application.Services
             var mapped = ObjectMapper.Mapper.Map<List<CategoryMasterModel>>(image);
             return mapped;
         }
-        public async Task<IEnumerable<CategoryProductModel>> GetProductList(int orgId)
+        public async Task<IEnumerable<MainCategoryModel>> GetProductList(int orgId)
         {
-            List<CategoryProductModel> categoryProductsModel = new List<CategoryProductModel>();
-            var productList = await _categoryRepository.GetProductList(orgId);
-            var Products = productList.GroupBy(x => new { x.maincatid,x.maincaturlpath,x.Category_Id,x.category_name}, (key, g) => new { CatId = key.Category_Id,maincatid=key.maincatid, CatName = key.category_name,maincatname=key.maincaturlpath , Products = g.ToList() });
-            foreach (var Product in Products) {
-                CategoryProductModel categoryProductModel = new CategoryProductModel();
-                categoryProductModel.CategoryId = Product.CatId;
-                categoryProductModel.maincatid = Product.maincatid;
-                categoryProductModel.CategoryName = Product.CatName;
-                categoryProductModel.maincaturlpath = Product.maincatname;
-                categoryProductModel.ProductsDetails = categoryProductModel.ProductsDetails == null ? new List<ProductBaseModel>() : categoryProductModel.ProductsDetails;
-                foreach (var prod in Product.Products) 
+            List<MainCategoryModel> mainCategory = new List<MainCategoryModel>();
+            var mainCatlist = await _categoryRepository.GetProductList(orgId);
+            var categories = mainCatlist.GroupBy(x => new { x.maincatid, x.maincaturlpath, }, (key, g) => new { CatId = key.maincatid, Catname = key.maincaturlpath, categories = g.ToList() });
+            foreach (var category in categories)
+            {
+                MainCategoryModel mainCategoryModel = new MainCategoryModel();
+                mainCategoryModel.maincatid = category.CatId;
+                mainCategoryModel.maincaturlpath = category.Catname;
+                mainCategoryModel.SubcategoryDetails = mainCategoryModel.SubcategoryDetails == null ? new List<CategoryProductModel>() : mainCategoryModel.SubcategoryDetails;
+                foreach (var Product in category.categories)
                 {
-                    ProductBaseModel productBaseModel = new ProductBaseModel();
-                    productBaseModel.ProductGuid = prod.ProductGUID;
-                    productBaseModel.ProductId = prod.ProductId;
-                    productBaseModel.ProductName = prod.ProductName;
-                    productBaseModel.CoverImage = prod.image;
-                    categoryProductModel.ProductsDetails.Add(productBaseModel);
+                    CategoryProductModel categoryProductModel = new CategoryProductModel();
+                    categoryProductModel.CategoryId = Product.Category_Id;
+                    categoryProductModel.CategoryName = Product.category_name;
+                    mainCategoryModel.SubcategoryDetails.Add(categoryProductModel);
+                    categoryProductModel.ProductsDetails = categoryProductModel.ProductsDetails == null ? new List<ProductBaseModel>() : categoryProductModel.ProductsDetails;
+                    foreach (var prod in category.categories.Where(a => a.ProductId.Equals(Product.ProductId)))
+                    {
+                        ProductBaseModel productBaseModel = new ProductBaseModel();
+                       /* productBaseModel.CategoryId = prod.Category_Id;
+                        productBaseModel.CategoryName = prod.category_name;*/
+                        productBaseModel.ProductGuid = prod.ProductGUID;
+                        productBaseModel.ProductId = prod.ProductId;
+                        productBaseModel.ProductName = prod.ProductName;
+                        productBaseModel.CoverImage = prod.image;
+                        categoryProductModel.ProductsDetails.Add(productBaseModel);
+                    }
                 }
-                categoryProductsModel.Add(categoryProductModel);
+                mainCategory.Add(mainCategoryModel);
             }
-            return categoryProductsModel;
+            return mainCategory;
         }
         public async Task<List<CategoryMasterModel>> GetCategories(int CategoryId)
         {

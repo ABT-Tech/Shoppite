@@ -29,7 +29,7 @@ namespace Shoppite.Web.Services
             var mapped = _mapper.Map<List<CategoryMasterModel>>(image);
             return mapped;
         }
-        public async Task<IEnumerable<CategoryProductModel>> GetProductList(int orgId)
+        public async Task<IEnumerable<MainCategoryModel>> GetProductList(int orgId)
         {
             var productList = await _categoryService.GetProductList(orgId);
             return productList;
