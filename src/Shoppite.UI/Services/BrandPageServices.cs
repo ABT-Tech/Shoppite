@@ -20,6 +20,11 @@ namespace Shoppite.UI.Services
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
+        public async Task<MainModel> CategoryMater(int orgid)
+        {
+            return await _BrandService.CategoryMaster(orgid);
+        }
+
         public async Task<MainModel> GetBrands(int orgId)
         {
             return await _BrandService.GetBrands(orgId);

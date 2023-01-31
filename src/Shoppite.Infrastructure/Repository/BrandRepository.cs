@@ -85,5 +85,13 @@ namespace Shoppite.Infrastructure.Repository
 
             return FilterCat;
         }
+
+        public async Task<List<CategoryMaster>> CategoryMaster(int orgid)
+        {
+            var brands = await _dbContext.CategoryMaster.Where(x => x.OrgId == orgid).ToListAsync();
+
+            var FilterCat = brands.Where(x => x.ParentCategoryId != 0).ToList();
+            return FilterCat;
+        }
     }
 }

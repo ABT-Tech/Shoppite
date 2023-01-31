@@ -21,6 +21,15 @@ namespace Shoppite.Application.Services
             _BrandRepository = brandRepository ?? throw new ArgumentNullException(nameof(brandRepository));
             _logger = appLogger ?? throw new ArgumentNullException(nameof(appLogger));
         }
+
+        public async Task<MainModel> CategoryMaster(int orgid)
+        {
+            MainModel main = new MainModel();
+            var CategoryMaster = await _BrandRepository.CategoryMaster(orgid);
+            main.CategoryMasterModel = ObjectMapper.Mapper.Map<List<CategoryMasterModel>>(CategoryMaster);
+            return main;
+        }
+
         public async Task<MainModel> GetBrands(int orgid)
         {
             MainModel main = new MainModel();
@@ -36,6 +45,9 @@ namespace Shoppite.Application.Services
 
             var getnewProduct = await _BrandRepository._Getproducts_By_NewArrivals(orgid);
             main.ProductNewArrivalModel = ObjectMapper.Mapper.Map<List<f_getproducts_By_NewArrivalsModel>>(getnewProduct);
+
+            //var CategoryMaster = await _BrandRepository.CategoryMaster(orgid);
+            //main.CategoryMasterModel = ObjectMapper.Mapper.Map<List<CategoryMasterModel>>(CategoryMaster);
 
             return main;
         }

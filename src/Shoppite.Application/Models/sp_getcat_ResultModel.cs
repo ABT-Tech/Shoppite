@@ -12,5 +12,6 @@ namespace Shoppite.Application.Models
         public string NAME { get; set; }
         public string Displayname { get; set; }
         public string catnames { get; set; }
+        public string Icons { get; set; }
     }
 }

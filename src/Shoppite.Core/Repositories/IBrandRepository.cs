@@ -14,5 +14,6 @@ namespace Shoppite.Core.Repositories
         Task<List<f_getproducts_By_NewArrivals>> _Getproducts_By_NewArrivals(int orgid);
         Task<List<sp_getcat_Result>> Sp_Getcat(int orgid);
         Task<List<f_getproducts_By_CategoryID>> Get_Product_By_Cat(int ID);
+        Task<List<CategoryMaster>> CategoryMaster(int orgid);
     }
 }

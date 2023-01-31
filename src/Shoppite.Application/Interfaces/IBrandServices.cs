@@ -14,5 +14,6 @@ namespace Shoppite.Application.Interfaces
         Task<MainModel> _Getproducts_By_NewArrivals(int orgid);
         Task<MainModel> Sp_Getcat(int orgid);
         Task<MainModel> Get_Product_By_Cat(int ID);
+        Task<MainModel> CategoryMaster(int orgid);
     }
 }

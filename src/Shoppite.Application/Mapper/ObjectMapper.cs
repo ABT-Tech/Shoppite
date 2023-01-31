@@ -36,6 +36,7 @@ namespace Shoppite.Application.Mapper
             CreateMap<f_getproducts_By_OrgID, f_getproducts_By_OrgIDModel>().ReverseMap();
             CreateMap<sp_getcat_Result, sp_getcat_ResultModel>().ReverseMap();
             CreateMap<f_getproducts_By_CategoryID, f_getproducts_By_CategoryIDModel>().ReverseMap();
+            CreateMap<CategoryMaster, CategoryMasterModel>().ReverseMap();
 
         }
     }
