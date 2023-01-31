@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Infrastructure;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Shoppite.Core.Entities;
@@ -82,6 +86,10 @@ namespace Shoppite.Infrastructure.Data
         public virtual DbSet<sp_getcat_Result> Sp_Getcat_Results { get; set; }
         public virtual DbSet<SP_Status_HasProducts_Result> SP_Status_hasProducts_results { get; set; }
         public virtual DbSet<F_Topcat_Result> F_Topcat_Results { get; set; }
+        public virtual DbSet<f_getproducts_By_NewArrivals> F_Getproducts_By_NewArrivals { get; set; }
+        public virtual DbSet<f_getproducts_By_OrgID> F_Getproducts_By_OrgID { get; set; }
+        public virtual DbSet<f_getproducts_By_CategoryID> F_Getproducts_By_CategoryID { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -1280,6 +1288,19 @@ namespace Shoppite.Infrastructure.Data
             });
 
             modelBuilder.Entity<SP_Status_HasProducts_Result>(entity =>
+            {
+                entity.HasNoKey();
+            });
+            modelBuilder.Entity<f_getproducts_By_NewArrivals>(entity =>
+            {
+                entity.HasNoKey();
+            });
+
+            modelBuilder.Entity<f_getproducts_By_OrgID>(entity =>
+            {
+                entity.HasNoKey();
+            });
+            modelBuilder.Entity<f_getproducts_By_CategoryID>(entity =>
             {
                 entity.HasNoKey();
             });

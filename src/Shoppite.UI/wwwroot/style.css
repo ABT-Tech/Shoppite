@@ -819,22 +819,25 @@ body {
 .tabandcarosel-area{
     margin-top: 25px;
 }
-.tab-menu-area{
-    padding-right: 70px;
+.tab-menu-area {
+	padding-right: 70px;
+	padding-top: 50px;
 }
 .tab-menu-area .tab_cates {
   border-top: 1px solid #ececec;
 }
-.tab-menu-area .tab_cates li a {
-  border-bottom: 1px solid #ececec;
-  border-left: 1px solid #ececec;
-  border-right: 1px solid #ececec;
-  cursor: pointer;
-  padding: 20.7px 20px 20.7px 95px;
-  position: relative;
-  transition: all .3s ease 0s;
-    display: block;
-}
+	.tab-menu-area .tab_cates li a {
+		border-bottom: 1px solid #ececec;
+		border-left: 1px solid #ececec;
+		border-right: 1px solid #ececec;
+		cursor: pointer;
+		/*padding: 20.7px 20px 20.7px 95px;*/
+		margin: auto;
+		text-align: center;
+		position: relative;
+		transition: all .3s ease 0s;
+		display: block;
+	}
 .nav-tabs > li {
   float: left;
   margin-bottom: -1px;
@@ -962,9 +965,13 @@ body {
   position: relative;
 }
 .top-item a{}
-.top-item a img{
-  height: auto;
-}
+
+	.top-item a img {
+		/*height: auto;*/
+		/*height: 244px;
+		width: 299px;*/
+		object-fit: contain;
+	}
 .top-cocial{
   background: rgba(54, 54, 54, 0.5) none repeat scroll 0 0;
   bottom: 0;

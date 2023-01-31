@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Shoppite.Core.Entities
+namespace Shoppite.Application.Models
 {
-    public partial class sp_getcat_Result
+    public class sp_getcat_ResultModel
     {
         public Nullable<int> ID { get; set; }
         public Nullable<int> PARENT_NAMEID { get; set; }
