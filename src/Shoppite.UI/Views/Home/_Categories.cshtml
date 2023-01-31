@@ -1,13 +1,34 @@
-﻿@*@model IEnumerable<Shoppite.Application.Models.CategoryMasterModel>
-<a class="title" href="shop-grid.html"><span>Laptop</span></a>
-@if (Model != null)
+﻿@model Shoppite.Application.Models.MainModel
+@if (Model.ProductsDetails != null)
 {
-
-    @foreach (var item in Model)
+    @foreach (var item in Model.ProductsDetails)
     {
-        <a href="#"><span>@item.CategoryName</span></a>
+        <li>
+            <a href="shop-grid.html">@item.maincaturlpath</a>
+            <div class="megamenudown">
+                <div class="mega-top">
+                    <div class="mega-item-menu">
+                        @foreach (var subcat in item.SubcategoryDetails)
+                        {
+                            <a class="title" href="shop-grid.html"><span>@subcat.CategoryName</span></a>
+                            @foreach (var categories in subcat.ProductsDetails)
+                            {
+                                <a href="#"><span>@categories.ProductName</span></a>
+                            }
+
+                        }
+                    </div>
+                </div>
+                <div class="mega-bottom">
+                    @foreach (var cat in item.SubcategoryDetails)
+                    {
+                        @foreach (var product in cat.ProductsDetails)
+                        {
+                            <a href="#"><img src="@Url.Content("~")@product.CoverImage" alt=""></a>
+                        }
+                    }
+                </div>
+            </div>
+        </li>
     }
 }
-
-
-<a href="#"><span>bjhv</span></a>*@

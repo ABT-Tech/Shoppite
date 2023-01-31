@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using Shoppite.Application.Models;
 using Shoppite.UI.Helpers;
 using Shoppite.UI.Interfaces;
+using Shoppite.Web.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -15,9 +16,10 @@ namespace Shoppite.UI.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IBrandPageServices _BrandPageService;
+        private readonly ICategoryPageService _categoryPageService;
         private readonly CommonHelper commonHelper = new CommonHelper();
 
-        public HomeController(IBrandPageServices brandPageServices, ILogger<HomeController> logger)
+        public HomeController(IBrandPageServices brandPageServices, ILogger<HomeController> logger, ICategoryPageService categoryPageService)
         {
             _logger = logger ?? throw new ArgumentNullException();
             _BrandPageService = brandPageServices ?? throw new ArgumentNullException(nameof(brandPageServices));
@@ -33,10 +35,16 @@ namespace Shoppite.UI.Controllers
             
         //    return RedirectToAction("Index");
         //}
-        public async Task<IActionResult>Index()
+        public async Task<IActionResult>Index(int CategoryId)
         {
           int OrgId  = commonHelper.GetOrgID(HttpContext);
           var brands = await _BrandPageService.GetBrands(OrgId);
+            brands.CategoryMaster =  await _categoryPageService.DisplayLogo(OrgId);
+            brands.BottomBanner = await _categoryPageService.GetMiddelBannerImage(OrgId);
+            brands.TopBanner = await _categoryPageService.GetTopBannerImage(OrgId);
+            brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
+            brands.Categories = await _categoryPageService.GetCategories(CategoryId);
+            brands.HorizontalBanner = await _categoryPageService.GetHorizontalBanner(OrgId);
             return View(brands);
         }
        [HttpGet]
