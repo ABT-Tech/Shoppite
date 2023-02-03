@@ -67,7 +67,7 @@
     <link rel="stylesheet" href="~/css/site.css" />
 
 </head>
-<body class="home">
+<body class="home categori">
     <!-- Start main area -->
     <div class="main-area">
         <!-- Start header -->
@@ -98,7 +98,10 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-3 col-md-12">
-                           @* @await Html.PartialAsync("~/Views/Category/_Logo.cshtml", Model)*@
+                            <div class="logo res">
+                                <a href="index.html"><img src="img/logo.png" alt=""></a>
+                            </div>
+                            @* @await Html.PartialAsync("~/Views/Category/_Logo.cshtml", Model)*@
                         </div>
                         <div class="col-lg-9 col-md-12">
                             <div class="meddil-services">
@@ -364,6 +367,7 @@
     <!-- jqueryui js
     ============================================ -->
     <script src="js/jquery.fancybox.js"></script>
+    <script src="~/js/jqueryui.js"></script>
 
     <!-- jquery.meanmenu js
     ============================================ -->

@@ -38,21 +38,33 @@ namespace Shoppite.UI.Controllers
         //}
         public async Task<IActionResult>Index(int CategoryId)
         {
-          int OrgId  = commonHelper.GetOrgID(HttpContext);
-          var brands = await _BrandPageService.GetBrands(OrgId);
+            int OrgId  = commonHelper.GetOrgID(HttpContext);
+            var brands = await _BrandPageService.GetBrands(OrgId);
             brands.CategoryMaster =  await _categoryPageService.DisplayLogo(OrgId);
-            brands.BottomBanner = await _categoryPageService.GetMiddelBannerImage(OrgId);
+            brands.MiddelBanner = await _categoryPageService.GetMiddelBannerImage(OrgId);
             brands.TopBanner = await _categoryPageService.GetTopBannerImage(OrgId);
             brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
             brands.Categories = await _categoryPageService.GetCategories(CategoryId);
             brands.HorizontalBanner = await _categoryPageService.GetHorizontalBanner(OrgId);
             return View(brands);
         }
-       [HttpGet]
+        [HttpGet]
         public async Task<JsonResult> Get_Product_By_Cat(int ID)
         {
            var AA = await _BrandPageService.Get_Product_By_Cat(ID);
             return Json(AA.F_Getproducts_By_CategoryIDModels);
+        }
+        public async Task<IActionResult> AllProducts(int CategoryId)
+        {
+            int OrgId = commonHelper.GetOrgID(HttpContext);
+            var brands = await _BrandPageService.GetBrands(OrgId);
+            brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
+            brands.Categories = await _categoryPageService.GetCategories(CategoryId);
+            brands.CategoryProduct = await _categoryPageService.GetAllProductByCategory(CategoryId);
+            brands.SubCategories = await _categoryPageService.GetAllSubCategories(5048);
+            brands.Attributes = await _categoryPageService.GetAllAttributes(OrgId);
+            return View(brands);
+
         }
     }
 }

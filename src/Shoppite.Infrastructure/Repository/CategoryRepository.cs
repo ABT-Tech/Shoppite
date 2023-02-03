@@ -64,6 +64,30 @@ namespace Shoppite.Infrastructure.Repository
                      select ad_detail).ToList();
             return q;
         }
+        public async Task<List<f_getproducts_By_CategoryID>> GetAllProductByCategory(int CategoryId)
+        {
+            string sql = "select * from f_getproducts_By_CatID(@ID)";
+            List<SqlParameter> parms = new List<SqlParameter>
+            {
+                new SqlParameter { ParameterName = "@ID", Value = CategoryId }
+            };
+            return await _dbContext.Set<f_getproducts_By_CategoryID>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
+        }
+        public async Task<List<CategoryMaster>> GetAllSubCategories(int MainCategoryId)
+        {
+            var q = from categorymaster in _dbContext.CategoryMaster.Where(x => x.ParentCategoryId == MainCategoryId) select categorymaster;
+            return q.ToList();
+        }
+        public async Task<List<SP_GetSpecificationData_AttributName>> GetAllAttributes(int orgID)
+        {
 
+            string sql = "exec SP_GetSpecificationData_AttributName @OrgId";
+            List<SqlParameter> parms = new List<SqlParameter>
+            { 
+                // Create parameters    
+                new SqlParameter { ParameterName = "@OrgId", Value = orgID }
+            };
+            return await _dbContext.Set<SP_GetSpecificationData_AttributName>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
+        }
     }
 }

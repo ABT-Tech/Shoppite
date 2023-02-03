@@ -12,6 +12,8 @@ namespace Shoppite.Application.Interfaces
         Task<List<CategoryMasterModel>> GetCategories(int categoryId);
         Task<CategoryMasterModel> DisplayLogo(int orgId);
         Task<List<CategoryMasterModel>> GetHorizontalBanner(int orgId);
-
+        Task<List<CategoryMasterModel>> GetAllProductByCategory(int CategoryId);
+        Task<List<CategoryMasterModel>> GetAllSubCategories(int MainCategoryId);
+        Task<List<AttributeSetupModel>> GetAllAttributes(int orgID);
     }
 }

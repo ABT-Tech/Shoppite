@@ -54,11 +54,11 @@ namespace Shoppite.Application.Services
                     foreach (var prod in category.categories.Where(a => a.ProductId.Equals(Product.ProductId)))
                     {
                         ProductBaseModel productBaseModel = new ProductBaseModel();
-                       /* productBaseModel.CategoryId = prod.Category_Id;
-                        productBaseModel.CategoryName = prod.category_name;*/
                         productBaseModel.ProductGuid = prod.ProductGUID;
                         productBaseModel.ProductId = prod.ProductId;
                         productBaseModel.ProductName = prod.ProductName;
+                        productBaseModel.OldPrice = prod.OldPrice;
+                        productBaseModel.Price = prod.Price;
                         productBaseModel.CoverImage = prod.image;
                         categoryProductModel.ProductsDetails.Add(productBaseModel);
                     }
@@ -84,6 +84,40 @@ namespace Shoppite.Application.Services
             var image = await _categoryRepository.GetHorizontalBanner(orgId);
             var mapped = ObjectMapper.Mapper.Map<List<CategoryMasterModel>>(image);
             return mapped;
+        }
+        public async Task<List<CategoryMasterModel>> GetAllProductByCategory(int orgId)
+        {
+            var products = await _categoryRepository.GetAllProductByCategory(orgId);
+            var mapped = ObjectMapper.Mapper.Map<List<CategoryMasterModel>>(products);
+            return mapped;
+        }
+        public async Task<List<CategoryMasterModel>> GetAllSubCategories(int orgId)
+        {
+            var categories = await _categoryRepository.GetAllSubCategories(orgId);
+            var mapped = ObjectMapper.Mapper.Map<List<CategoryMasterModel>>(categories);
+            return mapped;
+        }
+        public async Task<List<AttributeSetupModel>> GetAllAttributes(int orgID)
+        {
+            List<AttributeSetupModel> attribute = new List<AttributeSetupModel>();
+            var attributes = await _categoryRepository.GetAllAttributes(orgID);
+            var specifications = attributes.GroupBy(x => new { x.AttributeName,x.AttributeId}, (key, g) => new { specName=key.AttributeName,specId=key.AttributeId, specific = g.ToList() });
+            foreach (var sp in specifications)
+            {
+                AttributeSetupModel specification = new AttributeSetupModel();
+                specification.AttributeId = sp.specId;
+                specification.AttributeName = sp.specName;
+                specification.specifications = specification.specifications == null ? new List<SpecificationSetupModel>() : specification.specifications;
+                foreach (var prod in sp.specific)
+                {
+                    SpecificationSetupModel attributespec = new SpecificationSetupModel();
+                    attributespec.SpecificationId = prod.SpecificationId;
+                    attributespec.SpecificationName = prod.SpecificationName;
+                   specification.specifications.Add(attributespec);
+                }
+                attribute.Add(specification);
+            }
+            return attribute;
         }
     }
 }

@@ -13,6 +13,7 @@ namespace Shoppite.Core.Entities
         public string URLPath { get; set; }
         public string ShortDescription { get; set; }
         public string Description { get; set; }
+        public string Banner { get; set; }
         public string SKU { get; set; }
         public Nullable<System.DateTime> ProductStartDate { get; set; }
         public Nullable<System.DateTime> ProductEndDate { get; set; }

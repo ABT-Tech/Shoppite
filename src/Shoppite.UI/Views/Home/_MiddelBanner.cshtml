@@ -1,0 +1,8 @@
+﻿@model Shoppite.Application.Models.MainModel
+@foreach (var image in Model.MiddelBanner)
+{
+    <div class="col-md-6">
+        <a href="#"><img style="height:297px;width:575px;" src="@Url.Content("~")@image.Image" alt="slider image" /></a>
+    </div>
+}
+

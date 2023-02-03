@@ -1,30 +1,29 @@
 ﻿@model Shoppite.Application.Models.MainModel
 @if (Model.ProductsDetails != null)
 {
-    @foreach (var item in Model.ProductsDetails)
+    @foreach (var item in Model.ProductsDetails.Take(3))
     {
         <li>
             <a href="shop-grid.html">@item.maincaturlpath</a>
             <div class="megamenudown">
                 <div class="mega-top">
-                    <div class="mega-item-menu">
-                        @foreach (var subcat in item.SubcategoryDetails)
-                        {
-                            <a class="title" href="shop-grid.html"><span>@subcat.CategoryName</span></a>
-                            @foreach (var categories in subcat.ProductsDetails)
+                    @foreach (var subcat in item.SubcategoryDetails.Take(3))
+                    {
+                        <div class="mega-item-menu">
+                            <a class="title" asp-controller="Home"  asp-route-CategoryId="@subcat.CategoryId" asp-action="AllProducts" ><span>@subcat.CategoryName</span></a>
+                            @foreach (var categories in subcat.ProductsDetails.Take(3))
                             {
                                 <a href="#"><span>@categories.ProductName</span></a>
                             }
-
-                        }
+                        </div>
+                    }
                     </div>
-                </div>
                 <div class="mega-bottom">
-                    @foreach (var cat in item.SubcategoryDetails)
+                    @foreach (var cat in item.SubcategoryDetails.Take(3))
                     {
-                        @foreach (var product in cat.ProductsDetails)
+                        @foreach (var product in cat.ProductsDetails.Take(3))
                         {
-                            <a href="#"><img src="@Url.Content("~")@product.CoverImage" alt=""></a>
+                            <a href="#"><img style="width:292px; height:143px" src="@Url.Content("~")@product.CoverImage" alt=""></a>
                         }
                     }
                 </div>

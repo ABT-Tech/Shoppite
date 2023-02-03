@@ -91,6 +91,7 @@ namespace Shoppite.Infrastructure.Data
         public virtual DbSet<f_getproducts_By_CategoryID> F_Getproducts_By_CategoryID { get; set; }
         public virtual DbSet<f_getproducts_By_CategoryID_Result> f_getproducts_By_CategoryID_Result { get; set; }
         public virtual DbSet<f_All_getcat_Result> f_All_getcat_Result { get; set; }
+        public virtual DbSet<SP_GetSpecificationData_AttributName> SP_GetSpecificationData_Attribute { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -1307,6 +1308,10 @@ namespace Shoppite.Infrastructure.Data
                 entity.HasNoKey();
             });
             modelBuilder.Entity<f_getproducts_By_CategoryID_Result>(entity =>
+            {
+                entity.HasNoKey();
+            });
+            modelBuilder.Entity<SP_GetSpecificationData_AttributName>(entity =>
             {
                 entity.HasNoKey();
             });
