@@ -48,11 +48,12 @@ namespace Shoppite.UI.Controllers
             brands.HorizontalBanner = await _categoryPageService.GetHorizontalBanner(OrgId);
             return View(brands);
         }
-       [HttpGet]
+       [HttpGet]    
         public async Task<JsonResult> Get_Product_By_Cat(int ID)
         {
            var AA = await _BrandPageService.Get_Product_By_Cat(ID);
             return Json(AA.F_Getproducts_By_CategoryIDModels);
         }
+
     }
 }

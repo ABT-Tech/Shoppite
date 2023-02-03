@@ -1,4 +1,5 @@
 ﻿using AutoMapper.Internal.Mappers;
+using Microsoft.AspNetCore.Http;
 using Shoppite.Application.Interfaces;
 using Shoppite.Application.Mapper;
 using Shoppite.Application.Models;
@@ -16,10 +17,12 @@ namespace Shoppite.Application.Services
     {
         private readonly IBrandRepository _BrandRepository;
         private readonly IAppLogger<BrandServices> _logger;
-        public BrandServices(IBrandRepository brandRepository, IAppLogger<BrandServices> appLogger)
+        private IHttpContextAccessor _accessor;
+        public BrandServices(IBrandRepository brandRepository, IAppLogger<BrandServices> appLogger, IHttpContextAccessor accessor)
         {
             _BrandRepository = brandRepository ?? throw new ArgumentNullException(nameof(brandRepository));
             _logger = appLogger ?? throw new ArgumentNullException(nameof(appLogger));
+            _accessor = accessor;
         }
 
         public async Task<MainModel> CategoryMaster(int orgid)
@@ -46,8 +49,12 @@ namespace Shoppite.Application.Services
             var getnewProduct = await _BrandRepository._Getproducts_By_NewArrivals(orgid);
             main.ProductNewArrivalModel = ObjectMapper.Mapper.Map<List<f_getproducts_By_NewArrivalsModel>>(getnewProduct);
 
-            //var CategoryMaster = await _BrandRepository.CategoryMaster(orgid);
-            //main.CategoryMasterModel = ObjectMapper.Mapper.Map<List<CategoryMasterModel>>(CategoryMaster);
+            string ipAddress = _accessor.HttpContext.Connection.RemoteIpAddress.ToString();
+
+            var ProductRecent = await _BrandRepository.F_Getproducts_Recentlyviewed(ipAddress, orgid);
+            main.f_Getproducts_RecentlyviewedModel = ObjectMapper.Mapper.Map<List<f_getproducts_RecentlyviewedModel>>(ProductRecent);
+            // var CategoryMaster = await _BrandRepository.CategoryMaster(orgid);
+            // main.CategoryMasterModel = ObjectMapper.Mapper.Map<List<CategoryMasterModel>>(CategoryMaster);
 
             return main;
         }
@@ -82,6 +89,13 @@ namespace Shoppite.Application.Services
             var getnewProduct = await _BrandRepository._Getproducts_By_NewArrivals(orgid);
             main.ProductNewArrivalModel = ObjectMapper.Mapper.Map<List<f_getproducts_By_NewArrivalsModel>>(getnewProduct);
             return main;
+        }
+        public async Task<List<ProductDetailModel>> Get_Recently_Product(string id, int orgid)
+        {
+            ProductDetailModel productDetailModel = new ProductDetailModel();
+            var ProductCatId = await _BrandRepository.F_Getproducts_Recentlyviewed(id, orgid);
+            productDetailModel.f_Getproducts_RecentlyviewedModel = ObjectMapper.Mapper.Map<List<f_getproducts_RecentlyviewedModel>>(ProductCatId);
+            return null;
         }
     }
 }

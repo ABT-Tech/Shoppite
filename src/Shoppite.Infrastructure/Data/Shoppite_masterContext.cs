@@ -91,6 +91,7 @@ namespace Shoppite.Infrastructure.Data
         public virtual DbSet<f_getproducts_By_CategoryID> F_Getproducts_By_CategoryID { get; set; }
         public virtual DbSet<f_getproducts_By_CategoryID_Result> f_getproducts_By_CategoryID_Result { get; set; }
         public virtual DbSet<f_All_getcat_Result> f_All_getcat_Result { get; set; }
+        public virtual DbSet<f_getproducts_Recentlyviewed> f_Getproducts_Recentlyviewed { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -99,6 +100,7 @@ namespace Shoppite.Infrastructure.Data
             {
 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer("Data Source=103.150.186.216;Initial Catalog=Shoppite_master;User ID=sa;Password=Z8Lix[jg3K@R74;MultipleActiveResultSets=True;Application Name=EntityFramework");
+                //optionsBuilder.UseSqlServer("Data Source=DESKTOP-40G3LDG;Initial Catalog=Shoppite_master;MultipleActiveResultSets=True;Application Name=EntityFramework");
             }
         }
 
@@ -1307,6 +1309,10 @@ namespace Shoppite.Infrastructure.Data
                 entity.HasNoKey();
             });
             modelBuilder.Entity<f_getproducts_By_CategoryID_Result>(entity =>
+            {
+                entity.HasNoKey();
+            });
+            modelBuilder.Entity<f_getproducts_Recentlyviewed>(entity =>
             {
                 entity.HasNoKey();
             });

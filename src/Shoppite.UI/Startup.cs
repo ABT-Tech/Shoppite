@@ -48,7 +48,7 @@ namespace Shoppite.UI
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
             services.AddMvc(option => option.EnableEndpointRouting = false);
-
+            services.AddHttpContextAccessor();
             services.Configure<HtmlHelperOptions>(o => o.ClientValidationEnabled = false);
 
         }
@@ -92,16 +92,19 @@ namespace Shoppite.UI
             services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
             services.AddScoped<IBrandRepository, BrandRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IProductDetailRepsitory, ProductDetailRepository>();
 
             // Add Application Layer
             services.AddScoped<IBrandServices, BrandServices>();
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IProductDetailServices, ProductDetilServices>();
 
             // Add Web Layer
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IBrandPageServices, BrandPageServices>();
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<ICategoryPageService, CategoryPageService>();
+            services.AddScoped<IproductDetailPageServices, ProductDetailPageServices>();
 
             // Add Miscellaneous
             services.AddHttpContextAccessor();

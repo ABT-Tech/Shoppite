@@ -93,5 +93,20 @@ namespace Shoppite.Infrastructure.Repository
             var FilterCat = brands.Where(x => x.ParentCategoryId != 0).ToList();
             return FilterCat;
         }
+
+        public async Task<List<f_getproducts_Recentlyviewed>> F_Getproducts_Recentlyviewed(string id, int orgid)
+        {
+            string sql = "select * from f_getproducts_Recentlyviewed(@IP,@orgid)";
+
+            List<SqlParameter> parms = new List<SqlParameter>
+            { 
+                // Create parameters    
+                new SqlParameter { ParameterName = "@IP", Value = id },
+                new SqlParameter { ParameterName = "@orgid", Value = orgid }
+            };
+
+            return await _dbContext.Set<f_getproducts_Recentlyviewed>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
+        }
+
     }
 }

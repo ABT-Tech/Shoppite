@@ -1,0 +1,43 @@
+﻿using AutoMapper;
+using Shoppite.Application.Interfaces;
+using Shoppite.Application.Models;
+using Shoppite.UI.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Shoppite.UI.Services
+{
+    public class ProductDetailPageServices : IproductDetailPageServices
+    {
+        private readonly IProductDetailServices _ProductDetailServices;
+        private readonly IMapper _mapper;
+
+        public ProductDetailPageServices(IProductDetailServices ProductDetailServices, IMapper mapper)
+        {
+            _ProductDetailServices = ProductDetailServices ?? throw new ArgumentNullException(nameof(ProductDetailServices));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+        }
+
+        public async Task<ProductDetailModel> GetProductDetails(Guid id,int orgid)
+        {
+            return await _ProductDetailServices.GetProductDetails(id, orgid);
+        }
+
+        public async Task<List<ProductDetailModel>> GetproductImages(Guid id)
+        {
+            return await _ProductDetailServices.GetProductImages(id);
+        }
+
+        public async Task<ProductDetailModel> GetProductPrice(Guid id)
+        {
+            return await _ProductDetailServices.GetProductPrice(id);
+        }
+
+        public async Task<ProductDetailModel> Get_Brand_Name(Guid guid, int id)
+        {
+            return await _ProductDetailServices.Get_Brand_Name(guid,id);
+        }
+    }
+}
