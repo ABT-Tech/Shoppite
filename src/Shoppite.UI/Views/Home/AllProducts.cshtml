@@ -1,5 +1,6 @@
 ﻿@model Shoppite.Application.Models.MainModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<input type="hidden"/>
 <div class="main-area">
     <div class="megamenu-area">
         <div class="container">
@@ -93,7 +94,7 @@
                                 </h1>
 
                                 <div class="categori-baner">
-                                    <img style="width:870px;height:236px;" src="@Url.Content("~")@catname.Banner" alt="">
+                                    <img style="width:870px;height:236px;" src="@Url.Content("~")/@catname.Banner" alt="">
                                 </div>
                             }
                             <div class="catagori-short">
@@ -125,54 +126,10 @@
                             </div>
                             <div id="my-tab-content" class="tab-content jump">
                                 <!-- Start categori grid view -->
-                                <div id="grid" class="tab-pane active categoti-grid-view">
-                                    <div class="row">
-                                        <div class="col-md-4 col-lg-4 col-xl-3">
-                                            @foreach (var product in Model.CategoryProduct)
-                                            {
-                                                <div class="product-item">
-                                                    <div class="top-item">
-                                                        <a href="single-product.html">
-                                                            <img src="@Url.Content("~")@product.Image" alt="Product image">
-                                                        </a>
-                                                        <div class="top-cocial">
-                                                            <p>
-                                                                <i class="fa fa-star-o"></i>
-                                                                <i class="fa fa-star-o"></i>
-                                                                <i class="fa fa-star-o"></i>
-                                                                <i class="fa fa-star-o"></i>
-                                                                <i class="fa fa-star-o"></i>
-                                                            </p>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="bottom-item">
-                                                        <div class="product-info">
-                                                            <h5><a href="#">@product.ProductName</a></h5>
-                                                            <span>@product.Price <del>@product.OldPrice</del></span>
-                                                            <p>
-                                                                <i class="fa fa-star-o"></i>
-                                                                <i class="fa fa-star-o"></i>
-                                                                <i class="fa fa-star-o"></i>
-                                                                <i class="fa fa-star-o"></i>
-                                                                <i class="fa fa-star-o"></i>
-                                                            </p>
-                                                        </div>
-                                                        <div class="product-social">
-                                                            <ul>
-                                                                <li><a href="#"><i class="fa fa-external-link"></i></a></li>
-                                                                <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
-                                                                <li><a href="#"><i class="fa fa-bar-chart"></i></a></li>
-                                                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            }
-                                        </div>
-                                    </div>
+                                <div class="producresults">
+                                    @await Html.PartialAsync("_ProductsByAttribute", Model)
                                 </div>
+                           
                                 <!-- End categori grid view -->
                                 <div id="list" class="tab-pane categori-list-view">
                                     <div class="list-view-single-product">
@@ -490,9 +447,9 @@
                                         @foreach (var specific in at.specifications)
                                         {
                                             <li>
-                                                <span><input type="checkbox" class="checkbox"></span>
+                                                <span><input type="checkbox"   class="checkbox profileCheckbox" name="SpecificationName[]" value="@specific.SpecificationName" id="chk" ></span>
                                                 <label>
-                                                    <a href=""><span>@specific.SpecificationName</span></a>
+                                                    <a asp-controller="Home" asp-route-SpecificationName="@specific.SpecificationName" asp-action="AllProducts"><span>@specific.SpecificationName</span></a>
                                                 </label>
                                             </li>
                                         }
@@ -500,19 +457,19 @@
                                 }
                             </div>
                             <div class="categori-tag">
-                                    <div class="cat-tag-title">
-                                        <span class="cat-title">Properties</span>
-                                    </div>
-                                    <a href="#">Sport</a>
-                                    <a href="#">Men</a>
-                                    <a href="#">Belt</a>
-                                    <a href="#">Dress</a>
-                                    <a href="#">Apple</a>
-                                    <a href="#">Sandal</a>
-                                    <a href="#">Women</a>
-                                    <a href="#">Accessories</a>
-                                    <a href="#">What ches</a>
+                                <div class="cat-tag-title">
+                                    <span class="cat-title">Properties</span>
                                 </div>
+                                <a href="#">Sport</a>
+                                <a href="#">Men</a>
+                                <a href="#">Belt</a>
+                                <a href="#">Dress</a>
+                                <a href="#">Apple</a>
+                                <a href="#">Sandal</a>
+                                <a href="#">Women</a>
+                                <a href="#">Accessories</a>
+                                <a href="#">What ches</a>
+                            </div>
                         </div>
                     </div>
                     <!-- End categoti sidebar -->
@@ -522,3 +479,33 @@
     </div>
     @await Html.PartialAsync("_BrandZone", Model)
 </div>
+   
+<script>
+    $(document).ready(function () {
+       var data = getCategoryID();
+        $('.profileCheckbox').click(function (e) {
+            var seasoning = '', tempArray = [];
+            $('input[name="SpecificationName[]"]:checked').each(function () {
+                tempArray.push($(this).val());
+            })
+            if (tempArray.length !== 0) {
+                seasoning += 'SpecificationName=' + tempArray.toString();
+                tempArray = [];
+            }
+            window.history.replaceState(null, null, "?" + data + '&' + seasoning);
+            $(".producresults").load('@(Url.Action("_ProductsByAttribute", "Home",null))'+'?'+data+ '&'+seasoning);
+           // window.location.hash = '' + seasoning;
+            // window.location ='example.com?seasoning='+seasoning;
+            console.log('example.com?' + data);
+        });
+        function getCategoryID()
+        {
+            const urlParams = new URLSearchParams(location.search);
+            for (const [key, value] of urlParams) {
+               @* console.log(key);
+                console.log(value);*@
+                return key +'='+ value
+            }
+        }
+    });
+</script>

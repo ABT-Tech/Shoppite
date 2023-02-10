@@ -4,7 +4,7 @@
     @foreach (var item in Model.ProductsDetails.Take(3))
     {
         <li>
-            <a href="shop-grid.html">@item.maincaturlpath</a>
+            <a href="#">@item.maincaturlpath</a>
             <div class="megamenudown">
                 <div class="mega-top">
                     @foreach (var subcat in item.SubcategoryDetails.Take(3))
@@ -23,8 +23,8 @@
                     {
                         @foreach (var product in cat.ProductsDetails.Take(3))
                         {
-                            <a href="#"><img style="width:292px; height:143px" src="@Url.Content("~")@product.CoverImage" alt=""></a>
-                        }
+                            <a href="#"><img style="width:292px; height:143px" src="@Url.Content("~")/@product.CoverImage" alt=""></a>
+                       }
                     }
                 </div>
             </div>

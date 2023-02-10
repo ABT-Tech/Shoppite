@@ -89,5 +89,15 @@ namespace Shoppite.Infrastructure.Repository
             };
             return await _dbContext.Set<SP_GetSpecificationData_AttributName>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
         }
+        public async Task<List<f_getproducts_By_CatID_SpecificationName>> GetAllProductByAttribute(int CategoryId, string SpecificationName)
+        {
+            string sql = "select * from f_getproducts_By_CatID_SpecificationName(@ID,@Name)";
+            List<SqlParameter> parms = new List<SqlParameter>
+            {
+                new SqlParameter { ParameterName = "@ID", Value = CategoryId },
+                new SqlParameter { ParameterName = "@Name", Value = SpecificationName }
+            };
+            return await _dbContext.Set<f_getproducts_By_CatID_SpecificationName>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
+        }
     }
 }

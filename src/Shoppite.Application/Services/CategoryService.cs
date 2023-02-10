@@ -119,5 +119,11 @@ namespace Shoppite.Application.Services
             }
             return attribute;
         }
+        public async Task<List<CategoryMasterModel>> GetAllProductByAttribute(int CategoryId, string AttributeName)
+        {
+            var attributes = await _categoryRepository.GetAllProductByAttribute(CategoryId, AttributeName);
+            var mapped = ObjectMapper.Mapper.Map<List<CategoryMasterModel>>(attributes);
+            return mapped;
+        }
     }
 }

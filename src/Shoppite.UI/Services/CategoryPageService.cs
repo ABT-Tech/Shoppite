@@ -64,6 +64,11 @@ namespace Shoppite.Web.Services
         {
             var attribute = await _categoryService.GetAllAttributes(orgId);
             return attribute;
-       }
+        }
+        public async Task<List<CategoryMasterModel>> GetAllProductByAttribute(int CategoryId, string AttributeName)
+        {
+            var attribute = await _categoryService.GetAllProductByAttribute(CategoryId,AttributeName);
+            return attribute;
+        }
     }
 }

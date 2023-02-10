@@ -15,5 +15,6 @@ namespace Shoppite.Application.Interfaces
         Task<List<CategoryMasterModel>> GetAllProductByCategory(int CategoryId);
         Task<List<CategoryMasterModel>> GetAllSubCategories(int MainCategoryId);
         Task<List<AttributeSetupModel>> GetAllAttributes(int orgID);
+        Task<List<CategoryMasterModel>> GetAllProductByAttribute(int CategoryId,string AttributeName);
     }
 }

@@ -1,0 +1,49 @@
+﻿@model Shoppite.Application.Models.MainModel
+<div id="grid" class="tab-pane active categoti-grid-view">
+    <div class="row">
+        <div class="col-md-4 col-lg-4 col-xl-3">
+            <div class="product-item">
+                @foreach (var product in Model.CategoryProduct)
+                {
+                    <div class="top-item">
+                        <a href="single-product.html">
+                            <img src="@Url.Content("~")/@product.Image" alt="Product image">
+                        </a>
+                        <div class="top-cocial">
+                            <p>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bottom-item">
+                        <div class="product-info">
+                            <h5><a href="#">@product.ProductName</a></h5>
+                            <span>@product.Price <del>@product.OldPrice</del></span>
+                            <p>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                            </p>
+                        </div>
+                        <div class="product-social">
+                            <ul>
+                                <li><a href="#"><i class="fa fa-external-link"></i></a></li>
+                                <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
+                                <li><a href="#"><i class="fa fa-bar-chart"></i></a></li>
+                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                            </ul>
+                        </div>
+                        
+                    </div>
+                }
+                </div>
+        </div>
+    </div>
+</div>

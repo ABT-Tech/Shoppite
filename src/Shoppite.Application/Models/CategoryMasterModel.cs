@@ -14,9 +14,15 @@ namespace Shoppite.Application.Models
     {
         public int ProductId { get; set; }
         public int AdId { get; set; }
+        public int AttributeName { get; set; }
+        public string SpecificationName { get; set; }
+        public int AttributeId { get; set; }
+        public int SpecificationId { get; set; }
         public int AdsPlacementId { get; set; }
         public string category_name { get; set; }
         public string CategoryName { get; set; }
+        public int Category_Id { get; set; }
+        public int CategoryId { get; set; }
         public string Logo1 { get; set; }
         public string Favicon { get; set; }
         public string Urlpath { get; set; }

@@ -3,7 +3,7 @@
 {
     @foreach (var image in Model.TopBanner)
     {
-        <a href="#"><img src="@Url.Content("~")@image.Image" alt="slider image" /></a>
+        <a href="#"><img src="@Url.Content("~")/@image.Image" alt="slider image" /></a>
     }
 
 }
