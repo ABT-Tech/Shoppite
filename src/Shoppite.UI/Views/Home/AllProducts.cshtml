@@ -1,6 +1,5 @@
 ﻿@model Shoppite.Application.Models.MainModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-<input type="hidden"/>
 <div class="main-area">
     <div class="megamenu-area">
         <div class="container">
@@ -53,7 +52,7 @@
                                             <div class="mega-top">
                                                 <div class="mega-item-menu">
                                                     <a href="#"><span>My account</span></a>
-                                                    <a href="#"><span>My wishlist</span></a>
+                                                    <a asp-action="Wishlist"><span>My wishlist</span></a>
                                                     <a href="#"><span>My cart</span></a>
                                                     <a href="#"><span>Sign in</span></a>
                                                 </div>
@@ -72,11 +71,12 @@
     <!-- Start product categori area -->
     <div class="product-categori-area">
         <div class="container">
-            <div class="breadcrumb">
-                <a title="Return to Home" href="index.html" class="home">Home</a>
-                <span class="navigation-pipe"><i class="fa fa-angle-right"></i></span>
-                @foreach (var catname in Model.CategoryProduct)
+            <div class="breadcrumb" style="color:#777;background-color:white !important">
+                <span><a title="Return to Home" href="index.html" class="home"></a>Home</span> 
+                @foreach (var catname in Model.Product_specification.Take(1))
                 {
+                    <span class="navigation-pipe"><i class="fa fa-angle-right"></i></span>
+
                     @catname.category_name
                 }
             </div>
@@ -87,14 +87,14 @@
                     <div class="col-lg-9 col-md-12">
 
                         <div id="content" class="categori-content">
-                            @foreach (var catname in Model.CategoryProduct)
+                           @foreach (var catname in Model.Product_specification.Take(1))
                             {
                                 <h1 class="page-heading product-listing">
                                     <span class="cat-name">@catname.category_name</span><span class="heading-counter">There are 14 products.</span>
                                 </h1>
 
                                 <div class="categori-baner">
-                                    <img style="width:870px;height:236px;" src="@Url.Content("~")/@catname.Banner" alt="">
+                                    <img style="width:870px;height:236px;" src="@Url.Content("~")/@catname.Banner"  alt="">
                                 </div>
                             }
                             <div class="catagori-short">
@@ -405,20 +405,6 @@
                     <div class="col-lg-3 col-md-12">
                         <div class="categori-sidebar">
                             <h4>Catalog</h4>
-                            <div class="categoris categori-border">
-                                <span class="cat-title">Categories</span>
-                                <ul>
-                                    @foreach (var subactegories in Model.SubCategories)
-                                    {
-                                        <li>
-                                            <span><input type="checkbox" class="checkbox"></span>
-                                            <label>
-                                                <a href=""> <span>@subactegories.CategoryName (14)</span></a>
-                                            </label>
-                                        </li>
-                                    }
-                                </ul>
-                            </div>
                             @* <div class="categoris categori-border">
                                     <span class="cat-title">Availability</span>
                                     <ul>
@@ -444,12 +430,13 @@
                                 {
                                     <span class="cat-title">@at.AttributeName</span>
                                     <ul>
-                                        @foreach (var specific in at.specifications)
-                                        {
+                                       @* @foreach (var specific in at.specifications)*@
+                                            @for(int i=0;i< at.specifications.Count;i++)
+                                            {
                                             <li>
-                                                <span><input type="checkbox"   class="checkbox profileCheckbox" name="SpecificationName[]" value="@specific.SpecificationName" id="chk" ></span>
+                                                <span><input type="checkbox"   class="checkbox profileCheckbox" name="SpecificationName[]" value="@at.specifications[i].SpecificationName" id="chk_@i"  ></span>
                                                 <label>
-                                                    <a asp-controller="Home" asp-route-SpecificationName="@specific.SpecificationName" asp-action="AllProducts"><span>@specific.SpecificationName</span></a>
+                                                    <a asp-controller="Home" asp-route-SpecificationName="@at.specifications[i].SpecificationName" asp-action="AllProducts"><span>@at.specifications[i].SpecificationName</span></a>
                                                 </label>
                                             </li>
                                         }
@@ -481,31 +468,45 @@
 </div>
    
 <script>
-    $(document).ready(function () {
-       var data = getCategoryID();
-        $('.profileCheckbox').click(function (e) {
-            var seasoning = '', tempArray = [];
-            $('input[name="SpecificationName[]"]:checked').each(function () {
-                tempArray.push($(this).val());
-            })
-            if (tempArray.length !== 0) {
-                seasoning += 'SpecificationName=' + tempArray.toString();
-                tempArray = [];
-            }
-            window.history.replaceState(null, null, "?" + data + '&' + seasoning);
-            $(".producresults").load('@(Url.Action("_ProductsByAttribute", "Home",null))'+'?'+data+ '&'+seasoning);
-           // window.location.hash = '' + seasoning;
-            // window.location ='example.com?seasoning='+seasoning;
-            console.log('example.com?' + data);
-        });
+    $(".profileCheckbox").click(function () {
+        var data = getCategoryID();
+        var seasoning = '', tempArray = [];
+
+        $('input[name="SpecificationName[]"]:checked').each(function () {
+            tempArray.push($(this).val());
+        })
+        if (tempArray.length !== 0) {
+            seasoning += 'SpecificationName=' + tempArray.toString();
+            tempArray = [];
+        }
+        window.history.replaceState(null, null, "?" + data + '&' + seasoning);
+        if (seasoning != '') {
+            $.ajax({
+                url: '@Url.Action("_ProductsByAttribute", "Home")' + '?' + data + '&' + seasoning,
+                type: "GET",
+                success: function (data) {
+                    $(".producresults").html(data);
+                }
+            });
+        }
+        else {
+             window.history.replaceState(null, null, "?" + data);
+                $.ajax({
+                    url: '@Url.Action("_ProductsByAttribute", "Home")' + '?' + data,
+                    type: "GET",
+                    success: function (data) {
+                        $(".producresults").html(data);
+                    }
+                });
+        }
+    });
         function getCategoryID()
         {
             const urlParams = new URLSearchParams(location.search);
             for (const [key, value] of urlParams) {
-               @* console.log(key);
-                console.log(value);*@
+                console.log(key);
+                console.log(value);
                 return key +'='+ value
             }
         }
-    });
 </script>

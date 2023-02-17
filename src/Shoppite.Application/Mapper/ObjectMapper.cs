@@ -46,6 +46,11 @@ namespace Shoppite.Application.Mapper
             CreateMap<CategoryMasterModel, Logo>().ReverseMap();
             CreateMap<CategoryMasterModel, f_getproducts_By_CategoryID>().ReverseMap();
             CreateMap<SpecificationSetup, SpecificationSetupModel>().ReverseMap();
+            CreateMap<f_getproducts_By_CatID_SpecificationNameModel, f_getproducts_By_CategoryID>().ReverseMap();
+            CreateMap<f_getproducts_By_CatID_SpecificationName, f_getproducts_By_CatID_SpecificationNameModel>().ReverseMap();
+            CreateMap<SP_UserWishList, Customer_WishlistModel>().ReverseMap();
+            CreateMap<MainModel, CustomerWishlist>().ReverseMap();
+
 
         }
     }

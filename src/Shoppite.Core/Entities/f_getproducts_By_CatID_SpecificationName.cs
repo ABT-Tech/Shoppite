@@ -19,6 +19,7 @@ namespace Shoppite.Core.Entities
         public string ShortDescription { get; set; }
         public string Description { get; set; }
         public string SKU { get; set; }
+        public string Banner { get; set; }
         public Nullable<System.DateTime> ProductStartDate { get; set; }
         public Nullable<System.DateTime> ProductEndDate { get; set; }
         public Nullable<bool> IsPublished { get; set; }
@@ -41,6 +42,7 @@ namespace Shoppite.Core.Entities
         public string logo { get; set; }
         public string brands { get; set; }
         public string brandsurlpath { get; set; }
+        public string UserName { get; set; }
         public int brandid { get; set; }
         public string status { get; set; }
         public Nullable<int> totalpick { get; set; }

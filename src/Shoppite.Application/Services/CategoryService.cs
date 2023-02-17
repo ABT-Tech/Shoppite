@@ -3,6 +3,7 @@ using AutoMapper.Internal.Mappers;
 using Shoppite.Application.Interfaces;
 using Shoppite.Application.Mapper;
 using Shoppite.Application.Models;
+using Shoppite.Core.Entities;
 using Shoppite.Core.Repositories;
 using System;
 using System.Collections.Generic;
@@ -44,14 +45,15 @@ namespace Shoppite.Application.Services
                 mainCategoryModel.maincatid = category.CatId;
                 mainCategoryModel.maincaturlpath = category.Catname;
                 mainCategoryModel.SubcategoryDetails = mainCategoryModel.SubcategoryDetails == null ? new List<CategoryProductModel>() : mainCategoryModel.SubcategoryDetails;
-                foreach (var Product in category.categories)
+                var childCategories = category.categories.GroupBy(c => new { c.category_name, c.Category_Id }, (key, g) => new { ChildCatId = key.Category_Id, ChildCatname = key.category_name, categories = g.ToList() });
+                foreach (var Product in childCategories)
                 {
                     CategoryProductModel categoryProductModel = new CategoryProductModel();
-                    categoryProductModel.CategoryId = Product.Category_Id;
-                    categoryProductModel.CategoryName = Product.category_name;
+                    categoryProductModel.CategoryId = Product.ChildCatId;
+                    categoryProductModel.CategoryName = Product.ChildCatname;
                     mainCategoryModel.SubcategoryDetails.Add(categoryProductModel);
                     categoryProductModel.ProductsDetails = categoryProductModel.ProductsDetails == null ? new List<ProductBaseModel>() : categoryProductModel.ProductsDetails;
-                    foreach (var prod in category.categories.Where(a => a.ProductId.Equals(Product.ProductId)))
+                    foreach (var prod in category.categories.Where(a => a.Category_Id.Equals(Product.ChildCatId)))
                     {
                         ProductBaseModel productBaseModel = new ProductBaseModel();
                         productBaseModel.ProductGuid = prod.ProductGUID;
@@ -85,10 +87,10 @@ namespace Shoppite.Application.Services
             var mapped = ObjectMapper.Mapper.Map<List<CategoryMasterModel>>(image);
             return mapped;
         }
-        public async Task<List<CategoryMasterModel>> GetAllProductByCategory(int orgId)
+        public async Task<List<f_getproducts_By_CatID_SpecificationNameModel>> GetAllProductByCategory(int orgId)
         {
             var products = await _categoryRepository.GetAllProductByCategory(orgId);
-            var mapped = ObjectMapper.Mapper.Map<List<CategoryMasterModel>>(products);
+            var mapped = ObjectMapper.Mapper.Map<List<f_getproducts_By_CatID_SpecificationNameModel>>(products);
             return mapped;
         }
         public async Task<List<CategoryMasterModel>> GetAllSubCategories(int orgId)
@@ -119,11 +121,22 @@ namespace Shoppite.Application.Services
             }
             return attribute;
         }
-        public async Task<List<CategoryMasterModel>> GetAllProductByAttribute(int CategoryId, string AttributeName)
+        public async Task<List<f_getproducts_By_CatID_SpecificationNameModel>> GetAllProductByAttribute(int CategoryId, string SpecificationName)
         {
-            var attributes = await _categoryRepository.GetAllProductByAttribute(CategoryId, AttributeName);
-            var mapped = ObjectMapper.Mapper.Map<List<CategoryMasterModel>>(attributes);
+            var attributes = await _categoryRepository.GetAllProductByAttribute(CategoryId, SpecificationName);
+            var mapped = ObjectMapper.Mapper.Map<List<f_getproducts_By_CatID_SpecificationNameModel>>(attributes);
             return mapped;
+        }
+        public async Task<List<Customer_WishlistModel>> GetWishList(string Username,int OrgId)
+        {
+            var wishlist = await _categoryRepository.GetWishList(Username, OrgId);
+            var mapped = ObjectMapper.Mapper.Map<List<Customer_WishlistModel>>(wishlist);
+            return mapped;
+        }
+        public async Task AddWishList(MainModel wishlist,int ProductId)
+        {
+            var mapped = ObjectMapper.Mapper.Map<CustomerWishlist>(wishlist);
+            await _categoryRepository.AddWishList(mapped, ProductId);
         }
     }
 }

@@ -1,13 +1,14 @@
 ﻿@model Shoppite.Application.Models.MainModel
 <div id="grid" class="tab-pane active categoti-grid-view">
     <div class="row">
-        <div class="col-md-4 col-lg-4 col-xl-3">
-            <div class="product-item">
-                @foreach (var product in Model.CategoryProduct)
-                {
+        @foreach (var product in Model.Product_specification)
+        {
+            <div class="col-md-4 col-lg-4 col-xl-3">
+                <div class="product-item">
+
                     <div class="top-item">
                         <a href="single-product.html">
-                            <img src="@Url.Content("~")/@product.Image" alt="Product image">
+                            <img style="height:244px;width:250px" src="@Url.Content("~")/@product.image" alt="Product image">
                         </a>
                         <div class="top-cocial">
                             <p>
@@ -35,15 +36,30 @@
                         <div class="product-social">
                             <ul>
                                 <li><a href="#"><i class="fa fa-external-link"></i></a></li>
-                                <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
+                                <li><a onclick="addToWishList('@product.ProductId')" asp-controller="Home"   asp-action="Wishlist"><i class="fa fa-heart-o"></i></a></li>
                                 <li><a href="#"><i class="fa fa-bar-chart"></i></a></li>
                                 <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
                             </ul>
                         </div>
-                        
+
                     </div>
-                }
+
                 </div>
+            </div>
+            }
         </div>
-    </div>
 </div>
+<script>
+function addToWishList(id)
+{    
+    $.ajax({
+        type: 'POST',
+        url: "@Url.Action("Wishlist", "Home")",
+        data: { ProductId:id },
+        success: function (data) {
+            alert(data);
+        }
+    });
+    console.log(id)
+}
+</script>

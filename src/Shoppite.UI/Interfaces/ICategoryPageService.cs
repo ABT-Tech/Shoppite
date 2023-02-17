@@ -14,9 +14,11 @@ namespace Shoppite.Web.Interfaces
         Task<List<CategoryMasterModel>> GetCategories(int CAtegoryId);
         Task<CategoryMasterModel> DisplayLogo(int orgId);
         Task<List<CategoryMasterModel>> GetHorizontalBanner(int orgID);
-        Task<List<CategoryMasterModel>> GetAllProductByCategory(int CategoryId);
-        Task<List<CategoryMasterModel>> GetAllProductByAttribute(int CategoryId,string AttributeName);
+        Task<List<f_getproducts_By_CatID_SpecificationNameModel>> GetAllProductByCategory(int CategoryId);
+        Task<List<f_getproducts_By_CatID_SpecificationNameModel>> GetAllProductByAttribute(int CategoryId,string SpecificationName);
         Task<List<CategoryMasterModel>> GetAllSubCategories(int CategoryId);
         Task<List<AttributeSetupModel>> GetAllAttributes(int orgId);
+        Task<List<Customer_WishlistModel>> GetWishList(string Username,int OrgId);
+        Task AddWishList(MainModel wishlsit,int ProductId);
     }
 }

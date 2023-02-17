@@ -17,6 +17,7 @@ namespace Shoppite.Application.Models
         public string URLPath { get; set; }
         public string ShortDescription { get; set; }
         public string Description { get; set; }
+        public string Banner { get; set; }
         public string SKU { get; set; }
         public Nullable<System.DateTime> ProductStartDate { get; set; }
         public Nullable<System.DateTime> ProductEndDate { get; set; }
@@ -41,6 +42,7 @@ namespace Shoppite.Application.Models
         public string brands { get; set; }
         public string brandsurlpath { get; set; }
         public int brandid { get; set; }
+        public string UserName { get; set; }
         public string status { get; set; }
         public Nullable<int> totalpick { get; set; }
 

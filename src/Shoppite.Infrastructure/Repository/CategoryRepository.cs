@@ -40,12 +40,42 @@ namespace Shoppite.Infrastructure.Repository
         }
         public async Task<IEnumerable<f_getproducts_By_CategoryID_Result>> GetProductList(int orgId)
         {
-            string sql = "select * from f_getproducts_By_OrgID(@ID)";
+            //string strConnection = "Server=DESKTOP-23U72N4;Database=Shoppite_master;Trusted_Connection=True;";
+            //string ExecuteFunction = "select * from f_getproducts_By_OrgID(@ID)";
+            //List<f_getproducts_By_CategoryID_Result> f_getproducts_By_CategoryID_ResultList = new List<f_getproducts_By_CategoryID_Result>(); 
+            //using (SqlConnection connection = new SqlConnection(strConnection))
+            //{
+            //    SqlCommand command = new SqlCommand(ExecuteFunction, connection);
+            //    command.Parameters.Add("@ID", System.Data.SqlDbType.Int).Value = orgId;
+            //    connection.Open();
+            //    SqlDataReader rdr = command.ExecuteReader();
+
+            //    while (rdr.Read())
+            //    {
+            //        f_getproducts_By_CategoryID_Result f_getproducts_By_CategoryID_ResultObj = new f_getproducts_By_CategoryID_Result();
+            //        f_getproducts_By_CategoryID_ResultObj.image = rdr["IMAGE"].ToString();
+            //        f_getproducts_By_CategoryID_ResultObj.ProductId = Convert.ToInt32(rdr["ProductId"]);
+            //        f_getproducts_By_CategoryID_ResultObj.ProductGUID = new Guid(rdr["ProductGUID"].ToString());
+            //        f_getproducts_By_CategoryID_ResultObj.ProductName = rdr["ProductName"].ToString();
+            //        f_getproducts_By_CategoryID_ResultObj.Category_Id = Convert.ToInt32(rdr["Category_Id"]);
+            //        f_getproducts_By_CategoryID_ResultObj.category_name = rdr["category_name"].ToString();
+            //        f_getproducts_By_CategoryID_ResultObj.categoryurlpath = rdr["categoryurlpath"].ToString();
+            //        f_getproducts_By_CategoryID_ResultObj.Price = Convert.ToDecimal(rdr["Price"]);
+            //        f_getproducts_By_CategoryID_ResultObj.OldPrice = Convert.ToDecimal(rdr["OldPrice"]);
+            //        f_getproducts_By_CategoryID_ResultObj.maincaturlpath = rdr["maincaturlpath"].ToString();
+            //        f_getproducts_By_CategoryID_ResultObj.maincatid = Convert.ToInt32(rdr["maincatid"]);
+            //        f_getproducts_By_CategoryID_ResultList.Add(f_getproducts_By_CategoryID_ResultObj);
+            //    }
+
+            //    rdr.Close();
+            //}
+            string sql = "select * from f_cat_getproducts_By_OrgID(@ID)";
             List<SqlParameter> parms = new List<SqlParameter>
             {
                 new SqlParameter { ParameterName = "@ID", Value = orgId }
             };
              return await _dbContext.Set<f_getproducts_By_CategoryID_Result>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
+            //return f_getproducts_By_CategoryID_ResultList;
         }
         public async Task<List<CategoryMaster>> GetCategories(int CategoryId)
         {
@@ -98,6 +128,39 @@ namespace Shoppite.Infrastructure.Repository
                 new SqlParameter { ParameterName = "@Name", Value = SpecificationName }
             };
             return await _dbContext.Set<f_getproducts_By_CatID_SpecificationName>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
+        }
+        public async Task<List<SP_UserWishList>> GetWishList(string Username,int OrgId)
+        {
+            string sql = "exec UserWishList @OrgId,@Username";
+            List<SqlParameter> parms = new List<SqlParameter>
+            { 
+                // Create parameters    
+                new SqlParameter { ParameterName = "@OrgId", Value = OrgId },
+                new SqlParameter { ParameterName = "@Username", Value = Username }
+            };
+            return await _dbContext.Set<SP_UserWishList>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
+        }
+        public async Task AddWishList(CustomerWishlist wishlist,int ProductId)
+        {
+            CustomerWishlist cuswishlist = _dbContext.CustomerWishlist.FirstOrDefault(u => u.ProductId == ProductId && u.UserName == "admin");
+
+            if (cuswishlist != null)
+            {
+                _dbContext.CustomerWishlist.Remove(cuswishlist);
+                _dbContext.SaveChanges();
+            }
+            else
+            {
+                CustomerWishlist cw = new CustomerWishlist();
+                cw.OrgId = wishlist.OrgId;
+                cw.Ip = wishlist.Ip;
+                cw.ProductId = ProductId;
+                cw.UserName = wishlist.UserName;
+                cw.InsertDate = DateTime.Now;
+                _dbContext.CustomerWishlist.Add(cw);
+                await _dbContext.SaveChangesAsync();
+
+            }           
         }
     }
 }

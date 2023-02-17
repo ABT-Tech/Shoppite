@@ -50,7 +50,7 @@ namespace Shoppite.Web.Services
             var mapped = _mapper.Map<List<CategoryMasterModel>>(image);
             return mapped;
         }
-        public async Task<List<CategoryMasterModel>> GetAllProductByCategory(int CategoryId)
+        public async Task<List<f_getproducts_By_CatID_SpecificationNameModel>> GetAllProductByCategory(int CategoryId)
         {
             var productList = await _categoryService.GetAllProductByCategory(CategoryId);
             return productList;
@@ -65,10 +65,20 @@ namespace Shoppite.Web.Services
             var attribute = await _categoryService.GetAllAttributes(orgId);
             return attribute;
         }
-        public async Task<List<CategoryMasterModel>> GetAllProductByAttribute(int CategoryId, string AttributeName)
+        public async Task<List<f_getproducts_By_CatID_SpecificationNameModel>> GetAllProductByAttribute(int CategoryId, string SpecificationName)
         {
-            var attribute = await _categoryService.GetAllProductByAttribute(CategoryId,AttributeName);
+            var attribute = await _categoryService.GetAllProductByAttribute(CategoryId, SpecificationName);
             return attribute;
+        }
+        public async Task<List<Customer_WishlistModel>> GetWishList(string Username,int OrgId)
+        {
+            var wishlist = await _categoryService.GetWishList(Username, OrgId);
+            return wishlist;
+        }
+        public async Task AddWishList(MainModel wishlist,int ProductId)
+        {
+            await _categoryService.AddWishList(wishlist, ProductId);
+
         }
     }
 }
