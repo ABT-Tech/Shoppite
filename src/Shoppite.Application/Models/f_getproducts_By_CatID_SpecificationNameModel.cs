@@ -10,6 +10,7 @@ namespace Shoppite.Application.Models
         public int ProductId { get; set; }
         public int SpecificationId { get; set; }
         public int AttributeId { get; set; }
+        public int IsOnWishList { get; set; }
         public string AttributeName { get; set; }
         public Nullable<System.Guid> ProductGUID { get; set; }
         public string SpecificationName { get; set; }

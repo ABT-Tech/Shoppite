@@ -6,6 +6,7 @@ namespace Shoppite.Application.Models
 {
    public class MainModel
     {
+        public string OrderStatus { get; set; }
         public int WishlistId { get; set; }
         public int ProductId { get; set; }
         public string ProductName { get; set; }
@@ -36,5 +37,7 @@ namespace Shoppite.Application.Models
         public List<AttributeSetupModel> Attributes { get; set; }
         public List<f_getproducts_By_CatID_SpecificationNameModel> Product_specification { get; set; }
         public List<Customer_WishlistModel> Wishlists { get; set; }
+        public List<F_Orders_All_Model> MyOrders { get; set; }
+        public List<F_Pending_Orders_Model> Orders { get; set; }
     }
 }

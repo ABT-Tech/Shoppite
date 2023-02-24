@@ -77,9 +77,9 @@ namespace Shoppite.Infrastructure.Repository
              return await _dbContext.Set<f_getproducts_By_CategoryID_Result>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
             //return f_getproducts_By_CategoryID_ResultList;
         }
-        public async Task<List<CategoryMaster>> GetCategories(int CategoryId)
+        public async Task<List<CategoryMaster>> GetCategories(int CategoryId,int orgId)
         {
-            return await _dbContext.CategoryMaster.ToListAsync();
+            return await _dbContext.CategoryMaster.Where(x=>x.OrgId== orgId).ToListAsync();
         }
         public async Task<Logo> DisplayLogo(int orgId)
         {
@@ -103,11 +103,6 @@ namespace Shoppite.Infrastructure.Repository
             };
             return await _dbContext.Set<f_getproducts_By_CategoryID>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
         }
-        public async Task<List<CategoryMaster>> GetAllSubCategories(int MainCategoryId)
-        {
-            var q = from categorymaster in _dbContext.CategoryMaster.Where(x => x.ParentCategoryId == MainCategoryId) select categorymaster;
-            return q.ToList();
-        }
         public async Task<List<SP_GetSpecificationData_AttributName>> GetAllAttributes(int orgID)
         {
 
@@ -129,38 +124,6 @@ namespace Shoppite.Infrastructure.Repository
             };
             return await _dbContext.Set<f_getproducts_By_CatID_SpecificationName>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
         }
-        public async Task<List<SP_UserWishList>> GetWishList(string Username,int OrgId)
-        {
-            string sql = "exec UserWishList @OrgId,@Username";
-            List<SqlParameter> parms = new List<SqlParameter>
-            { 
-                // Create parameters    
-                new SqlParameter { ParameterName = "@OrgId", Value = OrgId },
-                new SqlParameter { ParameterName = "@Username", Value = Username }
-            };
-            return await _dbContext.Set<SP_UserWishList>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
-        }
-        public async Task AddWishList(CustomerWishlist wishlist,int ProductId)
-        {
-            CustomerWishlist cuswishlist = _dbContext.CustomerWishlist.FirstOrDefault(u => u.ProductId == ProductId && u.UserName == "admin");
-
-            if (cuswishlist != null)
-            {
-                _dbContext.CustomerWishlist.Remove(cuswishlist);
-                _dbContext.SaveChanges();
-            }
-            else
-            {
-                CustomerWishlist cw = new CustomerWishlist();
-                cw.OrgId = wishlist.OrgId;
-                cw.Ip = wishlist.Ip;
-                cw.ProductId = ProductId;
-                cw.UserName = wishlist.UserName;
-                cw.InsertDate = DateTime.Now;
-                _dbContext.CustomerWishlist.Add(cw);
-                await _dbContext.SaveChangesAsync();
-
-            }           
-        }
+       
     }
 }

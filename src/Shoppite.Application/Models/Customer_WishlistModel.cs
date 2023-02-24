@@ -4,6 +4,7 @@ namespace Shoppite.Application.Models
     public class Customer_WishlistModel
     {
         public int WishlistId { get; set; }
+        public int IsOnWishList { get; set; }
         public int? ProductId { get; set; }
         public string ProductName { get; set; }
         public decimal? Price { get; set; }

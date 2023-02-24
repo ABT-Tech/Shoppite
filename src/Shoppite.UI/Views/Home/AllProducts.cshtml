@@ -52,7 +52,8 @@
                                             <div class="mega-top">
                                                 <div class="mega-item-menu">
                                                     <a href="#"><span>My account</span></a>
-                                                    <a asp-action="Wishlist"><span>My wishlist</span></a>
+                                                    <a asp-action="MyOrders" asp-controller="Orders"><span>My Order</span></a>
+                                                    <a asp-controller="Wishlist" asp-action="Wishlist"><span>My wishlist</span></a>
                                                     <a href="#"><span>My cart</span></a>
                                                     <a href="#"><span>Sign in</span></a>
                                                 </div>
@@ -90,7 +91,7 @@
                            @foreach (var catname in Model.Product_specification.Take(1))
                             {
                                 <h1 class="page-heading product-listing">
-                                    <span class="cat-name">@catname.category_name</span><span class="heading-counter">There are 14 products.</span>
+                                    <span class="cat-name">@catname.category_name</span>
                                 </h1>
 
                                 <div class="categori-baner">
@@ -397,7 +398,7 @@
                                 <div class="cat-show-item">
                                 </div>
                                 <div class="cat-show-button">
-                                    <a class="cat-button" href="#"><span>Compare(0)<i class="fa fa-angle-right"></i></span></a>
+                                   @* <a class="cat-button" href="#"><span>Compare(0)<i class="fa fa-angle-right"></i></span></a>*@
                                 </div>
                             </div>
                         </div>
@@ -405,17 +406,6 @@
                     <div class="col-lg-3 col-md-12">
                         <div class="categori-sidebar">
                             <h4>Catalog</h4>
-                            @* <div class="categoris categori-border">
-                                    <span class="cat-title">Availability</span>
-                                    <ul>
-                                        <li>
-                                            <span><input type="checkbox" class="checkbox"></span>
-                                            <label>
-                                                <a href="">In stock<span> (14)</span></a>
-                                            </label>
-                                        </li>
-                                    </ul>
-                                </div>*@
                             @* <div class="categoris categori-border">
                                     <span class="cat-title">Price</span>
                                     <ul>

@@ -34,9 +34,9 @@ namespace Shoppite.Web.Services
             var productList = await _categoryService.GetProductList(orgId);
             return productList;
         }
-        public async Task<List<CategoryMasterModel>> GetCategories(int CategoryId)
+        public async Task<List<CategoryMasterModel>> GetCategories(int CategoryId,int OrgId)
         {
-            var categories= await _categoryService.GetCategories(CategoryId);
+            var categories= await _categoryService.GetCategories(CategoryId,OrgId);
             return categories;
         }
         public async Task<CategoryMasterModel> DisplayLogo(int orgId)
@@ -55,11 +55,6 @@ namespace Shoppite.Web.Services
             var productList = await _categoryService.GetAllProductByCategory(CategoryId);
             return productList;
         }
-        public async Task<List<CategoryMasterModel>> GetAllSubCategories(int MainCategoryId)
-        {
-            var subactegories = await _categoryService.GetAllSubCategories(MainCategoryId);
-            return subactegories;
-        }
         public async Task<List<AttributeSetupModel>> GetAllAttributes(int orgId)
         {
             var attribute = await _categoryService.GetAllAttributes(orgId);
@@ -70,15 +65,6 @@ namespace Shoppite.Web.Services
             var attribute = await _categoryService.GetAllProductByAttribute(CategoryId, SpecificationName);
             return attribute;
         }
-        public async Task<List<Customer_WishlistModel>> GetWishList(string Username,int OrgId)
-        {
-            var wishlist = await _categoryService.GetWishList(Username, OrgId);
-            return wishlist;
-        }
-        public async Task AddWishList(MainModel wishlist,int ProductId)
-        {
-            await _categoryService.AddWishList(wishlist, ProductId);
 
-        }
     }
 }

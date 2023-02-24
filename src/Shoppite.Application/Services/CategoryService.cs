@@ -69,9 +69,9 @@ namespace Shoppite.Application.Services
             }
             return mainCategory;
         }
-        public async Task<List<CategoryMasterModel>> GetCategories(int CategoryId)
+        public async Task<List<CategoryMasterModel>> GetCategories(int CategoryId,int OrgId)
         {
-            var categories = await _categoryRepository.GetCategories(CategoryId);
+            var categories = await _categoryRepository.GetCategories(CategoryId, OrgId);
             var mapped = ObjectMapper.Mapper.Map<List<CategoryMasterModel>>(categories);
             return mapped;
         }
@@ -91,12 +91,6 @@ namespace Shoppite.Application.Services
         {
             var products = await _categoryRepository.GetAllProductByCategory(orgId);
             var mapped = ObjectMapper.Mapper.Map<List<f_getproducts_By_CatID_SpecificationNameModel>>(products);
-            return mapped;
-        }
-        public async Task<List<CategoryMasterModel>> GetAllSubCategories(int orgId)
-        {
-            var categories = await _categoryRepository.GetAllSubCategories(orgId);
-            var mapped = ObjectMapper.Mapper.Map<List<CategoryMasterModel>>(categories);
             return mapped;
         }
         public async Task<List<AttributeSetupModel>> GetAllAttributes(int orgID)
@@ -126,17 +120,6 @@ namespace Shoppite.Application.Services
             var attributes = await _categoryRepository.GetAllProductByAttribute(CategoryId, SpecificationName);
             var mapped = ObjectMapper.Mapper.Map<List<f_getproducts_By_CatID_SpecificationNameModel>>(attributes);
             return mapped;
-        }
-        public async Task<List<Customer_WishlistModel>> GetWishList(string Username,int OrgId)
-        {
-            var wishlist = await _categoryRepository.GetWishList(Username, OrgId);
-            var mapped = ObjectMapper.Mapper.Map<List<Customer_WishlistModel>>(wishlist);
-            return mapped;
-        }
-        public async Task AddWishList(MainModel wishlist,int ProductId)
-        {
-            var mapped = ObjectMapper.Mapper.Map<CustomerWishlist>(wishlist);
-            await _categoryRepository.AddWishList(mapped, ProductId);
         }
     }
 }

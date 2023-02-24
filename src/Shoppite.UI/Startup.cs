@@ -91,17 +91,20 @@ namespace Shoppite.UI
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
             services.AddScoped<IBrandRepository, BrandRepository>();
+            services.AddScoped<IWishlistRepository, WishlistRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
 
             // Add Application Layer
             services.AddScoped<IBrandServices, BrandServices>();
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IWishlistService, WishlistService>();
 
             // Add Web Layer
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IBrandPageServices, BrandPageServices>();
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<ICategoryPageService, CategoryPageService>();
+            services.AddScoped<IWishlistPageService, WishlistPageService>();
 
             // Add Miscellaneous
             services.AddHttpContextAccessor();

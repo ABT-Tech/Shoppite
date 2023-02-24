@@ -1,10 +1,15 @@
 ﻿@model Shoppite.Application.Models.MainModel
-@if (Model.TopBanner != null)
-{
-    @foreach (var image in Model.TopBanner)
-    {
-        <a href="#"><img src="@Url.Content("~")/@image.Image" alt="slider image" /></a>
-    }
+    <head>
+        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
-}
+    </head>
+
+    @if (Model.TopBanner != null)
+    {
+        @foreach (var image in Model.TopBanner.Take(2))
+        {
+            <a href="#"><img src="@image.Image" alt="slider image" /></a>
+        }
+
+    }
 

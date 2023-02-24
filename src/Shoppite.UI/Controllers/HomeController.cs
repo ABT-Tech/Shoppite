@@ -38,7 +38,7 @@ namespace Shoppite.UI.Controllers
             brands.MiddelBanner = await _categoryPageService.GetMiddelBannerImage(OrgId);
             brands.TopBanner = await _categoryPageService.GetTopBannerImage(OrgId);
             brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
-            brands.Categories = await _categoryPageService.GetCategories(CategoryId);
+            brands.Categories = await _categoryPageService.GetCategories(CategoryId,OrgId);
             brands.HorizontalBanner = await _categoryPageService.GetHorizontalBanner(OrgId);
             return View(brands);
         }
@@ -53,9 +53,8 @@ namespace Shoppite.UI.Controllers
             int OrgId = commonHelper.GetOrgID(HttpContext);
             var brands = await _BrandPageService.GetBrands(OrgId);
             brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
-            brands.Categories = await _categoryPageService.GetCategories(CategoryId);
+            brands.Categories = await _categoryPageService.GetCategories(CategoryId, OrgId);
             brands.Product_specification = await _categoryPageService.GetAllProductByCategory(CategoryId);
-            brands.SubCategories = await _categoryPageService.GetAllSubCategories(5048);
             brands.Attributes = await _categoryPageService.GetAllAttributes(OrgId);
             return View(brands);
 
@@ -73,31 +72,6 @@ namespace Shoppite.UI.Controllers
                 model.Product_specification = await _categoryPageService.GetAllProductByCategory(CategoryId);
             }
             return PartialView(model);
-        }
-        [HttpGet]
-        public async Task<IActionResult> Wishlist(int CategoryId,string Username)
-        {
-            int OrgId = commonHelper.GetOrgID(HttpContext);
-            var brands = await _BrandPageService.GetBrands(OrgId);
-            brands.Categories = await _categoryPageService.GetCategories(CategoryId);
-            brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
-            brands.Wishlists = await _categoryPageService.GetWishList("admin", OrgId);
-            return View(brands);
-        }
-        [HttpPost]
-        public async Task<IActionResult> Wishlist(MainModel wishlist,int ProductId)
-        {
-            var ipadresss=  _accessor.HttpContext.Connection.RemoteIpAddress.ToString();
-            int OrgId = commonHelper.GetOrgID(HttpContext);
-            wishlist.OrgId = OrgId;
-            wishlist.Ip = ipadresss;
-            wishlist.UserName = "admin";
-            var brands = await _BrandPageService.GetBrands(OrgId);
-            brands.Categories = await _categoryPageService.GetCategories(ProductId);
-            brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
-            brands.Wishlists = await _categoryPageService.GetWishList("admin", OrgId);
-            await _categoryPageService.AddWishList(wishlist,ProductId);
-            return View(brands);
-        }
+        }       
     }
 }
