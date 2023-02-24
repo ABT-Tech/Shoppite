@@ -63,7 +63,7 @@
 
     <script src="~/js/vendor/modernizr-2.8.3.min.js"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-
+    <link href="~/plugins/select2/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/site.css" />
 
 </head>
@@ -98,108 +98,111 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-3 col-md-12">
-                           @* @await Html.PartialAsync("~/Views/Category/_Logo.cshtml", Model)*@
+                            @* @await Html.PartialAsync("~/Views/Category/_Logo.cshtml", Model)*@
                         </div>
                         <div class="col-lg-9 col-md-12">
                             <div class="meddil-services">
                                 <div class="service-icon-text">
-                                    <a href="#">
+                                    <a href="#" class="d-flex">
                                         <div class="service-icon floatleft">
                                             <i class="fa fa-car"></i>
                                         </div>
-                                        <div class="service-text floatright">
+                                        <div class="service-text floatright pl-2">
                                             <h3>FREE SHIPPING</h3>
                                             <p>ON ORDER OVER $150</p>
                                         </div>
                                     </a>
                                 </div>
                                 <div class="service-icon-text">
-                                    <a href="#">
+                                    <a href="#" class="d-flex">
                                         <div class="service-icon floatleft">
                                             <i class="fa fa-money"></i>
                                         </div>
-                                        <div class="service-text floatright">
+                                        <div class="service-text floatright pl-2 pb-1">
                                             <h3>MONEY BACK 100%</h3>
                                             <p>30 Days after delivery</p>
                                         </div>
                                     </a>
                                 </div>
                                 <div class="service-icon-text">
-                                    <a href="#">
+                                    <a href="#" class="d-flex">
                                         <div class="service-icon floatleft">
                                             <i class="fa fa-phone"></i>
                                         </div>
-                                        <div class="service-text floatright">
+                                        <div class="service-text floatright pl-2">
                                             <h3>+(800) 123-456 789</h3>
                                             <p>CALL US FOR FREE</p>
                                         </div>
                                     </a>
                                 </div>
-                                <div class="service-icon-text service-text-icon-active">
-                                    <a href="cart.html">
-                                        <div class="service-icon floatleft">
-                                            <i class="fa fa-shopping-cart"></i>
-                                        </div>
-                                        <div class="service-text floatright">
-                                            <h3>My Cart</h3>
-                                            <p>3 items £ 88.81</p>
-                                        </div>
-                                    </a>
-                                    <div class="add-to-cart-product pull-right">
-                                        <div class="cart-product product-item11">
-                                            <div class="cart-product-image">
-                                                <a href="single-product.html"><img src="img/cart/faded-short-sleeves-tshirt.jpg" alt="Product"></a>
-                                            </div>
-                                            <div class="cart-product-info">
-                                                <p><span>1</span>x<a href="single-product.html">Faded...</a></p>
-                                                <a href="single-product.html">S, Orange</a>
-                                                <span class="price">£ 19.81</span>
-                                            </div>
-                                            <div class="cart-product-remove">
-                                                <i class="fa fa-times"></i>
-                                            </div>
-                                        </div>
-                                        <div class="cart-product">
-                                            <div class="cart-product-image">
-                                                <a href="single-product.html"><img src="img/cart/blouse.jpg" alt="Product"></a>
-                                            </div>
-                                            <div class="cart-product-info">
-                                                <p><span>1</span>x<a href="single-product.html">blouse</a></p>
-                                                <a href="single-product.html">S, Black</a>
-                                                <span class="price">£ 32.40</span>
-                                            </div>
-                                            <div class="cart-product-remove">
-                                                <i class="fa fa-times"></i>
-                                            </div>
-                                        </div>
-                                        <div class="cart-product">
-                                            <div class="cart-product-image">
-                                                <a href="single-product.html"><img src="img/cart/printed-summer-dress.jpg" alt="Product"></a>
-                                            </div>
-                                            <div class="cart-product-info">
-                                                <p><span>1</span>x<a href="single-product.html">Printed...</a></p>
-                                                <a href="single-product.html">S, Yellow</a>
-                                                <span class="price">£ 36.60</span>
-                                            </div>
-                                            <div class="cart-product-remove">
-                                                <i class="fa fa-times"></i>
-                                            </div>
-                                        </div>
-                                        <div class="cart-price">
-                                            <div class="cart-product-line fast-line">
-                                                <span>Shipping</span>
-                                                <span class="free-shiping">Free shipping!</span>
-                                            </div>
-                                            <div class="cart-product-line">
-                                                <span>Total</span>
-                                                <span class="total">£ 88.81</span>
-                                            </div>
-                                        </div>
-                                        <div class="cart-checkout">
-                                            <a href="checkout.html">Check out<i class="fa fa-chevron-right"></i></a>
-                                        </div>
-                                    </div>
+                                <div class="service-text-icon-active">
+                                    @await Component.InvokeAsync("Cart")
                                 </div>
+                                @*<div class="service-icon-text service-text-icon-active">
+                                        <a href="cart.html" class="d-flex">
+                                            <div class="service-icon floatleft">
+                                                <i class="fa fa-shopping-cart"></i>
+                                            </div>
+                                            <div class="service-text floatright pl-2">
+                                                <h3>My Cart</h3>
+                                                <p>3 items £ 88.81</p>
+                                            </div>
+                                        </a>
+                                        <div class="add-to-cart-product pull-right">
+                                            <div class="cart-product product-item11">
+                                                <div class="cart-product-image">
+                                                    <a href="single-product.html"><img src="img/cart/faded-short-sleeves-tshirt.jpg" alt="Product"></a>
+                                                </div>
+                                                <div class="cart-product-info">
+                                                    <p><span>1</span>x<a href="single-product.html">Faded...</a></p>
+                                                    <a href="single-product.html">S, Orange</a>
+                                                    <span class="price">£ 19.81</span>
+                                                </div>
+                                                <div class="cart-product-remove">
+                                                    <i class="fa fa-times"></i>
+                                                </div>
+                                            </div>
+                                            <div class="cart-product">
+                                                <div class="cart-product-image">
+                                                    <a href="single-product.html"><img src="img/cart/blouse.jpg" alt="Product"></a>
+                                                </div>
+                                                <div class="cart-product-info">
+                                                    <p><span>1</span>x<a href="single-product.html">blouse</a></p>
+                                                    <a href="single-product.html">S, Black</a>
+                                                    <span class="price">£ 32.40</span>
+                                                </div>
+                                                <div class="cart-product-remove">
+                                                    <i class="fa fa-times"></i>
+                                                </div>
+                                            </div>
+                                            <div class="cart-product">
+                                                <div class="cart-product-image">
+                                                    <a href="single-product.html"><img src="img/cart/printed-summer-dress.jpg" alt="Product"></a>
+                                                </div>
+                                                <div class="cart-product-info">
+                                                    <p><span>1</span>x<a href="single-product.html">Printed...</a></p>
+                                                    <a href="single-product.html">S, Yellow</a>
+                                                    <span class="price">£ 36.60</span>
+                                                </div>
+                                                <div class="cart-product-remove">
+                                                    <i class="fa fa-times"></i>
+                                                </div>
+                                            </div>
+                                            <div class="cart-price">
+                                                <div class="cart-product-line fast-line">
+                                                    <span>Shipping</span>
+                                                    <span class="free-shiping">Free shipping!</span>
+                                                </div>
+                                                <div class="cart-product-line">
+                                                    <span>Total</span>
+                                                    <span class="total">£ 88.81</span>
+                                                </div>
+                                            </div>
+                                            <div class="cart-checkout">
+                                                <a href="checkout.html">Check out<i class="fa fa-chevron-right"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>*@
                             </div>
                         </div>
                     </div>
@@ -348,7 +351,7 @@
     <!-- jquery -->
     <script src="~/js/vendor/jquery-3.5.1.min.js"></script>
     <script src="~/js/vendor/jquery-migrate-3.3.0.min.js"></script>
-
+    <script src="~/plugins/select2/js/select2.min.js"></script>
     <!-- bootstrap js
     ============================================ -->
     <script src="~/js/bootstrap.min.js"></script>
@@ -373,6 +376,7 @@
     ============================================ -->
     <script src="~/js/wow.js"></script>
 
+    <script src="~/plugins/select2/js/select2.min.js"></script>
     <!-- plugins js
     ============================================ -->
     <script src="~/js/plugins.js"></script>

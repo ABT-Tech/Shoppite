@@ -1,0 +1,329 @@
+﻿@{
+    ViewData["Title"] = "Cart Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Favicon
+       ============================================ -->
+<link rel="shortcut icon" type="image/x-icon" href="~/img/favicon.ico">
+
+<!-- Fonts  -->
+
+<link href='https://fonts.googleapis.com/css?family=Raleway:400,500,600,700,300,800' rel='stylesheet' type='text/css'>
+
+<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+<!-- CSS  -->
+<!-- Bootstrap CSS
+============================================ -->
+<link rel="stylesheet" href="~/css/bootstrap.min.css">
+
+<!-- owl.carousel CSS
+============================================ -->
+<link rel="stylesheet" href="~/css/owl.carousel.css">
+
+<!-- nivo slider CSS
+============================================ -->
+<link rel="stylesheet" href="~/css/nivo-slider.css">
+
+<!-- font-awesome.min CSS
+============================================ -->
+<link rel="stylesheet" href="css/font-awesome.min.css">
+
+<!-- jquery.fancybox CSS
+============================================ -->
+<link rel="stylesheet" href="~/css/fancb/jquery.fancybox.css">
+
+<!-- meanmenu.min CSS
+============================================ -->
+<link rel="stylesheet" href="~/css/meanmenu.min.css">
+
+<!-- animate CSS
+============================================ -->
+<link rel="stylesheet" href="~/css/animate.css">
+
+<!-- normalize CSS
+============================================ -->
+<link rel="stylesheet" href="~/css/normalize.css">
+
+<!-- main CSS
+============================================ -->
+<link rel="stylesheet" href="~/css/main.css">
+
+<!-- style CSS
+============================================ -->
+<link rel="stylesheet" href="~/style.css">
+
+<!-- responsive CSS
+============================================ -->
+<link rel="stylesheet" href="~/css/responsive.css">
+
+
+<div class="main-area">
+
+    <!-- Start checkout page area -->
+    <div class="checkout-page-area">
+        <div class="container">
+            <div class="breadcrumb">
+                <a title="Return to Home" href="/" class="home">Home</a>
+                <span class="navigation-pipe"><i class="fa fa-angle-right"></i></span>
+                checkout
+            </div>
+            <!-- Start checkout content -->
+            <div class="checkout-content-area">
+                <h4 class="cart-title">CHECKOUT</h4>
+                <div class="checkout-content">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div aria-multiselectable="true" role="tablist" id="accordion" class="panel-group">
+                                <div class="panel sauget-accordion">
+                                    <div id="headingOne" role="tab" class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a aria-controls="checkoutMethod" aria-expanded="true" href="#checkoutMethod" data-bs-toggle="collapse" class="">
+                                                <span>1</span> CHECKOUT METHOD
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div aria-labelledby="headingOne" data-bs-parent="#accordion" role="tabpanel" class="panel-collapse collapse show" id="checkoutMethod" aria-expanded="true" style="">
+                                        <div class="content-info">
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="checkout-reg">
+                                                        <div class="checkReg commonChack">
+                                                            <div class="checkTitle">
+                                                                <h6 class="ct-design">CHECKOUT AS A GUEST OR REGISTER</h6>
+                                                            </div>
+                                                            <p>Register with us forfuture convenience</p>
+                                                            <input type="radio"><label>Checkout as Guest</label><br>
+                                                            <input type="radio"><label>Register</label><br><br>
+                                                        </div>
+                                                        <div class="regSaveTime commonChack">
+                                                            <h6>REGISTER AND SAVE TIME!</h6>
+                                                            <p>Register with us for future convenience:</p>
+                                                            <ul>
+                                                                <li>Fast and easy checkout</li>
+                                                                <li>Easy access to your history and status</li>
+                                                            </ul>
+                                                        </div>
+                                                        <a class="checkPageBtn pull-right" href="">CONTINUE</a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="checkout-login">
+                                                        <div class="checkTitle">
+                                                            <h6 class="ct-design">Login</h6>
+                                                        </div>
+                                                        <p class="alrdyReg">ALREADY REGISTERED?</p>
+                                                        <p class="plxLogin">Please log in below:</p>
+                                                        <div class="loginFrom">
+                                                            <p class="plxLoginP"><span>*</span> Email Address</p>
+                                                            <input type="text"><br>
+                                                            <p class="plxLoginP"><span>*</span>  Password</p>
+                                                            <input type="text">
+                                                            <p class="rqudField">* Required Fields</p>
+                                                            <p class="plxLogin">Forgot your password ?</p>
+                                                        </div>
+                                                        <a class="checkPageBtn pull-right" href="">Login</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel sauget-accordion">
+                                    <div id="headingTwo" role="tab" class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a aria-controls="billingInformation" aria-expanded="false" href="#billingInformation" data-bs-toggle="collapse" class="collapsed">
+                                                <span>2</span> Billing Information
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div aria-labelledby="headingTwo" data-bs-parent="#accordion" role="tabpanel" class="panel-collapse collapse" id="billingInformation" aria-expanded="false" style="height: 0px;">
+                                        <div class="content-info">
+                                            <div class="billing-info">
+                                                <p>Select a billing address from your address book or enter a new address.</p>
+                                                <select>
+                                                    <option>Add your address here</option>
+                                                    <option>Add New Address</option>
+                                                </select>
+                                                <div class="method-input-box">
+                                                    <p><input type="radio" name="address" value="address" checked><label>Ship to this address</label></p>
+                                                    <p><input type="radio" name="address" value="dadress"><label>Ship to different address</label></p>
+                                                </div>
+                                                <div class="block-area-button">
+                                                    <button class="btn btn-default add-tag-btn">Continue</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @*<div class="panel sauget-accordion">
+                                    <div id="headingThree" role="tab" class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a aria-controls="shippingMethod" aria-expanded="false" href="#shippingMethod" data-bs-toggle="collapse" class="collapsed">
+                                                <span>3</span> Shipping Method
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div aria-labelledby="headingThree" data-bs-parent="#accordion" role="tabpanel" class="panel-collapse collapse" id="shippingMethod" aria-expanded="false">
+                                        <div class="content-info">
+                                            <div class="shiping-method">
+                                                <p><small>Flat Rate</small></p>
+                                                <p>Fixed $40.00</p>
+                                                <div class="block-area-button">
+                                                    <button class="btn btn-default add-tag-btn">Continue</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>*@
+                                <div class="panel sauget-accordion">
+                                    <div id="headingFour" role="tab" class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a aria-controls="paymentInformation" aria-expanded="false" href="#paymentInformation" data-bs-toggle="collapse" class="collapsed">
+                                                <span>3</span> Payment Information
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div aria-labelledby="headingFour" data-bs-parent="#accordion" role="tabpanel" class="panel-collapse collapse" id="paymentInformation" aria-expanded="false">
+                                        <div class="content-info">
+                                            <div class="checkout-option">
+                                                <div class="method-input-box">
+                                                    <p><input type="radio" name="payment" value="check"><label>Check / Money order </label></p>
+                                                    <p><input type="radio" name="payment" value="card" checked><label>Credit Card (saved) </label></p>
+                                                </div>
+                                                <div class="master-card-info">
+                                                    <form action="#">
+                                                        <div class="form-group">
+                                                            <label>Name on Card <sup>*</sup></label>
+                                                            <input type="text" class="form-control">
+                                                        </div>
+                                                        <div class="cardtype form-group">
+                                                            <label>Credit Card Type</label>
+                                                            <select class="form-control">
+                                                                <option>--Please Select--</option>
+                                                                <option>American Express</option>
+                                                                <option>Visa</option>
+                                                                <option>MasterCard</option>
+                                                                <option>Discover</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Credit Card Number <sup>*</sup></label>
+                                                            <input type="text" class="form-control">
+                                                        </div>
+                                                        <div class="expirationdate form-group">
+                                                            <label>Expiration Date</label>
+                                                            <select class="form-control month-select">
+                                                                <option>Month</option>
+                                                                <option>01 - January</option>
+                                                                <option>02 - February</option>
+                                                                <option>03 - March</option>
+                                                                <option>04 - April</option>
+                                                                <option>05 - May</option>
+                                                                <option>06 - June</option>
+                                                                <option>07 - July</option>
+                                                                <option>08 - August</option>
+                                                                <option>09 - September</option>
+                                                                <option>10 - October</option>
+                                                                <option>11 - November</option>
+                                                                <option>12 - December</option>
+                                                            </select>
+                                                            <select class="form-control year-select">
+                                                                <option>Year</option>
+                                                                <option>2015</option>
+                                                                <option>2016</option>
+                                                                <option>2017</option>
+                                                                <option>2018</option>
+                                                                <option>2019</option>
+                                                                <option>2020</option>
+                                                                <option>2021</option>
+                                                                <option>2022</option>
+                                                                <option>2023</option>
+                                                                <option>2024</option>
+                                                                <option>2025</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="verificationcard form-group">
+                                                            <label>Card Verification Number <sup>*</sup></label>
+                                                            <input type="text" class="form-control">
+                                                            <a href="#">What is this?</a>
+                                                        </div>
+                                                    </form>
+                                                    <div class="block-area-button">
+                                                        <button class="btn btn-default add-tag-btn">Continue</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @*<div class="panel sauget-accordion">
+                                    <div id="headingFive" role="tab" class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a aria-controls="orderReview" aria-expanded="false" href="#orderReview" data-bs-toggle="collapse" class="collapsed">
+                                                <span>5</span> Order Review
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div aria-labelledby="headingFive" data-bs-parent="#accordion" role="tabpanel" class="panel-collapse collapse" id="orderReview" aria-expanded="false">
+                                        <div class="content-info">
+                                            <div class="review-bar">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="product">
+                                                            <img alt="Blouse" src="img/product/blouse1.jpg">
+                                                            <p class="product_name"><strong>Blouse</strong></p>
+                                                            <p>Short-sleeved blouse with feminine draped sleeve detail.</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="product-review">
+                                                            <label>Quality:</label>
+                                                            <p>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                            </p>
+                                                            <form>
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputEmail1">Title:</label>
+                                                                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label>Comment:</label>
+                                                                    <textarea class="form-control" rows="3"></textarea>
+                                                                </div>
+                                                                <button type="submit" class="btn btn-default">Submit</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>*@
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="checkout-sidebar">
+                                <h4>YOUR CHECKOUT PROGRESS</h4>
+                                <ul>
+                                    <li><a href="#">Billing Address</a></li>
+                                    <li><a href="#">Sipping Address</a></li>
+                                    <li><a href="#">Shiping Method</a></li>
+                                    <li><a href="#">Payment Method</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End checkout content -->
+        </div>
+    </div>
+    <!-- End checkout page area -->
+
+</div>
+

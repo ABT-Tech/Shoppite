@@ -126,7 +126,7 @@
         public async Task AddIp(ProductRecentlyViewed productRecentlyViewed)
         {
 
-            var UpdateIp = _dbContext.ProductRecentlyViewed.FirstOrDefault(x => x.ProductId == productRecentlyViewed.ProductId);
+            var UpdateIp = _dbContext.ProductRecentlyViewed.FirstOrDefault(x => x.ProductId == productRecentlyViewed.ProductId && x.Ip == productRecentlyViewed.Ip);
             if (UpdateIp == null)
             {
                 _dbContext.ProductRecentlyViewed.Add(productRecentlyViewed);
@@ -156,6 +156,28 @@
             };
 
             return await _dbContext.Set<f_getproducts_Recentlyviewed>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
+        }
+        public async Task<IEnumerable<f_getproduct_specification_By_Guid>> specificationSetups(Guid SpecGuid)
+        {
+            string sql = "select * from f_getproduct_specification_By_Guid(@ProductGUID)";
+
+            List<SqlParameter> parms = new List<SqlParameter>
+            { 
+                // Create parameters    
+                new SqlParameter { ParameterName = "@ProductGUID", Value = SpecGuid }
+            };
+            return await _dbContext.Set<f_getproduct_specification_By_Guid>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
+        }
+        public async Task<IEnumerable<AttributesSetup>> ProductAttribute(int AtId)
+        {
+            var productAttribute = await _dbContext.AttributesSetup.OrderBy(x => x.AttributeName).ToListAsync();
+            return productAttribute;
+        }
+
+        public async Task AddToCart(OrderBasic productDetailModel)
+        {
+           _dbContext.OrderBasic.Add(productDetailModel);
+           await _dbContext.SaveChangesAsync();
         }
     }
 }

@@ -9,6 +9,7 @@
     using Shoppite.Core.Repositories;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -71,6 +72,15 @@
             var Product_By_Cat = await _ProductDetailRepsitory.F_Getproducts_By_CategoryID(x);
             productDetailModel.f_Getproducts_By_CategoryIDModels = ObjectMapper.Mapper.Map<List<f_getproducts_By_CategoryIDModel>>(Product_By_Cat);
 
+            var productAttribute = await _ProductDetailRepsitory.ProductAttribute(1);
+            productDetailModel.AttributesSetupModel = ObjectMapper.Mapper.Map<List<AttributesSetupModel>>(productAttribute);
+
+            var productSpecVal = await _ProductDetailRepsitory.specificationSetups(id);
+            var spectype = ObjectMapper.Mapper.Map<List<f_getproduct_specification_By_GuidModel>>(productSpecVal);
+            foreach (var prodAttr in productDetailModel.AttributesSetupModel)
+            {
+                prodAttr.GetF_Getproduct_Specification_By_GuidModel = spectype.Where(x => x.AttributeId == prodAttr.AttributeId).ToList();
+            }
             string ipAddress = _accessor.HttpContext.Connection.RemoteIpAddress.ToString();
 
             ProductRecentlyViewed productRecently = new ProductRecentlyViewed();
@@ -82,8 +92,8 @@
             var productRecent = ObjectMapper.Mapper.Map<ProductRecentlyViewed>(productRecently);
             await _ProductDetailRepsitory.AddIp(productRecent);
 
-            var ProductRecent = await _ProductDetailRepsitory.F_Getproducts_Recentlyviewed(ipAddress, orgid);
-            productDetailModel.f_Getproducts_RecentlyviewedModel = ObjectMapper.Mapper.Map<List<f_getproducts_RecentlyviewedModel>>(ProductRecent);
+            //var ProductRecent = await _ProductDetailRepsitory.F_Getproducts_Recentlyviewed(ipAddress, orgid);
+            //productDetailModel.f_Getproducts_RecentlyviewedModel = ObjectMapper.Mapper.Map<List<f_getproducts_RecentlyviewedModel>>(ProductRecent);
 
             return productDetailModel;
         }
@@ -188,6 +198,28 @@
             var ProductCatId = await _ProductDetailRepsitory.F_Getproducts_Recentlyviewed(id,orgid);
             productDetailModel.f_Getproducts_RecentlyviewedModel = ObjectMapper.Mapper.Map<List<f_getproducts_RecentlyviewedModel>>(ProductCatId);
             return null;
+        }
+        public async Task<ProductDetailModel> ProductAttribute(int AtId)
+        {
+            ProductDetailModel productModel = new ProductDetailModel();
+            var productAttribute = await _ProductDetailRepsitory.ProductAttribute(AtId);
+            productModel.AttributesSetupModel = ObjectMapper.Mapper.Map<List<AttributesSetupModel>>(productAttribute);
+            return productModel;
+        }
+
+        public async Task AddToCart(ProductDetailModel productDetailModel)
+        {
+            OrderBasic orderBasic = new OrderBasic();
+            orderBasic.ProductId = productDetailModel.ProductBasicModel.ProductId;
+            orderBasic.OrderGuid = productDetailModel.ProductBasicModel.ProductGuid;
+            orderBasic.Price = productDetailModel.ProductPriceModel.Price;
+            orderBasic.DeliveryFees = productDetailModel.ProductPriceModel.DeliveryFees;
+            orderBasic.InsertDate = DateTime.Now;
+            orderBasic.OrderStatus = "Cart";
+            orderBasic.Currencyid = productDetailModel.ProductPriceModel.CurrencyId;
+            orderBasic.OrgId = productDetailModel.ProductBasicModel.OrgId;
+             await _ProductDetailRepsitory.AddToCart(orderBasic);
+            //productdetailmodel = objectmapper.mapper.map<productdetailmodel>(addtocart);
         }
     }
 }

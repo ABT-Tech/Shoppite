@@ -16,6 +16,10 @@ namespace Shoppite.Application.Models
         public List<f_getproducts_By_CategoryIDModel> f_Getproducts_By_CategoryIDModels { get; set; }
         public ProductRecentlyViewedModel ProductRecentlyViewedModel { get; set; }
         public List<f_getproducts_RecentlyviewedModel> f_Getproducts_RecentlyviewedModel { get; set; }
+        public List<f_getproduct_specification_By_GuidModel> f_Getproduct_Specification_By_GuidModel { get; set; }
+        public List<AttributesSetupModel> AttributesSetupModel { get; set; }
+        public OrderBasicModel OrderBasicModel { get; set; }
+
 
     }
 }

@@ -40,7 +40,7 @@ namespace Shoppite.Infrastructure.Repository
         }
         public async Task<IEnumerable<f_getproducts_By_CategoryID_Result>> GetProductList(int orgId)
         {
-            string sql = "select * from f_getproducts_By_OrgID(@ID)";
+            string sql = "select * from f_cat_getproducts_By_OrgID(@ID)";
             List<SqlParameter> parms = new List<SqlParameter>
             {
                 new SqlParameter { ParameterName = "@ID", Value = orgId }

@@ -17,5 +17,7 @@ namespace Shoppite.Application.Interfaces
         Task<ProductDetailModel> GetIP(int orgid);
         Task AddIp(ProductDetailModel detailModel);
         Task<List<ProductDetailModel>> Get_Recently_Product(string id, int orgid);
+        Task<ProductDetailModel> ProductAttribute(int AtId);
+        Task AddToCart(ProductDetailModel productDetailModel);
     }
 }

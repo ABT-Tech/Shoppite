@@ -20,6 +20,12 @@ namespace Shoppite.UI.Services
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
+        public async Task AddToCart(ProductDetailModel productDetail)
+        {
+            var mapped = _mapper.Map<ProductDetailModel>(productDetail);
+            await _ProductDetailServices.AddToCart(mapped);
+        }
+
         public async Task<ProductDetailModel> GetProductDetails(Guid id,int orgid)
         {
             return await _ProductDetailServices.GetProductDetails(id, orgid);
@@ -38,6 +44,11 @@ namespace Shoppite.UI.Services
         public async Task<ProductDetailModel> Get_Brand_Name(Guid guid, int id)
         {
             return await _ProductDetailServices.Get_Brand_Name(guid,id);
+        }
+        public async Task<ProductDetailModel> ProductAttribute(int AtId)
+        {
+
+            return await _ProductDetailServices.ProductAttribute(AtId);
         }
     }
 }

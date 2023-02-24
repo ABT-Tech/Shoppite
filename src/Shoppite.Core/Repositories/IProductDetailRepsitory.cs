@@ -17,5 +17,8 @@ namespace Shoppite.Core.Repositories
         Task<List<f_getproducts_Recentlyviewed>> F_Getproducts_Recentlyviewed(string id, int orgid);
         Task<ProductRecentlyViewed> GetIP(int orgid);
         Task AddIp(ProductRecentlyViewed productRecentlyViewed);
-   }
+        Task<IEnumerable<f_getproduct_specification_By_Guid>> specificationSetups(Guid SpecGuid);
+        Task<IEnumerable<AttributesSetup>> ProductAttribute(int AtId);
+        Task AddToCart(OrderBasic productDetailModel);
+    }
 }

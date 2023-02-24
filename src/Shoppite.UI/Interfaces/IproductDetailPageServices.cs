@@ -12,5 +12,7 @@ namespace Shoppite.UI.Interfaces
         Task<List<ProductDetailModel>> GetproductImages(Guid id);
         Task<ProductDetailModel> GetProductPrice(Guid id);
         Task<ProductDetailModel> Get_Brand_Name(Guid guid, int id);
+        Task<ProductDetailModel> ProductAttribute(int AtId);
+        Task AddToCart(ProductDetailModel productDetail);
     }
 }

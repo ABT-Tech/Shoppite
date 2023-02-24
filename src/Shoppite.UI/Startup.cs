@@ -93,11 +93,13 @@ namespace Shoppite.UI
             services.AddScoped<IBrandRepository, BrandRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IProductDetailRepsitory, ProductDetailRepository>();
+            services.AddScoped<ICartRepository, CartRepository>();
 
             // Add Application Layer
             services.AddScoped<IBrandServices, BrandServices>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IProductDetailServices, ProductDetilServices>();
+            services.AddScoped<ICartServices, CartServices>();
 
             // Add Web Layer
             services.AddAutoMapper(typeof(Startup));
@@ -105,6 +107,7 @@ namespace Shoppite.UI
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<ICategoryPageService, CategoryPageService>();
             services.AddScoped<IproductDetailPageServices, ProductDetailPageServices>();
+            services.AddScoped<ICartPageServices, CartPageServices>();
 
             // Add Miscellaneous
             services.AddHttpContextAccessor();

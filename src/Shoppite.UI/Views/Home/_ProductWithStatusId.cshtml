@@ -35,7 +35,7 @@
                                 </div>
                                 <div class="bottom-item">
                                     <div class="product-info">
-                                        <h5><a class="product_name_Over">@group.ProductName</a></h5>
+                                        <h5><a  href="@Url.Action("Details", "ProductDetail",new { id = group.ProductGUID } )" class="product_name_Over">@group.ProductName</a></h5>
                                         <span>₹@group.Price</span>
                                         <p>
                                             <i class="fa fa-star-o"></i>
