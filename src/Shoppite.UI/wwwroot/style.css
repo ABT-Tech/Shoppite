@@ -5134,6 +5134,43 @@ textarea.form-control {
 .btn.btnContact:hover{
   background: #FE5B5A;
 }
+
+.btn.btnimg {
+	background: #333 none repeat scroll 0 0;
+	border-bottom: medium none;
+	border-image: none;
+	border-left: medium none;
+	border-radius: 10px;
+	border-top: medium none;
+	color: #fff;
+	font-size: 13px;
+	height: 32px;
+	text-transform: uppercase;
+	width: 15%;
+	transition: 0.3s;
+}
+
+	.btn.btnimg:hover {
+		background: #FE5B5A;
+	}
+.btn.btnpwd {
+	background: #333 none repeat scroll 0 0;
+	border-bottom: medium none;
+	border-image: none;
+	border-left: medium none;
+	border-radius: 10px;
+	border-top: medium none;
+	color: #fff;
+	font-size: 13px;
+	height: 32px;
+	text-transform: uppercase;
+	width: 25%;
+	transition: 0.3s;
+}
+
+	.btn.btnpwd:hover {
+		background: #FE5B5A;
+	}
 /*-------------------------------
 23. about us page
 --------------------------------*/

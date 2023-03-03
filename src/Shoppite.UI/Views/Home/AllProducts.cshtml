@@ -9,7 +9,7 @@
                         <nav>
                             <ul>
                                 <li>
-                                    <a class="home" href="index.html">Home</a>
+                                    <a class="home" asp-action="Index" asp-controller="Home">Home</a>
                                     <div class="megamenudown-mini home-ve">
                                         <div class="mega-top">
                                             <div class="mega-item-menu">
@@ -51,7 +51,7 @@
                                         <div class="megamenudown-mini home-ve">
                                             <div class="mega-top">
                                                 <div class="mega-item-menu">
-                                                    <a href="#"><span>My account</span></a>
+                                                    <a asp-action="myAccount" asp-controller="MyAccount"><span>My account</span></a>
                                                     <a asp-action="MyOrders" asp-controller="Orders"><span>My Order</span></a>
                                                     <a asp-controller="Wishlist" asp-action="Wishlist"><span>My wishlist</span></a>
                                                     <a href="#"><span>My cart</span></a>
@@ -406,15 +406,6 @@
                     <div class="col-lg-3 col-md-12">
                         <div class="categori-sidebar">
                             <h4>Catalog</h4>
-                            @* <div class="categoris categori-border">
-                                    <span class="cat-title">Price</span>
-                                    <ul>
-                                        <li class="price-range">
-                                            <label for="amount">Range: <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;"></label>
-                                            <div id="slider-range"></div>
-                                        </li>
-                                    </ul>
-                                </div>*@
                             <div class="categoris categori-border">
                                 @foreach (var at in Model.Attributes)
                                 {
@@ -426,7 +417,7 @@
                                             <li>
                                                 <span><input type="checkbox"   class="checkbox profileCheckbox" name="SpecificationName[]" value="@at.specifications[i].SpecificationName" id="chk_@i"  ></span>
                                                 <label>
-                                                    <a asp-controller="Home" asp-route-SpecificationName="@at.specifications[i].SpecificationName" asp-action="AllProducts"><span>@at.specifications[i].SpecificationName</span></a>
+                                                    <a asp-controller="Home" asp-route-SpecificationName="@at.specifications[i].SpecificationName"><span>@at.specifications[i].SpecificationName</span></a>
                                                 </label>
                                             </li>
                                         }

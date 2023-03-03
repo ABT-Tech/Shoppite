@@ -1,17 +1,34 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Shoppite.Application.Models
 {
    public class MainModel
     {
+        public int ProfileId { get; set; }
+        public int UserId { get; set; }
+        [RegularExpression("^([0-9]{10})$", ErrorMessage = "Invalid Mobile Number.")]
+        public string ContactNumber { get; set; }
+        public string Country { get; set; }
+        public string City { get; set; }
+        public string Zip { get; set; }
+        public string State { get; set; }
+        [Required]
+        public string Password { get; set; }
+        [Compare("Password")]
+        public string CPassword { get; set; }
+        public string Address { get; set; }
         public string OrderStatus { get; set; }
         public int WishlistId { get; set; }
         public int ProductId { get; set; }
         public string ProductName { get; set; }
+        public IFormFile ProfileImage { get; set; }
         public string CoverImage { get; set; }
         public string UserName { get; set; }
+        public string Username { get; set; }
         public DateTime? InsertDate { get; set; }
         public string Ip { get; set; }
         public int? OrgId { get; set; }
@@ -39,5 +56,7 @@ namespace Shoppite.Application.Models
         public List<Customer_WishlistModel> Wishlists { get; set; }
         public List<F_Orders_All_Model> MyOrders { get; set; }
         public List<F_Pending_Orders_Model> Orders { get; set; }
+        public List<f_Get_MyAccount_Data_Model> Myaccount { get; set; }
+        public List<sp_getcat_ResultModel> AllCategories { get; set; }
     }
 }

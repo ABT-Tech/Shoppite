@@ -1,15 +1,11 @@
 ﻿@model Shoppite.Application.Models.MainModel
-    <head>
-        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
-    </head>
-
-    @if (Model.TopBanner != null)
+@if (Model.TopBanner != null)
+{
+    @foreach (var image in Model.TopBanner.Take(4))
     {
-        @foreach (var image in Model.TopBanner.Take(2))
-        {
-            <a href="#"><img src="@image.Image" alt="slider image" /></a>
-        }
-
+        <a asp-action="AllProducts" asp-route-CategoryId="@image.CategoryId"><img src="@image.Banner" alt="slider image" /></a>
     }
+
+}
 

@@ -52,6 +52,10 @@ namespace Shoppite.Application.Mapper
             CreateMap<MainModel, CustomerWishlist>().ReverseMap();
             CreateMap<F_Orders_All, F_Orders_All_Model>().ReverseMap();
             CreateMap<F_Pending_Orders, F_Pending_Orders_Model>().ReverseMap();
+            CreateMap<f_Get_MyAccount_Data_Model, f_Get_MyAccount_Data>().ReverseMap();
+            CreateMap<MainModel, UsersProfile>().ReverseMap();
+            CreateMap<f_Get_MyAccount_Data_Model, UsersProfile>().ReverseMap();
+            CreateMap<MainModel, Users>().ReverseMap();
 
 
         }

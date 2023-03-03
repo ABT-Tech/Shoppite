@@ -66,32 +66,65 @@
             </div>
         </div>
     </div>
-</div>
-<!-- Start wishlists page area -->
-<div class="wishlists-page-area">
-    <div class="container">
-        <div class="row">
+    <div class="contact-page-area">
+        <div class="container">
             <div class="breadcrumb" style="color:#777; background-color: white !important">
-                Home
-                @*<a title="Return to Home" href="index.html" class="home">Home</a>*@
-                <span class="navigation-pipe"><i class="fa fa-angle-right"></i></span>My account
-                @* <a title="Return to Home" href="index.html" class="home">My account</a>*@
+                <span><a title="Return to Home" href="index.html" class="home"></a>Home</span>
                 <span class="navigation-pipe"><i class="fa fa-angle-right"></i></span>
-                Wishlist
+                My Account
             </div>
-        </div>
-        <div class="row">
-            <h4 class="cart-title">My wishlists</h4>
-            <div class="wishlist-permalink">
-                <p><a href="#"></a></p>
-            </div>
-            <div class="wishlist-product">
-                @await Html.PartialAsync("_Mywishlist", Model)
-                <p class="wishlist-back">
-                    <a href="#"><i class="fa fa-angle-left"></i>Back to your account</a> <a asp-action="Index"><i class="fa fa-angle-left"></i>Home</a>
-                </p>
+            @foreach (var image in Model.Myaccount.Take(1))
+            {
+                <img src="@Url.Content("~")@image.CoverImage" style="margin-right: 55px;max-height:100px; max-width: 100px; float: right;" />
+            }
+            <div class="contact-from-atea">
+                <div class="form-and-info">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="contactDetails contactHead">
+                                <h3>CONTACT Info</h3>
+                                @foreach (var myaccount in Model.Myaccount.Take(1))
+                                {
+                                    <p>
+                                        <span class="iconContact"><i class="fa fa-map-marker"></i></span>
+                                        @myaccount.Address
+                                    </p>
+                                    <p>
+                                        <span class="iconContact"><i class="fa fa-phone"></i></span>
+                                        @myaccount.ContactNumber
+                                    </p>
+                                    <p>
+                                        <span class="iconContact"><i class="fa fa-envelope-o"></i></span>
+                                        Email:@myaccount.Email
+                                    </p>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="contactfrom">
+                                @foreach (var myaccount in Model.Myaccount.Take(1))
+                                {
+                                    <h1>My Profile</h1>
+                                    <form action="#">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <input type="text" asp-for="@myaccount.UserName" readonly id="UserName" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6 contactemail">
+                                                <input type="email" asp-for="@myaccount.Email" readonly id="Email" class="form-control">
+                                            </div>
+                                        </div>
+                                        <a class="btn btnContact" asp-controller="MyAccount" asp-action="EditProfile">Edit Profile</a>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    @await Html.PartialAsync("~/Views/Home/_BrandZone.cshtml", Model)
 </div>
+

@@ -96,6 +96,7 @@ namespace Shoppite.Infrastructure.Data
         public virtual DbSet<SP_UserWishList> SP_UserWishList { get; set; }
         public virtual DbSet<F_Orders_All> F_Orders_All { get; set; }
         public virtual DbSet<F_Pending_Orders> F_Pending_Orders { get; set; }
+        public virtual DbSet<f_Get_MyAccount_Data> f_Get_MyAccount_Data { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -1333,6 +1334,10 @@ namespace Shoppite.Infrastructure.Data
                 entity.HasNoKey();
             });
             modelBuilder.Entity<F_Pending_Orders>(entity =>
+            {
+                entity.HasNoKey();
+            });
+            modelBuilder.Entity<f_Get_MyAccount_Data>(entity =>
             {
                 entity.HasNoKey();
             });

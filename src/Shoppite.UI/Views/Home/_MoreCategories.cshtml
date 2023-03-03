@@ -8,7 +8,7 @@
                 <div class="mega-item-menu">
                     @foreach (var item in Model.Categories)
                     {
-                        <a href="#"><span>@item.CategoryName</span></a>
+                        <a asp-action="AllProducts" asp-route-CategoryId="@item.CategoryId" asp-controller="Home"><span>@item.CategoryName</span></a>
                     }
                 </div>
             </div>

@@ -81,15 +81,12 @@
             </div>
         </div>
         <div class="row">
-            <h4 class="cart-title">My wishlists</h4>
+            <h4 class="cart-title">Shop By Category</h4>
             <div class="wishlist-permalink">
                 <p><a href="#"></a></p>
             </div>
             <div class="wishlist-product">
-                @await Html.PartialAsync("_Mywishlist", Model)
-                <p class="wishlist-back">
-                    <a href="#"><i class="fa fa-angle-left"></i>Back to your account</a> <a asp-action="Index"><i class="fa fa-angle-left"></i>Home</a>
-                </p>
+                @await Html.PartialAsync("_AllCategories", Model)
             </div>
         </div>
     </div>

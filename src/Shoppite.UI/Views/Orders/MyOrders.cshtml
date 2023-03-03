@@ -9,7 +9,7 @@
                         <nav>
                             <ul>
                                 <li>
-                                    <a class="home" href="index.html">Home</a>
+                                    <a class="home" asp-action="Index" asp-controller="Home">Home</a>
                                     <div class="megamenudown-mini home-ve">
                                         <div class="mega-top">
                                             <div class="mega-item-menu">
@@ -49,7 +49,7 @@
                                         <div class="megamenudown-mini home-ve">
                                             <div class="mega-top">
                                                 <div class="mega-item-menu">
-                                                    <a href="#"><span>My account</span></a>
+                                                    <a asp-action="myAccount" asp-controller="MyAccount"><span>My account</span></a>
                                                     <a asp-action="MyOrders" asp-controller="Orders"><span>My Orders</span></a>
                                                     <a asp-action="Wishlist" asp-controller="Wishlist"><span>My wishlist</span></a>
                                                     <a href="#"><span>My cart</span></a>
@@ -80,12 +80,13 @@
                 My Orders
             </div>
         </div>
-        <select class="pendingOrders" style="float:right">
+        <select class="pendingOrders form-select-sm" style="float:right">
             <option value="1">All Orders</option>
             <option value="2">Pending Orders</option>
             <option value="3">Delivered Orders</option>
             <option value="4">Cancelled Orders</option>
         </select>
+
         <div class="row">
             <h4 class="cart-title">My Orders</h4>
             <div class="wishlist-permalink">

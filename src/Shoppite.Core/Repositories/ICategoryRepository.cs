@@ -17,6 +17,8 @@ namespace Shoppite.Core.Repositories
         Task<List<f_getproducts_By_CategoryID>> GetAllProductByCategory(int CategoryId);
         Task<List<SP_GetSpecificationData_AttributName>> GetAllAttributes(int orgId);
         Task<List<f_getproducts_By_CatID_SpecificationName>> GetAllProductByAttribute(int CategoryId, string AttributeName);
+        Task<List<CategoryMaster>> GetBannerByCategory(int orgId);
+        Task<List<sp_getcat_Result>> GetAllCategories(int OrgId);
 
     }
 }

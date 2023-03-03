@@ -45,13 +45,9 @@ namespace Shoppite.UI.Controllers
             int OrgId = commonHelper.GetOrgID(HttpContext);
             wishlist.OrgId = OrgId;
             wishlist.Ip = ipadresss;
-            wishlist.UserName = "admin";
-            var brands = await _BrandPageService.GetBrands(OrgId);
-            brands.Categories = await _categoryPageService.GetCategories(id, OrgId);
-            brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
-            brands.Wishlists = await _productPageService.GetWishList("admin", OrgId);
+            wishlist.UserName = "admin";  
             await _productPageService.AddWishList(wishlist, id);
-            return View(brands);
+            return View(wishlist);
         }
     }
 }

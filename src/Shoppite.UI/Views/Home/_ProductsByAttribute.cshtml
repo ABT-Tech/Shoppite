@@ -1,5 +1,4 @@
 ﻿<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
 @model Shoppite.Application.Models.MainModel
 <div id="grid" class="tab-pane active categoti-grid-view">
     <div class="row">
@@ -7,7 +6,6 @@
         {
             <div class="col-md-4 col-lg-4 col-xl-3">
                 <div class="product-item">
-
                     <div class="top-item">
                         <a href="single-product.html">
                             <img style="height:244px;width:250px" src="@Url.Content("~")/@product.image" alt="Product image">
@@ -22,7 +20,6 @@
                             </p>
                         </div>
                     </div>
-
                     <div class="bottom-item">
                         <div class="product-info">
                             <h5><a href="#">@product.ProductName</a></h5>
@@ -38,30 +35,41 @@
                         <div class="product-social">
                             <ul>
                                 <li><a href="#"><i class="fa fa-external-link"></i></a></li>
-                                <li><a  class="addWish like" data-product="@product.ProductId"><i class="fa fa-heart" id="wishlist"></i></a></li>
+                                @foreach (var wishlist in Model.Wishlists)
+                                {
+                                    @if (product.ProductId == wishlist.ProductId)
+                                    {
+                                        <li><a class="addWish" data-product="@product.ProductId"><i class="fa fa-heart" id="addtowishlist" style="color:red"></i></a></li>
+                                    }
+                                    @*else
+                                    {
+                                        <li><a class="addWish" data-product="@product.ProductId"><i class="fa fa-heart"></i></a></li>
+
+                                    }*@
+                                }
+                                @* <li><a class="addWish" data-product="@product.ProductId"><i class="fa fa-heart"></i></a></li>*@
                                 <li><a href="#"><i class="fa fa-bar-chart"></i></a></li>
                                 <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
                             </ul>
                         </div>
-
                     </div>
-
                 </div>
             </div>
-            }
-        </div>
+        }
+    </div>
 </div>
 <script>
+    $('#removewishlist').hide()
     $('.addWish').click(function (e)
     {
-       @* if ($(e.target).css('color') == 'rgb(255, 0, 0)')
+        if ($(e.target).css('color') == 'rgb(255, 0, 0)')
         {
             $(e.target).css('color', 'white');
         }
-        else {
+        else
+        {
             $(e.target).css('color', 'red');
-        }*@
-
+        }
   e.preventDefault();
   var el = $(this),
     icon = el.find('i'),
@@ -73,8 +81,7 @@
                 "id": productId
             },
             success: function (data) {
-            //alert("success");
         }
-            });
-});
+        });
+    });
 </script>
