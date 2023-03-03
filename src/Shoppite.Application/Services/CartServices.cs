@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Shoppite.Application.Interfaces;
 using Shoppite.Application.Mapper;
 using Shoppite.Application.Models;
+using Shoppite.Core.Entities;
 using Shoppite.Core.Interfaces;
 using Shoppite.Core.Repositories;
 using System;
@@ -36,6 +37,40 @@ namespace Shoppite.Application.Services
             var productDelete = await _CartRepository.DeleteAsync(id);
             var mapped = ObjectMapper.Mapper.Map<CartModel>(productDelete);
             return mapped;
+        }
+
+        public async Task SaveAddress(CartModel cartModel)
+        {
+            cartModel.OrderShippingModel.Contactnumber = cartModel.OrderShippingModel.Phone;
+            cartModel.OrderShippingModel.InsertDate = DateTime.Now;
+
+            var maapped = ObjectMapper.Mapper.Map<OrderShipping>(cartModel.OrderShippingModel);
+            await _CartRepository.SaveAddress(maapped); 
+        }
+
+        public async Task UpdateOrder(CheckOutModel checkOut)
+        {
+            foreach(var update in checkOut.ar)
+            {
+               try
+               {
+                 Guid guid = Guid.Parse(update.Guid);
+                 int qty = Convert.ToInt32(update.Qty);
+
+                  OrderBasic orderBasic = new OrderBasic
+                  {
+                    OrderGuid = guid,
+                    Qty = qty,
+                  };
+                await _CartRepository.UpdateOrder(orderBasic);
+                }
+                 catch (Exception e)
+                 {
+
+                    throw e;
+                 }
+
+            }
         }
     }
 }

@@ -32,7 +32,7 @@ namespace Shoppite.Infrastructure.Repository
         }
         public async Task<OrderBasic> DeleteAsync(int id)
         {
-            var product = _dbContext.OrderBasic.FirstOrDefault(x => x.ProductId == id);
+            var product = _dbContext.OrderBasic.FirstOrDefault(x => x.ProductId == id && x.OrderStatus == "Cart");
             if (product != null)
             {
                 _dbContext.OrderBasic.Remove(product);
@@ -41,5 +41,28 @@ namespace Shoppite.Infrastructure.Repository
             return product;
         }
 
+        public async Task SaveAddress(OrderShipping orderShipping)
+        {
+            var OrderCheck = _dbContext.OrderShipping.FirstOrDefault(x => x.Contactnumber == orderShipping.Contactnumber);
+            if(OrderCheck == null)
+            {
+                _dbContext.OrderShipping.Add(orderShipping);
+            }
+           await _dbContext.SaveChangesAsync();
+
+        }
+
+        public async Task UpdateOrder(OrderBasic orderBasic)
+        {
+            var check = await _dbContext.OrderBasic.FirstOrDefaultAsync(x => x.OrderGuid == orderBasic.OrderGuid && x.OrderStatus == "Cart");
+
+            if(check != null)
+            {
+                check.Qty = orderBasic.Qty;
+
+                _dbContext.OrderBasic.Update(check);
+            }
+         await _dbContext.SaveChangesAsync();
+        }
     }
 }

@@ -24,6 +24,12 @@ using Shoppite.Application.Services;
 using Shoppite.Application.Interfaces;
 using Shoppite.Web.Interfaces;
 using Shoppite.Web.Services;
+using Microsoft.AspNetCore.Identity;
+using Shoppite.UI.Extensions;
+using System.Text;
+using System;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Shoppite.UI
 {
@@ -44,7 +50,7 @@ namespace Shoppite.UI
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
+                options.CheckConsentNeeded = context => false;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
             services.AddMvc(option => option.EnableEndpointRouting = false);
@@ -68,16 +74,28 @@ namespace Shoppite.UI
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseCookiePolicy();
+            app.UseSession();
 
+            app.Use(async (context, next) =>
+            {
+                var JWToken = context.Session.GetString("JWToken");
+
+                if (!string.IsNullOrEmpty(JWToken))
+                {
+                    context.Request.Headers.Add("Authorization", "Bearer " + JWToken);
+                }
+                await next();
+            });
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Authentications}/{action=LogIn}/{id?}");
             });
         }
 
@@ -93,12 +111,14 @@ namespace Shoppite.UI
             services.AddScoped<IBrandRepository, BrandRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IProductDetailRepsitory, ProductDetailRepository>();
+            services.AddScoped<IAuthenticationsRepository, AuthenticatiosRepository>();
             services.AddScoped<ICartRepository, CartRepository>();
 
             // Add Application Layer
             services.AddScoped<IBrandServices, BrandServices>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IProductDetailServices, ProductDetilServices>();
+            services.AddScoped<IAuthenticationsService, AuthenticationsService>();
             services.AddScoped<ICartServices, CartServices>();
 
             // Add Web Layer
@@ -108,11 +128,44 @@ namespace Shoppite.UI
             services.AddScoped<ICategoryPageService, CategoryPageService>();
             services.AddScoped<IproductDetailPageServices, ProductDetailPageServices>();
             services.AddScoped<ICartPageServices, CartPageServices>();
+            services.AddScoped<IAuthenticationsPageService, AuthenticationPageService>();
 
             // Add Miscellaneous
             services.AddHttpContextAccessor();
             services.AddHealthChecks()
                 .AddCheck<IndexPageHealthCheck>("home_page_health_check");
+            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<Shoppite_masterContext>();
+
+            SiteKeys.Configure(Configuration.GetSection("AppSettings"));
+            var key = Encoding.ASCII.GetBytes(SiteKeys.Token);
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(60);
+            });
+
+            services.AddAuthentication(auth =>
+            {
+                auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+              .AddJwtBearer(token =>
+               {
+                   token.RequireHttpsMetadata = false;
+                   token.SaveToken = true;
+                   token.TokenValidationParameters = new TokenValidationParameters
+                   {
+                       ValidateIssuerSigningKey = true,
+                       IssuerSigningKey = new SymmetricSecurityKey(key),
+                       ValidateIssuer = true,
+                       ValidIssuer = SiteKeys.WebSiteDomain,
+                       ValidateAudience = true,
+                       ValidAudience = SiteKeys.WebSiteDomain,
+                       RequireExpirationTime = true,
+                       ValidateLifetime = true,
+                       ClockSkew = TimeSpan.Zero
+                   };
+               });
         }
         public void ConfigureDatabases(IServiceCollection services)
         {

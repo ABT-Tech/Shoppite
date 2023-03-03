@@ -32,14 +32,14 @@ namespace Shoppite.UI.Controllers
             return View();
         }
 
-        // [HttpGet]
+        // [HttpPost]
         public async Task<IActionResult> Details(Guid id)
         {
             int orgid =commonHelper.GetOrgID(HttpContext);
             var Product_Details = await _ProductDetailPageService.GetProductDetails(id, orgid);
             return View("Details", Product_Details);
         }
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> AddProductToCart(ProductDetailModel productDetailModel)
         {
             await _ProductDetailPageService.AddToCart(productDetailModel);

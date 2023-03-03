@@ -47,7 +47,6 @@ namespace Shoppite.UI.Services
         }
         public async Task<ProductDetailModel> ProductAttribute(int AtId)
         {
-
             return await _ProductDetailServices.ProductAttribute(AtId);
         }
     }
