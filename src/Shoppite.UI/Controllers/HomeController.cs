@@ -54,6 +54,9 @@ namespace Shoppite.UI.Controllers
            var AA = await _BrandPageService.Get_Product_By_Cat(ID);
             return Json(AA.F_Getproducts_By_CategoryIDModels);
         }
-
+        public IActionResult LogIn()
+        {
+            return View();
+        }
     }
 }

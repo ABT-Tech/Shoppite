@@ -1,0 +1,130 @@
+﻿@{
+    Layout = null;
+}
+<link href="~/css/LogIn.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.css" />
+
+
+
+<div class="section">
+    <div class="container">
+        <div class="row full-height justify-content-center">
+            <div class="col-12 text-center align-self-center py-5">
+                <div class="section pb-5 pt-5 pt-sm-2 text-center">
+                    <div class="login">
+                        <h6 class="mb-0 pb-3"><span>Log In </span><span>Sign Up</span></h6>
+                    </div>
+                    <input class="checkbox" type="checkbox" id="reg-log" name="reg-log" />
+                    <label class="label-icon" for="reg-log">
+
+                        <i class="dire-icon fa-solid fa-up-left"></i>
+                    </label>
+                    <div class="card-3d-wrap mx-auto">
+                        <div class="card-3d-wrapper">
+                            <div class="card-front">
+                                
+                                <div class="center-wrap">
+                                    <div class="section text-center">
+                                        <img class="logologin" src="~/img/logo.png" />
+                                        <h4 class="mb-4 pb-3">Log In</h4>
+                                        <div class="form-group">
+                                            <i class="login-icon fa-solid fa-user"></i>
+                                            <input type="email" name="logemail" class="form-style" placeholder="Your Email" id="logemail" autocomplete="off" required>
+                                        </div>
+                                        <div class="form-group mt-2">
+                                            <i class="login-icon fa-solid fa-key"></i>
+                                            <i class="visible-pass fa-solid fa-eye-slash" aria-hidden="true" onclick="Toggle()"></i>
+                                            <input type="password" name="logpass" class="form-style " placeholder="Your Password" id="pass" autocomplete="off" required>
+                                        </div>
+                                        <p class="mb-0 mt-4 text-center"><a href="#0" class="link">Forgot your password?</a> <a href="#" class="btn mt-4">submit</a></p>
+                                        @*<span class="separator">OR</span>
+        <ul class="social-links">
+            <li class="google"><a href="#"><i class="fab fa-google "></i> Login with Google</a></li>
+            <li class="facebook"><a href="#"><i class="fab fa-facebook-f "></i> Login with Facebook</a></li>
+        </ul>*@
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-back">
+                                
+                                <div class="center-wrap">
+                                    <div class="section text-center">
+                                        <img class="signuplogo " src="~/img/logo.png" />
+                                        <h4 class="mb-4 pb-3" style="margin-top:30px;">Sign Up</h4>
+                                        <div class="form-group">
+                                            <i class="login-icon fa-solid fa-user"></i>
+                                            <input type="text" name="logname" class="form-style" placeholder="Your Full Name" id="logname" autocomplete="off" required>
+
+                                        </div>
+                                        <div class="form-group mt-2">
+                                            <i class="login-icon fa fa-envelope" aria-hidden="true"></i>
+                                            <input type="email" name="logemail" class="form-style" placeholder="Your Email" id="logemail" autocomplete="off" required>
+
+                                        </div>
+                                        <div class="form-group mt-2">
+                                            <i class="login-icon fa-solid fa-key"></i>
+                                            <i class="visible-pass fa-solid fa-eye-slash" aria-hidden="true" id="togglePassword"></i>
+                                            <input type="password" name="password" class="form-style" placeholder="Your Password" id="password" autocomplete="off" required>
+
+                                        </div>
+                                        <div class="form-group mt-2">
+                                            <i class="login-icon fa-solid fa-key"></i>
+                                            <input type="password" name="repassword" class="form-style" placeholder="Your Conform Password" id="repassword" autocomplete="off" required>
+
+                                        </div>
+                                        <a href="#" class="btn mt-4" style="margin:5px 0px 0px 317px;" id="logsubmit" disabled="disabled">submit</a>
+                                        @*<span class="separator">OR</span>
+        <ul class="social-links">
+            <li class="google"><a href="#"><i class="fab fa-google "></i> Login with Google</a></li>
+            <li class="facebook"><a href="#"><i class="fab fa-facebook-f "></i> Login with Facebook</a></li>
+        </ul>*@
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    const togglePassword = document.querySelector("#togglePassword");
+    const password = document.querySelector("#password");
+
+    togglePassword.addEventListener("click", function () {
+        // toggle the type attribute
+        const type = password.getAttribute("type") === "password" ? "text" : "password";
+        password.setAttribute("type", type);
+
+        // toggle the icon
+        this.classList.toggle("fa-eye");
+    });
+
+
+
+    // Change the type of input to password or text
+    function Toggle() {
+        var temp = document.getElementById("pass");
+        if (temp.type === "password") {
+            temp.type = "text";
+            temp.classList.add('fa-eye-slash');
+        }
+        else {
+            temp.classList.remove('fa-eye-slash');
+            temp.type = "password";
+             
+        }
+    }
+
+
+
+    
+</script>
+
+
+
+
+
+
