@@ -99,6 +99,9 @@ namespace Shoppite.Infrastructure.Data
         public virtual DbSet<f_Get_MyAccount_Data> f_Get_MyAccount_Data { get; set; }
         public virtual DbSet<F_getproducts_By_CatId> F_getproducts_By_CatId { get; set; }
         public virtual DbSet<F_getproducts_By_BrandId> F_getproducts_By_BrandId { get; set; }
+        public virtual DbSet<f_getproducts_Recentlyviewed> f_Getproducts_Recentlyviewed { get; set; }
+        public virtual DbSet<f_getproduct_specification_By_Guid> GetF_Getproduct_Specification_By_Guid { get; set; }
+        public virtual DbSet<f_getproduct_CartDetails_By_Orgid> F_Getproduct_CartDetails_By_Orgid { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -107,6 +110,7 @@ namespace Shoppite.Infrastructure.Data
             {
 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer("Data Source=103.150.186.216;Initial Catalog=Shoppite_master;User ID=sa;Password=Z8Lix[jg3K@R74;MultipleActiveResultSets=True;Application Name=EntityFramework");
+                //optionsBuilder.UseSqlServer("Data Source=DESKTOP-40G3LDG;Initial Catalog=Shoppite_master;MultipleActiveResultSets=True;Application Name=EntityFramework");
             }
         }
 
@@ -1319,6 +1323,18 @@ namespace Shoppite.Infrastructure.Data
                 entity.HasNoKey();
             });
             modelBuilder.Entity<SP_GetSpecificationData_AttributName>(entity =>
+            {
+                entity.HasNoKey();
+            });
+            modelBuilder.Entity<f_getproducts_Recentlyviewed>(entity =>
+            {
+                entity.HasNoKey();
+            });
+            modelBuilder.Entity<f_getproduct_specification_By_Guid>(entity =>
+            {
+                entity.HasNoKey();
+            });
+            modelBuilder.Entity<f_getproduct_CartDetails_By_Orgid>(entity =>
             {
                 entity.HasNoKey();
             });

@@ -17,11 +17,10 @@
                     <div class="producttabcarosel carosel-product5 owl-carousel">
 
                         @foreach (var group in product)
-                        {
-
+                         {
                             <div class="product-item">
                                 <div class="top-item">
-                                    <a href="#">
+                                    <a href="@Url.Action("Details", "ProductDetail",new { id = group.ProductGUID } )">
                                         <img src="@group.image"  alt="@group.ProductName" style="height: 244px;width: 299px;"/>
                                     </a>
                                     <div class="top-cocial">
@@ -36,7 +35,7 @@
                                 </div>
                                 <div class="bottom-item">
                                     <div class="product-info">
-                                        <h5><a href="#" class="product_name_Over">@group.ProductName</a></h5>
+                                        <h5><a  href="@Url.Action("Details", "ProductDetail",new { id = group.ProductGUID } )" class="product_name_Over">@group.ProductName</a></h5>
                                         <span>₹@group.Price</span>
                                         <p>
                                             <i class="fa fa-star-o"></i>
@@ -56,7 +55,7 @@
                                     </div>
                                 </div>
                             </div>
-                        }
+                         }
                     </div>
                 </div>
                 <!-- End new product -->
@@ -64,3 +63,25 @@
         }
     </div>
 </div>
+@*<div id="test"></div>*@
+<script>
+    function GetProductDetails(id) {
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("Details","ProductDetail")',
+            dataType: 'JSON',
+            data: { "id": id },
+            contentType: "application/json",
+            success: function (result) {
+                window.location.href = 'Details';
+                //$("#test").append(data);
+            },
+            error: function (xhr, status, error) {
+               // window.location = xhr;
+                alert(xhr.responseText);
+                console.log(xhr);
+                console.log(error);
+            }
+        });
+    }
+</script>

@@ -16,10 +16,12 @@
     <PackageReference Include="AWSSDK.S3" Version="3.7.103.19" />
     <PackageReference Include="dropzone" Version="4.3.0" />
     <PackageReference Include="Font.Awesome" Version="5.15.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.20" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.11" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
     <PackageReference Include="NinjaNye.SearchExtensions" Version="3.0.1" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.27.0" />
     <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.24" />
   </ItemGroup>
 

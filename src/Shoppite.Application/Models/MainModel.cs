@@ -62,5 +62,7 @@ namespace Shoppite.Application.Models
         public List<f_Get_MyAccount_Data_Model> Myaccount { get; set; }
         public List<sp_getcat_ResultModel> AllCategories { get; set; }
         public List<F_getproducts_By_BrandIdModel> ProductdByBrand { get; set; }
+        public ProductRecentlyViewedModel ProductRecentlyViewedModel { get; set; }
+        public List<f_getproducts_RecentlyviewedModel> f_Getproducts_RecentlyviewedModel { get; set; }
     }
 }

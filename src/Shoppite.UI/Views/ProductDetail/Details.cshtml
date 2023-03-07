@@ -1,0 +1,387 @@
+﻿@model Shoppite.Application.Models.ProductDetailModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Detail Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/plugins/select2/css/select2.min.css" rel="stylesheet" />
+<link href="~/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css" rel="stylesheet" />
+
+<style>
+    .modal-header {
+        background-color: #fe5b5a;
+    }
+</style>
+
+<form enctype="multipart/form-data" method="get" class="">
+    <input type="hidden" asp-for="AttributesSetupModel" />
+    <input type="hidden" asp-for="ProductBasicModel.ProductName" />
+    <input type="hidden" asp-for="ProductBasicModel.OrgId" />
+    <input type="hidden" asp-for="ProductBasicModel.ProductGuid" />
+    <input type="hidden" asp-for="ProductBasicModel.ProductId" />
+    <input type="hidden" asp-for="ProductPriceModel.Price" />
+    <input type="hidden" asp-for="ProductPriceModel.ProductPriceId" />
+    <input type="hidden" asp-for="ProductPriceModel.CurrencyId" />
+    <input type="hidden" asp-for="ProductPriceModel.DeliveryFees" />
+   
+    <!-- Start main area -->
+    <div class="main-area">
+        <!-- Start header -->
+        <!-- End header -->
+        <!-- Start mega menu area -->
+        <!-- End mega menu area -->
+        <!-- Start mobile menu -->
+        <!-- End mobile menu -->
+        <!-- Start single product area -->
+        <div class="single-product-area">
+            <div class="container">
+                <div class="breadcrumb clearfix">
+                    <a title="Return to Home" asp-action="Index" asp-controller="Home" class="home">Home</a>
+                    <span class="navigation-pipe"><i class="fa fa-angle-right"></i></span>
+                    <span class="navigation_page">
+                        <span>
+                            <a title="Electronic" href="#"><span>Category</span></a>
+                        </span>
+                        <span class="navigation-pipe"><i class="fa fa-angle-right"></i></span>@Model.ProductBasicModel.ProductName
+                    </span>
+                </div>
+                <div class="single-products">
+                    <div class="row">
+                        <!-- Start single product image -->
+                        <div class="col-lg-4 col-md-6">
+                            <div class="single-product-image">
+                                <div id="content-eleyas">
+                                    <div id="my-tab-content" class="product-details-large tab-content jump">
+                                        <div class="tab-pane active" id="view1">
+                                            <a class="fancybox" href="@Model.ProductBasicModel.CoverImage" data-fancybox-group="gallery" title=""><img src="@Model.ProductBasicModel.CoverImage" alt=""><span>View larger<i class="fa fa-search-plus"></i></span></a>
+                                        </div>
+                                        @foreach (var proImg in Model.ProductImagesModel)
+                                        {
+                                            <div class="tab-pane" id="view2">
+                                                <a class="fancybox" href="@proImg.Image" data-fancybox-group="gallery" title=""><img src="@proImg.Image" alt=""><span>View larger<i class="fa fa-search-plus"></i></span></a>
+                                            </div>
+                                        }
+                                    </div>
+
+                                    <div id="viewproduct" class="nav nav-tabs producttabcarosel product-view owl-carousel" data-tabs="tabs">
+                                        <div class="pro-view"><a href="#view1" data-bs-toggle="tab" class="active"><img src="@Model.ProductBasicModel.CoverImage" alt=""></a></div>
+                                        @foreach (var Preview in Model.ProductImagesModel)
+                                        {
+                                            <div class="pro-view"><a href="#view1" data-bs-toggle="tab"><img src="@Preview.Image" alt=""></a></div>
+                                        }
+                                        @*<div class="pro-view"><a href="@Model.ProductImagesModel.Image" data-bs-toggle="tab"><img src="@Model.ProductImagesModel.Image" alt=""></a></div>
+                                            <div class="pro-view"><a href="@Model.ProductImagesModel.Image" data-bs-toggle="tab"><img src="@Model.ProductImagesModel.Image" alt=""></a></div>*@
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End single product image -->
+                        <!-- Start single product details -->
+                        <div class="col-lg-5 col-md-6">
+                            <div class="single-product-details">
+                                <h1>@Model.ProductBasicModel.ProductName</h1>
+                                <p><strong>Reference:</strong> demo_1 </p>
+                                <p><strong>Condition:</strong> New product </p>
+                                <h2>
+                                    <span>₹ @Model.ProductPriceModel.Price </span>
+                                    @if (Model.ProductPriceModel.TaxExempt == true)
+                                    {
+                                        <span class="text-black">tax incl.</span>
+                                    }
+                                </h2>
+                                <p>@Model.ProductBasicModel.ShortDescription</p>
+                                <p class="sin-item">
+                                    <span class="sin-item-text"> @Model.ProductBasicModel.Qty Items </span>
+                                    @if (@Model.ProductBasicModel.Qty != 0)
+                                    {
+                                        <span class="sin-item-btn">In stock</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="sin-item-out-stock">Out of stock</span>
+                                    }
+                                </p>
+                                @*<form method="post" action="#">*@
+                                <div class="numbers-row">
+                                    <label>Quantity </label>
+                                    <input type="number" asp-for="OrderBasicModel.Qty" name="OrderBasicModel.Qty" id="french-hens" min="1" value="1">
+                                </div>
+
+                                @*</form>*@
+
+                                @*@foreach (var prodAttr in Model.AttributesSetupModel)
+        {
+           <p class="selector1">
+                <label>@prodAttr.AttributeName</label>
+                <select id="selectProductSort2" class="select_1 select2 selectProductSort form-control" asp-items="@(new SelectList(prodAttr.GetF_Getproduct_Specification_By_GuidModel,"AttributeId","SpecificationName"))"></select>
+            </p>
+        }*@
+
+                                @if (Model.ProductBasicModel.Qty == 0)
+                                {
+                                    <p class="buttons_bottom_block no-print disabled" id="add_to_cart">
+                                        <button class="exclusive disabled" name="Submit" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" disabled>
+                                            <span class="">Add to cart</span>
+                                        </button>
+                                    </p>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body fw-bold d-flex">
+                                                    This item is currently&nbsp;<div class="text-danger">out of stock</div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+
+
+                                    <p class="buttons_bottom_block no-print" id="add_to_cart">
+
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+
+                                            <button class="exclusive" name="Submit" asp-action="AddProductToCart" asp-controller="ProductDetail" type="submit">
+                                                <span>Add to cart</span>
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <button class="exclusive" name="Submit" asp-action="Login" asp-controller="Authentications" type="submit">
+                                                <span>Add to cart</span>
+                                            </button>
+                                        }
+                                    </p>
+                                }
+
+                                <p class="sin-adto-cart-bottom">
+                                    @*<a href="#"><i class="fa fa-envelope-o"></i></a>
+            <a href="#"><i class="fa fa-print"></i></a>*@
+                                    <abbr title="Like"><a href="#"><i class="fa fa-heart-o"></i></a></abbr>
+                                    <abbr title="WishList"><a href="#"><i class="fa fa-list"></i></a></abbr>
+                                </p>
+                                @*<div class="sin-social">
+            <p>
+                <a class="btn btn-default twitter" href="#"><i class="fa fa-twitter"></i>Tweet</a>
+                <a class="btn btn-default facebook" href="#"><i class="fa fa-facebook"></i>Share</a>
+                <a class="btn btn-default google-plus" href="#"><i class="fa fa-google-plus"></i>Google+</a>
+                <a class="btn btn-default pinterest" href="#"><i class="fa fa-pinterest"></i>Pinterest</a>
+            </p>
+        </div>*@
+                            </div>
+                        </div>
+                        @*End single product details*@
+
+                    </div>
+                </div>
+                <!-- Start single more info -->
+                <div class="single-mori-info">
+                    <div id="content">
+                        <ul class="idTabs idTabsShort nav" id="single-tabs" data-tabs="tabs">
+                            <li class="first"><a href="#sin-more1" data-bs-toggle="tab" class="active"><span>More info</span></a></li>
+                            <li><a href="#sin-more2" class="" data-bs-toggle="tab">Data sheet</a></li>
+                            <li class="last"><a class="idTabHrefShort page-product-heading" href="#sin-more3" data-bs-toggle="tab">Reviews</a></li>
+                        </ul>
+                        <div id="my-tab-content-eleyas" class="tab-content jump">
+                            <div class="tab-pane active" id="sin-more1">
+                                <p>@Html.Raw(Model.ProductBasicModel.Description)</p>
+                            </div>
+                            <div class="tab-pane" id="sin-more2">
+                                <div class="page-product-box" id="idTab2">
+                                    <table class="table-data-sheet">
+                                        <tbody>
+                                            <tr class="odd">
+                                                <td>Brand</td>
+                                                <td>@Model.BrandsModel.BrandName</td>
+                                            </tr>
+                                            <tr class="even">
+                                                <td>Date First Available</td>
+                                                <td>@Model.ProductBasicModel.ProductStartDate</td>
+                                            </tr>
+                                            <tr class="odd">
+                                                <td>Properties</td>
+                                                <td>Short Sleeve</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="sin-more3">
+                                <button type="button" class="btn btn-info btn-lg" data-bs-toggle="modal" data-target="#myModal">Be the first to write your review!</button>
+                                <!-- Modal -->
+                                <div class="modal fade" id="myModal" role="dialog">
+                                    <div class="modal-dialog">
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Write a review</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="product">
+                                                            <img alt="Blouse" src="img/product/blouse1.jpg">
+                                                            <p class="product_name"><strong>Blouse</strong></p>
+                                                            <p>Short-sleeved blouse with feminine draped sleeve detail.</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="product-review">
+                                                            <label>Quality:</label>
+                                                            <p>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                            </p>
+                                                            
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputEmail1">Title:</label>
+                                                                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label>Comment:</label>
+                                                                    <textarea class="form-control" rows="3"></textarea>
+                                                                </div>
+                                                                <button type="submit" class="btn btn-default">Submit</button>
+                                                            <
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- End single more info -->
+                <!-- Start single Accessories -->
+                <div class="new-product-area">
+                    <div class="new-product-title">
+                        <h4><span>Similar products</span></h4>
+                    </div>
+                    <div class="producttabcarosel carosel-product5 owl-carousel">
+                        @foreach (var product in Model.f_Getproducts_By_CategoryIDModels)
+                        {
+                            <div class="product-item">
+                                <div class="top-item">
+                                    <a href="@Url.Action("Details", "ProductDetail",new { id = product.ProductGUID } )">
+                                        <img src="@product.image" alt="@product.ProductName" style="height: 244px;width: 299px;">
+                                    </a>
+                                    <div class="top-cocial">
+                                        <p>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="bottom-item">
+                                    <div class="product-info">
+                                        <h5><a href="@Url.Action("Details", "ProductDetail",new { id = product.ProductGUID } )" class="product_name_Over">@product.ProductName</a></h5>
+                                        <span>₹@product.Price</span>
+                                        <p>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                        </p>
+                                    </div>
+                                    <div class="product-social">
+                                        <ul>
+                                            <li><a href="#"><i class="fa fa-external-link"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-bar-chart"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <!-- End single Accessories -->
+                <!-- End single more info -->
+                <!-- Start single Accessories -->
+                @*<div class="new-product-area">
+                        <div class="new-product-title">
+                            <h4><span>Recently Viewed</span></h4>
+                        </div>
+                        <div class="producttabcarosel carosel-product5 owl-carousel">
+                            @foreach (var product in Model.f_Getproducts_RecentlyviewedModel)
+                             {
+                                <div class="product-item">
+                                    <div class="top-item">
+                                        <a href="@Url.Action("Details", "ProductDetail",new { id = product.ProductGUID } )">
+                                            <img src="@product.image" alt="@product.ProductName" style="height: 244px;width: 299px;">
+                                        </a>
+                                        <div class="top-cocial">
+                                            <p>
+                                                <i class="fa fa-star-o"></i>
+                                                <i class="fa fa-star-o"></i>
+                                                <i class="fa fa-star-o"></i>
+                                                <i class="fa fa-star-o"></i>
+                                                <i class="fa fa-star-o"></i>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="bottom-item">
+                                        <div class="product-info">
+                                            <h5><a href="@Url.Action("Details", "ProductDetail",new { id = product.ProductGUID } )" class="product_name_Over">@product.ProductName</a></h5>
+                                            <span>₹@product.Price</span>
+                                            <p>
+                                                <i class="fa fa-star-o"></i>
+                                                <i class="fa fa-star-o"></i>
+                                                <i class="fa fa-star-o"></i>
+                                                <i class="fa fa-star-o"></i>
+                                                <i class="fa fa-star-o"></i>
+                                            </p>
+                                        </div>
+                                        <div class="product-social">
+                                            <ul>
+                                                <li><a href="#"><i class="fa fa-external-link"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-bar-chart"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                             }
+                        </div>
+                    </div>*@
+            </div>
+        </div>
+        <!-- End single product area -->
+        <!-- Start brand logo area -->
+        <!-- End brand logo area -->
+        <!-- Start footer area -->
+        <!-- End footer area -->
+    </div>
+</form>
+    <!-- End main area -->
+    <script src="~/plugins/select2/js/select2.min.js"></script>

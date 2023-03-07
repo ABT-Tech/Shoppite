@@ -1,0 +1,45 @@
+﻿@model Shoppite.Application.Models.UsersModal
+
+@{ Layout = null; }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>User Login</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/Login.css" rel="stylesheet" />
+</head>
+<body>
+    <div>
+        <form enctype="multipart/form-data" method="post">
+            <h3><img class="img-fluid" id="Order_Detail_Image" src="@Url.Content(Model.LogoModel.Logo1)" style="max-height:200px;max-width:200px;border-radius:5px;" /></h3>
+
+            <label for="username">Username</label>
+            <input asp-for="Username" placeholder="Email or Phone" id="username">
+            <span asp-validation-for="Username" style="color: #EB455F"></span>
+
+            <label for="password">Password</label>
+            <input asp-for="Password" type="password" placeholder="Password" id="password">
+            <span asp-validation-for="Password" style="color: #EB455F"></span>
+
+            <div class="form-check">
+                <input class="form-check-input h-auto" type="checkbox"> <label>Remeber Me</label>
+            </div>
+
+            <button class="m-auto" type="submit">Log In</button>
+            <br />
+            <br />
+            <span style="color: #EB455F">
+                @ViewBag.LoginValidError
+            </span>
+        </form>
+    </div>
+</body>
+</html>
+<script src="~/plugins/jquery/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>

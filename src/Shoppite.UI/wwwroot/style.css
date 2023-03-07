@@ -3965,6 +3965,17 @@ body.single-product .producttabcarosel .owl-next {
   background-color: #55c65e;
   border: 1px solid #36943e;
 }
+	.single-product-details p.sin-item span.sin-item-out-stock {
+		color: #fff;
+		display: inline-block;
+		font-weight: 700;
+		line-height: 18px;
+		margin-left: 5px;
+		padding: 3px 8px 4px;
+		background-color: #c65555;
+		border: 1px solid #36943e;
+	}
+
 .single-product-details p.quyality{
   overflow: hidden;
   margin: 0 0 5px;
