@@ -95,7 +95,7 @@ namespace Shoppite.UI
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Authentications}/{action=LogIn}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
 

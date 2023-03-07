@@ -361,7 +361,7 @@
                                                     </div>
                                                     <div aria-labelledby="headingFive3" data-bs-parent="#accordion1" role="tabpanel" class="panel-collapse collapse" id="orderReview3" aria-expanded="false">
                                                         <div class="content-info">
-                                                            <a asp-action="OrderSuccess" asp-controller="Cart" class=" mt-2 btn SaveBtn" style="width: 160px;">Cash on Delivery</a>
+                                                            <a href="/Cart/OrderSuccess?orderid=@Model.OrderBasicModel.OrderGuid" class=" mt-2 btn SaveBtn" style="width: 160px;">Cash on Delivery</a>
                                                         </div>
                                                     </div>
                                                 </div>

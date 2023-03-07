@@ -144,7 +144,13 @@
             return await _dbContext.ProductRecentlyViewed.Where(x => x.OrgId == orgid).FirstOrDefaultAsync();
         }
 
-        public async Task<List<f_getproducts_Recentlyviewed>> F_Getproducts_Recentlyviewed(string id , int orgid)
+        /// <summary>
+        /// The F_Getproducts_Recentlyviewed.
+        /// </summary>
+        /// <param name="id">The id<see cref="string"/>.</param>
+        /// <param name="orgid">The orgid<see cref="int"/>.</param>
+        /// <returns>The <see cref="Task{List{f_getproducts_Recentlyviewed}}"/>.</returns>
+        public async Task<List<f_getproducts_Recentlyviewed>> F_Getproducts_Recentlyviewed(string id, int orgid)
         {
             string sql = "select * from f_getproducts_Recentlyviewed(@IP,@orgid)";
 
@@ -157,6 +163,12 @@
 
             return await _dbContext.Set<f_getproducts_Recentlyviewed>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
         }
+
+        /// <summary>
+        /// The specificationSetups.
+        /// </summary>
+        /// <param name="SpecGuid">The SpecGuid<see cref="Guid"/>.</param>
+        /// <returns>The <see cref="Task{IEnumerable{f_getproduct_specification_By_Guid}}"/>.</returns>
         public async Task<IEnumerable<f_getproduct_specification_By_Guid>> specificationSetups(Guid SpecGuid)
         {
             string sql = "select * from f_getproduct_specification_By_Guid(@ProductGUID)";
@@ -168,16 +180,55 @@
             };
             return await _dbContext.Set<f_getproduct_specification_By_Guid>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
         }
+
+        /// <summary>
+        /// The ProductAttribute.
+        /// </summary>
+        /// <param name="AtId">The AtId<see cref="int"/>.</param>
+        /// <returns>The <see cref="Task{IEnumerable{AttributesSetup}}"/>.</returns>
         public async Task<IEnumerable<AttributesSetup>> ProductAttribute(int AtId)
         {
             var productAttribute = await _dbContext.AttributesSetup.OrderBy(x => x.AttributeName).ToListAsync();
             return productAttribute;
         }
 
+        /// <summary>
+        /// The check.
+        /// </summary>
+        /// <param name="productDetailModel">The productDetailModel<see cref="OrderBasic"/>.</param>
+        /// <returns>The <see cref="Task {OrderBasic}"/>.</returns>
+        public async Task<OrderBasic> check(OrderBasic productDetailModel)
+        {
+            var check = await _dbContext.OrderBasic.Where(x => x.OrderStatus == "Cart" && x.UserName == productDetailModel.UserName && x.OrgId == productDetailModel.OrgId).FirstOrDefaultAsync();
+            return check;
+        }
+
+        /// <summary>
+        /// The AddToCart.
+        /// </summary>
+        /// <param name="productDetailModel">The productDetailModel<see cref="OrderBasic"/>.</param>
+        /// <returns>The <see cref="Task"/>.</returns>
         public async Task AddToCart(OrderBasic productDetailModel)
         {
-           _dbContext.OrderBasic.Add(productDetailModel);
-           await _dbContext.SaveChangesAsync();
+            _dbContext.OrderBasic.Add(productDetailModel);
+
+            await _dbContext.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// The AddOrderMaster.
+        /// </summary>
+        /// <param name="orderMaster">The orderMaster<see cref="OrderMaster"/>.</param>
+        /// <returns>The <see cref="Task"/>.</returns>
+        public async Task AddOrderMaster(OrderMaster orderMaster)
+        {
+            // var check = await _dbContext.OrderMaster.FirstOrDefaultAsync(x => x.OrderGuid == orderMaster.OrderGuid);
+            //Guid guid = Guid.NewGuid();
+            //orderMaster.OrderGuid = guid;
+            //orderMaster.InsertDate = DateTime.Now;
+
+            _dbContext.OrderMaster.Add(orderMaster);
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

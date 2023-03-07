@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shoppite.Application.Models;
+using Shoppite.UI.Extensions;
 using Shoppite.UI.Helpers;
 using Shoppite.UI.Interfaces;
 using System;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Shoppite.UI.Controllers
 {
+    [Authorize]
     public class CartController : Controller
     {
         private readonly ICartPageServices _cartPageService;
@@ -36,17 +38,22 @@ namespace Shoppite.UI.Controllers
         [HttpPost]
         public async Task<ActionResult> AddToCheck([FromBody] CheckOutModel checkOut )
         {
-            await _cartPageService.UpdateOrder(checkOut);
+          await _cartPageService.UpdateOrderQty(checkOut);
+
             return Json(checkOut);
         }
 
-        public async Task<ActionResult> CheckOut()
+        public async Task<ActionResult> CheckOut(Guid orderid)
         {
-            return View();
+         var order =  await _cartPageService.CheckOrder(orderid);
+            //  var orderId = Request.Query
+            return View(order);
         }
 
-        public IActionResult OrderSuccess()
+        public async Task<ActionResult> OrderSuccessAsync(Guid orderid)
         {
+            await _cartPageService.UpdateOrder(orderid);
+
             return View();
         }
 

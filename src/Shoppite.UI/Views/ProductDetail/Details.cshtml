@@ -122,7 +122,7 @@
                                 @if (Model.ProductBasicModel.Qty == 0)
                                 {
                                     <p class="buttons_bottom_block no-print disabled" id="add_to_cart">
-                                        <button class="exclusive disabled" name="Submit"  type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" disabled>
+                                        <button class="exclusive disabled" name="Submit" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" disabled>
                                             <span class="">Add to cart</span>
                                         </button>
                                     </p>
@@ -136,7 +136,7 @@
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body fw-bold d-flex">
-                                                    This item is currently&nbsp;<div  class="text-danger">out of stock</div>
+                                                    This item is currently&nbsp;<div class="text-danger">out of stock</div>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">close</button>
@@ -147,10 +147,23 @@
                                 }
                                 else
                                 {
+
+
                                     <p class="buttons_bottom_block no-print" id="add_to_cart">
-                                        <button class="exclusive" name="Submit" asp-action="AddProductToCart" asp-controller="ProductDetail" type="submit">
-                                            <span>Add to cart</span>
-                                        </button>
+
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+
+                                            <button class="exclusive" name="Submit" asp-action="AddProductToCart" asp-controller="ProductDetail" type="submit">
+                                                <span>Add to cart</span>
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <button class="exclusive" name="Submit" asp-action="Login" asp-controller="Authentications" type="submit">
+                                                <span>Add to cart</span>
+                                            </button>
+                                        }
                                     </p>
                                 }
 

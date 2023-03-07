@@ -20,5 +20,7 @@ namespace Shoppite.Core.Repositories
         Task<IEnumerable<f_getproduct_specification_By_Guid>> specificationSetups(Guid SpecGuid);
         Task<IEnumerable<AttributesSetup>> ProductAttribute(int AtId);
         Task AddToCart(OrderBasic productDetailModel);
+        Task AddOrderMaster(OrderMaster orderMaster);
+        Task<OrderBasic> check(OrderBasic productDetailModel);
     }
 }

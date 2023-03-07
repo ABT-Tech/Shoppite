@@ -11,6 +11,9 @@ namespace Shoppite.UI.Interfaces
         Task<CartModel>OrderBasic(int orgid);
         Task<CartModel> DeleteAysnc(int id);
         Task SaveAddress(CartModel cartModel);
-        Task UpdateOrder(CheckOutModel checkOut);
+        //Task UpdateOrder(CheckOutModel checkOut);
+        Task<CartModel> CheckOrder(Guid guid);
+        Task UpdateOrder(Guid guid);
+        Task UpdateOrderQty(CheckOutModel checkOut);
     }
 }

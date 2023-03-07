@@ -189,11 +189,12 @@
 
                                             <tr class="">
                                                 <td class="">
+                                                    <input class="HidenProId" asp-for="@cartlist.ProductId" hidden />
                                                     <a href="/ProductDetail/Details/@cartlist.ProductGuid"><img alt="" class="img-responsive img-fluid" src="@cartlist.CoverImage"></a>
-                                                    <input class="HidenGuid" asp-for="@cartlist.ProductGuid" hidden />
+                                                    <input class="HidenGuid" asp-for="@cartlist.OrderGuid" hidden />
                                                 </td>
                                                 <td>
-                                                    <h4><a href="/ProductDetail/Details/@cartlist.ProductGuid">@cartlist.ProductName</a></h4>
+                                                    <h4><a href="/ProductDetail/Details/@cartlist.ProductGuid" class="product_name_Over">@cartlist.ProductName</a></h4>
                                                     <div class="fw-bold price amount" data-price="@cartlist.Price" id="pP_@cartlist.ProductId" style="color: #FE5B5A;"></div>
                                                 </td>
                                                 <td>
@@ -413,7 +414,7 @@
 
            // dataBunch = [(tab[i].cells[0].childNodes[1].childNodes[0].currentSrc), (tab[i].children[0].children[1].value), (tab[i].cells[1].children[0].childNodes[0].innerText), (tab[i].cells[1].children[1].innerText), (tab[i].cells[2].children[0].children[1].value)];
            // "Image": tab[i].cells[0].childNodes[1].childNodes[0].currentSrc, "ProductName": tab[i].cells[1].children[0].childNodes[0].innerText, "Price": tab[i].cells[1].children[1].innerText,
-            ar.push({ "Guid": tab[i].children[0].children[1].value, "Qty": tab[i].cells[2].children[0].children[1].value });
+            ar.push({ "Guid": tab[i].children[0].children[2].value, "Qty": tab[i].cells[2].children[0].children[1].value, "ProductId": tab[i].cells[0].children[0].value });
         }
 
         var makeString = JSON.stringify({ar});
@@ -425,10 +426,10 @@
             data: makeString,
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                window.location = "/Cart/CheckOut"
+                window.location = "/Cart/CheckOut?orderid=" + $('.HidenGuid').val()
             },
             error: function (xhr, status, error) {
-                alert("this is error");
+                alert( window.location = "/Cart/CheckOut/" + $('.HidenGuid').val())
             }
         });
 

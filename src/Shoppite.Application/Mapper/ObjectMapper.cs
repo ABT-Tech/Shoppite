@@ -55,6 +55,8 @@ namespace Shoppite.Application.Mapper
             CreateMap<Logo,LogoModel>().ReverseMap();
             CreateMap<Users,UsersModal>().ReverseMap();
             CreateMap<UsersProfile,UsersModal>().ReverseMap();
+            CreateMap<OrderMaster,OrderMasterModel>().ReverseMap();
+
 
 
             CreateMap<CategoryMasterModel, CategoryMaster>().ReverseMap();

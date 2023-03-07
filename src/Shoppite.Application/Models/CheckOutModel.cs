@@ -16,6 +16,7 @@ namespace Shoppite.Application.Models
         //public string ProductName { get; set; }
         //public string Price { get; set; }
         public string Qty { get; set; }
+        public string ProductId { get; set; }
     }
 
 }

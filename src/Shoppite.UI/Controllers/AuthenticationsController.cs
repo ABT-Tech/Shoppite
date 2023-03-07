@@ -11,11 +11,10 @@ using System.Threading.Tasks;
 
 namespace Shoppite.UI.Controllers
 {
-    public class AuthenticationsController : Controller
+    public class AuthenticationsController : BaseController
     {
         private readonly IAuthenticationsPageService _AuthenticationPageService;
         private readonly CommonHelper commonHelper = new CommonHelper();
-        private readonly BaseController baseController = new BaseController();
         private readonly IHostingEnvironment _hostingEnvironment;
 
         public AuthenticationsController(IAuthenticationsPageService AuthenticationPageService, IHostingEnvironment hostingEnvironment)
@@ -46,7 +45,8 @@ namespace Shoppite.UI.Controllers
             var UserValidate = await _AuthenticationPageService.Get_Login_Data(usersModal.Username, usersModal.Password, (int)usersModal.OrgId);
             if (UserValidate.Password != null && UserValidate.Username != null)
             {
-                _ = baseController.CreateAuthenticationTicket(UserValidate);
+                _ = CreateAuthenticationTicket(UserValidate);
+
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
             else

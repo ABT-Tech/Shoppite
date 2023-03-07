@@ -88,7 +88,19 @@
                                     <span><a href="#" class="btn  btn-sm btn-secondary">Join to Shoppite</a></span>
                                 </div>
                                 <div>
-                                    <h6 style="color:white;">welcome @User.Identity.Name</h6>
+                                    <h6 style="color:white;">
+                                        welcome
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+
+                                            <p>@User.Identity.Name</p>
+                                        }
+                                        else
+                                        {
+
+                                            <p>Visiter</p>
+                                        }
+                                    </h6>
                                 </div>
                             </div>
                         </div>
