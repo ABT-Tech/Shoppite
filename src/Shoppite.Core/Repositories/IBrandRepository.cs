@@ -17,5 +17,6 @@ namespace Shoppite.Core.Repositories
         Task<List<CategoryMaster>> CategoryMaster(int orgid);
         Task<List<f_getproducts_Recentlyviewed>> F_Getproducts_Recentlyviewed(string id, int orgid);
 
+        Task<List<F_getproducts_By_BrandId>> GetProductsByBrand(int OrgId, int BrandId);
     }
 }
