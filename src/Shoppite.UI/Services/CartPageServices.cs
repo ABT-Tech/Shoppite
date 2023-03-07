@@ -28,5 +28,18 @@ namespace Shoppite.UI.Services
         {
             return await _CartService.Delete(id);
         }
+
+        public async Task SaveAddress(CartModel cartModel)
+        {
+            var mapped = _mapper.Map<CartModel>(cartModel);
+            await _CartService.SaveAddress(mapped);
+        }
+
+        public async Task UpdateOrder(CheckOutModel checkOut)
+        {
+            var mapped = _mapper.Map<CheckOutModel>(checkOut);
+            await _CartService.UpdateOrder(mapped);
+
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Shoppite.Application.Models.CartModel
+@{
     ViewData["Title"] = "Cart Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -56,7 +57,46 @@
 <!-- responsive CSS
 ============================================ -->
 <link rel="stylesheet" href="~/css/responsive.css">
+<style>
+    /*    .SaveBtn {
+        height: 35px;
+        width: 100px;
+        border: none;
+        background-color: #ff5b5a;
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
 
+
+    }*/
+
+    .SaveBtn {
+        background: #ff5b5a;
+        color: #fff;
+        border: none;
+        display: block;
+        height: 30px;
+        /*line-height: 31px;*/
+        margin-bottom: 20px;
+        margin-left: 4px;
+        text-align: center;
+        text-decoration: none;
+        text-transform: uppercase;
+        width: 115px;
+        border-radius: 10px;
+    }
+
+        .SaveBtn:hover {
+            background: #363636;
+            color: #fff;
+        }
+
+
+    .makeover {
+        width: 220px;
+        border-radius: 40px;
+    }
+</style>
 
 <div class="main-area">
 
@@ -73,237 +113,263 @@
                 <h4 class="cart-title">CHECKOUT</h4>
                 <div class="checkout-content">
                     <div class="row">
-                        <div class="col-md-9">
+                        <div class="col-md-9 mb-5">
                             <div aria-multiselectable="true" role="tablist" id="accordion" class="panel-group">
                                 <div class="panel sauget-accordion">
                                     <div id="headingOne" role="tab" class="panel-heading">
                                         <h4 class="panel-title">
                                             <a aria-controls="checkoutMethod" aria-expanded="true" href="#checkoutMethod" data-bs-toggle="collapse" class="">
-                                                <span>1</span> CHECKOUT METHOD
+                                                <span>1</span>  Billing Information
                                             </a>
                                         </h4>
                                     </div>
                                     <div aria-labelledby="headingOne" data-bs-parent="#accordion" role="tabpanel" class="panel-collapse collapse show" id="checkoutMethod" aria-expanded="true" style="">
                                         <div class="content-info">
-                                            <div class="row">
-                                                <div class="col-lg-6">
-                                                    <div class="checkout-reg">
-                                                        <div class="checkReg commonChack">
-                                                            <div class="checkTitle">
-                                                                <h6 class="ct-design">CHECKOUT AS A GUEST OR REGISTER</h6>
-                                                            </div>
-                                                            <p>Register with us forfuture convenience</p>
-                                                            <input type="radio"><label>Checkout as Guest</label><br>
-                                                            <input type="radio"><label>Register</label><br><br>
+                                            <form enctype="multipart/form-data" method="post" class=" pt-2 text-capitalize">
+
+                                                <div class="row ">
+                                                    <div class="col-sm-6 mx-auto">
+                                                        <div class="form-group m-1">
+                                                            <label class="control-label">First Name</label>
+                                                            <input asp-for="OrderShippingModel.FirstName" class="form-control input-validation-error"
+                                                                   data-val="true" data-val-required="Shop name is required" />
+                                                            <span asp-validation-for="OrderShippingModel.FirstName" id="ShopName" class="text-danger field-valiation-error"
+                                                                  data-valmsg-for="ShopName" data-valmsg-replace="true"></span>
                                                         </div>
-                                                        <div class="regSaveTime commonChack">
-                                                            <h6>REGISTER AND SAVE TIME!</h6>
-                                                            <p>Register with us for future convenience:</p>
-                                                            <ul>
-                                                                <li>Fast and easy checkout</li>
-                                                                <li>Easy access to your history and status</li>
-                                                            </ul>
+                                                    </div>
+
+                                                    <div class="col-sm-6 mx-auto">
+                                                        <div class="form-group m-1">
+                                                            <label class="control-label">Last Name</label>
+                                                            <input asp-for="OrderShippingModel.LastName" class="form-control input-validation-error"
+                                                                   data-val="true" data-val-required="Contact number is required" />
+                                                            <span asp-validation-for="OrderShippingModel.LastName" id="ContactNumber" class="text-danger field-valiation-error"
+                                                                  data-valmsg-for="ContactNumber" data-valmsg-replace="true"></span>
                                                         </div>
-                                                        <a class="checkPageBtn pull-right" href="">CONTINUE</a>
+                                                    </div>
+
+                                                    <div class="col-sm-6 mx-auto">
+                                                        <div class="form-group m-1">
+                                                            <label class="control-label">Street</label>
+                                                            <input asp-for="OrderShippingModel.Street" class="form-control input-validation-error"
+                                                                   data-val="true" data-val-required="Country name is required" />
+                                                            <span asp-validation-for="OrderShippingModel.Street" id="Country" class="text-danger field-valiation-error"
+                                                                  data-valmsg-for="Country" data-valmsg-replace="true"></span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-6 mx-auto">
+                                                        <div class="form-group m-1">
+                                                            <label class="control-label">City</label>
+                                                            <input asp-for="OrderShippingModel.City" class="form-control input-validation-error"
+                                                                   data-val="true" data-val-required="City name is required" />
+                                                            <span asp-validation-for="OrderShippingModel.City" id="City" class="text-danger field-valiation-error"
+                                                                  data-valmsg-for="City" data-valmsg-replace="true"></span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-6 mx-auto">
+                                                        <div class="form-group m-1">
+                                                            <label class="control-label">Phone Number</label>
+                                                            <input asp-for="OrderShippingModel.Phone" class="form-control input-validation-error"
+                                                                   data-val="true" data-val-required="Zip code is required" />
+                                                            <span asp-validation-for="OrderShippingModel.Phone" id="Zip" class="text-danger field-valiation-error"
+                                                                  data-valmsg-for="Zip" data-valmsg-replace="true"></span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-6 mx-auto">
+                                                        <div class="form-group m-1">
+                                                            <label class="control-label">Zipcode</label>
+                                                            <input asp-for="OrderShippingModel.Zipcode" class="form-control input-validation-error"
+                                                                   data-val="true" data-val-required="state name is required" />
+                                                            <span asp-validation-for="OrderShippingModel.Zipcode" id="State" class="text-danger field-valiation-error"
+                                                                  data-valmsg-for="State" data-valmsg-replace="true"></span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-6 mx-auto">
+                                                        <div class="form-group m-1">
+                                                            <label class="control-label">Address</label>
+                                                            <textarea asp-for="OrderShippingModel.Address" class="form-control input-validation-error"
+                                                                      data-val="true" data-val-required="Address is required"></textarea>
+                                                            <span asp-validation-for="OrderShippingModel.Address" id="State" class="text-danger field-valiation-error"
+                                                                  data-valmsg-for="Address" data-valmsg-replace="true"></span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-6 mx-auto">
+                                                        <div class="form-group m-1">
+                                                            <label class="control-label">Email</label>
+                                                            <input asp-for="OrderShippingModel.Email" class="form-control input-validation-error"
+                                                                   data-val="true" data-val-required="PaypalId is required" />
+                                                            <span asp-validation-for="OrderShippingModel.Email" id="PaypalId" class="text-danger field-valiation-error"
+                                                                  data-valmsg-for="PaypalId" data-valmsg-replace="true"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <button asp-action="SaveAddress" asp-controller="Cart" type="submit" class="SaveBtn">Save</button>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-6">
-                                                    <div class="checkout-login">
-                                                        <div class="checkTitle">
-                                                            <h6 class="ct-design">Login</h6>
-                                                        </div>
-                                                        <p class="alrdyReg">ALREADY REGISTERED?</p>
-                                                        <p class="plxLogin">Please log in below:</p>
-                                                        <div class="loginFrom">
-                                                            <p class="plxLoginP"><span>*</span> Email Address</p>
-                                                            <input type="text"><br>
-                                                            <p class="plxLoginP"><span>*</span>  Password</p>
-                                                            <input type="text">
-                                                            <p class="rqudField">* Required Fields</p>
-                                                            <p class="plxLogin">Forgot your password ?</p>
-                                                        </div>
-                                                        <a class="checkPageBtn pull-right" href="">Login</a>
-                                                    </div>
-                                                </div>
-                                            </div>
+
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="panel sauget-accordion">
-                                    <div id="headingTwo" role="tab" class="panel-heading">
-                                        <h4 class="panel-title">
-                                            <a aria-controls="billingInformation" aria-expanded="false" href="#billingInformation" data-bs-toggle="collapse" class="collapsed">
-                                                <span>2</span> Billing Information
-                                            </a>
-                                        </h4>
-                                    </div>
-                                    <div aria-labelledby="headingTwo" data-bs-parent="#accordion" role="tabpanel" class="panel-collapse collapse" id="billingInformation" aria-expanded="false" style="height: 0px;">
-                                        <div class="content-info">
-                                            <div class="billing-info">
-                                                <p>Select a billing address from your address book or enter a new address.</p>
-                                                <select>
-                                                    <option>Add your address here</option>
-                                                    <option>Add New Address</option>
-                                                </select>
-                                                <div class="method-input-box">
-                                                    <p><input type="radio" name="address" value="address" checked><label>Ship to this address</label></p>
-                                                    <p><input type="radio" name="address" value="dadress"><label>Ship to different address</label></p>
-                                                </div>
-                                                <div class="block-area-button">
-                                                    <button class="btn btn-default add-tag-btn">Continue</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                @*<div class="panel sauget-accordion">
-                                    <div id="headingThree" role="tab" class="panel-heading">
-                                        <h4 class="panel-title">
-                                            <a aria-controls="shippingMethod" aria-expanded="false" href="#shippingMethod" data-bs-toggle="collapse" class="collapsed">
-                                                <span>3</span> Shipping Method
-                                            </a>
-                                        </h4>
-                                    </div>
-                                    <div aria-labelledby="headingThree" data-bs-parent="#accordion" role="tabpanel" class="panel-collapse collapse" id="shippingMethod" aria-expanded="false">
-                                        <div class="content-info">
-                                            <div class="shiping-method">
-                                                <p><small>Flat Rate</small></p>
-                                                <p>Fixed $40.00</p>
-                                                <div class="block-area-button">
-                                                    <button class="btn btn-default add-tag-btn">Continue</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>*@
+
                                 <div class="panel sauget-accordion">
                                     <div id="headingFour" role="tab" class="panel-heading">
                                         <h4 class="panel-title">
                                             <a aria-controls="paymentInformation" aria-expanded="false" href="#paymentInformation" data-bs-toggle="collapse" class="collapsed">
-                                                <span>3</span> Payment Information
+                                                <span>2</span> Payment Information
                                             </a>
                                         </h4>
                                     </div>
                                     <div aria-labelledby="headingFour" data-bs-parent="#accordion" role="tabpanel" class="panel-collapse collapse" id="paymentInformation" aria-expanded="false">
-                                        <div class="content-info">
-                                            <div class="checkout-option">
-                                                <div class="method-input-box">
-                                                    <p><input type="radio" name="payment" value="check"><label>Check / Money order </label></p>
-                                                    <p><input type="radio" name="payment" value="card" checked><label>Credit Card (saved) </label></p>
-                                                </div>
-                                                <div class="master-card-info">
-                                                    <form action="#">
-                                                        <div class="form-group">
-                                                            <label>Name on Card <sup>*</sup></label>
-                                                            <input type="text" class="form-control">
+
+                                        <div class="content-info" style="padding-left: 54px;">
+
+                                            <div aria-multiselectable="true" role="tablist" id="accordion1" class="panel-group">
+                                                <div class="panel sauget-accordion SubPanel pt-2">
+                                                    <div id="headingFive1" role="tab" class="panel-heading">
+                                                        <h4 class="panel-title">
+                                                            <a aria-controls="orderReview1" aria-expanded="false" href="#orderReview1" data-bs-toggle="collapse" class="makeover collapsed">
+                                                                <img style="height: auto; width: auto;" src="~/img/icons8-bank-cards-30.png" /> card details
+                                                            </a>
+                                                        </h4>
+                                                    </div>
+                                                    <div aria-labelledby="headingFive1" data-bs-parent="#accordion1" role="tabpanel" class="panel-collapse collapse" id="orderReview1" aria-expanded="false">
+                                                        <div class="content-info">
+                                                            <div class="checkout-option">
+                                                                <div class="master-card-info">
+                                                                    <div class="row">
+
+                                                                        <div class="col-sm-6 mx-auto">
+                                                                            <div class="form-group">
+                                                                                <label>Name on Card <sup>*</sup></label>
+                                                                                <input type="text" class="form-control">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-6 mx-auto">
+                                                                            <div class="cardtype form-group">
+                                                                                <label>Credit Card Type</label>
+                                                                                <select class="form-control">
+                                                                                    <option>--Please Select--</option>
+                                                                                    <option>American Express</option>
+                                                                                    <option>Visa</option>
+                                                                                    <option>MasterCard</option>
+                                                                                    <option>Discover</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-6 mx-auto">
+                                                                            <div class="form-group">
+                                                                                <label>Credit Card Number <sup>*</sup></label>
+                                                                                <input type="text" class="form-control">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-6 mx-auto">
+                                                                            <div class="expirationdate form-group">
+                                                                                <label>Expiration Date</label>
+                                                                                <div class="d-flex g-4">
+                                                                                    <select class="form-control month-select w-50">
+                                                                                        <option>Month</option>
+                                                                                        <option>01 - January</option>
+                                                                                        <option>02 - February</option>
+                                                                                        <option>03 - March</option>
+                                                                                        <option>04 - April</option>
+                                                                                        <option>05 - May</option>
+                                                                                        <option>06 - June</option>
+                                                                                        <option>07 - July</option>
+                                                                                        <option>08 - August</option>
+                                                                                        <option>09 - September</option>
+                                                                                        <option>10 - October</option>
+                                                                                        <option>11 - November</option>
+                                                                                        <option>12 - December</option>
+                                                                                    </select> &nbsp; &nbsp;
+                                                                                    <select class="form-control year-select w-50">
+                                                                                        <option>Year</option>
+                                                                                        <option>2015</option>
+                                                                                        <option>2016</option>
+                                                                                        <option>2017</option>
+                                                                                        <option>2018</option>
+                                                                                        <option>2019</option>
+                                                                                        <option>2020</option>
+                                                                                        <option>2021</option>
+                                                                                        <option>2022</option>
+                                                                                        <option>2023</option>
+                                                                                        <option>2024</option>
+                                                                                        <option>2025</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-6 mx-auto">
+                                                                            <div class="verificationcard form-group">
+                                                                                <label>Card Verification Number <sup>*</sup></label>
+                                                                                <input type="text" class="form-control">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-6"></div>
+
+                                                                        <div class="block-area-button">
+                                                                            <button class="btn btn-default add-tag-btn SaveBtn">Continue</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <div class="cardtype form-group">
-                                                            <label>Credit Card Type</label>
-                                                            <select class="form-control">
-                                                                <option>--Please Select--</option>
-                                                                <option>American Express</option>
-                                                                <option>Visa</option>
-                                                                <option>MasterCard</option>
-                                                                <option>Discover</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Credit Card Number <sup>*</sup></label>
-                                                            <input type="text" class="form-control">
-                                                        </div>
-                                                        <div class="expirationdate form-group">
-                                                            <label>Expiration Date</label>
-                                                            <select class="form-control month-select">
-                                                                <option>Month</option>
-                                                                <option>01 - January</option>
-                                                                <option>02 - February</option>
-                                                                <option>03 - March</option>
-                                                                <option>04 - April</option>
-                                                                <option>05 - May</option>
-                                                                <option>06 - June</option>
-                                                                <option>07 - July</option>
-                                                                <option>08 - August</option>
-                                                                <option>09 - September</option>
-                                                                <option>10 - October</option>
-                                                                <option>11 - November</option>
-                                                                <option>12 - December</option>
-                                                            </select>
-                                                            <select class="form-control year-select">
-                                                                <option>Year</option>
-                                                                <option>2015</option>
-                                                                <option>2016</option>
-                                                                <option>2017</option>
-                                                                <option>2018</option>
-                                                                <option>2019</option>
-                                                                <option>2020</option>
-                                                                <option>2021</option>
-                                                                <option>2022</option>
-                                                                <option>2023</option>
-                                                                <option>2024</option>
-                                                                <option>2025</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="verificationcard form-group">
-                                                            <label>Card Verification Number <sup>*</sup></label>
-                                                            <input type="text" class="form-control">
-                                                            <a href="#">What is this?</a>
-                                                        </div>
-                                                    </form>
-                                                    <div class="block-area-button">
-                                                        <button class="btn btn-default add-tag-btn">Continue</button>
                                                     </div>
                                                 </div>
+
+                                                <div class="panel sauget-accordion SubPanel">
+                                                    <div id="headingFive2" role="tab" class="panel-heading">
+                                                        <h4 class="panel-title">
+                                                            <a aria-controls="orderReview2" aria-expanded="false" href="#orderReview2" data-bs-toggle="collapse" class="makeover collapsed">
+                                                                <img style="height: 21px; width: 35px;" src="~/img/UPI_logo_PNG_lyp5s5.png" /> UPI Option
+                                                            </a>
+                                                        </h4>
+                                                    </div>
+                                                    <div aria-labelledby="headingFive2" data-bs-parent="#accordion1" role="tabpanel" class="panel-collapse collapse" id="orderReview2" aria-expanded="false">
+                                                        <div class="content-info">
+                                                            <div class="page-product-box" id="idTab2">
+                                                                <div class="row">
+                                                                    <div class="col-sm-7">
+                                                                        <div class="form-group">
+                                                                            <label>Enter UPI ID</label>
+                                                                            <input type="text" class="form-control" style="margin-bottom: 10px;">
+                                                                            <div class="block-area-button">
+                                                                                <button class="btn btn-default add-tag-btn SaveBtn">Continue</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="panel sauget-accordion SubPanel">
+                                                    <div id="headingFive3" role="tab" class="panel-heading">
+                                                        <h4 class="panel-title">
+                                                            <a aria-controls="orderReview3" aria-expanded="false" href="#orderReview3" data-bs-toggle="collapse" class="makeover collapsed">
+                                                                <img style="height: 30px; width:auto;" src="~/img/icons8-cash-on-delivery-96.png" /> Cash On Delivery
+                                                            </a>
+                                                        </h4>
+                                                    </div>
+                                                    <div aria-labelledby="headingFive3" data-bs-parent="#accordion1" role="tabpanel" class="panel-collapse collapse" id="orderReview3" aria-expanded="false">
+                                                        <div class="content-info">
+                                                            <a asp-action="OrderSuccess" asp-controller="Cart" class=" mt-2 btn SaveBtn" style="width: 160px;">Cash on Delivery</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                @*<div class="panel sauget-accordion">
-                                    <div id="headingFive" role="tab" class="panel-heading">
-                                        <h4 class="panel-title">
-                                            <a aria-controls="orderReview" aria-expanded="false" href="#orderReview" data-bs-toggle="collapse" class="collapsed">
-                                                <span>5</span> Order Review
-                                            </a>
-                                        </h4>
-                                    </div>
-                                    <div aria-labelledby="headingFive" data-bs-parent="#accordion" role="tabpanel" class="panel-collapse collapse" id="orderReview" aria-expanded="false">
-                                        <div class="content-info">
-                                            <div class="review-bar">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="product">
-                                                            <img alt="Blouse" src="img/product/blouse1.jpg">
-                                                            <p class="product_name"><strong>Blouse</strong></p>
-                                                            <p>Short-sleeved blouse with feminine draped sleeve detail.</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="product-review">
-                                                            <label>Quality:</label>
-                                                            <p>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                            </p>
-                                                            <form>
-                                                                <div class="form-group">
-                                                                    <label for="exampleInputEmail1">Title:</label>
-                                                                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Comment:</label>
-                                                                    <textarea class="form-control" rows="3"></textarea>
-                                                                </div>
-                                                                <button type="submit" class="btn btn-default">Submit</button>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>*@
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -318,12 +384,11 @@
                             </div>
                         </div>
                     </div>
+                    <!-- End checkout content -->
                 </div>
             </div>
-            <!-- End checkout content -->
+            <!-- End checkout page area -->
         </div>
     </div>
-    <!-- End checkout page area -->
-
 </div>
 

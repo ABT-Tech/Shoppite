@@ -51,6 +51,11 @@ namespace Shoppite.Application.Mapper
             CreateMap<f_getproduct_specification_By_Guid,f_getproduct_specification_By_GuidModel>().ReverseMap();
             CreateMap<AttributesSetup,AttributesSetupModel>().ReverseMap();
             CreateMap<f_getproduct_CartDetails_By_Orgid,f_getproduct_CartDetails_By_OrgidModel>().ReverseMap();
+            CreateMap<OrderShipping,OrderShippingModel>().ReverseMap();
+            CreateMap<Logo,LogoModel>().ReverseMap();
+            CreateMap<Users,UsersModal>().ReverseMap();
+            CreateMap<UsersProfile,UsersModal>().ReverseMap();
+
 
             CreateMap<CategoryMasterModel, CategoryMaster>().ReverseMap();
             CreateMap<CategoryMasterModel, AdsDetail>().ReverseMap();

@@ -218,6 +218,7 @@
             orderBasic.OrderStatus = "Cart";
             orderBasic.Currencyid = productDetailModel.ProductPriceModel.CurrencyId;
             orderBasic.OrgId = productDetailModel.ProductBasicModel.OrgId;
+            orderBasic.Qty = productDetailModel.OrderBasicModel.Qty;
              await _ProductDetailRepsitory.AddToCart(orderBasic);
             //productdetailmodel = objectmapper.mapper.map<productdetailmodel>(addtocart);
         }

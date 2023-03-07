@@ -11,5 +11,7 @@ namespace Shoppite.Application.Interfaces
     {
         Task<CartModel> Orderbasic(int orgid);
         Task<CartModel> Delete(int id);
+        Task SaveAddress(CartModel cartModel);
+        Task UpdateOrder(CheckOutModel checkOut);
     }
 }

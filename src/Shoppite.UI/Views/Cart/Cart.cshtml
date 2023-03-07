@@ -97,6 +97,10 @@
             background-color: #FE5B5A;
         }
 
+    .fa-trash:hover {
+        color: #FE5B5A;
+    }
+
     input {
         /*height: 34px;*/
         width: 38px;
@@ -136,6 +140,13 @@
     .Shop_Now_Div {
         padding: 20px;
     }
+    .modal-header {
+        background-color: #fe5b5a;
+    }
+    .cart-checkout {
+        color : white;
+    }
+
 </style>
 
 <script src="js/vendor/modernizr-2.8.3.min.js"></script>
@@ -172,10 +183,14 @@
 
                                         @foreach (var cartlist in Model.F_Getproduct_CartDetails_By_Orgids)
                                         {
+
                                             int x = (int)cartlist.ProductId;
+
+
                                             <tr class="">
                                                 <td class="">
                                                     <a href="/ProductDetail/Details/@cartlist.ProductGuid"><img alt="" class="img-responsive img-fluid" src="@cartlist.CoverImage"></a>
+                                                    <input class="HidenGuid" asp-for="@cartlist.ProductGuid" hidden />
                                                 </td>
                                                 <td>
                                                     <h4><a href="/ProductDetail/Details/@cartlist.ProductGuid">@cartlist.ProductName</a></h4>
@@ -184,13 +199,13 @@
                                                 <td>
                                                     <div class="number">
                                                         <span class="minus">-</span>
-                                                        <input type="number" id="ProductQTY" data-id="99" data-price="@cartlist.Price" class="quant" value="1" />
+                                                        <input type="number" id="ProductQTY" data-id="99" data-price="@cartlist.Price" class="quant" value="@cartlist.Qty" />
                                                         <span class="plus">+</span>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <form method="get">
-                                                        <a href="/Cart/DeleteProduct/@cartlist.ProductId" onclick="return confirm('are you sure you want to remove this item ?')">
+                                                        <a class="deleteItem" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="GetDelete(@cartlist.ProductId)">
                                                             <i class="fa fa-trash"></i>
                                                         </a>
                                                     </form>
@@ -200,6 +215,7 @@
 
                                     </tbody>
                                 </table>
+
                             </div>
 
                         </div>
@@ -216,12 +232,12 @@
                                         </div>
                                         <div class="cart-product-line">
                                             <span>Final Total</span>
-                                            <span class="total">₹ 88.81</span>
+                                            <span class="total"></span>
                                         </div>
                                     </div>
 
                                     <div class="cart-checkout">
-                                        <a asp-action="CheckOut" asp-controller="Cart">Check out<i class="fa fa-chevron-right"></i></a>
+                                        <a onclick="GetOrder()">Check out<i class="fa fa-chevron-right"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -234,27 +250,46 @@
                         <img style="height:auto;width:auto;" src="~/img/emptycart.gif" />
 
                         <div class="Shop_Now_Div">
-                            <a class="Shop_Now" asp-action="Index" asp-controller="Home">Shop Now<i class="fa fa-shopping-cart" ></i></a>
+                            <a class="Shop_Now" asp-action="Index" asp-controller="Home">Shop Now<i class="fa fa-shopping-cart"></i></a>
                         </div>
                     </div>
                 }
             </div>
-            @*<div class="actions">
-                    <div class="cartpage-btn">
-                        <ul>
-                            <li><a asp-action="index" asp-controller="home" class="cbtn">continue shopping</a></li>
-                            <li><a href="#" class="cbtn">update shopping cart</a></li>
-                            <li><a href="#" class="cbtn">clear shopping cart</a></li>
-                        </ul>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body fw-bold">
+                            Are you sure you want to remove this item ?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <a id="btnContinueDelete" href="" class="btn btn-outline-danger">Delete</a>
+                        </div>
                     </div>
-                </div>*@
+                </div>
+            </div>
+            @*<div class="actions">
+            <div class="cartpage-btn">
+                <ul> /Cart/DeleteProduct/@cartlist.ProductId
+                    <li><a asp-action="index" asp-controller="home" class="cbtn">continue shopping</a></li>
+                    <li><a href="#" class="cbtn">update shopping cart</a></li>
+                    <li><a href="#" class="cbtn">clear shopping cart</a></li>
+                </ul>
+            </div>
+        </div>*@
             <!-- start cart discount code area -->
             @*<div class="cart-discount-code-area">
-                    <h2>Discount codes</h2>
-                    <p>Enter your coupon code if you have one.</p>
-                    <input type="text">
-                    <a href="#">Apply coupon</a>
-                </div>*@
+            <h2>Discount codes</h2>
+            <p>Enter your coupon code if you have one.</p>
+            <input type="text">
+            <a href="#">Apply coupon</a>
+        </div>*@
             <!-- End cart discount code area -->
             <!-- Start Stmate shoping and cart -->
             <!-- End Stmate shoping and cart -->
@@ -358,4 +393,46 @@
             $('.total').text('₹' + sum);
         }
     });
+
+
+    function GetDelete(id) {
+
+        document.getElementById("btnContinueDelete").href = "/Cart/DeleteProduct/" + id;
+    }
+
+    function GetOrder() {
+
+        var ar = [];
+        var dataBunch = [];
+
+        var tab = $("#myTable > tbody > tr").each(function () {
+            $(this).find('td');
+        });
+
+        for (var i = 0; i < tab.length; i++) {
+
+           // dataBunch = [(tab[i].cells[0].childNodes[1].childNodes[0].currentSrc), (tab[i].children[0].children[1].value), (tab[i].cells[1].children[0].childNodes[0].innerText), (tab[i].cells[1].children[1].innerText), (tab[i].cells[2].children[0].children[1].value)];
+           // "Image": tab[i].cells[0].childNodes[1].childNodes[0].currentSrc, "ProductName": tab[i].cells[1].children[0].childNodes[0].innerText, "Price": tab[i].cells[1].children[1].innerText,
+            ar.push({ "Guid": tab[i].children[0].children[1].value, "Qty": tab[i].cells[2].children[0].children[1].value });
+        }
+
+        var makeString = JSON.stringify({ar});
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("AddToCheck", "Cart")',
+            dataType: 'JSON',
+            data: makeString,
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                window.location = "/Cart/CheckOut"
+            },
+            error: function (xhr, status, error) {
+                alert("this is error");
+            }
+        });
+
+    };
+
+
 </script>
