@@ -93,5 +93,18 @@ namespace Shoppite.Infrastructure.Repository
             var FilterCat = brands.Where(x => x.ParentCategoryId != 0).ToList();
             return FilterCat;
         }
+        public async Task<List<F_getproducts_By_BrandId>> GetProductsByBrand(int orgid,int BrandId)
+        {
+            string sql = "select * from f_getproducts_By_BrandID(@ID,@OrgId)";
+
+            List<SqlParameter> parms = new List<SqlParameter>
+             { 
+                // Create parameters    
+                new SqlParameter { ParameterName = "@orgid", Value = orgid },
+                 new SqlParameter { ParameterName = "@ID", Value = BrandId }
+             };
+
+            return await _dbContext.Set<F_getproducts_By_BrandId>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
+        }
     }
 }

@@ -52,7 +52,6 @@
                                                     <a asp-action="myAccount" asp-controller="MyAccount"><span>My account</span></a>
                                                     <a asp-action="MyOrders" asp-controller="Orders"><span>My Orders</span></a>
                                                     <a asp-action="Wishlist" asp-controller="Wishlist"><span>My wishlist</span></a>
-                                                    <a href="#"><span>My cart</span></a>
                                                     <a href="#"><span>Sign in</span></a>
                                                 </div>
                                             </div>
@@ -94,9 +93,6 @@
             </div>
             <div class="wishlist-product">
                 @await Html.PartialAsync("_AllOrders", Model)
-                <p class="wishlist-back">
-                    <a href="#"><i class="fa fa-angle-left"></i>Back to your account</a> <a asp-action="Index"><i class="fa fa-angle-left"></i>Home</a>
-                </p>
             </div>
         </div>
     </div>

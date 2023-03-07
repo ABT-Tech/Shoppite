@@ -52,7 +52,6 @@
                                                     <a asp-action="myAccount" asp-controller="MyAccount"><span>My account</span></a>
                                                     <a asp-action="MyOrders" asp-controller="Orders"><span>My Orders</span></a>
                                                     <a asp-action="Wishlist" asp-controller="Wishlist"><span>My wishlist</span></a>
-                                                    <a href="#"><span>My cart</span></a>
                                                     <a href="#"><span>Sign in</span></a>
                                                 </div>
                                             </div>
@@ -67,24 +66,18 @@
         </div>
     </div>
 </div>
-<!-- Start wishlists page area -->
 <div class="wishlists-page-area">
     <div class="container">
         <div class="row">
             <div class="breadcrumb" style="color:#777; background-color: white !important">
                 Home
-                @*<a title="Return to Home" href="index.html" class="home">Home</a>*@
                 <span class="navigation-pipe"><i class="fa fa-angle-right"></i></span>My account
-                @* <a title="Return to Home" href="index.html" class="home">My account</a>*@
                 <span class="navigation-pipe"><i class="fa fa-angle-right"></i></span>
                 Wishlist
             </div>
         </div>
         <div class="row">
             <h4 class="cart-title">My wishlists</h4>
-            <div class="wishlist-permalink">
-                <p><a href="#"></a></p>
-            </div>
             <div class="wishlist-product">
                 @await Html.PartialAsync("_Mywishlist", Model)
                 <p class="wishlist-back">

@@ -1,4 +1,5 @@
-﻿@model Shoppite.Application.Models.MainModel
+﻿<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+@model Shoppite.Application.Models.MainModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <input type="hidden" asp-for="@Model.ProfileId" />
 <input type="hidden" asp-for="CoverImage" />
@@ -54,7 +55,6 @@
                                                     <a asp-action="myAccount" asp-controller="MyAccount"><span>My account</span></a>
                                                     <a asp-action="MyOrders" asp-controller="Orders"><span>My Orders</span></a>
                                                     <a asp-action="Wishlist" asp-controller="Wishlist"><span>My wishlist</span></a>
-                                                    <a href="#"><span>My cart</span></a>
                                                     <a href="#"><span>Sign in</span></a>
                                                 </div>
                                             </div>
@@ -132,7 +132,6 @@
         </div>
     </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script>
     $(document).ready(() => {
         $('#img').change(function () {

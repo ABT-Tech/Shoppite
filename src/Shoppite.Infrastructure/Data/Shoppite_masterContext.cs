@@ -97,6 +97,8 @@ namespace Shoppite.Infrastructure.Data
         public virtual DbSet<F_Orders_All> F_Orders_All { get; set; }
         public virtual DbSet<F_Pending_Orders> F_Pending_Orders { get; set; }
         public virtual DbSet<f_Get_MyAccount_Data> f_Get_MyAccount_Data { get; set; }
+        public virtual DbSet<F_getproducts_By_CatId> F_getproducts_By_CatId { get; set; }
+        public virtual DbSet<F_getproducts_By_BrandId> F_getproducts_By_BrandId { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -1338,6 +1340,14 @@ namespace Shoppite.Infrastructure.Data
                 entity.HasNoKey();
             });
             modelBuilder.Entity<f_Get_MyAccount_Data>(entity =>
+            {
+                entity.HasNoKey();
+            });
+            modelBuilder.Entity<F_getproducts_By_CatId>(entity =>
+            {
+                entity.HasNoKey();
+            });
+            modelBuilder.Entity<F_getproducts_By_BrandId>(entity =>
             {
                 entity.HasNoKey();
             });

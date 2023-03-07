@@ -16,9 +16,12 @@ namespace Shoppite.Application.Models
         public string City { get; set; }
         public string Zip { get; set; }
         public string State { get; set; }
+
         [Required]
+        [StringLength(15, MinimumLength = 8, ErrorMessage = "Password must be between 8 and 15 char")]
         public string Password { get; set; }
-        [Compare("Password")]
+        [Compare("Password", ErrorMessage = "Password and Confirm Password should match")]
+        [Required]
         public string CPassword { get; set; }
         public string Address { get; set; }
         public string OrderStatus { get; set; }
@@ -58,5 +61,6 @@ namespace Shoppite.Application.Models
         public List<F_Pending_Orders_Model> Orders { get; set; }
         public List<f_Get_MyAccount_Data_Model> Myaccount { get; set; }
         public List<sp_getcat_ResultModel> AllCategories { get; set; }
+        public List<F_getproducts_By_BrandIdModel> ProductdByBrand { get; set; }
     }
 }

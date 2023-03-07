@@ -14,7 +14,7 @@ namespace Shoppite.Core.Repositories
         Task<List<CategoryMaster>> GetCategories(int CategoryId, int OrgId);
         Task<Logo> DisplayLogo(int orgId);
         Task<List<AdsDetail>> GetHorizontalBanner(int orgID);
-        Task<List<f_getproducts_By_CategoryID>> GetAllProductByCategory(int CategoryId);
+        Task<List<F_getproducts_By_CatId>> GetAllProductByCategory(int CategoryId,int OrgId);
         Task<List<SP_GetSpecificationData_AttributName>> GetAllAttributes(int orgId);
         Task<List<f_getproducts_By_CatID_SpecificationName>> GetAllProductByAttribute(int CategoryId, string AttributeName);
         Task<List<CategoryMaster>> GetBannerByCategory(int orgId);

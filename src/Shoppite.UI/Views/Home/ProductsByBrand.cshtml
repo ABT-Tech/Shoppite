@@ -1,0 +1,125 @@
+﻿@model Shoppite.Application.Models.MainModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<div class="main-area">
+    <div class="megamenu-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="megamenu">
+                        <nav>
+                            <ul>
+                                <li>
+                                    <a class="home" asp-action="Index" asp-controller="Home">Home</a>
+                                    <div class="megamenudown-mini home-ve">
+                                        <div class="mega-top">
+                                            <div class="mega-item-menu">
+                                                <a class="title" href="#"><span>Home variyation</span></a>
+                                                <a href="index-2.html"><span>Home2</span></a>
+                                                <a href="index-3.html"><span>Home3</span></a>
+                                                <a href="index-4.html"><span>Home4</span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                @await Html.PartialAsync("_Categories", Model)
+                                @await Html.PartialAsync("_MoreCategories", Model)
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="search-box">
+                        <form method="get" action="#" id="searchbox-eleyas">
+                            <p>
+                                <input type="text" value="" placeholder="You keyword..." name="search_query">
+                                <button class="button-search" name="submit_search" type="submit">
+                                    <span><i class="fa fa-search"></i></span>
+                                </button>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="megamenu">
+                        <nav>
+                            <ul>
+                                <li>
+                                    <div class="user-icon">
+                                        <i class="fa fa-user"></i>
+                                        <div class="megamenudown-mini home-ve">
+                                            <div class="mega-top">
+                                                <div class="mega-item-menu">
+                                                    <a asp-action="myAccount" asp-controller="MyAccount"><span>My account</span></a>
+                                                    <a asp-action="MyOrders" asp-controller="Orders"><span>My Order</span></a>
+                                                    <a asp-controller="Wishlist" asp-action="Wishlist"><span>My wishlist</span></a>
+                                                    <a href="#"><span>My cart</span></a>
+                                                    <a href="#"><span>Sign in</span></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="product-categori-area">
+        <div class="container">
+            <div class="breadcrumb" style="color:#777;background-color:white !important">
+                <span><a title="Return to Home" href="index.html" class="home"></a>Home</span>
+                <span class="navigation-pipe"><i class="fa fa-angle-right"></i></span>Brands
+            </div>
+            <div class="product-categori">
+                <div class="row flex-row-reverse">
+                    <div class="col-lg-12 col-md-12">
+                        <div id="content" class="categori-content">
+                            <h1 class="page-heading product-listing">
+                                <span class="cat-name">Products By Brand</span>
+                            </h1>
+                            <div id="my-tab-content" class="tab-content jump">
+                                @await Html.PartialAsync("_ProductsbyBrand", Model)
+                                <div id="list" class="tab-pane categori-list-view">
+                                    <div class="list-view-single-product">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="list-view-image">
+                                                    <a href="#"><img src="img/product/blouse1.jpg" alt=""></a>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="list-view-details">
+                                                    <p>
+                                                        <i class="fa fa-star-o"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                    </p>
+                                                    <h5><a href="#">Blouse</a></h5>
+                                                    <span class="list-product-price">£ 32.40</span>
+                                                    <p class="product-desc">Short-sleeved blouse with feminine draped sleeve detail.</p>
+                                                    <div class="product-social">
+                                                        <ul>
+                                                            <li><a href="#"><i class="fa fa-external-link"></i><span>Add to cart</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
+                                                            <li><a href="#"><i class="fa fa-bar-chart"></i></a></li>
+                                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @await Html.PartialAsync("_BrandZone", Model)
+</div>

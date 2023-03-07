@@ -54,7 +54,6 @@
                                                     <a asp-action="myAccount" asp-controller="MyAccount"><span>My account</span></a>
                                                     <a asp-action="MyOrders" asp-controller="Orders"><span>My Order</span></a>
                                                     <a asp-controller="Wishlist" asp-action="Wishlist"><span>My wishlist</span></a>
-                                                    <a href="#"><span>My cart</span></a>
                                                     <a href="#"><span>Sign in</span></a>
                                                 </div>
                                             </div>
@@ -64,12 +63,10 @@
                             </ul>
                         </nav>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
-    <!-- Start product categori area -->
     <div class="product-categori-area">
         <div class="container">
             <div class="breadcrumb" style="color:#777;background-color:white !important">
@@ -83,10 +80,7 @@
             </div>
             <div class="product-categori">
                 <div class="row flex-row-reverse">
-
-                    <!-- Start categori content -->
                     <div class="col-lg-9 col-md-12">
-
                         <div id="content" class="categori-content">
                            @foreach (var catname in Model.Product_specification.Take(1))
                             {
@@ -97,41 +91,11 @@
                                 <div class="categori-baner">
                                     <img style="width:870px;height:236px;" src="@Url.Content("~")/@catname.Banner"  alt="">
                                 </div>
-                            }
-                            <div class="catagori-short">
-                                <ul id="gridlist" class="nav nav-tabs" data-tabs="tabs">
-                                    <li><a href="#grid" data-bs-toggle="tab" class="active"><i class="fa fa-th-large"></i></a></li>
-                                    <li><a href="#list" data-bs-toggle="tab"><i class="fa fa-th-list"></i></a></li>
-                                </ul>
-                                <p class="selector1">
-                                    <label>Sort by</label>
-                                    <select class="selectProductSort form-control" id="selectProductSort1">
-                                        <option selected="selected" value="position:asc">--</option>
-                                        <option value="price:asc">Price: Lowest first</option>
-                                        <option value="price:desc">Price: Highest first</option>
-                                        <option value="name:asc">Product Name: A to Z</option>
-                                        <option value="name:desc">Product Name: Z to A</option>
-                                        <option value="quantity:desc">In stock</option>
-                                        <option value="reference:asc">Reference: Lowest first</option>
-                                        <option value="reference:desc">Reference: Highest first</option>
-                                    </select>
-                                </p>
-                                <p class="selector1 selector2">
-                                    <label>Show</label>
-                                    <select class="selectProductSort form-control" id="selectProductSort2">
-                                        <option selected="selected" value="position:asc">12</option>
-                                        <option value="price:asc">24</option>
-                                    </select>
-                                </p>
-                                <a class="cat-button" href="#"><span>Compare(0)<i class="fa fa-angle-right"></i></span></a>
-                            </div>
+                            }                            
                             <div id="my-tab-content" class="tab-content jump">
-                                <!-- Start categori grid view -->
                                 <div class="producresults">
                                     @await Html.PartialAsync("_ProductsByAttribute", Model)
                                 </div>
-                           
-                                <!-- End categori grid view -->
                                 <div id="list" class="tab-pane categori-list-view">
                                     <div class="list-view-single-product">
                                         <div class="row">
@@ -152,7 +116,6 @@
                                                     <h5><a href="#">Blouse</a></h5>
                                                     <span class="list-product-price">£ 32.40</span>
                                                     <p class="product-desc">Short-sleeved blouse with feminine draped sleeve detail.</p>
-                                                    @*<span class="availability">In stock</span>*@
                                                     <div class="product-social">
                                                         <ul>
                                                             <li><a href="#"><i class="fa fa-external-link"></i><span>Add to cart</span></a></li>
@@ -393,14 +356,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="categori-show-item">
-                                <div class="cat-show-item">
-                                </div>
-                                <div class="cat-show-button">
-                                   @* <a class="cat-button" href="#"><span>Compare(0)<i class="fa fa-angle-right"></i></span></a>*@
-                                </div>
-                            </div>
+                            </div>              
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-12">
@@ -411,7 +367,6 @@
                                 {
                                     <span class="cat-title">@at.AttributeName</span>
                                     <ul>
-                                       @* @foreach (var specific in at.specifications)*@
                                             @for(int i=0;i< at.specifications.Count;i++)
                                             {
                                             <li>
@@ -423,31 +378,15 @@
                                         }
                                     </ul>
                                 }
-                            </div>
-                            <div class="categori-tag">
-                                <div class="cat-tag-title">
-                                    <span class="cat-title">Properties</span>
-                                </div>
-                                <a href="#">Sport</a>
-                                <a href="#">Men</a>
-                                <a href="#">Belt</a>
-                                <a href="#">Dress</a>
-                                <a href="#">Apple</a>
-                                <a href="#">Sandal</a>
-                                <a href="#">Women</a>
-                                <a href="#">Accessories</a>
-                                <a href="#">What ches</a>
-                            </div>
+                            </div>                            
                         </div>
                     </div>
-                    <!-- End categoti sidebar -->
                 </div>
             </div>
         </div>
     </div>
     @await Html.PartialAsync("_BrandZone", Model)
-</div>
-   
+</div>   
 <script>
     $(".profileCheckbox").click(function () {
         var data = getCategoryID();

@@ -44,6 +44,20 @@ namespace Shoppite.UI.Controllers
             brands.TopBanner = await _categoryPageService.GetBannerByCategory(OrgId);
             return View(brands);
         }
+        public async Task<IActionResult> ProductsByBrand(int CategoryId,int BrandId)
+        {
+            int OrgId = commonHelper.GetOrgID(HttpContext);
+            var brands = await _BrandPageService.GetBrands(OrgId);
+            brands.CategoryMaster = await _categoryPageService.DisplayLogo(OrgId);
+            brands.MiddelBanner = await _categoryPageService.GetMiddelBannerImage(OrgId);
+            //  brands.TopBanner = await _categoryPageService.GetTopBannerImage(OrgId);
+            brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
+            brands.Categories = await _categoryPageService.GetCategories(CategoryId, OrgId);
+            brands.HorizontalBanner = await _categoryPageService.GetHorizontalBanner(OrgId);
+            brands.TopBanner = await _categoryPageService.GetBannerByCategory(OrgId);
+            brands.ProductdByBrand = await _BrandPageService.GetProductsByBrand(OrgId, BrandId);
+            return View(brands);
+        }
         [HttpGet]
         public async Task<JsonResult> Get_Product_By_Cat(int ID)
         {
@@ -56,7 +70,7 @@ namespace Shoppite.UI.Controllers
             var brands = await _BrandPageService.GetBrands(OrgId);
             brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
             brands.Categories = await _categoryPageService.GetCategories(CategoryId, OrgId);
-            brands.Product_specification = await _categoryPageService.GetAllProductByCategory(CategoryId);
+            brands.Product_specification = await _categoryPageService.GetAllProductByCategory(CategoryId,OrgId);
             brands.Wishlists = await _wishlistPageService.GetWishList("admin", OrgId);
             brands.Attributes = await _categoryPageService.GetAllAttributes(OrgId);
            // brands.AllCategories = await _categoryPageService.GetAllCategories(OrgId);
@@ -66,6 +80,7 @@ namespace Shoppite.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> _ProductsByAttribute(int CategoryId, string SpecificationName)
         {
+            int OrgId = commonHelper.GetOrgID(HttpContext);
             MainModel model = new MainModel();
             if(SpecificationName!=null)
             {
@@ -73,7 +88,7 @@ namespace Shoppite.UI.Controllers
             }
             else
             {
-                model.Product_specification = await _categoryPageService.GetAllProductByCategory(CategoryId);
+                model.Product_specification = await _categoryPageService.GetAllProductByCategory(CategoryId,OrgId);
             }
             return PartialView(model);
         }

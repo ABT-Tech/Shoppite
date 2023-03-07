@@ -50,9 +50,9 @@ namespace Shoppite.Web.Services
             var mapped = _mapper.Map<List<CategoryMasterModel>>(image);
             return mapped;
         }
-        public async Task<List<f_getproducts_By_CatID_SpecificationNameModel>> GetAllProductByCategory(int CategoryId)
+        public async Task<List<f_getproducts_By_CatID_SpecificationNameModel>> GetAllProductByCategory(int CategoryId,int OrgId)
         {
-            var productList = await _categoryService.GetAllProductByCategory(CategoryId);
+            var productList = await _categoryService.GetAllProductByCategory(CategoryId,OrgId);
             return productList;
         }
         public async Task<List<AttributeSetupModel>> GetAllAttributes(int orgId)

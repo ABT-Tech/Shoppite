@@ -106,7 +106,7 @@
                         <div class="col-lg-9 col-md-12">
                             <div class="meddil-services">
                                 <div class="service-icon-text">
-                                    <a href="#"  class="d-flex">
+                                    <a href="#" class="d-flex">
                                         <div class="service-icon floatleft">
                                             <i class="fa fa-car"></i>
                                         </div>
@@ -117,7 +117,7 @@
                                     </a>
                                 </div>
                                 <div class="service-icon-text">
-                                    <a href="#"  class="d-flex">
+                                    <a href="#" class="d-flex">
                                         <div class="service-icon floatleft">
                                             <i class="fa fa-money"></i>
                                         </div>
@@ -128,7 +128,7 @@
                                     </a>
                                 </div>
                                 <div class="service-icon-text">
-                                    <a href="#"  class="d-flex">
+                                    <a href="#" class="d-flex">
                                         <div class="service-icon floatleft">
                                             <i class="fa fa-phone"></i>
                                         </div>
@@ -346,6 +346,8 @@
         </footer>
         <!-- End footer area -->
     </div>
+    <partial name="_ValidationScriptsPartial" />
+    @await RenderSectionAsync("Scripts", required: false)
     <!-- End main area -->
     <!-- JS -->
     <!-- jquery -->
