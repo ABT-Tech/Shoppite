@@ -18,5 +18,7 @@ namespace Shoppite.Application.Models
         public IEnumerable<MainCategoryModel> ProductsDetails { get; set; }
         public List<CategoryMasterModel> Categories { get; set; }
         public List<CategoryMasterModel> HorizontalBanner { get; set; }
+        public ProductRecentlyViewedModel ProductRecentlyViewedModel { get; set; }
+        public List<f_getproducts_RecentlyviewedModel> f_Getproducts_RecentlyviewedModel { get; set; }
     }
 }

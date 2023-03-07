@@ -1,0 +1,439 @@
+﻿@model Shoppite.Application.Models.CartModel
+
+@{
+    ViewData["Title"] = "Cart Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+
+<!-- Fonts  -->
+
+<link href='https://fonts.googleapis.com/css?family=Raleway:400,500,600,700,300,800' rel='stylesheet' type='text/css'>
+
+<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+<!-- CSS  -->
+<!-- Bootstrap CSS
+============================================ -->
+<link rel="stylesheet" href="~/css/bootstrap.min.css">
+
+<!-- owl.carousel CSS
+============================================ -->
+<link rel="stylesheet" href="~/css/owl.carousel.css">
+
+<!-- nivo slider CSS
+============================================ -->
+<link rel="stylesheet" href="~/css/nivo-slider.css">
+
+<!-- font-awesome.min CSS
+============================================ -->
+<link rel="stylesheet" href="~/css/font-awesome.min.css">
+
+<!-- jquery.fancybox CSS
+============================================ -->
+<link rel="stylesheet" href="~/css/fancb/jquery.fancybox.css">
+
+<!-- meanmenu.min CSS
+============================================ -->
+<link rel="stylesheet" href="~/css/meanmenu.min.css">
+
+<!-- animate CSS
+============================================ -->
+<link rel="stylesheet" href="~/css/animate.css">
+
+<!-- normalize CSS
+============================================ -->
+<link rel="stylesheet" href="~/css/normalize.css">
+
+<!-- main CSS
+============================================ -->
+<link rel="stylesheet" href="~/css/main.css">
+
+<!-- style CSS
+============================================ -->
+<link rel="stylesheet" href="~/style.css">
+
+<!-- responsive CSS
+============================================ -->
+<link rel="stylesheet" href="~/css/responsive.css">
+<style>
+
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+
+    span {
+        cursor: pointer;
+    }
+
+    .number {
+        margin: 0px;
+    }
+
+    .minus, .plus {
+        width: 20px;
+        height: 20px;
+        background: #f2f2f2;
+        border-radius: 4px;
+        /*padding: 8px 5px 8px 5px;*/
+        border: 1px solid #ddd;
+        display: inline-block;
+        vertical-align: middle;
+        text-align: center;
+    }
+
+        .minus:hover {
+            background-color: #FE5B5A;
+        }
+
+        .plus:hover {
+            background-color: #FE5B5A;
+        }
+
+    .fa-trash:hover {
+        color: #FE5B5A;
+    }
+
+    input {
+        /*height: 34px;*/
+        width: 38px;
+        text-align: center;
+        font-size: 18px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .fa {
+        font-size: 20px;
+    }
+
+    .cart-product-line {
+        border-top: 0px solid #515151;
+    }
+    /*.QA{
+        text-align: center;
+        padding: 9px 10px;
+    }*/
+
+    .Shop_Now {
+        background-color: #363636;
+        padding: 10px;
+        color: white;
+        border-radius: 1px;
+    }
+
+        .Shop_Now:hover {
+            background-color: #fe5b5a;
+            color: white;
+            text-decoration: none;
+        }
+
+    .Shop_Now_Div {
+        padding: 20px;
+    }
+    .modal-header {
+        background-color: #fe5b5a;
+    }
+    .cart-checkout {
+        color : white;
+    }
+
+</style>
+
+<script src="js/vendor/modernizr-2.8.3.min.js"></script>
+<!-- Start main area -->
+<div class="main-area">
+
+    <!-- Start cart page area -->
+    <div class="cart-page-area">
+        <div class="container">
+            <div class="breadcrumb">
+                <a title="Return to Home" asp-action="Index" asp-controller="Home" class="home">Home</a>
+                <span class="navigation-pipe"><i class="fa fa-angle-right"></i></span>
+                Shopping cart
+            </div>
+            <div class="cart-wrap">
+                <h4 class="cart-title">Shopping cart</h4>
+            </div>
+            <div class="row">
+                @if (Model.F_Getproduct_CartDetails_By_Orgids.Count != 0)
+                {
+                    <div class="col-md-9 card mb-4 shadow">
+                        <div class="cart-wrap">
+                            <div class="table-responsive">
+                                <table id="myTable" class="table">
+                                    <thead>
+                                        <tr class="">
+                                            <th>Added Product</th>
+                                            <th>Product Detail</th>
+                                            <th>Qty</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @foreach (var cartlist in Model.F_Getproduct_CartDetails_By_Orgids)
+                                        {
+
+                                            int x = (int)cartlist.ProductId;
+
+
+                                            <tr class="">
+                                                <td class="">
+                                                    <input class="HidenProId" asp-for="@cartlist.ProductId" hidden />
+                                                    <a href="/ProductDetail/Details/@cartlist.ProductGuid"><img alt="" class="img-responsive img-fluid" src="@cartlist.CoverImage"></a>
+                                                    <input class="HidenGuid" asp-for="@cartlist.OrderGuid" hidden />
+                                                </td>
+                                                <td>
+                                                    <h4><a href="/ProductDetail/Details/@cartlist.ProductGuid" class="product_name_Over">@cartlist.ProductName</a></h4>
+                                                    <div class="fw-bold price amount" data-price="@cartlist.Price" id="pP_@cartlist.ProductId" style="color: #FE5B5A;"></div>
+                                                </td>
+                                                <td>
+                                                    <div class="number">
+                                                        <span class="minus">-</span>
+                                                        <input type="number" id="ProductQTY" data-id="99" data-price="@cartlist.Price" class="quant" value="@cartlist.Qty" />
+                                                        <span class="plus">+</span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <form method="get">
+                                                        <a class="deleteItem" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="GetDelete(@cartlist.ProductId)">
+                                                            <i class="fa fa-trash"></i>
+                                                        </a>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        }
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <div>
+                            <div class="card shadow" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title">Price Details (@Model.F_Getproduct_CartDetails_By_Orgids.Count items)</h5>
+                                    <div class="cart-price">
+                                        <div class="cart-product-line fast-line">
+                                            <span>Shipping</span>
+                                            <span class="free-shiping">Free shipping!</span>
+                                        </div>
+                                        <div class="cart-product-line">
+                                            <span>Final Total</span>
+                                            <span class="total"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="cart-checkout">
+                                        <a onclick="GetOrder()">Check out<i class="fa fa-chevron-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="text-center">
+                        <img style="height:auto;width:auto;" src="~/img/emptycart.gif" />
+
+                        <div class="Shop_Now_Div">
+                            <a class="Shop_Now" asp-action="Index" asp-controller="Home">Shop Now<i class="fa fa-shopping-cart"></i></a>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body fw-bold">
+                            Are you sure you want to remove this item ?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <a id="btnContinueDelete" href="" class="btn btn-outline-danger">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*<div class="actions">
+            <div class="cartpage-btn">
+                <ul> /Cart/DeleteProduct/@cartlist.ProductId
+                    <li><a asp-action="index" asp-controller="home" class="cbtn">continue shopping</a></li>
+                    <li><a href="#" class="cbtn">update shopping cart</a></li>
+                    <li><a href="#" class="cbtn">clear shopping cart</a></li>
+                </ul>
+            </div>
+        </div>*@
+            <!-- start cart discount code area -->
+            @*<div class="cart-discount-code-area">
+            <h2>Discount codes</h2>
+            <p>Enter your coupon code if you have one.</p>
+            <input type="text">
+            <a href="#">Apply coupon</a>
+        </div>*@
+            <!-- End cart discount code area -->
+            <!-- Start Stmate shoping and cart -->
+            <!-- End Stmate shoping and cart -->
+        </div>
+    </div>
+    <!-- End cart page area -->
+    <!-- Start brand logo area -->
+    <!-- End brand logo area -->
+</div>
+<!-- End main area -->
+<!-- JS -->
+<!-- jquery -->
+<script src="~/js/vendor/jquery-3.5.1.min.js"></script>
+<script src="~/js/vendor/jquery-migrate-3.3.0.min.js"></script>
+
+<!-- bootstrap js
+============================================ -->
+<script src="js/bootstrap.min.js"></script>
+
+<!-- owl.carousel.min js
+============================================ -->
+<script src="js/owl.carousel.min.js"></script>
+
+<!-- jquery.nivo.slider.pack.3.2 js
+============================================ -->
+<script src="~/js/jquery.nivo.slider.pack.3.2.js"></script>
+
+<!-- jqueryui js
+============================================ -->
+<script src="~/js/jqueryui.js"></script>
+
+<!-- jqueryui js
+============================================ -->
+<script src="~/js/jquery.fancybox.js"></script>
+
+<!-- jquery.meanmenu js
+============================================ -->
+<script src="~/js/jquery.meanmenu.js"></script>
+
+<!-- wow js
+============================================ -->
+<script src="~/js/wow.js"></script>
+
+<!-- plugins js
+============================================ -->
+<script src="~/js/plugins.js"></script>
+
+<!-- main js
+============================================ -->
+<script src="~/js/main.js"></script>
+
+<script>
+
+    var arr = [];
+    var count;
+    $(document).ready(function (id) {
+
+        $('.minus').click(function () {
+            var $input = $(this).parent().find('input');
+            count = parseInt($input.val()) - 1;
+            count = count < 1 ? 1 : count;
+            $input.val(count);
+            $input.change();
+            return false;
+        });
+
+        $('.plus').click(function (id) {
+            var $input = $(this).parent().find('input');
+            $input.val(parseInt($input.val()) + 1);
+            $input.change();
+            return false;
+        });
+    });
+
+    $(document).ready(function () {
+        update();
+        $(".quant").change(function () {
+            //this: context of the input that was changed
+            //console.log('calling /Cart/AddTocart; id:', $(this).attr('data-id'), ' quantity: ', $(this).val());
+            $.get(
+                '/Cart/AddTocart', {
+                id: $(this).attr('data-id'),
+                returnUrl: '',
+                quantity: $(this).val()
+            });
+            update();
+        });
+
+        function update() {
+            var sum = 0.0;
+            var quantity;
+            $('#myTable > tbody  > tr').each(function () {
+
+                quantity = $(this).find('.quant').val();
+                var price = parseFloat($(this).find('.price').attr('data-price').replace(',', '.'));
+                var amount = (quantity * price);
+
+                sum += amount;
+                $(this).find('.amount').text('₹' + amount);
+            });
+            $('.total').text('₹' + sum);
+        }
+    });
+
+
+    function GetDelete(id) {
+
+        document.getElementById("btnContinueDelete").href = "/Cart/DeleteProduct/" + id;
+    }
+
+    function GetOrder() {
+
+        var ar = [];
+        var dataBunch = [];
+
+        var tab = $("#myTable > tbody > tr").each(function () {
+            $(this).find('td');
+        });
+
+        for (var i = 0; i < tab.length; i++) {
+
+           // dataBunch = [(tab[i].cells[0].childNodes[1].childNodes[0].currentSrc), (tab[i].children[0].children[1].value), (tab[i].cells[1].children[0].childNodes[0].innerText), (tab[i].cells[1].children[1].innerText), (tab[i].cells[2].children[0].children[1].value)];
+           // "Image": tab[i].cells[0].childNodes[1].childNodes[0].currentSrc, "ProductName": tab[i].cells[1].children[0].childNodes[0].innerText, "Price": tab[i].cells[1].children[1].innerText,
+            ar.push({ "Guid": tab[i].children[0].children[2].value, "Qty": tab[i].cells[2].children[0].children[1].value, "ProductId": tab[i].cells[0].children[0].value });
+        }
+
+        var makeString = JSON.stringify({ar});
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("AddToCheck", "Cart")',
+            dataType: 'JSON',
+            data: makeString,
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                window.location = "/Cart/CheckOut?orderid=" + $('.HidenGuid').val()
+            },
+            error: function (xhr, status, error) {
+                alert( window.location = "/Cart/CheckOut/" + $('.HidenGuid').val())
+            }
+        });
+
+    };
+
+
+</script>

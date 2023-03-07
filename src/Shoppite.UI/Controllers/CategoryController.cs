@@ -31,7 +31,7 @@ namespace Shoppite.UI.Controllers
             model.BottomBanner = await _categoryPageService.GetMiddelBannerImage(orgid);
             model.TopBanner = await _categoryPageService.GetTopBannerImage(orgid);
             model.ProductsDetails = await _categoryPageService.GetProductList(orgid);
-            model.Categories=await _categoryPageService.GetCategories(CategoryId);
+            model.Categories= await _categoryPageService.GetCategories(CategoryId);
             model.HorizontalBanner = await _categoryPageService.GetHorizontalBanner(orgid);
             return View(model);
         }

@@ -64,7 +64,7 @@
         spaceBetween: 20,
         //freeMode: true,
         navigation: {
-            nextEl: '.swiper-button-next',
+            nextEl: '.swiper-button-next',  
             prevEl: '.swiper-button-prev'
         },
         pagination: {
@@ -112,7 +112,7 @@
                         prod_Div = '<div class="swiper-slide">';
                         prod_Div += '<div class="product-item" >';
                         prod_Div += '<div class="top-item">';
-                        prod_Div += '<a href="#" class="product_Images">';
+                        prod_Div += '<a href="/ProductDetail/Details/' + result[i].productGUID + '" class="product_Images" > ';
                         prod_Div += '<img src="' + result[i].image + '" alt="' + result[i].productName + '" />';
                         prod_Div += '</a>';
                         prod_Div += '<div class="top-cocial">';
@@ -127,7 +127,7 @@
                         prod_Div += '</div>';
                         prod_Div += '<div class="bottom-item">';
                         prod_Div += '<div class="product-info">';
-                        prod_Div += '<h5><a href="#" class="product_name_Over" id="ProductName">' + result[i].productName + '</a></h5>';
+                        prod_Div += '<h5><a href="/ProductDetail/Details/' + result[i].productGUID + '" class="product_name_Over" id="ProductName">' + result[i].productName + '</a></h5>';
                         prod_Div += '<span>' + '₹' + result[i].price + '</span>';
                         prod_Div += '<p>';
                         prod_Div += '<i class="fa fa-star-o"></i>';

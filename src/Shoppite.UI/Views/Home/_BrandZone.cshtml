@@ -11,7 +11,7 @@
 
                 @foreach (var BLogo in Model.BrandsModel)
                 {
-                    if (BLogo.BrandImage != "")
+                    if (BLogo.BrandImage != string.Empty && BLogo.BrandImage != null)
                     {
                         <div class="carosel-lo">
                             <a href="#"><img id="Brand_Logo_Img" src="@BLogo.BrandImage" alt="@BLogo.BrandName" style="max-height: 68px; max-width: 130px;"></a>
@@ -34,8 +34,8 @@
             margin: 10,
             autoplay: true,
             slideTransition: 'linear',
-            autoplayTimeout: 3000,
-            autoplaySpeed: 3000,
+            autoplayTimeout: 2000,
+            autoplaySpeed: 2000,
             autoplayHoverPause: true,
             responsive: {
                 0: {

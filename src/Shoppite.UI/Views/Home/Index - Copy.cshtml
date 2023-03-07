@@ -1,0 +1,648 @@
+﻿@model Shoppite.Application.Models.MainModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+<link href="~/css/MainpageSwipper.css" rel="stylesheet" />
+<!-- Start mega menu area -->
+<div class="megamenu-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="megamenu">
+                    <nav>
+                        <ul>
+                            <li>
+                                <a class="home" href="index.html">Home</a>
+                                <div class="megamenudown-mini home-ve">
+                                    <div class="mega-top">
+                                        <div class="mega-item-menu">
+                                            <a class="title" href="#"><span>Home variyation</span></a>
+                                            <a href="index-2.html"><span>Home2</span></a>
+                                            <a href="index-3.html"><span>Home3</span></a>
+                                            <a href="index-4.html"><span>Home4</span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="shop-grid.html">Electronic</a>
+                                <div class="megamenudown">
+                                    <div class="mega-top">
+                                        <div class="mega-item-menu">
+                                            <a class="title" href="shop-grid.html"><span>Laptop</span></a>
+                                            <a href="#"><span>Vaio</span></a>
+                                            <a href="#"><span>Samsung</span></a>
+                                            <a href="#"><span>Toshiba</span></a>
+                                            <a href="#"><span>Hp</span></a>
+                                        </div>
+                                        <div class="mega-item-menu">
+                                            <a class="title" href="shop-grid.html"><span>smartphone</span></a>
+                                            <a href="#"><span>Iphone</span></a>
+                                            <a href="#"><span>Oppo</span></a>
+                                            <a href="#"><span>Nokia</span></a>
+                                            <a href="#"><span>Samsung</span></a>
+                                        </div>
+                                        <div class="mega-item-menu">
+                                            <a class="title" href="shop-grid.html"><span>tablets</span></a>
+                                            <a href="#"><span>Samsung</span></a>
+                                            <a href="#"><span>Apple</span></a>
+                                            <a href="#"><span>Lennovo</span></a>
+                                            <a href="#"><span>Sony</span></a>
+                                        </div>
+                                        <div class="mega-item-menu">
+                                            <a class="title" href="shop-grid.html"><span>Accessories</span></a>
+                                            <a href="#"><span>Headphone</span></a>
+                                            <a href="#"><span>Adapter</span></a>
+                                            <a href="#"><span>Bag</span></a>
+                                            <a href="#"><span>Sony</span></a>
+                                        </div>
+                                    </div>
+                                    <div class="mega-bottom">
+                                        <a href="#"><img src="img/menu/banner_menu_1.jpg" alt=""></a>
+                                        <a href="#"><img src="img/menu/banner_menu_2.jpg" alt=""></a>
+                                        <a href="#"><img src="img/menu/banner_menu_3.jpg" alt=""></a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="shop-grid.html">phones</a>
+                                <div class="megamenudown">
+                                    <div class="mega-top">
+                                        <div class="mega-item-menu">
+                                            <a class="title" href="shop-grid.html"><span>Laptop</span></a>
+                                            <a href="#"><span>Vaio</span></a>
+                                            <a href="#"><span>Samsung</span></a>
+                                            <a href="#"><span>Toshiba</span></a>
+                                            <a href="#"><span>Hp</span></a>
+                                        </div>
+                                        <div class="mega-item-menu">
+                                            <a class="title" href="shop-grid.html"><span>smartphone</span></a>
+                                            <a href="#"><span>Iphone</span></a>
+                                            <a href="#"><span>Oppo</span></a>
+                                            <a href="#"><span>Nokia</span></a>
+                                            <a href="#"><span>Samsung</span></a>
+                                        </div>
+                                        <div class="mega-item-menu">
+                                            <a class="title" href="shop-grid.html"><span>tablets</span></a>
+                                            <a href="#"><span>Samsung</span></a>
+                                            <a href="#"><span>Apple</span></a>
+                                            <a href="#"><span>Lennovo</span></a>
+                                            <a href="#"><span>Sony</span></a>
+                                        </div>
+                                        <div class="mega-item-menu">
+                                            <a class="title" href="shop-grid.html"><span>Accessories</span></a>
+                                            <a href="#"><span>Headphone</span></a>
+                                            <a href="#"><span>Adapter</span></a>
+                                            <a href="#"><span>Bag</span></a>
+                                            <a href="#"><span>Sony</span></a>
+                                        </div>
+                                        <div class="mega-item-menu-img">
+                                            <a href="#"><img src="img/menu/banner_menu_right.jpg" alt="menu image"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li><a href="about-us.html">About us</a></li>
+                            <li>
+                                <a href="blog.html">blog</a>
+                                <div class="megamenudown-mini">
+                                    <div class="mega-top">
+                                        <div class="mega-item-menu">
+                                            <a class="title" href="#"><span>Blog</span></a>
+                                            <a href="blog-non-sidebar.html"><span>Blog non sidebar</span></a>
+                                            <a href="single-blog.html"><span>Single blog</span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="shop-grid.html">Pages</a>
+                                <div class="megamenudown-mini">
+                                    <div class="mega-top">
+                                        <div class="mega-item-menu pages">
+                                            <a href="about-us.html"><span>About us</span></a>
+                                            <a href="blog.html"><span>Blog</span></a>
+                                            <a href="blog-non-sidebar.html"><span>blog non sidebar</span></a>
+                                            <a href="single-blog.html"><span>single blog</span></a>
+                                            <a href="shop-grid.html"><span>shop grid</span></a>
+                                            <a href="shop-list.html"><span>shop list</span></a>
+                                            <a href="single-product.html"><span>single product</span></a>
+                                            <a href="cart.html"><span>cart</span></a>
+                                            <a href="wishlists.html"><span>wishlists</span></a>
+                                            <a href="checkout.html"><span>checkout</span></a>
+                                            <a href="contact-us.html"><span>contact us</span></a>
+                                            <a href="404.html"><span>404</span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li><a href="contact-us.html">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="search-box">
+                    <form method="get" action="#" id="searchbox-eleyas">
+                        <p>
+                            <input type="text" value="" placeholder="You keyword..." name="search_query">
+                            <button class="button-search" name="submit_search" type="submit">
+                                <span><i class="fa fa-search"></i></span>
+                            </button>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End mega menu area -->
+<!-- Start mobile menu -->
+<div class="mobile-menu-area">
+    <div class="container">
+        <div class="mobile-menu clearfix">
+            <nav id="dropdown">
+                <ul class="nav">
+                    <li>
+                        <a href="index.html">Home</a>
+                        <ul>
+                            <li><a href="index-2.html">Home2</a></li>
+                            <li><a href="index-3.html">Home3</a></li>
+                            <li><a href="index-4.html">Home4</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="shop-grid.html">Electronic</a>
+                        <ul>
+                            <li>
+                                <a href="shop-grid.html">Laptop</a>
+                                <ul>
+                                    <li><a href="#">Vaio</a></li>
+                                    <li><a href="#">Samsung</a></li>
+                                    <li><a href="#">Toshiba</a></li>
+                                    <li><a href="#">Hp</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="shop-grid.html">smartphone</a>
+                                <ul>
+                                    <li><a href="#">Iphone</a></li>
+                                    <li><a href="#">Oppo</a></li>
+                                    <li><a href="#">Nokia</a></li>
+                                    <li><a href="#">Samsung</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="shop-grid.html">tablets</a>
+                                <ul>
+                                    <li><a href="#">Samsung</a></li>
+                                    <li><a href="#">Apple</a></li>
+                                    <li><a href="#">Lennovo</a></li>
+                                    <li><a href="#">Sony</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="shop-grid.html">Accessories</a>
+                                <ul>
+                                    <li><a href="#">Headphone</a></li>
+                                    <li><a href="#">Adapter</a></li>
+                                    <li><a href="#">Bag</a></li>
+                                    <li><a href="#">Sony</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="shop-grid.html">phones</a>
+                        <ul>
+                            <li>
+                                <a href="shop-grid.html">Laptop</a>
+                                <ul>
+                                    <li><a href="#">Vaio</a></li>
+                                    <li><a href="#">Samsung</a></li>
+                                    <li><a href="#">Toshiba</a></li>
+                                    <li><a href="#">Hp</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="shop-grid.html">smartphone</a>
+                                <ul>
+                                    <li><a href="#">Iphone</a></li>
+                                    <li><a href="#">Oppo</a></li>
+                                    <li><a href="#">Nokia</a></li>
+                                    <li><a href="#">Samsung</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="shop-grid.html">tablets</a>
+                                <ul>
+                                    <li><a href="#">Samsung</a></li>
+                                    <li><a href="#">Apple</a></li>
+                                    <li><a href="#">Lennovo</a></li>
+                                    <li><a href="#">Sony</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="shop-grid.html">Accessories</a>
+                                <ul>
+                                    <li><a href="#">Headphone</a></li>
+                                    <li><a href="#">Adapter</a></li>
+                                    <li><a href="#">Bag</a></li>
+                                    <li><a href="#">Sony</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="shop-grid.html">fashion</a>
+                        <ul>
+                            <li>
+                                <a href="shop-grid.html">Laptop</a>
+                                <ul>
+                                    <li><a href="#">Vaio</a></li>
+                                    <li><a href="#">Samsung</a></li>
+                                    <li><a href="#">Toshiba</a></li>
+                                    <li><a href="#">Hp</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="shop-grid.html">smartphone</a>
+                                <ul>
+                                    <li><a href="#">Iphone</a></li>
+                                    <li><a href="#">Oppo</a></li>
+                                    <li><a href="#">Nokia</a></li>
+                                    <li><a href="#">Samsung</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="shop-grid.html">tablets</a>
+                                <ul>
+                                    <li><a href="#">Samsung</a></li>
+                                    <li><a href="#">Apple</a></li>
+                                    <li><a href="#">Lennovo</a></li>
+                                    <li><a href="#">Sony</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="shop-grid.html">Accessories</a>
+                                <ul>
+                                    <li><a href="#">Headphone</a></li>
+                                    <li><a href="#">Adapter</a></li>
+                                    <li><a href="#">Bag</a></li>
+                                    <li><a href="#">Sony</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="about-us.html">About us</a></li>
+                    <li>
+                        <a href="#">Blog</a>
+                        <ul>
+                            <li><a href="blog.html">Blog</a></li>
+                            <li><a href="blog-non-sidebar.html">Blog non sidebar</a></li>
+                            <li><a href="single-blog.html">Single blog</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Pages</a>
+                        <ul>
+                            <li><a href="about-us.html"><span>About us</span></a></li>
+                            <li><a href="blog.html"><span>Blog</span></a></li>
+                            <li><a href="blog-non-sidebar.html"><span>blog non sidebar</span></a></li>
+                            <li><a href="single-blog.html"><span>single blog</span></a></li>
+                            <li><a href="shop-grid.html"><span>shop grid</span></a></li>
+                            <li><a href="shop-list.html"><span>shop list</span></a></li>
+                            <li><a href="single-product.html"><span>single product</span></a></li>
+                            <li><a href="cart.html"><span>cart</span></a></li>
+                            <li><a href="wishlists.html"><span>wishlists</span></a></li>
+                            <li><a href="checkout.html"><span>checkout</span></a></li>
+                            <li><a href="contact-us.html"><span>contact us</span></a></li>
+                            <li><a href="404.html"><span>404</span></a></li>
+                        </ul>
+                    </li>
+                    <li><a href="contact-us.html">Content</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="mobile-search-box">
+                    <form method="get" action="#" id="searchbox">
+                        <p>
+                            <input type="text" value="" placeholder="You keyword..." name="search_query">
+                            <button class="button-search" name="submit_search" type="submit">
+                                <span><i class="fa fa-search"></i></span>
+                            </button>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End mobile menu -->
+<!-- Start slider area -->
+<div class="slider-area">
+    <div class="container">
+        <div class="slider">
+            <div id="container">
+                <!-- Nivo slider Demo 35 -->
+                <div id="NivosliderD35oo slider-gray-bg">
+                    <div class="nivoSlider">
+                        <img src="img/slider/3.jpg" alt="slider image">
+                        <img src="img/slider/5.jpg" alt="slider image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End slider area -->
+<!-- Start baner area -->
+<div class="baner-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <a href="#"><img src="img/baner/banner_img1.jpg" alt=""></a>
+            </div>
+            <div class="col-md-6">
+                <a href="#"><img src="img/baner/banner_img2.jpg" alt=""></a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End baner area -->
+<!-- Start tab and carosel area -->
+<div id="content" class="tabandcarosel-area">
+    <div class="container">
+        <div class="tab-product-wrap">
+            <div class="row">
+                <!-- Start tab menu area -->
+                <div class="col-lg-3 col-md-4">
+                    <div class="tab-menu-area toplist" id="myDIV">
+                        <ul id="tabs" class="nav nav-tabs tab_cates text-nowrap" data-tabs="tabs">
+                            @foreach (var Cat in Model.GetSp_Getcat_ResultModel.Take(5))
+                            {
+                                int X = (int)Cat.ID;
+                                <li>
+
+                                    <a onclick="testajaxcall('@X')"  data-toggle="tab" name="CatName" class="name xbtn">
+                                        <label class="name">@Cat.NAME</label>
+                                        @*<span class="thumb"><img class="imgm" src="img/tab-icon/12-0_thumb.png" alt="thumb"></span>
+                                            <span class="thumb"><img class="imgm" src="img/tab-icon/12-1_thumb.png" alt="thumb"></span>*@
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+                <!-- End tab menu area -->
+                <!-- Start category product content area -->
+                <div class="col-lg-9 col-md-8">
+                    <div class="new-product-area">
+                        <div class="container">
+                            <div class="tab-contant-static-image">
+                                <a href="#"><img src="img/product/banner_tabCate.jpg" alt="Static image"></a>
+                            </div>
+
+                            <div class="pt-3 overflow-hidden">
+                                <div class="swiper mySwiper">
+                                    <div class="swiper-wrapper d-flex d-flex-inline " id="prodtabdata">
+                                        <!--Here dynamically add product as per category via ajax in script-->
+                                    </div>
+                                    <div class="swiper-button-next"> <i class="fa fa-angle-right"></i> </div>
+                                    <div class="swiper-button-prev"> <i class="fa fa-angle-left"></i> </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End category product and carosel area -->
+<!-- Start new product area -->
+<div class="new-product-area">
+    <div class="container">
+        @foreach (var product in Model.ProductNewArrivalModel.GroupBy(x => x.StatusId))
+        {
+            foreach (var groupq in product.Take(1))
+            {
+                <!-- Start product title -->
+                <div class="new-product-title">
+                    <h4><span>@groupq.deals </span></h4>
+                </div>
+                <!-- End product title -->
+                <!-- Start new product -->
+                <div class="new-products">
+                    <div class="producttabcarosel carosel-product5 owl-carousel">
+
+                        @foreach (var group in product)
+                        {
+
+                            <div class="product-item">
+                                <div class="top-item">
+                                    <a href="#">
+                                        <img src="@group.image" alt="@group.ProductName">
+                                    </a>
+                                    <div class="top-cocial">
+                                        <p>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="bottom-item">
+                                    <div class="product-info">
+                                        <h5><a href="#">@group.ProductName</a></h5>
+                                        <span>₹@group.Price</span>
+                                        <p>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                        </p>
+                                    </div>
+                                    <div class="product-social">
+                                        <ul>
+                                            <li><a href="#"><i class="fa fa-external-link"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-bar-chart"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <!-- End new product -->
+            }
+        }
+    </div>
+    <!-- End new product area -->
+    <!-- Start top selar area -->
+    <!-- End top selar area -->
+</div>
+<!-- Start brand logo area -->
+<div class="brand-logo-area mt-auto">
+    <div class="container">
+        <div class="new-product-title">
+            <h4><span>Brand Zone </span></h4>
+        </div>
+        <div class="brand-logo">
+            <div class="producttabcarosel pos-logo-slide owl-carousel">
+
+                @foreach (var BLogo in Model.BrandsModel)
+                {
+                    if (BLogo.BrandImage != "")
+                    {
+                        <div class="carosel-lo">
+                            <a href="#"><img id="Brand_Logo_Img" src="@BLogo.BrandImage" alt="@BLogo.BrandName" style="max-height: 68px; max-width: 130px;"></a>
+                        </div>
+                    }
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End brand logo area -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+
+<script>
+    var swiper = new Swiper(".mySwiper", {
+        slidesPerView: 4,
+        spaceBetween: 20,
+        //freeMode: true,
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev'
+        },
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true
+        },
+        breakpoints: {
+            320: {
+                slidesPerView: 1,
+                spaceBetween: 20
+            },
+            576: {
+                slidesPerView: 2,
+                spaceBetween: 20
+          },
+            768: {
+                slidesPerView: 3,
+                spaceBetween: 20
+          },
+            992: {
+                slidesPerView: 4,
+                spaceBetween: 20
+            }
+        }
+    });
+
+    function testajaxcall(id)
+    {
+        //debugger;
+        var prod_Div = '';
+        var ProdAry = [];
+        var header = document.getElementById("myDIV");
+        var btns = header.getElementsByClassName("xbtn");
+
+
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("Get_Product_By_Cat", "Home")',
+                dataType: 'JSON',
+                data: { "ID": id },
+                contentType: "application/json",
+                success: function(result)
+                {
+
+                    for (var i = 0; i < result.length; i++) {
+
+                        prod_Div = '<div class="swiper-slide">';
+                        prod_Div += '<div class="product-item" >';
+                        prod_Div += '<div class="top-item">';
+                        prod_Div += '<a href="#">';
+                        prod_Div += '<img src="' + result[i].image + '" alt="' + result[i].productName +'">';
+                        prod_Div += '</a>';
+                        prod_Div += '<div class="top-cocial">';
+                        prod_Div += '<p>';
+                        prod_Div += '<i class="fa fa-star-o"></i>';
+                        prod_Div += '<i class="fa fa-star-o"></i>';
+                        prod_Div += '<i class="fa fa-star-o"></i>';
+                        prod_Div += '<i class="fa fa-star-o"></i>';
+                        prod_Div += '<i class="fa fa-star-o"></i>';
+                        prod_Div += '</p>';
+                        prod_Div += '</div>';
+                        prod_Div += '</div>';
+                        prod_Div += '<div class="bottom-item">';
+                        prod_Div += '<div class="product-info">';
+                        prod_Div += '<h5><a href="#" class="text-wrap" id="ProductName">' + result[i].productName + '</a></h5>';
+                        prod_Div += '<span>' + '₹' + result[i].price + '</span>';
+                        prod_Div += '<p>';
+                        prod_Div += '<i class="fa fa-star-o"></i>';
+                        prod_Div += '<i class="fa fa-star-o"></i>';
+                        prod_Div += '<i class="fa fa-star-o"></i>';
+                        prod_Div += '<i class="fa fa-star-o"></i>';
+                        prod_Div += '<i class="fa fa-star-o"></i>';
+                        prod_Div += '</p>';
+                        prod_Div += '</div>';
+                        prod_Div += '<div class="product-social">';
+                        prod_Div += '<ul>';
+                        prod_Div += '<li><a href="#"><i class="fa fa-external-link"></i></a></li>';
+                        prod_Div += '<li><a href="#"><i class="fa fa-heart-o"></i></a></li>';
+                        prod_Div += '<li><a href="#"><i class="fa fa-bar-chart"></i></a></li>';
+                        prod_Div += '<li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>';
+                        prod_Div += '</ul>';
+                        prod_Div += '</div>';
+                        prod_Div += '</div>';
+                        prod_Div += '</div>';
+                        prod_Div += '</div>';
+                        var resetdiv = prod_Div;
+                        ProdAry.push(resetdiv);
+                    }
+                    $("#prodtabdata").html(ProdAry.join(''));
+
+                },
+                error: function (xhr, status, error)
+                {
+                    alert(xhr.responseText);
+                }
+            })
+
+    };
+
+    window.onload = function () {
+        document.getElementsByName("CatName")[0].click();
+    };
+
+    var links = document.querySelectorAll('.toplist ul li a');
+    links.forEach(function (element) {
+        element.addEventListener('click', function (e) {
+            // PreventDefault to prevent redirect
+            e.preventDefault();
+            links.forEach(function (element) {
+                element.classList.remove('active');
+            });
+            this.classList.add('active');
+        });
+    });
+
+</script>
+
+
