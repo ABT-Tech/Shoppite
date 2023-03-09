@@ -32,7 +32,7 @@ namespace Shoppite.Infrastructure.Repository
         }
         public async Task<OrderBasic> DeleteAsync(int id)
         {
-            var product = _dbContext.OrderBasic.FirstOrDefault(x => x.ProductId == id);
+            var product = _dbContext.OrderBasic.FirstOrDefault(x => x.ProductId == id && x.OrderStatus == "Cart");
             if (product != null)
             {
                 _dbContext.OrderBasic.Remove(product);
@@ -41,5 +41,66 @@ namespace Shoppite.Infrastructure.Repository
             return product;
         }
 
+        public async Task SaveAddress(OrderShipping orderShipping)
+        {
+            var OrderCheck = _dbContext.OrderShipping.FirstOrDefault(x => x.Contactnumber == orderShipping.Contactnumber);
+            if(OrderCheck == null)
+            {
+                _dbContext.OrderShipping.Add(orderShipping);
+            }
+           await _dbContext.SaveChangesAsync();
+
+        }
+
+        //public async Task<OrderBasic> CheckOrder(OrderBasic orderBasic)
+        //{
+        //    var check = await _dbContext.OrderBasic.FirstOrDefaultAsync(x => x.OrderGuid == orderBasic.OrderGuid && x.OrderStatus == "Cart");
+
+        //    if(check != null)
+        //    {
+        //        check.Qty = orderBasic.Qty;
+
+        //        _dbContext.OrderBasic.Update(check);
+        //    }
+        // await _dbContext.SaveChangesAsync();
+        //}
+        public async Task<OrderBasic> CheckOrder(OrderBasic orderBasic)
+        {
+            var check = await _dbContext.OrderBasic.FirstOrDefaultAsync(x => x.OrderGuid == orderBasic.OrderGuid && x.OrderStatus == "Cart" && x.UserName == orderBasic.UserName);
+            return check;
+        }
+
+        public async Task UpdateOrder(OrderBasic orderBasic)
+        {
+            var check = await _dbContext.OrderBasic.Where(x => x.OrderGuid == orderBasic.OrderGuid && x.OrderStatus == "Cart" && x.UserName == orderBasic.UserName).ToListAsync();
+
+            foreach(var order in check)
+            {
+                order.OrderStatus = "Confirmed";
+
+                 _dbContext.OrderBasic.Update(order);
+
+             await _dbContext.SaveChangesAsync();
+            }
+        }
+
+        public async Task UpdateOrderQty(OrderBasic orderBasic)
+        {
+            var check = await _dbContext.OrderBasic.Where(x => x.OrderGuid == orderBasic.OrderGuid && x.OrderStatus == "Cart" && x.UserName == orderBasic.UserName && x.ProductId == orderBasic.ProductId).FirstOrDefaultAsync();
+            if(check != null)
+            {
+                check.Qty = orderBasic.Qty;
+            }
+            _dbContext.OrderBasic.Update(check);
+
+            await _dbContext.SaveChangesAsync();
+
+        }
+
+        public async Task<OrderShipping> FindAddress(string userName)
+        {
+            var find = await _dbContext.OrderShipping.FirstOrDefaultAsync(x => x.UserName == userName);
+            return find;
+        }
     }
 }

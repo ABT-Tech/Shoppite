@@ -77,7 +77,7 @@ namespace Shoppite.UI
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=LogIn}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
 
@@ -94,12 +94,14 @@ namespace Shoppite.UI
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IProductDetailRepsitory, ProductDetailRepository>();
             services.AddScoped<ICartRepository, CartRepository>();
+            services.AddScoped<IAuthenticationsRepository, AuthenticatiosRepository>();
 
             // Add Application Layer
             services.AddScoped<IBrandServices, BrandServices>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IProductDetailServices, ProductDetilServices>();
             services.AddScoped<ICartServices, CartServices>();
+            services.AddScoped<IAuthenticationsService, AuthenticationsService>();
 
             // Add Web Layer
             services.AddAutoMapper(typeof(Startup));
@@ -108,6 +110,7 @@ namespace Shoppite.UI
             services.AddScoped<ICategoryPageService, CategoryPageService>();
             services.AddScoped<IproductDetailPageServices, ProductDetailPageServices>();
             services.AddScoped<ICartPageServices, CartPageServices>();
+            services.AddScoped<IAuthenticationsPageService, AuthenticationPageService>();
 
             // Add Miscellaneous
             services.AddHttpContextAccessor();

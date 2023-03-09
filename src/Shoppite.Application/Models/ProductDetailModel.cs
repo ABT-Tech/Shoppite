@@ -19,6 +19,7 @@ namespace Shoppite.Application.Models
         public List<f_getproduct_specification_By_GuidModel> f_Getproduct_Specification_By_GuidModel { get; set; }
         public List<AttributesSetupModel> AttributesSetupModel { get; set; }
         public OrderBasicModel OrderBasicModel { get; set; }
+        public OrderMasterModel OrderMasterModel { get; set; }
 
 
     }

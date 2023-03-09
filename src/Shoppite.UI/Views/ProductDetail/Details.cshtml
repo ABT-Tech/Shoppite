@@ -7,7 +7,14 @@
 }
 <link href="~/plugins/select2/css/select2.min.css" rel="stylesheet" />
 <link href="~/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css" rel="stylesheet" />
-<form enctype="multipart/form-data" method="post" class="">
+
+<style>
+    .modal-header {
+        background-color: #fe5b5a;
+    }
+</style>
+
+<form enctype="multipart/form-data" method="get" class="">
     <input type="hidden" asp-for="AttributesSetupModel" />
     <input type="hidden" asp-for="ProductBasicModel.ProductName" />
     <input type="hidden" asp-for="ProductBasicModel.OrgId" />
@@ -98,34 +105,65 @@
                                 </p>
                                 @*<form method="post" action="#">*@
                                 <div class="numbers-row">
-                                    <label>Quality </label>
-                                    <input type="number" asp-for="OrderBasicModel.Qty" name="french-hens" id="french-hens" min="1" value="1">
+                                    <label>Quantity </label>
+                                    <input type="number" asp-for="OrderBasicModel.Qty" name="OrderBasicModel.Qty" id="french-hens" min="1" value="1">
                                 </div>
 
                                 @*</form>*@
 
                                 @*@foreach (var prodAttr in Model.AttributesSetupModel)
-                                 {
-                                    <p class="selector1">
-                                         <label>@prodAttr.AttributeName</label>
-                                         <select id="selectProductSort2" class="select_1 select2 selectProductSort form-control" asp-items="@(new SelectList(prodAttr.GetF_Getproduct_Specification_By_GuidModel,"AttributeId","SpecificationName"))"></select>
-                                     </p>
-                                 }*@
+        {
+           <p class="selector1">
+                <label>@prodAttr.AttributeName</label>
+                <select id="selectProductSort2" class="select_1 select2 selectProductSort form-control" asp-items="@(new SelectList(prodAttr.GetF_Getproduct_Specification_By_GuidModel,"AttributeId","SpecificationName"))"></select>
+            </p>
+        }*@
 
                                 @if (Model.ProductBasicModel.Qty == 0)
                                 {
                                     <p class="buttons_bottom_block no-print disabled" id="add_to_cart">
-                                        <button class="exclusive disabled" name="Submit" asp-action="AddProductToCart" asp-controller="ProductDetail" type="button" onclick="return alert('This Product is Out of Stock')">
-                                            <span class="disabled">Add to cart</span>
+                                        <button class="exclusive disabled" name="Submit" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" disabled>
+                                            <span class="">Add to cart</span>
                                         </button>
                                     </p>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body fw-bold d-flex">
+                                                    This item is currently&nbsp;<div class="text-danger">out of stock</div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 }
                                 else
                                 {
+
+
                                     <p class="buttons_bottom_block no-print" id="add_to_cart">
-                                        <button class="exclusive" name="Submit" asp-action="AddProductToCart" asp-controller="ProductDetail" type="submit">
-                                            <span>Add to cart</span>
-                                        </button>
+
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+
+                                            <button class="exclusive" name="Submit" asp-action="AddProductToCart" asp-controller="ProductDetail" type="submit">
+                                                <span>Add to cart</span>
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <button class="exclusive" name="Submit" asp-action="Login" asp-controller="Authentications" type="submit">
+                                                <span>Add to cart</span>
+                                            </button>
+                                        }
                                     </p>
                                 }
 
@@ -211,7 +249,7 @@
                                                                 <i class="fa fa-star"></i>
                                                                 <i class="fa fa-star"></i>
                                                             </p>
-                                                            <form>
+                                                            
                                                                 <div class="form-group">
                                                                     <label for="exampleInputEmail1">Title:</label>
                                                                     <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
@@ -221,7 +259,7 @@
                                                                     <textarea class="form-control" rows="3"></textarea>
                                                                 </div>
                                                                 <button type="submit" class="btn btn-default">Submit</button>
-                                                            </form>
+                                                            <
                                                         </div>
                                                     </div>
                                                 </div>

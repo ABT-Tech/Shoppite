@@ -49,6 +49,7 @@
         /// The GetProductDetails.
         /// </summary>
         /// <param name="id">The id<see cref="Guid"/>.</param>
+        /// <param name="orgid">The orgid<see cref="int"/>.</param>
         /// <returns>The <see cref="Task{ProductDetailModel}"/>.</returns>
         public async Task<ProductDetailModel> GetProductDetails(Guid id, int orgid)
         {
@@ -192,13 +193,25 @@
             return main;
         }
 
+        /// <summary>
+        /// The Get_Recently_Product.
+        /// </summary>
+        /// <param name="id">The id<see cref="string"/>.</param>
+        /// <param name="orgid">The orgid<see cref="int"/>.</param>
+        /// <returns>The <see cref="Task{List{ProductDetailModel}}"/>.</returns>
         public async Task<List<ProductDetailModel>> Get_Recently_Product(string id, int orgid)
         {
             ProductDetailModel productDetailModel = new ProductDetailModel();
-            var ProductCatId = await _ProductDetailRepsitory.F_Getproducts_Recentlyviewed(id,orgid);
+            var ProductCatId = await _ProductDetailRepsitory.F_Getproducts_Recentlyviewed(id, orgid);
             productDetailModel.f_Getproducts_RecentlyviewedModel = ObjectMapper.Mapper.Map<List<f_getproducts_RecentlyviewedModel>>(ProductCatId);
             return null;
         }
+
+        /// <summary>
+        /// The ProductAttribute.
+        /// </summary>
+        /// <param name="AtId">The AtId<see cref="int"/>.</param>
+        /// <returns>The <see cref="Task{ProductDetailModel}"/>.</returns>
         public async Task<ProductDetailModel> ProductAttribute(int AtId)
         {
             ProductDetailModel productModel = new ProductDetailModel();
@@ -207,19 +220,74 @@
             return productModel;
         }
 
+        /// <summary>
+        /// The AddOrderMaster.
+        /// </summary>
+        /// <param name="productDetailModel">The productDetailModel<see cref="ProductDetailModel"/>.</param>
+        /// <returns>The <see cref="Task"/>.</returns>
+        public async Task AddOrderMaster(ProductDetailModel productDetailModel)
+        {
+            Guid Orderguid = Guid.Empty; //Guid.NewGuid();
+
+            OrderMaster orderMaster = new OrderMaster
+            {
+                OrderGuid = Orderguid,
+                OrderKeyStatus = "Active",
+                InsertDate = DateTime.Now,
+                OrgId = productDetailModel.ProductBasicModel.OrgId
+            };
+            // var addOrderMaster = ObjectMapper.Mapper.Map<OrderMaster>(productDetailModel.OrderMasterModel);
+
+            await _ProductDetailRepsitory.AddOrderMaster(orderMaster);
+        }
+
+        /// <summary>
+        /// The AddToCart.
+        /// </summary>
+        /// <param name="productDetailModel">The productDetailModel<see cref="ProductDetailModel"/>.</param>
+        /// <returns>The <see cref="Task"/>.</returns>
         public async Task AddToCart(ProductDetailModel productDetailModel)
         {
+
+            //  await _ProductDetailRepsitory.AddOrderMaster(orderMaster);
+            //  productDetailModel.OrderMasterModel = ObjectMapper.Mapper.Map<OrderMasterModel>(orderMaster);
+
             OrderBasic orderBasic = new OrderBasic();
             orderBasic.ProductId = productDetailModel.ProductBasicModel.ProductId;
-            orderBasic.OrderGuid = productDetailModel.ProductBasicModel.ProductGuid;
+            orderBasic.OrderGuid = Guid.Empty;
             orderBasic.Price = productDetailModel.ProductPriceModel.Price;
             orderBasic.DeliveryFees = productDetailModel.ProductPriceModel.DeliveryFees;
             orderBasic.InsertDate = DateTime.Now;
             orderBasic.OrderStatus = "Cart";
             orderBasic.Currencyid = productDetailModel.ProductPriceModel.CurrencyId;
             orderBasic.OrgId = productDetailModel.ProductBasicModel.OrgId;
-             await _ProductDetailRepsitory.AddToCart(orderBasic);
-            //productdetailmodel = objectmapper.mapper.map<productdetailmodel>(addtocart);
+            orderBasic.Qty = productDetailModel.OrderBasicModel.Qty;
+            orderBasic.UserName = _accessor.HttpContext.User.Identity.Name;
+
+            var find = await _ProductDetailRepsitory.check(orderBasic);
+
+            productDetailModel.OrderBasicModel = ObjectMapper.Mapper.Map<OrderBasicModel>(find);
+
+            if (find != null)
+            {
+                orderBasic.OrderGuid = find.OrderGuid;
+            }
+            else
+            {
+                Guid Orderguid = Guid.NewGuid();
+
+                OrderMaster orderMaster = new OrderMaster
+                {
+                    OrderGuid = Orderguid,
+                    OrderKeyStatus = "Active",
+                    InsertDate = DateTime.Now,
+                    OrgId = productDetailModel.ProductBasicModel.OrgId
+                };
+                await _ProductDetailRepsitory.AddOrderMaster(orderMaster); 
+                orderBasic.OrderGuid = Orderguid;
+            }
+
+            await _ProductDetailRepsitory.AddToCart(orderBasic);
         }
     }
 }

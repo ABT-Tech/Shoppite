@@ -19,5 +19,6 @@ namespace Shoppite.Application.Interfaces
         Task<List<ProductDetailModel>> Get_Recently_Product(string id, int orgid);
         Task<ProductDetailModel> ProductAttribute(int AtId);
         Task AddToCart(ProductDetailModel productDetailModel);
+        Task AddOrderMaster(ProductDetailModel productDetailModel);
     }
 }
