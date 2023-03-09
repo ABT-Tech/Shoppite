@@ -27,9 +27,9 @@
                                 </div>
                             </li>
 
-                            @await Html.PartialAsync("_Categories", Model)
+                             await Html.PartialAsync("_Categories", Model)
 
-                            @await Html.PartialAsync("_MoreCategories", Model)-->
+                            await Html.PartialAsync("_MoreCategories", Model)-->
                             @*<li>
                                     <select asp-for="CategoryId" asp-items="@(new SelectList(Model.Categories,"CategoryId","CategoryName"))">
                                         <option>Categories</option>
