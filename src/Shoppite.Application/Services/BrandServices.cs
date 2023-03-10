@@ -97,5 +97,11 @@ namespace Shoppite.Application.Services
             productDetailModel.f_Getproducts_RecentlyviewedModel = ObjectMapper.Mapper.Map<List<f_getproducts_RecentlyviewedModel>>(ProductCatId);
             return null;
         }
+        public async Task<List<F_getproducts_By_BrandIdModel>> GetProductsByBrand(int orgId,int BrandId)
+        {
+            var categories = await _BrandRepository.GetProductsByBrand(orgId,BrandId);
+            var mapped = ObjectMapper.Mapper.Map<List<F_getproducts_By_BrandIdModel>>(categories);
+            return mapped;
+        }
     }
 }

@@ -1,0 +1,409 @@
+﻿@model Shoppite.Application.Models.MainModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<div class="main-area">
+    <div class="megamenu-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="megamenu">
+                        <nav>
+                            <ul>
+                                <li>
+                                    <a class="home" asp-action="Index" asp-controller="Home">Home</a>
+                                    <div class="megamenudown-mini home-ve">
+                                        <div class="mega-top">
+                                            <div class="mega-item-menu">
+                                                <a class="title" href="#"><span>Home variyation</span></a>
+                                                <a href="index-2.html"><span>Home2</span></a>
+                                                <a href="index-3.html"><span>Home3</span></a>
+                                                <a href="index-4.html"><span>Home4</span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                @await Html.PartialAsync("_Categories", Model)
+                                @await Html.PartialAsync("_MoreCategories", Model)
+
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="search-box">
+                        <form method="get" action="#" id="searchbox-eleyas">
+                            <p>
+                                <input type="text" value="" placeholder="You keyword..." name="search_query">
+                                <button class="button-search" name="submit_search" type="submit">
+                                    <span><i class="fa fa-search"></i></span>
+                                </button>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="product-categori-area">
+        <div class="container">
+            <div class="breadcrumb" style="color:#777;background-color:white !important">
+                <span><a title="Return to Home" href="index.html" class="home"></a>Home</span> 
+                @foreach (var catname in Model.Product_specification.Take(1))
+                {
+                    <span class="navigation-pipe"><i class="fa fa-angle-right"></i></span>
+
+                    @catname.category_name
+                }
+            </div>
+            <div class="product-categori">
+                <div class="row flex-row-reverse">
+                    <div class="col-lg-9 col-md-12">
+                        <div id="content" class="categori-content">
+                           @foreach (var catname in Model.Product_specification.Take(1))
+                            {
+                                <h1 class="page-heading product-listing">
+                                    <span class="cat-name">@catname.category_name</span>
+                                </h1>
+
+                                <div class="categori-baner">
+                                    <img style="width:870px;height:236px;" src="@Url.Content("~")/@catname.Banner"  alt="">
+                                </div>
+                            }                            
+                            <div id="my-tab-content" class="tab-content jump">
+                                <div class="producresults">
+                                    @await Html.PartialAsync("_ProductsByAttribute", Model)
+                                </div>
+                                <div id="list" class="tab-pane categori-list-view">
+                                    <div class="list-view-single-product">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="list-view-image">
+                                                    <a href="#"><img src="img/product/blouse1.jpg" alt=""></a>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="list-view-details">
+                                                    <p>
+                                                        <i class="fa fa-star-o"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                    </p>
+                                                    <h5><a href="#">Blouse</a></h5>
+                                                    <span class="list-product-price">£ 32.40</span>
+                                                    <p class="product-desc">Short-sleeved blouse with feminine draped sleeve detail.</p>
+                                                    <div class="product-social">
+                                                        <ul>
+                                                            <li><a href="#"><i class="fa fa-external-link"></i><span>Add to cart</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
+                                                            <li><a href="#"><i class="fa fa-bar-chart"></i></a></li>
+                                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="list-view-single-product">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="list-view-image">
+                                                    <a href="#"><img src="img/product/printed-dress1.jpg" alt=""></a>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="list-view-details">
+                                                    <p>
+                                                        <i class="fa fa-star-o"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                    </p>
+                                                    <h5><a href="#">Printed Dress</a></h5>
+                                                    <span class="list-product-price">£ 31.20</span>
+                                                    <p class="product-desc">100% cotton double printed dress. Black and white striped top and orange high waisted skater skirt bottom.</p>
+                                                    <span class="availability">In stock</span>
+                                                    <div class="product-social">
+                                                        <ul>
+                                                            <li><a href="#"><i class="fa fa-external-link"></i><span>Add to cart</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
+                                                            <li><a href="#"><i class="fa fa-bar-chart"></i></a></li>
+                                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="list-view-single-product">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="list-view-image">
+                                                    <a href="#"><img src="img/product/printed-summer-dress1.jpg" alt=""></a>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="list-view-details">
+                                                    <p>Reduced price!</p>
+                                                    <p>
+                                                        <i class="fa fa-star-o"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                    </p>
+                                                    <h5><a href="#">Printed Summer Dress</a></h5>
+                                                    <span class="list-product-price">£ 34.78 <del>£ 36.61</del></span>
+                                                    <p class="product-desc">Long printed dress with thin adjustable straps. V-neckline and wiring under the bust with ruffles at the bottom of the dress. </p>
+
+                                                    <span class="availability">In stock</span>
+                                                    <div class="product-social">
+                                                        <ul>
+                                                            <li><a href="#"><i class="fa fa-external-link"></i><span>Add to cart</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
+                                                            <li><a href="#"><i class="fa fa-bar-chart"></i></a></li>
+                                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="list-view-single-product">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="list-view-image">
+                                                    <a href="#"><img src="img/product/printed-summer-dress2.jpg" alt=""></a>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="list-view-details">
+                                                    <p>
+                                                        <i class="fa fa-star-o"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                    </p>
+                                                    <h5><a href="#">Printed Summer Dress</a></h5>
+                                                    <span class="list-product-price">£ 36.60</span>
+                                                    <p class="product-desc">Sleeveless knee-length chiffon dress. V-neckline with elastic under the bust lining.</p>
+                                                    <span class="availability">In stock</span>
+                                                    <div class="product-social">
+                                                        <ul>
+                                                            <li><a href="#"><i class="fa fa-external-link"></i><span>Add to cart</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
+                                                            <li><a href="#"><i class="fa fa-bar-chart"></i></a></li>
+                                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="list-view-single-product">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="list-view-image">
+                                                    <a href="#"><img src="img/product/blouse.jpg" alt=""></a>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="list-view-details">
+                                                    <p>
+                                                        <i class="fa fa-star-o"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                    </p>
+                                                    <h5><a href="#">Blouse</a></h5>
+                                                    <span class="list-product-price">£ 32.40</span>
+                                                    <p class="product-desc">Short-sleeved blouse with feminine draped sleeve detail.</p>
+                                                    <span class="availability">In stock</span>
+                                                    <div class="product-social">
+                                                        <ul>
+                                                            <li><a href="#"><i class="fa fa-external-link"></i><span>Add to cart</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
+                                                            <li><a href="#"><i class="fa fa-bar-chart"></i></a></li>
+                                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="list-view-single-product">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="list-view-image">
+                                                    <a href="#"><img src="img/product/printed-dress3.jpg" alt=""></a>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="list-view-details">
+                                                    <p>
+                                                        <i class="fa fa-star-o"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                    </p>
+                                                    <h5><a href="#">Printed Dress</a></h5>
+                                                    <span class="list-product-price">£ 31.20</span>
+                                                    <p class="product-desc">100% cotton double printed dress. Black and white striped top and orange high waisted skater skirt bottom.</p>
+                                                    <span class="availability">In stock</span>
+                                                    <div class="product-social">
+                                                        <ul>
+                                                            <li><a href="#"><i class="fa fa-external-link"></i><span>Add to cart</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
+                                                            <li><a href="#"><i class="fa fa-bar-chart"></i></a></li>
+                                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="list-view-single-product">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="list-view-image">
+                                                    <a href="#"><img src="img/product/printed-summer-dress3.jpg" alt=""></a>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="list-view-details">
+                                                    <p>Reduced price!</p>
+                                                    <p>
+                                                        <i class="fa fa-star-o"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                    </p>
+                                                    <h5><a href="#">Printed Summer Dress</a></h5>
+                                                    <span class="list-product-price">£ 32.95 <del>£ 36.61</del></span>
+                                                    <p class="product-desc">Long printed dress with thin adjustable straps. V-neckline and wiring under the bust with ruffles at the bottom of the dress. </p>
+                                                    <span class="availability">In stock</span>
+                                                    <div class="product-social">
+                                                        <ul>
+                                                            <li><a href="#"><i class="fa fa-external-link"></i><span>Add to cart</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
+                                                            <li><a href="#"><i class="fa fa-bar-chart"></i></a></li>
+                                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="list-view-single-product">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="list-view-image">
+                                                    <a href="#"><img src="img/product/printed-summer-dress.jpg" alt=""></a>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="list-view-details">
+                                                    <p>
+                                                        <i class="fa fa-star-o"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                    </p>
+                                                    <h5><a href="#">Printed Summer Dress</a></h5>
+                                                    <span class="list-product-price">£ 36.60</span>
+                                                    <p class="product-desc">Sleeveless knee-length chiffon dress. V-neckline with elastic under the bust lining.</p>
+                                                    <span class="availability">In stock</span>
+                                                    <div class="product-social">
+                                                        <ul>
+                                                            <li><a href="#"><i class="fa fa-external-link"></i><span>Add to cart</span></a></li>
+                                                            <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
+                                                            <li><a href="#"><i class="fa fa-bar-chart"></i></a></li>
+                                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>              
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <div class="categori-sidebar">
+                            <h4>Catalog</h4>
+                            <div class="categoris categori-border">
+                                @foreach (var at in Model.Attributes)
+                                {
+                                    <span class="cat-title">@at.AttributeName</span>
+                                    <ul>
+                                            @for(int i=0;i< at.specifications.Count;i++)
+                                            {
+                                            <li>
+                                                <span><input type="checkbox"   class="checkbox profileCheckbox" name="SpecificationName[]" value="@at.specifications[i].SpecificationName" id="chk_@i"  ></span>
+                                                <label>
+                                                    <a asp-controller="Home" asp-route-SpecificationName="@at.specifications[i].SpecificationName"><span>@at.specifications[i].SpecificationName</span></a>
+                                                </label>
+                                            </li>
+                                        }
+                                    </ul>
+                                }
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @await Html.PartialAsync("_BrandZone", Model)
+</div>   
+<script>
+    $(".profileCheckbox").click(function () {
+        var data = getCategoryID();
+        var seasoning = '', tempArray = [];
+
+        $('input[name="SpecificationName[]"]:checked').each(function () {
+            tempArray.push($(this).val());
+        })
+        if (tempArray.length !== 0) {
+            seasoning += 'SpecificationName=' + tempArray.toString();
+            tempArray = [];
+        }
+        window.history.replaceState(null, null, "?" + data + '&' + seasoning);
+        if (seasoning != '') {
+            $.ajax({
+                url: '@Url.Action("_ProductsByAttribute", "Home")' + '?' + data + '&' + seasoning,
+                type: "GET",
+                success: function (data) {
+                    $(".producresults").html(data);
+                }
+            });
+        }
+        else {
+             window.history.replaceState(null, null, "?" + data);
+                $.ajax({
+                    url: '@Url.Action("_ProductsByAttribute", "Home")' + '?' + data,
+                    type: "GET",
+                    success: function (data) {
+                        $(".producresults").html(data);
+                    }
+                });
+        }
+    });
+        function getCategoryID()
+        {
+            const urlParams = new URLSearchParams(location.search);
+            for (const [key, value] of urlParams) {
+                console.log(key);
+                console.log(value);
+                return key +'='+ value
+            }
+        }
+</script>

@@ -91,6 +91,14 @@ namespace Shoppite.Infrastructure.Data
         public virtual DbSet<f_getproducts_By_CategoryID> F_Getproducts_By_CategoryID { get; set; }
         public virtual DbSet<f_getproducts_By_CategoryID_Result> f_getproducts_By_CategoryID_Result { get; set; }
         public virtual DbSet<f_All_getcat_Result> f_All_getcat_Result { get; set; }
+        public virtual DbSet<SP_GetSpecificationData_AttributName> SP_GetSpecificationData_AttributName { get; set; }
+        public virtual DbSet<f_getproducts_By_CatID_SpecificationName> F_Getproducts_By_CatID_SpecificationName { get; set; }
+        public virtual DbSet<SP_UserWishList> SP_UserWishList { get; set; }
+        public virtual DbSet<F_Orders_All> F_Orders_All { get; set; }
+        public virtual DbSet<F_Pending_Orders> F_Pending_Orders { get; set; }
+        public virtual DbSet<f_Get_MyAccount_Data> f_Get_MyAccount_Data { get; set; }
+        public virtual DbSet<F_getproducts_By_CatId> F_getproducts_By_CatId { get; set; }
+        public virtual DbSet<F_getproducts_By_BrandId> F_getproducts_By_BrandId { get; set; }
         public virtual DbSet<f_getproducts_Recentlyviewed> f_Getproducts_Recentlyviewed { get; set; }
         public virtual DbSet<f_getproduct_specification_By_Guid> GetF_Getproduct_Specification_By_Guid { get; set; }
         public virtual DbSet<f_getproduct_CartDetails_By_Orgid> F_Getproduct_CartDetails_By_Orgid { get; set; }
@@ -1314,6 +1322,10 @@ namespace Shoppite.Infrastructure.Data
             {
                 entity.HasNoKey();
             });
+            modelBuilder.Entity<SP_GetSpecificationData_AttributName>(entity =>
+            {
+                entity.HasNoKey();
+            });
             modelBuilder.Entity<f_getproducts_Recentlyviewed>(entity =>
             {
                 entity.HasNoKey();
@@ -1327,6 +1339,34 @@ namespace Shoppite.Infrastructure.Data
                 entity.HasNoKey();
             });
 
+            modelBuilder.Entity<f_getproducts_By_CatID_SpecificationName>(entity =>
+            {
+                entity.HasNoKey();
+            });
+            modelBuilder.Entity<SP_UserWishList>(entity =>
+            {
+                entity.HasNoKey();
+            });
+            modelBuilder.Entity<F_Orders_All>(entity =>
+            {
+                entity.HasNoKey();
+            });
+            modelBuilder.Entity<F_Pending_Orders>(entity =>
+            {
+                entity.HasNoKey();
+            });
+            modelBuilder.Entity<f_Get_MyAccount_Data>(entity =>
+            {
+                entity.HasNoKey();
+            });
+            modelBuilder.Entity<F_getproducts_By_CatId>(entity =>
+            {
+                entity.HasNoKey();
+            });
+            modelBuilder.Entity<F_getproducts_By_BrandId>(entity =>
+            {
+                entity.HasNoKey();
+            });
             OnModelCreatingPartial(modelBuilder);
         }
 

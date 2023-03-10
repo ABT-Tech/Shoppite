@@ -65,6 +65,21 @@ namespace Shoppite.Application.Mapper
             CreateMap<CategoryMasterModel, f_All_getcat_Result>().ReverseMap();
             CreateMap<CategoryMasterModel, f_getproducts_By_CategoryID_Result>().ReverseMap();
             CreateMap<CategoryMasterModel, Logo>().ReverseMap();
+            CreateMap<CategoryMasterModel, f_getproducts_By_CategoryID>().ReverseMap();
+            CreateMap<SpecificationSetup, SpecificationSetupModel>().ReverseMap();
+            CreateMap<f_getproducts_By_CatID_SpecificationNameModel, f_getproducts_By_CategoryID>().ReverseMap();
+            CreateMap<f_getproducts_By_CatID_SpecificationName, f_getproducts_By_CatID_SpecificationNameModel>().ReverseMap();
+            CreateMap<SP_UserWishList, Customer_WishlistModel>().ReverseMap();
+            CreateMap<MainModel, CustomerWishlist>().ReverseMap();
+            CreateMap<F_Orders_All, F_Orders_All_Model>().ReverseMap();
+            CreateMap<F_Pending_Orders, F_Pending_Orders_Model>().ReverseMap();
+            CreateMap<f_Get_MyAccount_Data_Model, f_Get_MyAccount_Data>().ReverseMap();
+            CreateMap<MainModel, UsersProfile>().ReverseMap();
+            CreateMap<f_Get_MyAccount_Data_Model, UsersProfile>().ReverseMap();
+            CreateMap<MainModel, Users>().ReverseMap();
+            CreateMap<F_getproducts_By_CatId, f_getproducts_By_CatID_SpecificationNameModel>().ReverseMap();
+            CreateMap<F_getproducts_By_BrandId, F_getproducts_By_BrandIdModel>().ReverseMap();
+
 
         }
     }

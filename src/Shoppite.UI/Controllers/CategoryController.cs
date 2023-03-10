@@ -23,7 +23,7 @@ namespace Shoppite.UI.Controllers
 
              return View();
          }*/
-        public async Task<ActionResult> Index(int CategoryId)
+        /*public async Task<ActionResult> Index(int CategoryId)
         {
             var orgid = commonHelper.GetOrgID(HttpContext);
             var model = new CategoryMasterModel();
@@ -34,6 +34,11 @@ namespace Shoppite.UI.Controllers
             model.Categories= await _categoryPageService.GetCategories(CategoryId);
             model.HorizontalBanner = await _categoryPageService.GetHorizontalBanner(orgid);
             return View(model);
-        }
+        }*/
+       /* public async Task<ActionResult> AllCAtegories()
+        {
+         
+            return View();
+        }*/
     }
 }

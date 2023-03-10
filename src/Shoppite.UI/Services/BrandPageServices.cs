@@ -49,5 +49,11 @@ namespace Shoppite.UI.Services
         {
             return await _BrandService.Sp_Getcat(orgid);
         }
+        public async Task<List<F_getproducts_By_BrandIdModel>> GetProductsByBrand(int orgId, int BrandId)
+        {
+            var categories = await _BrandService.GetProductsByBrand(orgId, BrandId);
+            var mapped = _mapper.Map<List<F_getproducts_By_BrandIdModel>>(categories);
+            return mapped;
+        }
     }
 }

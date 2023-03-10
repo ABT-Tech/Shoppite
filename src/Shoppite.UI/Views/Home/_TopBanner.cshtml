@@ -1,9 +1,10 @@
 ﻿@model Shoppite.Application.Models.MainModel
+
 @if (Model.TopBanner != null)
 {
-    @foreach (var image in Model.TopBanner)
+    @foreach (var image in Model.TopBanner.Take(4))
     {
-        <a href="#"><img src="@Url.Content("~")@image.Image" alt="slider image" /></a>
+        <a asp-action="AllProducts" asp-route-CategoryId="@image.CategoryId"><img src="@image.Banner" alt="slider image" /></a>
     }
 
 }

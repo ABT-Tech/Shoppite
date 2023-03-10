@@ -8,16 +8,20 @@
         </div>
         <div class="brand-logo">
             <div class="producttabcarosel pos-logo-slide owl-carousel logo-carousel">
-
-                @foreach (var BLogo in Model.BrandsModel)
+                @if (Model.BrandsModel != null)
                 {
-                    if (BLogo.BrandImage != string.Empty && BLogo.BrandImage != null)
+                    @foreach (var BLogo in Model.BrandsModel)
                     {
-                        <div class="carosel-lo">
-                            <a href="#"><img id="Brand_Logo_Img" src="@BLogo.BrandImage" alt="@BLogo.BrandName" style="max-height: 68px; max-width: 130px;"></a>
-                        </div>
+                        if (BLogo.BrandImage != "")
+                        {
+                            <div class="carosel-lo">
+                                <a asp-controller="Home" asp-action="ProductsByBrand" asp-route-BrandId="@BLogo.BrandId"><img id="Brand_Logo_Img" src="@Url.Content("~")@BLogo.BrandImage" alt="@BLogo.BrandName" style="max-height: 68px; max-width: 130px;"></a>
+                            </div>
+                        }
                     }
+
                 }
+
             </div>
         </div>
     </div>
