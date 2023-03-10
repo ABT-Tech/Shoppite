@@ -24,9 +24,9 @@ namespace Shoppite.UI.Services
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
-        public async Task<UsersModal> Get_Login_Data(string username, string password, int orgid)
+        public async Task<UsersModal> Get_Login_Data(string email, string password, int orgid)
         {
-            return await _AuthenticationService.Get_Login_Data(username, password, orgid);
+            return await _AuthenticationService.Get_Login_Data(email, password, orgid);
         }
 
         public async Task<UsersModal> Get_Logo(int orgid)
@@ -34,9 +34,9 @@ namespace Shoppite.UI.Services
             return await _AuthenticationService.Get_Logo(orgid);
         }
 
-        public async Task RegisterDetail(string userName, string password, string email, int orgId)
+        public async Task<UsersModal> RegisterDetail(string userName, string password, string email, int orgId)
         {
-            await _AuthenticationService.RegisterDetail(userName, password, email, orgId);
+          return await _AuthenticationService.RegisterDetail(userName, password, email, orgId);
         }
     }
 }

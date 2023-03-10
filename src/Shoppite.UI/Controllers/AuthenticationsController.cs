@@ -61,7 +61,7 @@ namespace Shoppite.UI.Controllers
         {
             int OrgId = commonHelper.GetOrgID(HttpContext);
             var UserValidate = await _AuthenticationPageService.Get_Login_Data(loginCheckModel.datal.userid,loginCheckModel.datal.password,OrgId);
-            if (UserValidate.Password != null && UserValidate.Username != null)
+            if (UserValidate.Password != null && UserValidate.Email != null)
             {
                 _ = CreateAuthenticationTicket(UserValidate);
 
@@ -80,11 +80,18 @@ namespace Shoppite.UI.Controllers
         public async Task<ActionResult> Register([FromBody] RegisterModel registerModel)
         {
             int OrgId = commonHelper.GetOrgID(HttpContext);
-            await _AuthenticationPageService.RegisterDetail(registerModel.Regdata.UserName, registerModel.Regdata.Password, registerModel.Regdata.Email,OrgId);
-
+          var Register = await _AuthenticationPageService.RegisterDetail(registerModel.Regdata.UserName, registerModel.Regdata.Password, registerModel.Regdata.Email,OrgId);
+            if (Register == null)
+                return Json("Succsess");
+            
+            else
+                return Json("already");
             //return RedirectToAction("Index","Home", new { area = "" });
-            return Json(registerModel);
             // return Json(loginCheckModel);
+        }
+        public IActionResult LogIn1()
+        {
+            return View();
         }
     }
 }

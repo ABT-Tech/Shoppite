@@ -21,10 +21,10 @@ namespace Shoppite.Infrastructure.Repository
         {
             _MasterContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
-        public async Task<Users> GetAuthenticato_Details(string username, string password,int orgid)
+        public async Task<Users> GetAuthenticato_Details(string email, string password,int orgid)
         {
             string ps = this.EncryptPass.Encrypt(password);
-            var UserValidate =  _MasterContext.Users.Where(x => x.Username == username && x.Password == ps && x.OrgId == orgid).FirstOrDefault();
+            var UserValidate =  _MasterContext.Users.Where(x => x.Email == email && x.Password == ps && x.OrgId == orgid).FirstOrDefault();
             return UserValidate;
         }
 
@@ -34,26 +34,24 @@ namespace Shoppite.Infrastructure.Repository
             return logo;
         }
 
-        public async Task RegisterDetail(string userName, string password, string email, int orgId)
+        public async Task<Users> RegisterDetail(string userName, string password, string email, int orgId)
         {
             string EnPass = this.EncryptPass.Encrypt(password);
-
-            var check =  _MasterContext.Users.Where(x => x.Username == userName && x.Password == EnPass && x.OrgId == orgId).FirstOrDefault();
-          if(check == null)
+            var check =  _MasterContext.Users.Where(x => x.Username == userName || x.Email == email).FirstOrDefault();
+           if(check == null)
            {
-            Users users = new Users();
-            users.Username = userName;
-            users.Password = EnPass;
-            users.Email = email;
-            users.OrgId = orgId;
-            users.CreatedDate = DateTime.Now;
-            users.Guid = Guid.NewGuid();
+              Users users = new Users();
+              users.Username = userName;
+              users.Password = EnPass;
+              users.Email = email;
+              users.OrgId = orgId;
+              users.CreatedDate = DateTime.Now;
+              users.Guid = Guid.NewGuid();
 
               await  _MasterContext.Users.AddAsync(users);
-            }
+           }
             await _MasterContext.SaveChangesAsync();
-
-
+            return check;
         }
     }
 }

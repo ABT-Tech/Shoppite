@@ -8,9 +8,9 @@ namespace Shoppite.Core.Repositories
 {
    public interface IAuthenticationsRepository
     {   
-        Task<Users> GetAuthenticato_Details(string username, string password,int orgid);
+        Task<Users> GetAuthenticato_Details(string email, string password,int orgid);
         Task<Logo> Get_Logo(int orgid);
-        Task RegisterDetail(string userName, string password, string email, int orgId);
+        Task<Users> RegisterDetail(string userName, string password, string email, int orgId);
     }
 }
     
