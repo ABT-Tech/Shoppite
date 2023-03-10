@@ -24,7 +24,7 @@ namespace Shoppite.Infrastructure.Repository
         public async Task<Users> GetAuthenticato_Details(string email, string password,int orgid)
         {
             string ps = this.EncryptPass.Encrypt(password);
-            var UserValidate =  _MasterContext.Users.Where(x => x.Email == email && x.Password == ps && x.OrgId == orgid).FirstOrDefault();
+            var UserValidate =  _MasterContext.Users.Where(x => x.Email == email && x.OrgId == orgid).FirstOrDefault();
             return UserValidate;
         }
 

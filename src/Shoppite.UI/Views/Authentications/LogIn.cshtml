@@ -36,6 +36,7 @@
 
                 <input type="password" id="Regpassword" placeholder="Password" name="password" required />
                 <span id="SUPassError" class="text-danger"> </span>
+                <span id="SUPassLengthError" class="text-danger"> Password must greater than eight character</span>
                 @*<input type="password" id="Regrepassword" placeholder="Confirm Password" />*@
                 <div id="Eror"><p style="color:red;"> Password and Confirm Password Should be same</p></div>
 
@@ -128,6 +129,7 @@
     $('#SUUserError').hide();
     $('#SUEmailError').hide();
     $('#SUPassError').hide();
+    $('#SUPassLengthError').hide();
 
 
     const togglePassword = document.querySelector('#togglePassword');
@@ -201,25 +203,33 @@
         //var ConfPass = $('#Regrepassword').val();
 
        if (UserName == "")
-        {
+       {
             $('#SUUserError').show();
-      } else if (Email == "")
-         {
+       }
+       else if (Email == "")
+       {
            $('#SUEmailError').show();
-        } else if (Pass == "")
-        {
+       }
+       else if (Pass == "")
+       {
            $('#SUPassError').show();
-        } else{
+       }
+       else if (!Pass.length >= 8)
+       {
+           $('#SUPassLengthError').show();
+       }
+       else
+       {
 
-            var Regdata = {
+          var Regdata = {
 
                 "UserName": $("#Reglogname").val(),
                 "Password": Pass,
                 "Email": $("#Regsignemail").val(),
-            };
-            var UserDetail = JSON.stringify({ Regdata });
+          };
+          var UserDetail = JSON.stringify({ Regdata });
 
-            $.ajax({
+         $.ajax({
                 type: "POST",
                 url: '@Url.Action("Register", "Authentications")',
                 data: UserDetail,
@@ -236,11 +246,12 @@
                     alert("some thing Wrong");
 
                 }
-            });
+          });
 
         }
 
     }
+
 
 </script>
 
