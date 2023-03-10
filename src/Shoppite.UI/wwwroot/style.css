@@ -278,8 +278,9 @@ body {
     border: 1px solid #fff;
 }
 .service-text-icon-active .service-icon{
-    background: #FE5B5A;
+    background: #363636;
 }
+
 .service-text{
     margin-top: 10px;
     width: 149px;

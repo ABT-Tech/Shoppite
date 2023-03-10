@@ -16,9 +16,10 @@ namespace Shoppite.Application.Models
         public string City { get; set; }
         public string Zip { get; set; }
         public string State { get; set; }
-
         [Required]
         [StringLength(15, MinimumLength = 8, ErrorMessage = "Password must be between 8 and 15 char")]
+        [DataType(DataType.Password)]
+        [RegularExpression("^((?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])|(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^a-zA-Z0-9])|(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])|(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])).{8,}$", ErrorMessage = "Passwords must be  between 8 to 15 characters and contain One UpperCase,One LowerCase and One number")]
         public string Password { get; set; }
         [Compare("Password", ErrorMessage = "Password and Confirm Password should match")]
         [Required]

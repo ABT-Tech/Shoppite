@@ -7,6 +7,8 @@ namespace Shoppite.Core.Entities
     public class F_getproducts_By_CatId
     {
         public int OrgId { get; set; }
+        public string BrandName { get; set; }
+        public int brandid { get; set; }
         public string image { get; set; }
         public int ProductId { get; set; }
         public Nullable<System.Guid> ProductGUID { get; set; }
