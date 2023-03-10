@@ -33,5 +33,10 @@ namespace Shoppite.UI.Services
         {
             return await _AuthenticationService.Get_Logo(orgid);
         }
+
+        public async Task RegisterDetail(string userName, string password, string email, int orgId)
+        {
+            await _AuthenticationService.RegisterDetail(userName, password, email, orgId);
+        }
     }
 }

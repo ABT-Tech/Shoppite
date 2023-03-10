@@ -10,6 +10,7 @@ namespace Shoppite.Core.Repositories
     {   
         Task<Users> GetAuthenticato_Details(string username, string password,int orgid);
         Task<Logo> Get_Logo(int orgid);
+        Task RegisterDetail(string userName, string password, string email, int orgId);
     }
 }
     

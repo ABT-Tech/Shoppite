@@ -43,6 +43,11 @@ namespace Shoppite.Application.Services
             users.LogoModel = ObjectMapper.Mapper.Map<LogoModel>(UserLogin);
             return users;
         }
+
+        public async Task RegisterDetail(string userName, string password, string email, int orgId)
+        {
+            await _AuthenticationRepository.RegisterDetail(userName, password, email, orgId);
+        }
     }
     
 }

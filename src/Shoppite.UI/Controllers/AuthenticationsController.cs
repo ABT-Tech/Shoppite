@@ -37,23 +37,54 @@ namespace Shoppite.UI.Controllers
             HttpContext.Session.Clear();
             return RedirectToAction("Login");
         }
+        //[HttpPost, AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Login(UsersModal usersModal)
+        //{
+        //    usersModal.OrgId = commonHelper.GetOrgID(HttpContext);
+        //    var UserValidate = await _AuthenticationPageService.Get_Login_Data(usersModal.Username, usersModal.Password, (int)usersModal.OrgId);
+        //    if (UserValidate.Password != null && UserValidate.Username != null)
+        //    {
+        //        _ = CreateAuthenticationTicket(UserValidate);
+
+        //        return RedirectToAction("Index", "Home", new { area = "" });
+        //    }
+        //    else
+        //    {
+        //        ViewBag.LoginValidError = "Username or Password is Incorrect";
+        //    }
+        //    return View(UserValidate);
+        //}
+
         [HttpPost, AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(UsersModal usersModal)
+        public async Task<ActionResult> Login([FromBody] LoginCheckModel loginCheckModel)
         {
-            usersModal.OrgId = commonHelper.GetOrgID(HttpContext);
-            var UserValidate = await _AuthenticationPageService.Get_Login_Data(usersModal.Username, usersModal.Password, (int)usersModal.OrgId);
+            int OrgId = commonHelper.GetOrgID(HttpContext);
+            var UserValidate = await _AuthenticationPageService.Get_Login_Data(loginCheckModel.datal.userid,loginCheckModel.datal.password,OrgId);
             if (UserValidate.Password != null && UserValidate.Username != null)
             {
                 _ = CreateAuthenticationTicket(UserValidate);
 
-                return RedirectToAction("Index", "Home", new { area = "" });
+                return Json("Succsess");
             }
             else
             {
                 ViewBag.LoginValidError = "Username or Password is Incorrect";
             }
-            return View(UserValidate);
+            //return RedirectToAction("Index","Home", new { area = "" });
+            return Json("fail");
+            // return Json(loginCheckModel);
+        }
+
+        [HttpPost, AllowAnonymous]
+        public async Task<ActionResult> Register([FromBody] RegisterModel registerModel)
+        {
+            int OrgId = commonHelper.GetOrgID(HttpContext);
+            await _AuthenticationPageService.RegisterDetail(registerModel.Regdata.UserName, registerModel.Regdata.Password, registerModel.Regdata.Email,OrgId);
+
+            //return RedirectToAction("Index","Home", new { area = "" });
+            return Json(registerModel);
+            // return Json(loginCheckModel);
         }
     }
 }
