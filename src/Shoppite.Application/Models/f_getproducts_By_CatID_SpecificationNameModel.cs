@@ -39,7 +39,8 @@ namespace Shoppite.Application.Models
         public string shopname { get; set; }
         public string ShopURLPath { get; set; }
         public string logo { get; set; }
-        public string brands { get; set; }
+      /*  public string brands { get; set; }*/
+        public string BrandName { get; set; }
         public string brandsurlpath { get; set; }
         public int brandid { get; set; }
         public string UserName { get; set; }

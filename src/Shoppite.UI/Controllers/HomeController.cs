@@ -69,6 +69,7 @@ namespace Shoppite.UI.Controllers
         {
             int OrgId = commonHelper.GetOrgID(HttpContext);
             var brands = await _BrandPageService.GetBrands(OrgId);
+            brands.CategoryMaster = await _categoryPageService.DisplayLogo(OrgId);
             brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
             brands.Categories = await _categoryPageService.GetCategories(CategoryId, OrgId);
             brands.Product_specification = await _categoryPageService.GetAllProductByCategory(CategoryId,OrgId);

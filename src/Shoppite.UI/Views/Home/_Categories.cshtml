@@ -4,7 +4,7 @@
     @foreach (var item in Model.ProductsDetails.Take(3))
     {
         <li>
-            <a href="#">@item.maincaturlpath</a>
+            <a asp-action="#">@item.maincaturlpath</a>
             <div class="megamenudown">
                 <div class="mega-top">
                     @foreach (var subcat in item.SubcategoryDetails.Take(3))
