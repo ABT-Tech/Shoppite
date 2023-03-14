@@ -103,5 +103,10 @@ namespace Shoppite.Application.Services
             var mapped = ObjectMapper.Mapper.Map<List<F_getproducts_By_BrandIdModel>>(categories);
             return mapped;
         }
+
+        public async Task News_Letter_Submit(int orgid, string email)
+        {
+            await _BrandRepository.News_Letter_Submit(orgid, email);
+        }
     }
 }

@@ -121,5 +121,19 @@ namespace Shoppite.Infrastructure.Repository
 
             return await _dbContext.Set<F_getproducts_By_BrandId>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
         }
+
+        public async Task News_Letter_Submit(int orgid, string email)
+        {
+            NewsLetter newsLetter = new NewsLetter();
+            var check = await _dbContext.NewsLetter.Where(x => x.Email == email && x.OrgId == orgid).FirstOrDefaultAsync();
+            if(check == null)
+            {
+                newsLetter.Email = email;
+                newsLetter.OrgId = orgid;
+                newsLetter.InsertDate = DateTime.Now;
+                await _dbContext.NewsLetter.AddAsync(newsLetter);
+            }
+            await _dbContext.SaveChangesAsync();
+        }
     }
 }

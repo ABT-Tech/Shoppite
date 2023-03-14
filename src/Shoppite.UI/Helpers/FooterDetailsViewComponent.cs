@@ -8,26 +8,27 @@ using System.Threading.Tasks;
 
 namespace Shoppite.UI.Helpers
 {
-    public class CartViewComponent:ViewComponent
+    public class FooterDetailsViewComponent:ViewComponent
     {
         private readonly ICartPageServices _CartPageServices;
-        private readonly CommonHelper _commonHelper = new CommonHelper(); 
+        private readonly CommonHelper _commonHelper = new CommonHelper();
 
         List<CartModel> cartModel = new List<CartModel>();
 
-        public CartViewComponent(ICartPageServices CartPageServices)
+        public FooterDetailsViewComponent(ICartPageServices CartPageServices)
         {
-            // cartModel = cartModel;
+             // cartModel = cartModel;
             _CartPageServices = CartPageServices;
            // _commonHelper = commonHelper;
         }
 
+        [HttpPost]
         public async Task<IViewComponentResult> InvokeAsync()
         {
             int orgid = _commonHelper.GetOrgID(HttpContext);
-            var GetOrderBasic = await _CartPageServices.OrderBasic(orgid);
-            var model = cartModel;
-            return View("CartShow", GetOrderBasic);
+            var FooterDetail = await _CartPageServices.GetVendorDetails(orgid);
+           // var model = cartModel;
+            return View("FooterDetails", FooterDetail);
         }
     }
 }

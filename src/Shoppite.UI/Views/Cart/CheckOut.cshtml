@@ -128,10 +128,17 @@
                                             <form enctype="multipart/form-data" method="post" class=" pt-2 text-capitalize">
 
                                                 <div class="row ">
+
+                                                    <div class="col-md-4 offset-md-10 mb-0"> 
+                                                      <button type="button" class="btn btn-default add-tag-btn SaveBtn mb-0" onclick="toggleEnable('IpF1','IpF2','IpF3','IpF4','IpF5','IpF6','IpF7','IpF8')">
+                                                        Edit
+                                                      </button>
+                                                    </div>
+
                                                     <div class="col-sm-6 mx-auto">
                                                         <div class="form-group m-1">
                                                             <label class="control-label">First Name</label>
-                                                            <input asp-for="OrderShippingModel.FirstName" class="form-control input-validation-error"
+                                                            <input asp-for="OrderShippingModel.FirstName" id="IpF1" class="form-control input-validation-error IpF"
                                                                    data-val="true" data-val-required="Shop name is required" />
                                                             <span asp-validation-for="OrderShippingModel.FirstName" id="ShopName" class="text-danger field-valiation-error"
                                                                   data-valmsg-for="ShopName" data-valmsg-replace="true"></span>
@@ -141,7 +148,7 @@
                                                     <div class="col-sm-6 mx-auto">
                                                         <div class="form-group m-1">
                                                             <label class="control-label">Last Name</label>
-                                                            <input asp-for="OrderShippingModel.LastName" class="form-control input-validation-error"
+                                                            <input asp-for="OrderShippingModel.LastName" id="IpF2" class="form-control input-validation-error IpF"
                                                                    data-val="true" data-val-required="Contact number is required" />
                                                             <span asp-validation-for="OrderShippingModel.LastName" id="ContactNumber" class="text-danger field-valiation-error"
                                                                   data-valmsg-for="ContactNumber" data-valmsg-replace="true"></span>
@@ -151,7 +158,7 @@
                                                     <div class="col-sm-6 mx-auto">
                                                         <div class="form-group m-1">
                                                             <label class="control-label">Street</label>
-                                                            <input asp-for="OrderShippingModel.Street" class="form-control input-validation-error"
+                                                            <input asp-for="OrderShippingModel.Street" id="IpF3" class="form-control input-validation-error IpF"
                                                                    data-val="true" data-val-required="Country name is required" />
                                                             <span asp-validation-for="OrderShippingModel.Street" id="Country" class="text-danger field-valiation-error"
                                                                   data-valmsg-for="Country" data-valmsg-replace="true"></span>
@@ -161,7 +168,7 @@
                                                     <div class="col-sm-6 mx-auto">
                                                         <div class="form-group m-1">
                                                             <label class="control-label">City</label>
-                                                            <input asp-for="OrderShippingModel.City" class="form-control input-validation-error"
+                                                            <input asp-for="OrderShippingModel.City" id="IpF4" class="form-control input-validation-error IpF"
                                                                    data-val="true" data-val-required="City name is required" />
                                                             <span asp-validation-for="OrderShippingModel.City" id="City" class="text-danger field-valiation-error"
                                                                   data-valmsg-for="City" data-valmsg-replace="true"></span>
@@ -171,7 +178,7 @@
                                                     <div class="col-sm-6 mx-auto">
                                                         <div class="form-group m-1">
                                                             <label class="control-label">Phone Number</label>
-                                                            <input asp-for="OrderShippingModel.Phone" class="form-control input-validation-error"
+                                                            <input asp-for="OrderShippingModel.Phone" id="IpF5" class="form-control input-validation-error IpF"
                                                                    data-val="true" data-val-required="Zip code is required" />
                                                             <span asp-validation-for="OrderShippingModel.Phone" id="Zip" class="text-danger field-valiation-error"
                                                                   data-valmsg-for="Zip" data-valmsg-replace="true"></span>
@@ -181,7 +188,7 @@
                                                     <div class="col-sm-6 mx-auto">
                                                         <div class="form-group m-1">
                                                             <label class="control-label">Zipcode</label>
-                                                            <input asp-for="OrderShippingModel.Zipcode" class="form-control input-validation-error"
+                                                            <input asp-for="OrderShippingModel.Zipcode" id="IpF6" class="form-control input-validation-error IpF"
                                                                    data-val="true" data-val-required="state name is required" />
                                                             <span asp-validation-for="OrderShippingModel.Zipcode" id="State" class="text-danger field-valiation-error"
                                                                   data-valmsg-for="State" data-valmsg-replace="true"></span>
@@ -191,7 +198,7 @@
                                                     <div class="col-sm-6 mx-auto">
                                                         <div class="form-group m-1">
                                                             <label class="control-label">Address</label>
-                                                            <textarea asp-for="OrderShippingModel.Address" class="form-control input-validation-error"
+                                                            <textarea asp-for="OrderShippingModel.Address" id="IpF7" class="form-control input-validation-error IpF"
                                                                       data-val="true" data-val-required="Address is required"></textarea>
                                                             <span asp-validation-for="OrderShippingModel.Address" id="State" class="text-danger field-valiation-error"
                                                                   data-valmsg-for="Address" data-valmsg-replace="true"></span>
@@ -201,12 +208,13 @@
                                                     <div class="col-sm-6 mx-auto">
                                                         <div class="form-group m-1">
                                                             <label class="control-label">Email</label>
-                                                            <input asp-for="OrderShippingModel.Email" class="form-control input-validation-error"
+                                                            <input asp-for="OrderShippingModel.Email" id="IpF8" class="form-control input-validation-error"
                                                                    data-val="true" data-val-required="PaypalId is required" />
                                                             <span asp-validation-for="OrderShippingModel.Email" id="PaypalId" class="text-danger field-valiation-error"
                                                                   data-valmsg-for="PaypalId" data-valmsg-replace="true"></span>
                                                         </div>
                                                     </div>
+
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <button asp-action="SaveAddress" asp-controller="Cart" type="submit" class="SaveBtn">Save</button>
@@ -392,3 +400,46 @@
     </div>
 </div>
 
+   <script>
+
+       document.getElementById("IpF1").disabled = true;
+       document.getElementById("IpF2").disabled = true;
+       document.getElementById("IpF3").disabled = true;
+       document.getElementById("IpF4").disabled = true;
+       document.getElementById("IpF5").disabled = true;
+       document.getElementById("IpF6").disabled = true;
+       document.getElementById("IpF7").disabled = true;
+       document.getElementById("IpF8").disabled = true;
+
+       function toggleEnable(el1, el2, el3, el4, el5, el6, el7, el8)
+       {
+           var textbox = document.getElementById(el1, el2, el3, el4, el5, el6, el7, el8);
+                          
+           if (textbox.disabled)
+           {
+               // If disabled, do this 
+               document.getElementById("IpF1").disabled = false;
+               document.getElementById("IpF2").disabled = false;
+               document.getElementById("IpF3").disabled = false;
+               document.getElementById("IpF4").disabled = false;
+               document.getElementById("IpF5").disabled = false;
+               document.getElementById("IpF6").disabled = false;
+               document.getElementById("IpF7").disabled = false;
+               document.getElementById("IpF8").disabled = false;
+              // document.getElementById(el2).disabled = false;
+           }
+           else
+           {
+               // Enter code here
+               document.getElementById("IpF1").disabled = true;
+               document.getElementById("IpF2").disabled = true;
+               document.getElementById("IpF3").disabled = true;
+               document.getElementById("IpF4").disabled = true;
+               document.getElementById("IpF5").disabled = true;
+               document.getElementById("IpF6").disabled = true;
+               document.getElementById("IpF7").disabled = true;
+               document.getElementById("IpF8").disabled = true;
+              // document.getElementById(el2).disabled = true;
+           }
+       }
+   </script>

@@ -115,5 +115,12 @@ namespace Shoppite.Application.Services
             await _CartRepository.UpdateOrder(orderBasic);
         }
 
+        public async Task<UsersProfileModal> GetVendorDetails(int orgid)
+        {
+            UsersProfile usersProfileModal = new UsersProfile();
+            usersProfileModal.OrgId = orgid;
+            var userProfile =  await _CartRepository.GetVendorDetails(usersProfileModal);
+            return ObjectMapper.Mapper.Map<UsersProfileModal>(userProfile);
+        }
     }
 }

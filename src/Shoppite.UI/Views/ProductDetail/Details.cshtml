@@ -104,10 +104,14 @@
                                     }
                                 </p>
                                 @*<form method="post" action="#">*@
-                                <div class="numbers-row">
-                                    <label>Quantity </label>
-                                    <input type="number" asp-for="OrderBasicModel.Qty" name="OrderBasicModel.Qty" id="french-hens" min="1" value="1">
-                                </div>
+                            <div class="numbers-row">
+                                <label>Quantity </label>
+                               @* <input type="number" asp-for="OrderBasicModel.Qty" name="OrderBasicModel.Qty" id="french-hens" min="1" value="1">*@
+
+                                <span class="minus bg-dark">-</span>
+                                <input type="number" class="count" asp-for="OrderBasicModel.Qty" name="OrderBasicModel.Qty" min="1" value="1">
+                                <span class="plus bg-dark">+</span>
+                            </div>
 
                                 @*</form>*@
 
@@ -385,3 +389,19 @@
 </form>
     <!-- End main area -->
     <script src="~/plugins/select2/js/select2.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.count').prop('disabled', true);
+        $(document).on('click', '.plus', function () {
+            $('.count').val(parseInt($('.count').val()) + 1);
+        });
+        $(document).on('click', '.minus', function () {
+            $('.count').val(parseInt($('.count').val()) - 1);
+            if ($('.count').val() == 0) {
+                $('.count').val(1);
+            }
+        });
+    });
+</script>

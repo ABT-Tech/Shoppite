@@ -59,5 +59,10 @@ namespace Shoppite.UI.Services
 
             await _CartService.UpdateOrderQty(mapped);
         }
+
+        public async Task<UsersProfileModal> GetVendorDetails(int orgid)
+        {
+            return await _CartService.GetVendorDetails(orgid);
+        }
     }
 }

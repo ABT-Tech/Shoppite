@@ -239,7 +239,8 @@
                         <div class="row">
                             <div class="col-lg-4 col-md-4">
                                 <div class="footer-logo">
-                                    <a href="index.html"><img src="img/footer-logo.png" alt="footer logo"></a>
+                                    @await Component.InvokeAsync("VendorLogo");
+                                    @*<a href="index.html"><img src="img/footer-logo.png" alt="footer logo"></a>*@
                                 </div>
                                 <div class="footer-top-sociul">
                                     <p>
@@ -266,15 +267,8 @@
                 <div class="container">
                     <div class="footer-center">
                         <div class="row">
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-40">
-                                <div class="footer-center-title">
-                                    <h4><span>Store Information</span></h4>
-                                </div>
-                                <p><i class="fa fa-map-marker"></i> <span>My Company, 42 avenue des Champs Elysées 75000 Paris France</span></p>
-                                <p><i class="fa fa-phone"></i> <span class="call">Call us now: 0123-456-789</span></p>
-                                <p><i class="fa fa-envelope-o"></i> <span class="call">Email: <a href="mailto:admin@bootexperts.com">admin@bootexperts.com</a></span></p>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-40">
+                                @await Component.InvokeAsync("FooterDetails")
+                            @*<div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-40">
                                 <div class="footer-center-title">
                                     <h4><span>Categories</span></h4>
                                 </div>
@@ -300,17 +294,18 @@
                                         <li><a href="#">My personal</a></li>
                                     </ul>
                                 </div>
-                            </div>
+                            </div>*@
                             <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-40">
                                 <div class="footer-center-title">
                                     <h4><span>Newsletter</span></h4>
                                 </div>
                                 <div class="newslettei-from">
-                                    <p>Subscribe to the Manina mailing list to receive updates on new arrivals, special offers and other discount information.</p>
-                                    <form method="post" action="#">
+                                    <p>Subscribe to the ShopPite mailing list to receive updates on new arrivals, special offers and other discount information.</p>
+                                    <form method="get" enctype="multipart/form-data" >
                                         <div class="form-group">
-                                            <input type="text" placeholder="Enter your e-mail" size="18" name="email" id="newsletter-input" class="inputNew form-control grey newsletter-input">
-                                            <button class="btn btn-default button button-small" name="submitNewsletter" type="submit"><i class="fa fa-chevron-right"></i></button>
+                                            <input type="email" placeholder="Enter your e-mail" size="18" name="email" id="newsletter-input" class="inputNew form-control grey newsletter-input">
+                                            <button class="btn btn-default button button-small" asp-action="News_Letter_Submit" asp-controller="Home" name="submitNewsletter" type="submit"><i class="fa fa-chevron-right"></i></button>
+                                            <p style="margin-top: -20px; color: #fe5b5a;" class="font-weight-bold">@TempData["EmailError"]</p>
                                         </div>
                                     </form>
                                 </div>
@@ -329,9 +324,9 @@
                                 <div class="footer-menu">
                                     <nav>
                                         <ul>
-                                            <li><a href="shop-grid.html">Specials</a></li>
+                                            @*<li><a href="shop-grid.html">Specials</a></li>
                                             <li><a href="shop-grid.html">New products</a></li>
-                                            <li><a href="shop-grid.html">Best sellers</a></li>
+                                            <li><a href="shop-grid.html">Best sellers</a></li>*@
                                             <li><a href="shop-grid.html">Our stores</a></li>
                                             <li><a href="contact-us.html">Contact us</a></li>
                                             <li><a href="about-us.html">About us</a></li>

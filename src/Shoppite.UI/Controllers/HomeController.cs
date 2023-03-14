@@ -93,5 +93,21 @@ namespace Shoppite.UI.Controllers
             }
             return PartialView(model);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> News_Letter_Submit(string email)
+        {
+            if (email == null || email == "")
+            {
+                TempData["EmailError"] = "Please Enter Email";
+            }
+            else
+            {
+                int orgid = commonHelper.GetOrgID(HttpContext);
+                await _BrandPageService.News_Letter_Submit(orgid, email);
+                TempData["EmailError"] = "You Successfully Subscribed to our NewsLetter !!";
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
