@@ -36,6 +36,7 @@ namespace Shoppite.UI.Controllers
             int OrgId = commonHelper.GetOrgID(HttpContext);
             var brands = await _brandPageService.GetBrands(OrgId);
             brands.Categories = await _categoryPageService.GetCategories(CategoryId, OrgId);
+            brands.CategoryMaster = await _categoryPageService.DisplayLogo(OrgId);
             brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
             brands.Myaccount = await _myAccountPageService.GetMyAccountDetail(OrgId, 2104);
             return View(brands);
@@ -45,6 +46,7 @@ namespace Shoppite.UI.Controllers
         {
             int OrgId = commonHelper.GetOrgID(HttpContext);
             var brands=await _myAccountPageService.GetProfileByProfileId(2104);
+            brands.CategoryMaster = await _categoryPageService.DisplayLogo(OrgId);
             brands.Categories = await _categoryPageService.GetCategories(CategoryId, OrgId);
             brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
             brands.Myaccount = await _myAccountPageService.GetMyAccountDetail(OrgId, 2104);
@@ -71,6 +73,7 @@ namespace Shoppite.UI.Controllers
         {
             int OrgId = commonHelper.GetOrgID(HttpContext);
             var brands = await _myAccountPageService.GetProfileByProfileId(2104);
+            brands.CategoryMaster = await _categoryPageService.DisplayLogo(OrgId);
             brands.Categories = await _categoryPageService.GetCategories(CategoryId, OrgId);
             brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
             brands.Myaccount = await _myAccountPageService.GetMyAccountDetail(OrgId, 2104);

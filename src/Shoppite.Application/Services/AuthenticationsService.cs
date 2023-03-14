@@ -21,11 +21,11 @@ namespace Shoppite.Application.Services
             _AuthenticationRepository = AuthenticationRepository ?? throw new ArgumentNullException(nameof(AuthenticationRepository));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
-        public async Task<UsersModal> Get_Login_Data(string userName, string passWord, int orgid)
+        public async Task<UsersModal> Get_Login_Data(string email, string passWord, int orgid)
         {
             UsersModal users = new UsersModal();
             users.LastLoginDate = DateTime.Now;
-            var UserLogin = await _AuthenticationRepository.GetAuthenticato_Details(userName, passWord, orgid);
+            var UserLogin = await _AuthenticationRepository.GetAuthenticato_Details(email, passWord, orgid);
             var logo = await _AuthenticationRepository.Get_Logo(orgid);
             users = ObjectMapper.Mapper.Map<UsersModal>(UserLogin);
             if (users == null)
@@ -42,6 +42,14 @@ namespace Shoppite.Application.Services
             var UserLogin = await _AuthenticationRepository.Get_Logo(orgid);
             users.LogoModel = ObjectMapper.Mapper.Map<LogoModel>(UserLogin);
             return users;
+        }
+
+        public async Task<UsersModal> RegisterDetail(string userName, string password, string email, int orgId)
+        {
+            UsersModal usersModal = new UsersModal();
+            var RegData =  await _AuthenticationRepository.RegisterDetail(userName, password, email, orgId);
+            usersModal = ObjectMapper.Mapper.Map<UsersModal>(RegData);
+            return usersModal;
         }
     }
     

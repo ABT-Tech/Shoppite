@@ -10,5 +10,6 @@ namespace Shoppite.Application.Interfaces
     {
         public Task<UsersModal> Get_Login_Data(string userName, string passWord, int orgid);
         public Task<UsersModal> Get_Logo(int orgid);
+        Task<UsersModal> RegisterDetail(string userName, string password, string email, int orgId);
     }
 }
