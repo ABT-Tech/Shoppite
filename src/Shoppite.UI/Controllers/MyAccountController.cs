@@ -58,14 +58,15 @@ namespace Shoppite.UI.Controllers
             int OrgId = commonHelper.GetOrgID(HttpContext);
             account.OrgId = OrgId;
             account.ProfileId = 2104;
-            if (ModelState.IsValid)
-            {
+           /* if (ModelState.IsValid)
+            {*/
                 if (account.ProfileImage != null)
                 {
                     account.CoverImage = await UploadProfileImage(account);
-                }
-                await _myAccountPageService.UpdateMyAccountDetail(account);
-            }
+                }             
+            /*}*/
+            await _myAccountPageService.UpdateMyAccountDetail(account);
+            account.CategoryMaster= await _categoryPageService.DisplayLogo(OrgId);
             return View(account);
         }
         [HttpGet]
