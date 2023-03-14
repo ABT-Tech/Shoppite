@@ -37,7 +37,7 @@ namespace Shoppite.UI.Controllers
         {
             int orgid =commonHelper.GetOrgID(HttpContext);
             var Product_Details = await _ProductDetailPageService.GetProductDetails(id, orgid);
-            return View("Details", Product_Details);
+            return View(Product_Details);
         }
         [HttpGet]
         public async Task<IActionResult> AddProductToCart(ProductDetailModel productDetailModel)

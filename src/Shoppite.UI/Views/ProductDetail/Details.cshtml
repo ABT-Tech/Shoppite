@@ -12,6 +12,23 @@
     .modal-header {
         background-color: #fe5b5a;
     }
+
+    .minus, .plus {
+        color: white;
+        border-radius: 100%;
+        padding: 2px 6.5px;
+        margin: 1px;
+        font-weight: 900;
+    }
+    .minus {
+        padding: 2px 8.5px;
+    }
+    .count {
+        border: none;
+        text-align: center;
+        padding-left: 20px;
+        width: 50px;
+    }
 </style>
 
 <form enctype="multipart/form-data" method="get" class="">
@@ -104,12 +121,12 @@
                                     }
                                 </p>
                                 @*<form method="post" action="#">*@
-                            <div class="numbers-row">
+                            <div class="">
                                 <label>Quantity </label>
                                @* <input type="number" asp-for="OrderBasicModel.Qty" name="OrderBasicModel.Qty" id="french-hens" min="1" value="1">*@
 
                                 <span class="minus bg-dark">-</span>
-                                <input type="number" class="count" asp-for="OrderBasicModel.Qty" name="OrderBasicModel.Qty" min="1" value="1">
+                                <input type="number" class="count" asp-for="OrderBasicModel.Qty" name="OrderBasicModel.Qty" id="french-hens" min="1" value="1">
                                 <span class="plus bg-dark">+</span>
                             </div>
 
