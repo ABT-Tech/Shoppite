@@ -2,6 +2,7 @@
 using Shoppite.Application.Models;
 using Shoppite.Core.Entities;
 using Shoppite.UI.Helpers;
+using Shoppite.UI.Interfaces;
 using Shoppite.Web.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -13,10 +14,11 @@ namespace Shoppite.UI.Controllers
     public class CategoryController : Controller
     {
         private readonly ICategoryPageService _categoryPageService;
-        private readonly CommonHelper commonHelper = new CommonHelper();
-        public CategoryController(ICategoryPageService categoryPageService)
+        private readonly ICommonHelper _commonHelper;
+        public CategoryController(ICategoryPageService categoryPageService, ICommonHelper commonHelper)
         {
             _categoryPageService = categoryPageService ?? throw new ArgumentNullException(nameof(categoryPageService));
+            _commonHelper = commonHelper;
         }
         /* public IActionResult Index()
          {

@@ -30,6 +30,7 @@ using System.Text;
 using System;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Shoppite.UI.Helpers;
 
 namespace Shoppite.UI
 {
@@ -62,16 +63,17 @@ namespace Shoppite.UI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
+            app.UseDeveloperExceptionPage();
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //}
+            //else
+            //{
+            //    app.UseExceptionHandler("/Home/Error");
+            //    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+            //    app.UseHsts();
+            //}
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
@@ -115,6 +117,7 @@ namespace Shoppite.UI
             services.AddScoped<IProductDetailRepsitory, ProductDetailRepository>();
             services.AddScoped<IAuthenticationsRepository, AuthenticatiosRepository>();
             services.AddScoped<ICartRepository, CartRepository>();
+            services.AddScoped<ICommonRepository, CommonRepository>();
 
             // Add Application Layer
             services.AddScoped<IBrandServices, BrandServices>();
@@ -129,6 +132,7 @@ namespace Shoppite.UI
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IBrandPageServices, BrandPageServices>();
             services.AddAutoMapper(typeof(Startup));
+            services.AddScoped<ICommonHelper, CommonHelper>();
             services.AddScoped<ICategoryPageService, CategoryPageService>();
             services.AddScoped<IproductDetailPageServices, ProductDetailPageServices>();
             services.AddScoped<ICartPageServices, CartPageServices>();
