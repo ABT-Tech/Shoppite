@@ -26,7 +26,7 @@ namespace Shoppite.UI.Helpers
         {
             int orgid = commonHelper.GetOrgID(HttpContext);
             MainModel.ProductsDetails = await _categoryPageService.GetProductList(orgid);
-            MainModel.Categories = await _categoryPageService.GetCategories(0);
+            MainModel.Categories = await _categoryPageService.GetCategories(0, orgid);
             return View("MegaMenu", MainModel);
         }
     }

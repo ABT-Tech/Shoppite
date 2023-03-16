@@ -10,7 +10,7 @@
                     <nav>
                         <ul>
                             <li>
-                                <a class="home" href="/">Home</a>
+                                <a class="home" asp-action="Index">Home</a>
                                 <div class="megamenudown-mini home-ve">
                                     <div class="mega-top">
                                         <div class="mega-item-menu">
@@ -22,64 +22,8 @@
                                     </div>
                                 </div>
                             </li>
-
-                            @if (Model.ProductsDetails != null)
-                            {
-                                @foreach (var item in Model.ProductsDetails)
-                                {
-                                    <li>
-                                        <a href="shop-grid.html">@item.maincaturlpath</a>
-                                        <div class="megamenudown">
-                                            <div class="mega-top">
-                                                <div class="mega-item-menu">
-                                                    @foreach (var subcat in item.SubcategoryDetails)
-                                                    {
-                                                        <a class="title" href="shop-grid.html"><span>@subcat.CategoryName</span></a>
-                                                        @foreach (var categories in subcat.ProductsDetails)
-                                                        {
-                                                            <a href="#"><span>@categories.ProductName</span></a>
-                                                        }
-
-                                                    }
-                                                </div>
-                                            </div>
-                                            <div class="mega-bottom">
-                                                @foreach (var cat in item.SubcategoryDetails)
-                                                {
-                                                    @foreach (var product in cat.ProductsDetails)
-                                                    {
-                                                        <a href="#"><img src="@Url.Content("~")@product.CoverImage" alt=""></a>
-                                                    }
-                                                }
-                                            </div>
-                                        </div>
-                                    </li>
-                                }
-                            }
-
-                            @if (Model.ProductsDetails != null)
-                            {
-                                <li style="float:right">
-                                    <a href="#">More</a>
-                                    <div class="megamenudown-mini home-ve">
-                                        <div class="mega-top">
-                                            <div class="mega-item-menu">
-                                                @foreach (var item in Model.Categories)
-                                                {
-                                                    <a href="#"><span>@item.CategoryName</span></a>
-                                                }
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            }
-
-
-                            @*<li>
-            <select asp-for="CategoryId" asp-items="@(new SelectList(Model.Categories,"CategoryId","CategoryName"))">
-                <option>Categories</option>
-            </select>
-        </li>*@
+                            @await Html.PartialAsync("_Categories", Model)
+                            @await Html.PartialAsync("_MoreCategories", Model)
                         </ul>
                     </nav>
                 </div>
@@ -95,51 +39,6 @@
                         </p>
                     </form>
                 </div>
-            </div>
-            <div class="col-md-1">
-                <div class="megamenu">
-                    <nav>
-                        <ul>
-                            <li>
-                                <div class="user-icon">
-                                    <i class="fa fa-user"></i>
-                                    <div class="megamenudown-mini home-ve">
-                                        <div class="mega-top">
-                                            <div class="mega-item-menu">
-                                                <a href="#"><span>My account</span></a>
-                                                <a href="#"><span>My wishlist</span></a>
-                                                <a href="#"><span>My cart</span></a>
-                                                <a href="#"><span>Sign in</span></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            @*<li>
-                                    <div class="user-icon">
-                                        <i class="fa fa-user"></i>
-
-                                        <div class="megamenudown-mini home-ve">
-                                            <div class="mega-top">
-                                                <div class="mega-item-menu">
-                                                    <ul>
-                                                        <a href="#"><span>@itemC</span></a>
-                                                        <li><a href="#">My account</a></li>
-                                                        <li><a href="wishlists.html">My wishlist</a></li>
-                                                        <li><a href="cart.html">My cart</a></li>
-                                                        <li><a href="#">Sign in</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </li>*@
-
-                        </ul>
-                    </nav>
-                </div>
-
             </div>
         </div>
     </div>
