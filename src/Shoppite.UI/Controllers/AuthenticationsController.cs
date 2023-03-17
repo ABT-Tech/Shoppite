@@ -14,19 +14,20 @@ namespace Shoppite.UI.Controllers
     public class AuthenticationsController : BaseController
     {
         private readonly IAuthenticationsPageService _AuthenticationPageService;
-        private readonly CommonHelper commonHelper = new CommonHelper();
+        private readonly ICommonHelper _commonHelper;
         private readonly IHostingEnvironment _hostingEnvironment;
 
-        public AuthenticationsController(IAuthenticationsPageService AuthenticationPageService, IHostingEnvironment hostingEnvironment)
+        public AuthenticationsController(IAuthenticationsPageService AuthenticationPageService, IHostingEnvironment hostingEnvironment, ICommonHelper commonHelper)
         {
             _AuthenticationPageService = AuthenticationPageService ?? throw new ArgumentNullException(nameof(AuthenticationPageService));
             _hostingEnvironment = hostingEnvironment;
+            _commonHelper = commonHelper;
         }
 
         [AllowAnonymous]
         public async Task<IActionResult> Login(int orgid)
         {
-            orgid = commonHelper.GetOrgID(HttpContext);
+            orgid = _commonHelper.GetOrgID(HttpContext);
             var logo = await _AuthenticationPageService.Get_Logo(orgid);
             return View(logo);
         }
@@ -59,7 +60,7 @@ namespace Shoppite.UI.Controllers
         [HttpPost, AllowAnonymous]
         public async Task<ActionResult> Login([FromBody] LoginCheckModel loginCheckModel)
         {
-            int OrgId = commonHelper.GetOrgID(HttpContext);
+            int OrgId = _commonHelper.GetOrgID(HttpContext);
             var UserValidate = await _AuthenticationPageService.Get_Login_Data(loginCheckModel.datal.userid,loginCheckModel.datal.password,OrgId);
             if (UserValidate.Password != null && UserValidate.Email != null)
             {
@@ -78,7 +79,7 @@ namespace Shoppite.UI.Controllers
         [HttpPost, AllowAnonymous]
         public async Task<ActionResult> Register([FromBody] RegisterModel registerModel)
         {
-            int OrgId = commonHelper.GetOrgID(HttpContext);
+            int OrgId = _commonHelper.GetOrgID(HttpContext);
           var Register = await _AuthenticationPageService.RegisterDetail(registerModel.Regdata.UserName, registerModel.Regdata.Password, registerModel.Regdata.Email,OrgId);
             if (Register == null)
                 return Json("Succsess");

@@ -22,19 +22,24 @@ namespace Shoppite.UI.Controllers
         private readonly IBrandPageServices _BrandPageService;
         private readonly IWishlistPageService _wishlistPageService;
         private readonly ICategoryPageService _categoryPageService;
-        private readonly CommonHelper commonHelper = new CommonHelper();
+        private readonly ICommonHelper _commonHelper;
 
-        public HomeController(IBrandPageServices brandPageServices, ILogger<HomeController> logger, ICategoryPageService categoryPageService, IHttpContextAccessor accessor,IWishlistPageService wishlistPageService)
+        public HomeController(IBrandPageServices brandPageServices, ILogger<HomeController> logger, ICategoryPageService categoryPageService, IHttpContextAccessor accessor,IWishlistPageService wishlistPageService, ICommonHelper commonHelper)
         {
             _accessor = accessor;
             _logger = logger ?? throw new ArgumentNullException();
             _BrandPageService = brandPageServices ?? throw new ArgumentNullException(nameof(brandPageServices));
             _categoryPageService = categoryPageService ?? throw new ArgumentNullException(nameof(categoryPageService));
             _wishlistPageService = wishlistPageService ?? throw new ArgumentNullException(nameof(wishlistPageService));
+            _commonHelper = commonHelper;
         }
         public async Task<IActionResult>Index(int CategoryId)
         {
-            int OrgId  = commonHelper.GetOrgID(HttpContext);
+            int OrgId  = _commonHelper.GetOrgID(HttpContext);
+            if (OrgId == 0)
+            {
+                return RedirectToAction("PageNotFound");
+            }
             var brands = await _BrandPageService.GetBrands(OrgId);
             brands.CategoryMaster =  await _categoryPageService.DisplayLogo(OrgId);
             brands.MiddelBanner = await _categoryPageService.GetMiddelBannerImage(OrgId);
@@ -47,7 +52,7 @@ namespace Shoppite.UI.Controllers
         }
         public async Task<IActionResult> ProductsByBrand(int CategoryId,int BrandId)
         {
-            int OrgId = commonHelper.GetOrgID(HttpContext);
+            int OrgId = _commonHelper.GetOrgID(HttpContext);
             var brands = await _BrandPageService.GetBrands(OrgId);
             brands.CategoryMaster = await _categoryPageService.DisplayLogo(OrgId);
             brands.MiddelBanner = await _categoryPageService.GetMiddelBannerImage(OrgId);
@@ -59,6 +64,11 @@ namespace Shoppite.UI.Controllers
             brands.ProductdByBrand = await _BrandPageService.GetProductsByBrand(OrgId, BrandId);
             return View(brands);
         }
+        public async Task<IActionResult> PageNotFound()
+        {
+            return View(); 
+        }
+
         [HttpGet]
         public async Task<JsonResult> Get_Product_By_Cat(int ID)
         {
@@ -67,7 +77,7 @@ namespace Shoppite.UI.Controllers
         }
         public async Task<IActionResult> AllProducts(int CategoryId)
         {
-            int OrgId = commonHelper.GetOrgID(HttpContext);
+            int OrgId = _commonHelper.GetOrgID(HttpContext);
             var brands = await _BrandPageService.GetBrands(OrgId);
             brands.CategoryMaster = await _categoryPageService.DisplayLogo(OrgId);
             brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
@@ -82,7 +92,7 @@ namespace Shoppite.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> _ProductsByAttribute(int CategoryId, string SpecificationName)
         {
-            int OrgId = commonHelper.GetOrgID(HttpContext);
+            int OrgId = _commonHelper.GetOrgID(HttpContext);
             MainModel model = new MainModel();
             if(SpecificationName!=null)
             {

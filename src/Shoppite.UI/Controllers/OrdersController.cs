@@ -15,13 +15,13 @@ namespace Shoppite.UI.Controllers
     public class OrdersController : Controller
     {
         private readonly IWishlistPageService _productPageService;
-        private readonly CommonHelper commonHelper = new CommonHelper();
+        private readonly ICommonHelper _commonHelper;
         private IHttpContextAccessor _accessor;
         private readonly IMyAccountPageService _myAccountPageService;
         private readonly ILogger<OrdersController> _logger;
         private readonly IBrandPageServices _BrandPageService;
         private readonly ICategoryPageService _categoryPageService;
-        public OrdersController(IBrandPageServices brandPageServices, ICategoryPageService categoryPageService, IMyAccountPageService myAccountPageServices, ILogger<WishlistController> logger, IWishlistPageService productPageService, IHttpContextAccessor accessor)
+        public OrdersController(IBrandPageServices brandPageServices, ICategoryPageService categoryPageService, ILogger<WishlistController> logger, IWishlistPageService productPageService, IHttpContextAccessor accessor, ICommonHelper commonHelper, IMyAccountPageService myAccountPageServices,)
         {
             _accessor = accessor;
             _BrandPageService = brandPageServices ?? throw new ArgumentNullException(nameof(brandPageServices));
@@ -29,12 +29,12 @@ namespace Shoppite.UI.Controllers
             //_logger = logger ?? throw new ArgumentNullException();
             _productPageService = productPageService ?? throw new ArgumentNullException(nameof(productPageService));
             _myAccountPageService = myAccountPageServices ?? throw new ArgumentNullException(nameof(myAccountPageServices));
-
+            _commonHelper = commonHelper;
         }
         [HttpGet]
         public async Task<IActionResult> MyOrders(int CategoryId, string Username)
         {
-            int OrgId = commonHelper.GetOrgID(HttpContext);
+            int OrgId = _commonHelper.GetOrgID(HttpContext);
             var brands = await _BrandPageService.GetBrands(OrgId);
             int Profileid = await _myAccountPageService.GetProfileId(User.Identity.Name);
             brands.CategoryMaster = await _categoryPageService.DisplayLogo(OrgId);
@@ -49,7 +49,7 @@ namespace Shoppite.UI.Controllers
         public async Task<IActionResult> _PendingOrders()
         {
             MainModel model = new MainModel();
-            int OrgId = commonHelper.GetOrgID(HttpContext);
+            int OrgId = _commonHelper.GetOrgID(HttpContext);
             int Profileid = await _myAccountPageService.GetProfileId(User.Identity.Name);
 
             model.Orders = await _productPageService.GetPendingOrders(OrgId, Profileid);         
@@ -59,7 +59,7 @@ namespace Shoppite.UI.Controllers
         public async Task<IActionResult> _AllOrders()
         {
             MainModel model = new MainModel();
-            int OrgId = commonHelper.GetOrgID(HttpContext);
+            int OrgId = _commonHelper.GetOrgID(HttpContext);
             int Profileid = await _myAccountPageService.GetProfileId(User.Identity.Name);
             model.MyOrders = await _productPageService.GetMyOrders(User.Identity.Name);
             return PartialView(model);
@@ -68,7 +68,7 @@ namespace Shoppite.UI.Controllers
         public async Task<IActionResult> _CancelledOrders()
         {
             MainModel model = new MainModel();
-            int OrgId = commonHelper.GetOrgID(HttpContext);
+            int OrgId = _commonHelper.GetOrgID(HttpContext);
             int Profileid = await _myAccountPageService.GetProfileId(User.Identity.Name);
             model.Orders = await _productPageService.GetCancelledOrders(OrgId, Profileid);
             return PartialView(model);
@@ -77,7 +77,7 @@ namespace Shoppite.UI.Controllers
         public async Task<IActionResult> _DeliveredOrders()
         {
             MainModel model = new MainModel();
-            int OrgId = commonHelper.GetOrgID(HttpContext);
+            int OrgId = _commonHelper.GetOrgID(HttpContext);
             int Profileid = await _myAccountPageService.GetProfileId(User.Identity.Name);
             model.Orders = await _productPageService.GetDeliveredOrders(OrgId, Profileid);
             return PartialView(model);

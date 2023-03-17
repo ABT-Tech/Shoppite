@@ -14,24 +14,25 @@ namespace Shoppite.UI.Controllers
 {
     public class WishlistController : Controller
     {
+        private readonly ICommonHelper _commonHelper;
         private readonly IWishlistPageService _productWishListService;
-        private readonly CommonHelper commonHelper = new CommonHelper();
         private IHttpContextAccessor _accessor;
         private readonly ILogger<WishlistController> _logger;
         private readonly IBrandPageServices _BrandPageService;
         private readonly ICategoryPageService _categoryPageService;
-        public WishlistController(IBrandPageServices brandPageServices,ICategoryPageService categoryPageService, ILogger<WishlistController> logger, IWishlistPageService productPageService, IHttpContextAccessor accessor)
+        public WishlistController(IBrandPageServices brandPageServices,ICategoryPageService categoryPageService, ILogger<WishlistController> logger, IWishlistPageService productPageService, IHttpContextAccessor accessor, ICommonHelper commonHelper)
         {
             _accessor = accessor;
             _BrandPageService = brandPageServices ?? throw new ArgumentNullException(nameof(brandPageServices));
             _categoryPageService = categoryPageService ?? throw new ArgumentNullException(nameof(categoryPageService));
             _logger = logger ?? throw new ArgumentNullException();
+            _commonHelper = commonHelper;
             _productWishListService = productPageService ?? throw new ArgumentNullException(nameof(productPageService));
         }
         [HttpGet]
         public async Task<IActionResult> Wishlist(int CategoryId)
         {
-            int OrgId = commonHelper.GetOrgID(HttpContext);
+            int OrgId = _commonHelper.GetOrgID(HttpContext);
             string userName = User.Identity.Name;
             var brands = await _BrandPageService.GetBrands(OrgId);
             brands.CategoryMaster = await _categoryPageService.DisplayLogo(OrgId);
@@ -45,8 +46,8 @@ namespace Shoppite.UI.Controllers
         public async Task<IActionResult> Wishlist(MainModel wishlist, int id)
         {
             var ipadresss = _accessor.HttpContext.Connection.RemoteIpAddress.ToString();
+            int OrgId = _commonHelper.GetOrgID(HttpContext);
             string userName = User.Identity.Name;
-            int OrgId = commonHelper.GetOrgID(HttpContext);
             wishlist.OrgId = OrgId;
             wishlist.Ip = ipadresss;
             wishlist.UserName = userName;  

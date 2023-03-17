@@ -11,14 +11,15 @@ namespace Shoppite.UI.Helpers
     public class CartViewComponent:ViewComponent
     {
         private readonly ICartPageServices _CartPageServices;
-        private readonly CommonHelper _commonHelper = new CommonHelper(); 
+        private readonly ICommonHelper _commonHelper;
 
         List<CartModel> cartModel = new List<CartModel>();
 
-        public CartViewComponent(ICartPageServices CartPageServices)
+        public CartViewComponent(ICartPageServices CartPageServices, ICommonHelper commonHelper)
         {
             // cartModel = cartModel;
             _CartPageServices = CartPageServices;
+            _commonHelper = commonHelper;
            // _commonHelper = commonHelper;
         }
 

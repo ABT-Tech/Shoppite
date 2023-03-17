@@ -19,13 +19,15 @@ namespace Shoppite.UI.Controllers
         private readonly IWishlistPageService _productWishListService;
 
         //private readonly ICategoryPageService _categoryPageService;
-        private readonly CommonHelper commonHelper = new CommonHelper();
+        private readonly ICommonHelper _commonHelper;
 
 
-        public ProductDetailController(ILogger<HomeController> logger, IproductDetailPageServices categoryPageService, IWishlistPageService productWishListService)
+        
+        public ProductDetailController(ILogger<HomeController> logger, IproductDetailPageServices categoryPageService, ICommonHelper commonHelper, IWishlistPageService productWishListService)
         {
             _logger = logger ?? throw new ArgumentNullException();
             _ProductDetailPageService = categoryPageService ?? throw new ArgumentNullException(nameof(categoryPageService));
+            _commonHelper = commonHelper;
             _productWishListService = productWishListService;
 
             //_categoryPageService = categoryPageService ?? throw new ArgumentNullException(nameof(categoryPageService));
@@ -39,7 +41,7 @@ namespace Shoppite.UI.Controllers
         // [HttpPost]
         public async Task<IActionResult> Details(Guid id)
         {
-            int orgid =commonHelper.GetOrgID(HttpContext);
+            int orgid = _commonHelper.GetOrgID(HttpContext);
             var Product_Details = await _ProductDetailPageService.GetProductDetails(id, orgid);
             return View(Product_Details);
         }

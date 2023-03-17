@@ -21,19 +21,20 @@ namespace Shoppite.UI.Controllers
         private readonly ICategoryPageService _categoryPageService;
         private readonly IMyAccountPageService _myAccountPageService;
         private readonly ILogger<MyAccountController> _logger;
-        private readonly CommonHelper commonHelper = new CommonHelper();
-        public MyAccountController(IConfiguration config,IBrandPageServices brandPageServices, IMyAccountPageService myAccountPageServices, ICategoryPageService categoryPageService, ILogger<MyAccountController> logger, IWishlistPageService productPageService, IHttpContextAccessor accessor)
+        private readonly ICommonHelper _commonHelper;
+        public MyAccountController(IConfiguration config,IBrandPageServices brandPageServices, IMyAccountPageService myAccountPageServices, ICategoryPageService categoryPageService, ILogger<MyAccountController> logger, IWishlistPageService productPageService, IHttpContextAccessor accessor, ICommonHelper commonHelper)
         {
             _myAccountPageService = myAccountPageServices ?? throw new ArgumentNullException(nameof(myAccountPageServices));
             _categoryPageService = categoryPageService ?? throw new ArgumentNullException(nameof(categoryPageService));
             _brandPageService = brandPageServices ?? throw new ArgumentNullException(nameof(brandPageServices));
             _logger = logger ?? throw new ArgumentNullException();
+            _commonHelper = commonHelper;
             _config = config;
         }
         [HttpGet]
         public async Task<IActionResult> myAccount(int profileId,int CategoryId)
         {
-            int OrgId = commonHelper.GetOrgID(HttpContext);
+            int OrgId = _commonHelper.GetOrgID(HttpContext);
             int Profileid = await _myAccountPageService.GetProfileId(User.Identity.Name);
             var brands = await _brandPageService.GetBrands(OrgId);
             brands.Categories = await _categoryPageService.GetCategories(CategoryId, OrgId);
@@ -45,7 +46,7 @@ namespace Shoppite.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> EditProfile(int CategoryId)
         {
-            int OrgId = commonHelper.GetOrgID(HttpContext);
+            int OrgId = _commonHelper.GetOrgID(HttpContext);
             int Profileid = await _myAccountPageService.GetProfileId(User.Identity.Name);
             var brands=await _myAccountPageService.GetProfileByProfileId(Profileid);
             brands.CategoryMaster = await _categoryPageService.DisplayLogo(OrgId);
@@ -73,7 +74,7 @@ namespace Shoppite.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> ChangePassword(int CategoryId, int ProfileId)
         {
-            int OrgId = commonHelper.GetOrgID(HttpContext);
+            int OrgId = _commonHelper.GetOrgID(HttpContext);
             int Profileid = await _myAccountPageService.GetProfileId(User.Identity.Name);
             var brands = await _myAccountPageService.GetProfileByProfileId(Profileid);
             brands.CategoryMaster = await _categoryPageService.DisplayLogo(OrgId);
@@ -94,7 +95,7 @@ namespace Shoppite.UI.Controllers
         }
         private async Task<string> UploadProfileImage(MainModel account)
         {
-            int OrgId = commonHelper.GetOrgID(HttpContext);
+            int OrgId = _commonHelper.GetOrgID(HttpContext);
             string filepath = null;
             try
             {
