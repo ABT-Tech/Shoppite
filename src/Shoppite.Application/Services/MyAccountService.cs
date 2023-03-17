@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.Internal.Mappers;
+using Microsoft.AspNetCore.Http;
 using Shoppite.Application.Interfaces;
 using Shoppite.Application.Mapper;
 using Shoppite.Application.Models;
@@ -16,15 +17,17 @@ namespace Shoppite.Application.Services
     {
         private readonly IMyAccountRepository _myAccountRepository;
         private readonly IMapper _mapper;
-        public MyAccountService(IMyAccountRepository myAccountRepository, IMapper mapper)
+        private IHttpContextAccessor _accessor;
+        public MyAccountService(IMyAccountRepository myAccountRepository, IMapper mapper, IHttpContextAccessor accessor)
         {
             _myAccountRepository = myAccountRepository ?? throw new ArgumentNullException(nameof(myAccountRepository));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _accessor = accessor;
         }
-        public async Task<List<f_Get_MyAccount_Data_Model>> GetMyAccountDetail(int orgId,int profileid)
+        public async Task<f_Get_MyAccount_Data_Model> GetMyAccountDetail(int orgId,int profileid)
         {
             var myAccount_Data = await _myAccountRepository.GetMyAccountDetail(orgId,profileid);
-            var mapped = ObjectMapper.Mapper.Map<List<f_Get_MyAccount_Data_Model>>(myAccount_Data);
+            var mapped = ObjectMapper.Mapper.Map<f_Get_MyAccount_Data_Model>(myAccount_Data);
             return mapped;
         }
         public async Task UpdateMyAccountDetail(MainModel myaccount)
@@ -41,9 +44,15 @@ namespace Shoppite.Application.Services
         }
         public async Task ChangePassword(MainModel model)
         {
+            //model.Username = _accessor.HttpContext.User.Identity.Name;
+            model.UserName = _accessor.HttpContext.User.Identity.Name;
             var mapped = ObjectMapper.Mapper.Map<Users>(model);
             await _myAccountRepository.ChangePassword(mapped);
         }
 
+        public async Task<int> GetProfileId(string username)
+        {
+            return await _myAccountRepository.GetProfileId(username);
+        }
     }
 }

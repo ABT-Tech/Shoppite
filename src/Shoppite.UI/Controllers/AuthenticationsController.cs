@@ -64,7 +64,6 @@ namespace Shoppite.UI.Controllers
             if (UserValidate.Password != null && UserValidate.Email != null)
             {
                 _ = CreateAuthenticationTicket(UserValidate);
-
                 return Json("Succsess");
             }
             else

@@ -10,9 +10,10 @@ namespace Shoppite.Application.Interfaces
     {
         Task<List<Customer_WishlistModel>> GetWishList(string Username, int OrgId);
         Task AddWishList(MainModel wishlist, int ProductId);
-        Task<List<F_Orders_All_Model>> GetMyOrders(int orgID,int ProfileId);
+        Task<List<f_order_masterModel>> GetMyOrders(string UserName);
         Task<List<F_Pending_Orders_Model>> GetPendingOrders(int orgID, int ProfileId);
         Task<List<F_Pending_Orders_Model>> GetDeliveredOrders(int orgID, int ProfileId);
         Task<List<F_Pending_Orders_Model>> GetCancelledOrders(int orgID, int ProfileId);
+        Task AddtowhishList(MainModel mainModel);
     }
 }

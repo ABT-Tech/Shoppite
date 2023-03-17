@@ -77,6 +77,8 @@ namespace Shoppite.Infrastructure.Repository
             foreach(var order in check)
             {
                 order.OrderStatus = "Confirmed";
+                order.ReferenceId = "COD";
+                order.PaymentMode = "Cash On Delivery";
 
                  _dbContext.OrderBasic.Update(order);
 

@@ -57,10 +57,10 @@ namespace Shoppite.Infrastructure.Repository
             return filter;
         }
 
-        public async Task<List<f_getproducts_By_CategoryID>> Get_Product_By_Cat(int ID)
+        public async Task<List<F_getproducts_By_CatId>> Get_Product_By_Cat(int ID)
         {
 
-            string sql = "select * from f_getproducts_By_CategoryID(@ID)";
+            string sql = "select * from f_getproducts_By_CatID(@ID)";
 
             List<SqlParameter> parms = new List<SqlParameter>
             { 
@@ -68,7 +68,7 @@ namespace Shoppite.Infrastructure.Repository
                 new SqlParameter { ParameterName = "@ID", Value = ID }
             };
 
-            return await _dbContext.Set<f_getproducts_By_CategoryID>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
+            return await _dbContext.Set<F_getproducts_By_CatId>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
         }
         public async Task<List<sp_getcat_Result>> Sp_Getcat(int orgid)
         {

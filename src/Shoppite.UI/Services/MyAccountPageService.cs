@@ -17,7 +17,7 @@ namespace Shoppite.UI.Services
             _myAccountService = myAccountService ?? throw new ArgumentNullException(nameof(myAccountService));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
-        public async Task<List<f_Get_MyAccount_Data_Model>> GetMyAccountDetail(int orgId,int profileid)
+        public async Task<f_Get_MyAccount_Data_Model> GetMyAccountDetail(int orgId,int profileid)
         {
             var myaccount = await _myAccountService.GetMyAccountDetail(orgId, profileid);
             return myaccount;
@@ -33,6 +33,11 @@ namespace Shoppite.UI.Services
         public async Task ChangePassword(MainModel model)
         {
              await _myAccountService.ChangePassword(model);
+        }
+
+        public async Task<int> GetProfileId(string username)
+        {
+            return await _myAccountService.GetProfileId(username);
         }
     }
 }

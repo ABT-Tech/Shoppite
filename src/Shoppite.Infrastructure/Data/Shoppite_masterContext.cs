@@ -102,7 +102,7 @@ namespace Shoppite.Infrastructure.Data
         public virtual DbSet<f_getproducts_Recentlyviewed> f_Getproducts_Recentlyviewed { get; set; }
         public virtual DbSet<f_getproduct_specification_By_Guid> GetF_Getproduct_Specification_By_Guid { get; set; }
         public virtual DbSet<f_getproduct_CartDetails_By_Orgid> F_Getproduct_CartDetails_By_Orgid { get; set; }
-
+        public virtual DbSet<f_order_master> F_Order_Master { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -1364,6 +1364,10 @@ namespace Shoppite.Infrastructure.Data
                 entity.HasNoKey();
             });
             modelBuilder.Entity<F_getproducts_By_BrandId>(entity =>
+            {
+                entity.HasNoKey();
+            });
+            modelBuilder.Entity<f_order_master>(entity =>
             {
                 entity.HasNoKey();
             });

@@ -31,61 +31,64 @@ namespace Shoppite.UI.Controllers
             _config = config;
         }
         [HttpGet]
-        public async Task<IActionResult> myAccount(int profileid,int CategoryId)
+        public async Task<IActionResult> myAccount(int profileId,int CategoryId)
         {
             int OrgId = commonHelper.GetOrgID(HttpContext);
+            int Profileid = await _myAccountPageService.GetProfileId(User.Identity.Name);
             var brands = await _brandPageService.GetBrands(OrgId);
             brands.Categories = await _categoryPageService.GetCategories(CategoryId, OrgId);
             brands.CategoryMaster = await _categoryPageService.DisplayLogo(OrgId);
             brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
-            brands.Myaccount = await _myAccountPageService.GetMyAccountDetail(OrgId, 2104);
+            brands.Myaccount = await _myAccountPageService.GetMyAccountDetail(OrgId, Profileid);
             return View(brands);
         }
         [HttpGet]
-        public async Task<IActionResult> EditProfile(int CategoryId,int ProfileId)
+        public async Task<IActionResult> EditProfile(int CategoryId)
         {
             int OrgId = commonHelper.GetOrgID(HttpContext);
-            var brands=await _myAccountPageService.GetProfileByProfileId(2104);
+            int Profileid = await _myAccountPageService.GetProfileId(User.Identity.Name);
+            var brands=await _myAccountPageService.GetProfileByProfileId(Profileid);
             brands.CategoryMaster = await _categoryPageService.DisplayLogo(OrgId);
             brands.Categories = await _categoryPageService.GetCategories(CategoryId, OrgId);
             brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
-            brands.Myaccount = await _myAccountPageService.GetMyAccountDetail(OrgId, 2104);
+            brands.Myaccount = await _myAccountPageService.GetMyAccountDetail(OrgId, Profileid);
             return View(brands);
         }
         [HttpPost]
         public async Task<IActionResult> EditProfile(MainModel account)
         {
-            int OrgId = commonHelper.GetOrgID(HttpContext);
-            account.OrgId = OrgId;
-            account.ProfileId = 2104;
-            if (ModelState.IsValid)
-            {
+            //int OrgId = commonHelper.GetOrgID(HttpContext);
+            //account.OrgId = OrgId;
+            // account.ProfileId = await _myAccountPageService.GetProfileId(User.Identity.Name);
+
+
                 if (account.ProfileImage != null)
                 {
                     account.CoverImage = await UploadProfileImage(account);
                 }
                 await _myAccountPageService.UpdateMyAccountDetail(account);
-            }
-            return View(account);
+            
+                return View(account);
         }
         [HttpGet]
         public async Task<IActionResult> ChangePassword(int CategoryId, int ProfileId)
         {
             int OrgId = commonHelper.GetOrgID(HttpContext);
-            var brands = await _myAccountPageService.GetProfileByProfileId(2104);
+            int Profileid = await _myAccountPageService.GetProfileId(User.Identity.Name);
+            var brands = await _myAccountPageService.GetProfileByProfileId(Profileid);
             brands.CategoryMaster = await _categoryPageService.DisplayLogo(OrgId);
             brands.Categories = await _categoryPageService.GetCategories(CategoryId, OrgId);
             brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
-            brands.Myaccount = await _myAccountPageService.GetMyAccountDetail(OrgId, 2104);
+            brands.Myaccount = await _myAccountPageService.GetMyAccountDetail(OrgId, Profileid);
             return View(brands);
         }
         [HttpPost]
         public async Task<IActionResult> ChangePassword(MainModel model)
         {
-            string Password = model.Password;
-            string encryptedpassword = eh.Encrypt(Password);
-            model.Password = encryptedpassword;
-            model.UserId = 2116;
+             // string Password = model.Password;             \\
+            // string encryptedpassword = eh.Encrypt(Password);\\
+           //  model.Password = encryptedpassword;              \\
+          // model.UserId = 2116;                                \\
             await _myAccountPageService.ChangePassword(model);
             return View(model);
         }

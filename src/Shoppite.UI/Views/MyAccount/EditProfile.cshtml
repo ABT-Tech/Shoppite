@@ -1,10 +1,9 @@
-﻿<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-@model Shoppite.Application.Models.MainModel
+﻿@model Shoppite.Application.Models.MainModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-<input type="hidden" asp-for="@Model.ProfileId" />
-<input type="hidden" asp-for="CoverImage" />
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <div class="main-area">
-    <div class="megamenu-area">
+    @*<div class="megamenu-area">
         <div class="container">
             <div class="row">
                 <div class="col-md-9">
@@ -44,14 +43,13 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>*@
     <div class="contact-page-area">
         <div class="container">
-            <div class="breadcrumb" style="color:#777; background-color: white !important">
-                <span><a title="Return to Home" href="index.html" class="home"></a>Home</span>
-                <span class="navigation-pipe"><i class="fa fa-angle-right"></i></span>
-                My Account  <span class="navigation-pipe"><i class="fa fa-angle-right"></i></span> EditProfile
-            </div>
+                <div class="breadcrumb clearfix">
+                    <a title="Return to Home" asp-action="myAccount" asp-controller="MyAccount" class="home">My Account</a>
+                        <span class="navigation-pipe"><i class="fa fa-angle-right"></i></span>Edit Profile
+                </div>
             <div class="contact-from-atea">
                 <div class="form-and-info">
                     <div class="row">
@@ -62,7 +60,10 @@
                         <div class="col-md-8">
                             <div class="contactfrom">
                                 <h1>Edit Profile</h1>
-                                <form asp-action="EditProfile" enctype="multipart/form-data">
+                                <form asp-controller="MyAccount" asp-action="EditProfile" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" asp-for="ProfileId" />
+                                    <input type="hidden" asp-for="CoverImage" />
+                                    <input type="hidden" asp-for="OrgId" />
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <input type="text" asp-for="@Model.UserName" placeholder="UserName" id="UserName" class="form-control">
@@ -97,7 +98,7 @@
                                                 @ViewBag.message
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                     <button style="margin-top:25px;" class="btn btnContact" type="submit">Update Profile</button>
                                 </form>

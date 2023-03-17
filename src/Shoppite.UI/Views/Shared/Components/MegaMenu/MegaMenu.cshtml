@@ -23,56 +23,8 @@
                                 </div>
                             </li>
 
-                            @if (Model.ProductsDetails != null)
-                            {
-                                @foreach (var item in Model.ProductsDetails)
-                                {
-                                    <li>
-                                        <a href="shop-grid.html">@item.maincaturlpath</a>
-                                        <div class="megamenudown">
-                                            <div class="mega-top">
-                                                <div class="mega-item-menu">
-                                                    @foreach (var subcat in item.SubcategoryDetails)
-                                                    {
-                                                        <a class="title" href="shop-grid.html"><span>@subcat.CategoryName</span></a>
-                                                        @foreach (var categories in subcat.ProductsDetails)
-                                                        {
-                                                            <a href="#"><span>@categories.ProductName</span></a>
-                                                        }
-
-                                                    }
-                                                </div>
-                                            </div>
-                                            <div class="mega-bottom">
-                                                @foreach (var cat in item.SubcategoryDetails)
-                                                {
-                                                    @foreach (var product in cat.ProductsDetails)
-                                                    {
-                                                        <a href="#"><img src="@Url.Content("~")@product.CoverImage" alt=""></a>
-                                                    }
-                                                }
-                                            </div>
-                                        </div>
-                                    </li>
-                                }
-                            }
-
-                            @if (Model.ProductsDetails != null)
-                            {
-                                <li style="float:right">
-                                    <a href="#">More</a>
-                                    <div class="megamenudown-mini home-ve">
-                                        <div class="mega-top">
-                                            <div class="mega-item-menu">
-                                                @foreach (var item in Model.Categories)
-                                                {
-                                                    <a href="#"><span>@item.CategoryName</span></a>
-                                                }
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            }
+                            @await Html.PartialAsync("~/Views/Home/_Categories.cshtml", Model)
+                            @await Html.PartialAsync("~/Views/Home/_MoreCategories.cshtml", Model)
 
 
                             @*<li>
@@ -96,7 +48,7 @@
                     </form>
                 </div>
             </div>
-            <div class="col-md-1">
+            <!--<div class="col-md-1">
                 <div class="megamenu">
                     <nav>
                         <ul>
@@ -114,7 +66,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </li>
+                            </li>-->
                             @*<li>
                                     <div class="user-icon">
                                         <i class="fa fa-user"></i>
@@ -136,11 +88,11 @@
 
                                 </li>*@
 
-                        </ul>
+                        <!--</ul>
                     </nav>
                 </div>
 
-            </div>
+            </div>-->
         </div>
     </div>
 </div>

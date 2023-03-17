@@ -60,7 +60,7 @@ namespace Shoppite.UI.Controllers
         public async Task<IActionResult> SaveAddress(CartModel cartModel)
         {
              await _cartPageService.SaveAddress(cartModel);
-            return RedirectToAction("CheckOut");
+            return RedirectToAction("CheckOut",new { orderid = cartModel.OrderBasicModel.OrderGuid });
         }
     }
 }

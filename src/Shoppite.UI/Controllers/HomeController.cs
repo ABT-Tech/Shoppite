@@ -63,7 +63,7 @@ namespace Shoppite.UI.Controllers
         public async Task<JsonResult> Get_Product_By_Cat(int ID)
         {
            var AA = await _BrandPageService.Get_Product_By_Cat(ID);
-            return Json(AA.F_Getproducts_By_CategoryIDModels);
+            return Json(AA.f_getproducts_By_CatIdModel);
         }
         public async Task<IActionResult> AllProducts(int CategoryId)
         {

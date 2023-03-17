@@ -8,9 +8,10 @@ namespace Shoppite.Core.Repositories
 {
     public interface IMyAccountRepository
     {
-        Task<List<f_Get_MyAccount_Data>> GetMyAccountDetail(int orgId, int profileid);
+        Task<f_Get_MyAccount_Data> GetMyAccountDetail(int orgId, int profileid);
         Task UpdateMyAccountDetail(UsersProfile myaccount);
         Task<UsersProfile> GetProfileByProfileId(int ProfileId);
         Task ChangePassword(Users user);
+        Task<int> GetProfileId(string username);
     }
 }

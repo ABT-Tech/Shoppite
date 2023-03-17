@@ -54,6 +54,7 @@ namespace Shoppite.Application.Services
             cartModel.OrderShippingModel.Contactnumber = cartModel.OrderShippingModel.Phone;
             cartModel.OrderShippingModel.InsertDate = DateTime.Now;
             cartModel.OrderShippingModel.UserName = _accessor.HttpContext.User.Identity.Name;
+            cartModel.OrderShippingModel.OrderGuid = cartModel.OrderBasicModel.OrderGuid;
 
             var maapped = ObjectMapper.Mapper.Map<OrderShipping>(cartModel.OrderShippingModel);
             await _CartRepository.SaveAddress(maapped);
