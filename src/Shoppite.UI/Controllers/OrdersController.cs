@@ -21,7 +21,7 @@ namespace Shoppite.UI.Controllers
         private readonly ILogger<OrdersController> _logger;
         private readonly IBrandPageServices _BrandPageService;
         private readonly ICategoryPageService _categoryPageService;
-        public OrdersController(IBrandPageServices brandPageServices, ICategoryPageService categoryPageService, ILogger<WishlistController> logger, IWishlistPageService productPageService, IHttpContextAccessor accessor, ICommonHelper commonHelper, IMyAccountPageService myAccountPageServices,)
+        public OrdersController(IBrandPageServices brandPageServices, ICategoryPageService categoryPageService, ILogger<WishlistController> logger, IWishlistPageService productPageService, IHttpContextAccessor accessor, ICommonHelper commonHelper, IMyAccountPageService myAccountPageServices)
         {
             _accessor = accessor;
             _BrandPageService = brandPageServices ?? throw new ArgumentNullException(nameof(brandPageServices));

@@ -12,15 +12,15 @@ namespace Shoppite.UI.Helpers
     {
        // private readonly ICartPageServices _CartPageServices;
         private readonly IAuthenticationsPageService _AuthenticationPageService;
-        private readonly CommonHelper _commonHelper = new CommonHelper();
+        private readonly ICommonHelper _commonHelper;
 
         List<CartModel> cartModel = new List<CartModel>();
 
-        public VendorLogoViewComponent(IAuthenticationsPageService AuthenticationPageService)
+        public VendorLogoViewComponent(IAuthenticationsPageService AuthenticationPageService, ICommonHelper commonHelper)
         {
             // cartModel = cartModel;
             _AuthenticationPageService = AuthenticationPageService;
-            // _commonHelper = commonHelper;
+            _commonHelper = commonHelper;
         }
 
         [HttpPost]

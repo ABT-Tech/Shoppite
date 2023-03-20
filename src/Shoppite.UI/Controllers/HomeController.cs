@@ -114,7 +114,7 @@ namespace Shoppite.UI.Controllers
             }
             else
             {
-                int orgid = commonHelper.GetOrgID(HttpContext);
+                int orgid = _commonHelper.GetOrgID(HttpContext);
                 await _BrandPageService.News_Letter_Submit(orgid, email);
                 TempData["EmailError"] = "You Successfully Subscribed to our NewsLetter !!";
             }
