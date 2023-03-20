@@ -1,5 +1,5 @@
-﻿<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-@model Shoppite.Application.Models.MainModel
+﻿@model Shoppite.Application.Models.MainModel
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <div id="grid" class="tab-pane active categoti-grid-view">
         <div class="row">
             @foreach (var product in Model.ProductdByBrand)
@@ -7,8 +7,8 @@
                 <div class="col-md-4 col-lg-4 col-xl-3" style="margin-top:25px">
                     <div class="product-item" style="width: 184px;">
                         <div class="top-item">
-                            <a href="single-product.html">
-                                <img style="height:244px;width:250px" src="@Url.Content("~")/@product.Image" alt="Product image">
+                            <a href="@Url.Action("Details","ProductDetail", new {id = product.ProductGuid })">
+                                <img style="height:244px;width:250px" src="@product.Image" alt="Product image">
                             </a>
                             <div class="top-cocial">
                                 <p>
@@ -22,7 +22,7 @@
                         </div>
                         <div class="bottom-item">
                             <div class="product-info">
-                                <h5><a href="#">@product.ProductName</a></h5>
+                                <h5><a href="@Url.Action("Details","ProductDetail" , new { id = product.ProductGuid })">@product.ProductName</a></h5>
                                 <span>@product.Price <del>@product.OldPrice</del></span>
                                 <p>
                                     <i class="fa fa-star-o"></i>

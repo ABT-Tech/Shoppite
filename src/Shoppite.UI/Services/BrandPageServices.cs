@@ -55,5 +55,10 @@ namespace Shoppite.UI.Services
             var mapped = _mapper.Map<List<F_getproducts_By_BrandIdModel>>(categories);
             return mapped;
         }
+
+        public async Task News_Letter_Submit(int orgid, string email)
+        {
+            await _BrandService.News_Letter_Submit(orgid, email);
+        }
     }
 }

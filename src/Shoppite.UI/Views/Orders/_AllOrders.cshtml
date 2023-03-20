@@ -4,18 +4,21 @@
     @foreach (var myorders in Model.MyOrders.Take(3))
     {
         <div class="col-md-3 col-sm-6 col-12">
-            <div class="wishlist-box">
-                <p>@myorders.orderdeliverystatus</p>
-                <div class="wish-image">
+            <div class="wishlist-box card rounded shadow d-flex">
+                <div class="d-inline-flex">
                     <a href="single-product.html">
-                        <img style="height:200px;width:200px" src="@Url.Content("~")/@myorders.CoverImage" alt="">
+                        <img class="wish-image" style="height: 90px; width: 125px; margin: 5px;" src="@myorders.CoverImage" alt="">
                     </a>
+                    <p style="margin:5px;">@myorders.ProductName</p>
+                   @* <p style="margin:5px;">@myorders.OrderStatus</p>*@
+
+                    <p><i class="fa fa-angle-right"> </i></p>
                 </div>
-               
-                <div class="wishlisst-info ">
-                    <p>@myorders.ProductName</p>
-                   
+
+                @*<div class="wish-image">
                 </div>
+                <div class="wishlisst-info ">           
+                </div>*@
             </div>
         </div>
     }

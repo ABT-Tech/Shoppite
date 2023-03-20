@@ -71,7 +71,7 @@ namespace Shoppite.Application.Services
         {
             MainModel main = new MainModel();
             var Product_By_Cat = await _BrandRepository.Get_Product_By_Cat(ID);
-            main.F_Getproducts_By_CategoryIDModels = ObjectMapper.Mapper.Map<List<f_getproducts_By_CategoryIDModel>>(Product_By_Cat);
+            main.f_getproducts_By_CatIdModel = ObjectMapper.Mapper.Map<List<F_getproducts_By_CatIdModel>>(Product_By_Cat);
             return main;
         }
 
@@ -102,6 +102,11 @@ namespace Shoppite.Application.Services
             var categories = await _BrandRepository.GetProductsByBrand(orgId,BrandId);
             var mapped = ObjectMapper.Mapper.Map<List<F_getproducts_By_BrandIdModel>>(categories);
             return mapped;
+        }
+
+        public async Task News_Letter_Submit(int orgid, string email)
+        {
+            await _BrandRepository.News_Letter_Submit(orgid, email);
         }
     }
 }

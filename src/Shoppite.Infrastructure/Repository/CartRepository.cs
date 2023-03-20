@@ -77,6 +77,8 @@ namespace Shoppite.Infrastructure.Repository
             foreach(var order in check)
             {
                 order.OrderStatus = "Confirmed";
+                order.ReferenceId = "COD";
+                order.PaymentMode = "Cash On Delivery";
 
                  _dbContext.OrderBasic.Update(order);
 
@@ -101,6 +103,11 @@ namespace Shoppite.Infrastructure.Repository
         {
             var find = await _dbContext.OrderShipping.FirstOrDefaultAsync(x => x.UserName == userName);
             return find;
+        }
+
+        public async Task<UsersProfile> GetVendorDetails(UsersProfile usersProfile)
+        {
+            return await _dbContext.UsersProfile.FirstOrDefaultAsync(x => x.OrgId == usersProfile.OrgId);
         }
     }
 }

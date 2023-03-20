@@ -14,8 +14,8 @@ namespace Shoppite.UI.Controllers
 {
     public class WishlistController : Controller
     {
-        private readonly IWishlistPageService _productPageService;
         private readonly ICommonHelper _commonHelper;
+        private readonly IWishlistPageService _productWishListService;
         private IHttpContextAccessor _accessor;
         private readonly ILogger<WishlistController> _logger;
         private readonly IBrandPageServices _BrandPageService;
@@ -26,29 +26,33 @@ namespace Shoppite.UI.Controllers
             _BrandPageService = brandPageServices ?? throw new ArgumentNullException(nameof(brandPageServices));
             _categoryPageService = categoryPageService ?? throw new ArgumentNullException(nameof(categoryPageService));
             _logger = logger ?? throw new ArgumentNullException();
-            _productPageService = productPageService ?? throw new ArgumentNullException(nameof(productPageService));
             _commonHelper = commonHelper;
+            _productWishListService = productPageService ?? throw new ArgumentNullException(nameof(productPageService));
         }
         [HttpGet]
-        public async Task<IActionResult> Wishlist(int CategoryId, string Username)
+        public async Task<IActionResult> Wishlist(int CategoryId)
         {
             int OrgId = _commonHelper.GetOrgID(HttpContext);
+            string userName = User.Identity.Name;
             var brands = await _BrandPageService.GetBrands(OrgId);
             brands.CategoryMaster = await _categoryPageService.DisplayLogo(OrgId);
             brands.Categories = await _categoryPageService.GetCategories(CategoryId,OrgId);
             brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
-            brands.Wishlists=await _productPageService.GetWishList("admin", OrgId);
+            brands.Wishlists=await _productWishListService.GetWishList(userName, OrgId);
             return View(brands);
         }
+         
         [HttpPost]
         public async Task<IActionResult> Wishlist(MainModel wishlist, int id)
         {
             var ipadresss = _accessor.HttpContext.Connection.RemoteIpAddress.ToString();
             int OrgId = _commonHelper.GetOrgID(HttpContext);
+            string userName = User.Identity.Name;
             wishlist.OrgId = OrgId;
             wishlist.Ip = ipadresss;
-            wishlist.UserName = "admin";  
-            await _productPageService.AddWishList(wishlist, id);
+            wishlist.UserName = userName;  
+            await _productWishListService.AddWishList(wishlist, id);
+            wishlist.Wishlists = await _productWishListService.GetWishList(userName, OrgId);
             return View(wishlist);
         }
     }

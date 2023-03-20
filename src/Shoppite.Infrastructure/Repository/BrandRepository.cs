@@ -57,10 +57,10 @@ namespace Shoppite.Infrastructure.Repository
             return filter;
         }
 
-        public async Task<List<f_getproducts_By_CategoryID>> Get_Product_By_Cat(int ID)
+        public async Task<List<F_getproducts_By_CatId>> Get_Product_By_Cat(int ID)
         {
 
-            string sql = "select * from f_getproducts_By_CategoryID(@ID)";
+            string sql = "select * from f_getproducts_By_CatID(@ID)";
 
             List<SqlParameter> parms = new List<SqlParameter>
             { 
@@ -68,7 +68,7 @@ namespace Shoppite.Infrastructure.Repository
                 new SqlParameter { ParameterName = "@ID", Value = ID }
             };
 
-            return await _dbContext.Set<f_getproducts_By_CategoryID>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
+            return await _dbContext.Set<F_getproducts_By_CatId>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
         }
         public async Task<List<sp_getcat_Result>> Sp_Getcat(int orgid)
         {
@@ -120,6 +120,20 @@ namespace Shoppite.Infrastructure.Repository
              };
 
             return await _dbContext.Set<F_getproducts_By_BrandId>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
+        }
+
+        public async Task News_Letter_Submit(int orgid, string email)
+        {
+            NewsLetter newsLetter = new NewsLetter();
+            var check = await _dbContext.NewsLetter.Where(x => x.Email == email && x.OrgId == orgid).FirstOrDefaultAsync();
+            if(check == null)
+            {
+                newsLetter.Email = email;
+                newsLetter.OrgId = orgid;
+                newsLetter.InsertDate = DateTime.Now;
+                await _dbContext.NewsLetter.AddAsync(newsLetter);
+            }
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

@@ -73,7 +73,7 @@ namespace Shoppite.UI.Controllers
         public async Task<JsonResult> Get_Product_By_Cat(int ID)
         {
            var AA = await _BrandPageService.Get_Product_By_Cat(ID);
-            return Json(AA.F_Getproducts_By_CategoryIDModels);
+            return Json(AA.f_getproducts_By_CatIdModel);
         }
         public async Task<IActionResult> AllProducts(int CategoryId)
         {
@@ -103,6 +103,22 @@ namespace Shoppite.UI.Controllers
                 model.Product_specification = await _categoryPageService.GetAllProductByCategory(CategoryId,OrgId);
             }
             return PartialView(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> News_Letter_Submit(string email)
+        {
+            if (email == null || email == "")
+            {
+                TempData["EmailError"] = "Please Enter Email";
+            }
+            else
+            {
+                int orgid = commonHelper.GetOrgID(HttpContext);
+                await _BrandPageService.News_Letter_Submit(orgid, email);
+                TempData["EmailError"] = "You Successfully Subscribed to our NewsLetter !!";
+            }
+            return RedirectToAction("Index");
         }
     }
 }

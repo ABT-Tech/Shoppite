@@ -5,12 +5,52 @@
     ViewData["Title"] = "Detail Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<link href="~/plugins/select2/css/select2.min.css" rel="stylesheet" />
-<link href="~/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css" rel="stylesheet" />
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
 
 <style>
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+
     .modal-header {
         background-color: #fe5b5a;
+    }
+
+    .minus, .plus {
+        color: white;
+        border-radius: 100%;
+        padding: 2px 6.5px;
+        margin: 1px;
+        font-weight: 900;
+        background-color: #343a40;
+    }
+
+    .minus {
+        padding: 3px 6.5px;
+    }
+
+        .minus:hover {
+            background-color: #fe5b5a;
+        }
+
+    .plus:hover {
+        background-color: #fe5b5a;
+    }
+
+    .count {
+        border: none;
+        text-align: center;
+        /*padding-left: 20px;*/
+        width: 50px;
     }
 </style>
 
@@ -24,7 +64,7 @@
     <input type="hidden" asp-for="ProductPriceModel.ProductPriceId" />
     <input type="hidden" asp-for="ProductPriceModel.CurrencyId" />
     <input type="hidden" asp-for="ProductPriceModel.DeliveryFees" />
-   
+
     <!-- Start main area -->
     <div class="main-area">
         <!-- Start header -->
@@ -104,9 +144,26 @@
                                     }
                                 </p>
                                 @*<form method="post" action="#">*@
-                                <div class="numbers-row">
+                                <div class="">
                                     <label>Quantity </label>
-                                    <input type="number" asp-for="OrderBasicModel.Qty" name="OrderBasicModel.Qty" id="french-hens" min="1" value="1">
+                                    @*  <input type="number" asp-for="OrderBasicModel.Qty" name="OrderBasicModel.Qty" id="french-hens" min="1" value="1">*@
+                                    @*<span class="minus">-</span>
+            <input type="number" class="count" asp-for="OrderBasicModel.Qty" name="OrderBasicModel.Qty" min="1" max="@Model.ProductBasicModel.Qty" value="1">
+            <span class="plus">+</span>*@
+
+                                    <div class="input-group">
+                                        <span class="">
+                                            <button type="button" class="minus btn btn-default btn-number min" disabled="disabled" data-type="minus" data-field="OrderBasicModel.Qty">
+                                                <span class="glyphicon glyphicon-minus"></span>
+                                            </button>
+                                        </span>
+                                        <input type="number" class="input-number count" asp-for="OrderBasicModel.Qty" name="OrderBasicModel.Qty" value="1" min="1" max="@Model.ProductBasicModel.Qty">
+                                        <span class="">
+                                            <button type="button" class="plus btn btn-default btn-number max" data-type="plus" data-field="OrderBasicModel.Qty">
+                                                <span class="glyphicon glyphicon-plus"></span>
+                                            </button>
+                                        </span>
+                                    </div>
                                 </div>
 
                                 @*</form>*@
@@ -167,14 +224,19 @@
                                     </p>
                                 }
 
-                                <p class="sin-adto-cart-bottom">
-                                    @*<a href="#"><i class="fa fa-envelope-o"></i></a>
-            <a href="#"><i class="fa fa-print"></i></a>*@
-                                    <abbr title="Like"><a href="#"><i class="fa fa-heart-o"></i></a></abbr>
-                                    <abbr title="WishList"><a href="#"><i class="fa fa-list"></i></a></abbr>
-                                </p>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <p class="sin-adto-cart-bottom">
+                                        @*<a href="#"><i class="fa fa-envelope-o"></i></a>
+                                          <a href="#"><i class="fa fa-print"></i></a>*@
+                                        <abbr title="WishList"><a href="/ProductDetail/AddToWhishList?ProductId=@Model.ProductBasicModel.ProductId&id=@Model.ProductBasicModel.ProductGuid"><i class="fa fa-heart-o"></i></a></abbr>
+                                        @* <abbr title="WishList"><a href="#"><i class="fa fa-list"></i></a></abbr>*@
+                                    </p>
+                                }
+
+
                                 @*<div class="sin-social">
-            <p>
+                         <p>
                 <a class="btn btn-default twitter" href="#"><i class="fa fa-twitter"></i>Tweet</a>
                 <a class="btn btn-default facebook" href="#"><i class="fa fa-facebook"></i>Share</a>
                 <a class="btn btn-default google-plus" href="#"><i class="fa fa-google-plus"></i>Google+</a>
@@ -249,17 +311,17 @@
                                                                 <i class="fa fa-star"></i>
                                                                 <i class="fa fa-star"></i>
                                                             </p>
+
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1">Title:</label>
+                                                                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Comment:</label>
+                                                                <textarea class="form-control" rows="3"></textarea>
+                                                            </div>
+                                                            <button type="submit" class="btn btn-default">Submit</button>
                                                             
-                                                                <div class="form-group">
-                                                                    <label for="exampleInputEmail1">Title:</label>
-                                                                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Comment:</label>
-                                                                    <textarea class="form-control" rows="3"></textarea>
-                                                                </div>
-                                                                <button type="submit" class="btn btn-default">Submit</button>
-                                                            <
                                                         </div>
                                                     </div>
                                                 </div>
@@ -383,5 +445,69 @@
         <!-- End footer area -->
     </div>
 </form>
-    <!-- End main area -->
-    <script src="~/plugins/select2/js/select2.min.js"></script>
+<!-- End main area -->
+<script src="~/plugins/select2/js/select2.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script>
+
+    $('.btn-number').click(function (e) {
+        e.preventDefault();
+
+        fieldName = $(this).attr('data-field');
+        type = $(this).attr('data-type');
+        var input = $("input[name='" + fieldName + "']");
+        var currentVal = parseInt(input.val());
+        if (!isNaN(currentVal)) {
+            if (type == 'minus') {
+
+                if (currentVal > input.attr('min')) {
+                    input.val(currentVal - 1).change();
+                    $('.max').attr('disabled', false);
+                }
+                if (parseInt(input.val()) == input.attr('min')) {
+                    $(this).attr('disabled', true);
+                }
+
+            } else if (type == 'plus') {
+
+                if (currentVal < input.attr('max')) {
+                    input.val(currentVal + 1).change();
+                    $('.min').attr('disabled', false);
+                }
+                if (parseInt(input.val()) == input.attr('max')) {
+                    $(this).attr('disabled', true);
+                }
+
+            }
+        } else {
+            input.val(0);
+        }
+    });
+
+    $('.input-number').focusin(function () {
+        $(this).data('oldValue', $(this).val());
+    });
+    $('.input-number').change(function () {
+
+        minValue = parseInt($(this).attr('min'));
+        maxValue = parseInt($(this).attr('max'));
+        valueCurrent = parseInt($(this).val());
+
+        name = $(this).attr('name');
+        if (valueCurrent >= minValue) {
+            $(".btn-number[data-type='minus'][data-field='" + name + "']").removeAttr('disabled')
+        } else {
+            alert('Sorry, the minimum Quantity was reached');
+            $(this).val($(this).data('oldValue'));
+        }
+        if (valueCurrent <= maxValue) {
+            $(".btn-number[data-type='plus'][data-field='" + name + "']").removeAttr('disabled')
+        } else {
+            alert('Sorry, the maximum Quantity was reached');
+            $(this).val($(this).data('oldValue'));
+        }
+
+
+    });
+</script>
