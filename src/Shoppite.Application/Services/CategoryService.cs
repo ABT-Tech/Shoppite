@@ -3,6 +3,7 @@ using AutoMapper.Internal.Mappers;
 using Shoppite.Application.Interfaces;
 using Shoppite.Application.Mapper;
 using Shoppite.Application.Models;
+using Shoppite.Core.Entities;
 using Shoppite.Core.Repositories;
 using System;
 using System.Collections.Generic;
@@ -44,21 +45,22 @@ namespace Shoppite.Application.Services
                 mainCategoryModel.maincatid = category.CatId;
                 mainCategoryModel.maincaturlpath = category.Catname;
                 mainCategoryModel.SubcategoryDetails = mainCategoryModel.SubcategoryDetails == null ? new List<CategoryProductModel>() : mainCategoryModel.SubcategoryDetails;
-                foreach (var Product in category.categories)
+                var childCategories = category.categories.GroupBy(c => new { c.category_name, c.Category_Id }, (key, g) => new { ChildCatId = key.Category_Id, ChildCatname = key.category_name, categories = g.ToList() });
+                foreach (var Product in childCategories)
                 {
                     CategoryProductModel categoryProductModel = new CategoryProductModel();
-                    categoryProductModel.CategoryId = Product.Category_Id;
-                    categoryProductModel.CategoryName = Product.category_name;
+                    categoryProductModel.CategoryId = Product.ChildCatId;
+                    categoryProductModel.CategoryName = Product.ChildCatname;
                     mainCategoryModel.SubcategoryDetails.Add(categoryProductModel);
                     categoryProductModel.ProductsDetails = categoryProductModel.ProductsDetails == null ? new List<ProductBaseModel>() : categoryProductModel.ProductsDetails;
-                    foreach (var prod in category.categories.Where(a => a.ProductId.Equals(Product.ProductId)))
+                    foreach (var prod in category.categories.Where(a => a.Category_Id.Equals(Product.ChildCatId)))
                     {
                         ProductBaseModel productBaseModel = new ProductBaseModel();
-                       /* productBaseModel.CategoryId = prod.Category_Id;
-                        productBaseModel.CategoryName = prod.category_name;*/
                         productBaseModel.ProductGuid = prod.ProductGUID;
                         productBaseModel.ProductId = prod.ProductId;
                         productBaseModel.ProductName = prod.ProductName;
+                        productBaseModel.OldPrice = prod.OldPrice;
+                        productBaseModel.Price = prod.Price;
                         productBaseModel.CoverImage = prod.image;
                         categoryProductModel.ProductsDetails.Add(productBaseModel);
                     }
@@ -67,9 +69,9 @@ namespace Shoppite.Application.Services
             }
             return mainCategory;
         }
-        public async Task<List<CategoryMasterModel>> GetCategories(int CategoryId)
+        public async Task<List<CategoryMasterModel>> GetCategories(int CategoryId,int OrgId)
         {
-            var categories = await _categoryRepository.GetCategories(CategoryId);
+            var categories = await _categoryRepository.GetCategories(CategoryId, OrgId);
             var mapped = ObjectMapper.Mapper.Map<List<CategoryMasterModel>>(categories);
             return mapped;
         }
@@ -83,6 +85,52 @@ namespace Shoppite.Application.Services
         {
             var image = await _categoryRepository.GetHorizontalBanner(orgId);
             var mapped = ObjectMapper.Mapper.Map<List<CategoryMasterModel>>(image);
+            return mapped;
+        }
+        public async Task<List<f_getproducts_By_CatID_SpecificationNameModel>> GetAllProductByCategory(int CategoryId, int orgId)
+        {
+            var products = await _categoryRepository.GetAllProductByCategory(CategoryId,orgId);
+            var mapped = ObjectMapper.Mapper.Map<List<f_getproducts_By_CatID_SpecificationNameModel>>(products);
+            return mapped;
+        }
+        public async Task<List<AttributeSetupModel>> GetAllAttributes(int orgID)
+        {
+            List<AttributeSetupModel> attribute = new List<AttributeSetupModel>();
+            var attributes = await _categoryRepository.GetAllAttributes(orgID);
+            var specifications = attributes.GroupBy(x => new { x.AttributeName,x.AttributeId}, (key, g) => new { specName=key.AttributeName,specId=key.AttributeId, specific = g.ToList() });
+            foreach (var sp in specifications)
+            {
+                AttributeSetupModel specification = new AttributeSetupModel();
+                specification.AttributeId = sp.specId;
+                specification.AttributeName = sp.specName;
+                specification.specifications = specification.specifications == null ? new List<SpecificationSetupModel>() : specification.specifications;
+                foreach (var prod in sp.specific)
+                {
+                    SpecificationSetupModel attributespec = new SpecificationSetupModel();
+                    attributespec.SpecificationId = prod.SpecificationId;
+                    attributespec.SpecificationName = prod.SpecificationName;
+                   specification.specifications.Add(attributespec);
+                }
+                attribute.Add(specification);
+            }
+            return attribute;
+        }
+        public async Task<List<f_getproducts_By_CatID_SpecificationNameModel>> GetAllProductByAttribute(int CategoryId, string SpecificationName)
+        {
+            var attributes = await _categoryRepository.GetAllProductByAttribute(CategoryId, SpecificationName);
+            var mapped = ObjectMapper.Mapper.Map<List<f_getproducts_By_CatID_SpecificationNameModel>>(attributes);
+            return mapped;
+        }
+        public async Task<List<CategoryMasterModel>> GetBannerByCategory(int orgId)
+        {
+            var image = await _categoryRepository.GetBannerByCategory(orgId);
+            var mapped = ObjectMapper.Mapper.Map<List<CategoryMasterModel>>(image);
+            return mapped;
+        }
+        public async Task<List<sp_getcat_ResultModel>> GetAllCategories(int orgId)
+        {
+            var categories = await _categoryRepository.GetAllCategories(orgId);
+            var mapped = ObjectMapper.Mapper.Map<List<sp_getcat_ResultModel>>(categories);
             return mapped;
         }
     }

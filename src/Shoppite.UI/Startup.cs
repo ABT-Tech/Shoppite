@@ -24,6 +24,13 @@ using Shoppite.Application.Services;
 using Shoppite.Application.Interfaces;
 using Shoppite.Web.Interfaces;
 using Shoppite.Web.Services;
+using Microsoft.AspNetCore.Identity;
+using Shoppite.UI.Extensions;
+using System.Text;
+using System;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Shoppite.UI.Helpers;
 
 namespace Shoppite.UI
 {
@@ -56,16 +63,17 @@ namespace Shoppite.UI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
+            app.UseDeveloperExceptionPage();
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //}
+            //else
+            //{
+            //    app.UseExceptionHandler("/Home/Error");
+            //    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+            //    app.UseHsts();
+            //}
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -91,26 +99,32 @@ namespace Shoppite.UI
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
             services.AddScoped<IBrandRepository, BrandRepository>();
+            services.AddScoped<IWishlistRepository, WishlistRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IMyAccountRepository, MyAccountRepository>();
             services.AddScoped<IProductDetailRepsitory, ProductDetailRepository>();
             services.AddScoped<ICartRepository, CartRepository>();
-            services.AddScoped<IAuthenticationsRepository, AuthenticatiosRepository>();
+            services.AddScoped<ICommonRepository, CommonRepository>();
 
             // Add Application Layer
             services.AddScoped<IBrandServices, BrandServices>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IProductDetailServices, ProductDetilServices>();
             services.AddScoped<ICartServices, CartServices>();
-            services.AddScoped<IAuthenticationsService, AuthenticationsService>();
+            services.AddScoped<IWishlistService, WishlistService>();
+            services.AddScoped<IMyAccountService, MyAccountService>();
 
             // Add Web Layer
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IBrandPageServices, BrandPageServices>();
             services.AddAutoMapper(typeof(Startup));
+            services.AddScoped<ICommonHelper, CommonHelper>();
             services.AddScoped<ICategoryPageService, CategoryPageService>();
             services.AddScoped<IproductDetailPageServices, ProductDetailPageServices>();
             services.AddScoped<ICartPageServices, CartPageServices>();
             services.AddScoped<IAuthenticationsPageService, AuthenticationPageService>();
+            services.AddScoped<IWishlistPageService, WishlistPageService>();
+            services.AddScoped<IMyAccountPageService, MyAccountPageService>();
 
             // Add Miscellaneous
             services.AddHttpContextAccessor();

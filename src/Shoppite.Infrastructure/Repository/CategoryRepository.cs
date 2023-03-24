@@ -46,10 +46,11 @@ namespace Shoppite.Infrastructure.Repository
                 new SqlParameter { ParameterName = "@ID", Value = orgId }
             };
              return await _dbContext.Set<f_getproducts_By_CategoryID_Result>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
+            //return f_getproducts_By_CategoryID_ResultList;
         }
-        public async Task<List<CategoryMaster>> GetCategories(int CategoryId)
+        public async Task<List<CategoryMaster>> GetCategories(int CategoryId,int orgId)
         {
-            return await _dbContext.CategoryMaster.ToListAsync();
+            return await _dbContext.CategoryMaster.Where(x=>x.OrgId== orgId).ToListAsync();
         }
         public async Task<Logo> DisplayLogo(int orgId)
         {
@@ -61,8 +62,55 @@ namespace Shoppite.Infrastructure.Repository
                      join ad_place in _dbContext.AdsPlacement on ad_detail.AdsPlacementId equals ad_place.AdsPlacementId
                      join ad_pagename in _dbContext.AdsPageName on ad_detail.AdsPageId equals ad_pagename.AdsPageId
                      where ad_pagename.PageName.Contains("Home") && ad_place.PlacementName == "Horizontal" && ad_detail.OrgId == orgId
-                     select ad_detail).ToList();
+                     select ad_detail).ToList(); //never work(Horizontal)
             return q;
+        }
+        public async Task<List<F_getproducts_By_CatId>> GetAllProductByCategory(int CategoryId,int Orgid)
+        {
+            string sql = "select * from f_getproducts_By_CatID(@ID)";
+            List<SqlParameter> parms = new List<SqlParameter>
+            {
+                new SqlParameter { ParameterName = "@ID", Value = CategoryId }
+            };
+            return await _dbContext.Set<F_getproducts_By_CatId>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
+        }
+        public async Task<List<SP_GetSpecificationData_AttributName>> GetAllAttributes(int orgID)
+        {
+
+            string sql = "exec SP_GetSpecificationData_AttributName @OrgId";
+            List<SqlParameter> parms = new List<SqlParameter>
+            { 
+                // Create parameters    
+                new SqlParameter { ParameterName = "@OrgId", Value = orgID }
+            };
+            return await _dbContext.Set<SP_GetSpecificationData_AttributName>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
+        }
+        public async Task<List<f_getproducts_By_CatID_SpecificationName>> GetAllProductByAttribute(int CategoryId, string SpecificationName)
+        {
+            string sql = "select * from f_getproducts_By_CatID_SpecificationName(@ID,@Name)";
+            List<SqlParameter> parms = new List<SqlParameter>
+            {
+                new SqlParameter { ParameterName = "@ID", Value = CategoryId },
+                new SqlParameter { ParameterName = "@Name", Value = SpecificationName }
+            };
+            return await _dbContext.Set<f_getproducts_By_CatID_SpecificationName>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
+        }
+        public async Task<List<CategoryMaster>> GetBannerByCategory(int orgId)
+        {
+            var q = (from cm in _dbContext.CategoryMaster where cm.OrgId==orgId
+                     select cm).ToList();
+            return q;
+        }
+        public async Task<List<sp_getcat_Result>> GetAllCategories(int orgID)
+        {
+
+            string sql = "exec sp_getcat @orgid";
+            List<SqlParameter> parms = new List<SqlParameter>
+            { 
+                // Create parameters    
+                new SqlParameter { ParameterName = "@orgid", Value = orgID }
+            };
+            return await _dbContext.Set<sp_getcat_Result>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
         }
 
     }

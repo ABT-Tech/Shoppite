@@ -14,16 +14,17 @@ namespace Shoppite.UI.Controllers
     public class CartController : Controller
     {
         private readonly ICartPageServices _cartPageService;
-        private readonly CommonHelper commonHelper = new CommonHelper();
+        private readonly ICommonHelper _commonHelper;
 
-        public CartController(ICartPageServices cartPageServices)
+        public CartController(ICartPageServices cartPageServices, ICommonHelper commonHelper)
         {
             _cartPageService = cartPageServices ?? throw new ArgumentNullException(nameof(cartPageServices));
+            _commonHelper = commonHelper;
         }
        
         public async Task<IActionResult> Cart()
         {
-            int orgid = commonHelper.GetOrgID(HttpContext);
+            int orgid = _commonHelper.GetOrgID(HttpContext);
             var cartlist = await _cartPageService.OrderBasic(orgid);
             return View(cartlist);
         }
@@ -60,7 +61,7 @@ namespace Shoppite.UI.Controllers
         public async Task<IActionResult> SaveAddress(CartModel cartModel)
         {
              await _cartPageService.SaveAddress(cartModel);
-            return RedirectToAction("CheckOut");
+            return RedirectToAction("CheckOut",new { orderid = cartModel.OrderBasicModel.OrderGuid });
         }
     }
 }

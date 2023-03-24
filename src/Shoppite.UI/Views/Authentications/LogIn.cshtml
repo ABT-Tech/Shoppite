@@ -8,80 +8,73 @@
 <link href="~/css/LogIn.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.css" />
-<style>
-    .field-icon {
-        float: right;
-        margin-left: -25px;
-        margin-top: -25px;
-        position: relative;
-        z-index: 2;
-    }
-</style>
+ <style>
+     .field-icon {
+         float: right;
+         margin-left: -25px;
+         margin-top: -25px;
+         position: relative;
+         z-index: 2;
+     }
+ </style>
 <body>
     <div class="container" id="container">
-        <div class="row">
-            <div class="col">
-                <div class="form-container sign-up-container ris">
-                    <form action="#" method="post">
-                        <h1>Create Account</h1>
-                        @*<div class="social-container">
-                        <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                        <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                    <span>or use your email for registration</span>*@
-                        <input type="text" id="Reglogname" placeholder="Username" required />
-                        <span id="SUUserError" class="text-danger"> </span>
+        <div class="form-container sign-up-container">
+            <form action="#" method="post">
+                <h1>Create Account</h1>
+                @*<div class="social-container">
+            <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+            <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+        <span>or use your email for registration</span>*@
+                <input type="text" id="Reglogname" placeholder="Username" required />
+                <span id="SUUserError" class="text-danger"> </span>
 
-                        <input type="email" id="Regsignemail" placeholder="Email" required />
-                        <span id="SUEmailError" class="text-danger"> </span>
+                <input type="email" id="Regsignemail" placeholder="Email" required />
+                <span id="SUEmailError" class="text-danger"> </span>
 
-                        <input type="password" id="Regpassword" placeholder="Password" name="password" required />
-                        <span id="SUPassError" class="text-danger"> </span>
-                        <span id="SUPassLengthError" class="text-danger"> Password must greater than eight character</span>
-                        @*<input type="password" id="Regrepassword" placeholder="Confirm Password" />*@
-                        <div id="Eror"><p style="color:red;"> Password and Confirm Password Should be same</p></div>
+                <input type="password" id="Regpassword" placeholder="Password" name="password" required />
+                <span id="SUPassError" class="text-danger"> </span>
+                <span id="SUPassLengthError" class="text-danger"> Password must greater than eight character</span>
+                @*<input type="password" id="Regrepassword" placeholder="Confirm Password" />*@
+                <div id="Eror"><p style="color:red;"> Password and Confirm Password Should be same</p></div>
 
-                        <button type="submit" onclick="Register()">Sign Up</button>
-                    </form>
+                <button type="submit" onclick="Register()">Sign Up</button>
+            </form>
+        </div>
+        <div class="form-container sign-in-container">
+            <form action="#" method="post">
+                <h1>Sign in</h1>
+                @*<div class="social-container">
+            <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+            <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+        <span>or use your account</span>*@
+                <input type="email" id="logemail" placeholder="Email" required />
+                <span id="UserEmptError" class="text-danger"> </span>
+
+                <input type="password" name="password" autocomplete="current-password" id="logpass" placeholder="Password" required />
+               @* <i class="far fa-eye field-icon" id="togglePassword" style="margin-left: -30px; cursor: pointer;"></i>*@
+                <span id="PassEmptError" class="text-danger"> </span>
+
+                <a href="#">Forgot your password?</a>
+                <div id="msg"><p style="color:red;"> Invalid Username Or Password</p></div>
+                <button type="submit" id="logsub" onclick="LogIn()">Sign In</button>
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Welcome Back!</h1>
+                    <p>To keep connected with us please login with your personal info</p>
+                    <button class="ghost" id="signIn">Sign In</button>
                 </div>
-
-                <div class="form-container sign-in-container ris">
-                    <form action="#" method="post">
-                        <h1>Sign in</h1>
-                        @*<div class="social-container">
-                        <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                        <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                    <span>or use your account</span>*@
-                        <input type="email" id="logemail" placeholder="Email" required />
-                        <span id="UserEmptError" class="text-danger"> </span>
-
-                        <input type="password" name="password" autocomplete="current-password" id="logpass" placeholder="Password" required />
-                        @* <i class="far fa-eye field-icon" id="togglePassword" style="margin-left: -30px; cursor: pointer;"></i>*@
-                        <span id="PassEmptError" class="text-danger"> </span>
-
-                        <a href="#">Forgot your password?</a>
-                        <div id="msg"><p style="color:red;"> Invalid Username Or Password</p></div>
-                        <button type="submit" id="logsub" onclick="LogIn()">Sign In</button>
-                    </form>
-                </div>
-            </div>
-            <div class="col">
-                <div class="ris overlay-container">
-                    <div class="overlay">
-                        <div class="overlay-panel overlay-left">
-                            <h1>Welcome Back!</h1>
-                            <p>To keep connected with us please login with your personal info</p>
-                            <button class="ghost" id="signIn">Sign In</button>
-                        </div>
-                        <div class="overlay-panel overlay-right">
-                            <h1>Hello, Friend!</h1>
-                            <p>Enter your personal details and start journey with us</p>
-                            <button class="ghost" id="signUp">Sign Up</button>
-                        </div>
-                    </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>Hello, Friend!</h1>
+                    <p>Enter your personal details and start journey with us</p>
+                    <button class="ghost" id="signUp">Sign Up</button>
                 </div>
             </div>
         </div>

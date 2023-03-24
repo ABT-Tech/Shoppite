@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Shoppite.Application.Models
@@ -10,7 +11,9 @@ namespace Shoppite.Application.Models
     }
     public class Loginsubmodel
     {
+        [Required]
         public string userid { get; set; }
+        [Required]
         public string password { get; set; }
     }
 }

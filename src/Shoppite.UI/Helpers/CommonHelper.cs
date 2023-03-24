@@ -1,16 +1,22 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Shoppite.Application.Models;
 using Shoppite.Infrastructure.Data;
+using Shoppite.UI.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Shoppite.UI.Helpers
 {
-    public class CommonHelper
+    public class CommonHelper: ICommonHelper
     {
         protected readonly Shoppite_masterContext _dbContext;
+        public CommonHelper(Shoppite_masterContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
         public string GetSubDomain(HttpContext httpContext)
         {
             var subDomain = string.Empty;
@@ -53,17 +59,33 @@ namespace Shoppite.UI.Helpers
                 orgid = 1;
             else
             {
+                LogError(subdomain);
                 var orgObject = _dbContext.Organization.Where(x => x.OrgName == subdomain).FirstOrDefault();
-                orgid = orgObject.Id;
+                if (orgObject != null)
+                    orgid = orgObject.Id;
+                else
+                    orgid = 0;
             }
             return orgid;
 
         }
+        public void LogError(string msg)
+        {
+            string message = string.Format("Time: {0}", DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt"));
+            message += Environment.NewLine;
+            message += "-----------------------------------------------------------";
+            message += Environment.NewLine;
+            message += string.Format("Message: {0}", msg);
+            message += Environment.NewLine;
+            message += "-----------------------------------------------------------";
+            message += Environment.NewLine;
+            string path = "C:\\inetpub\\vhosts\\shooppy.in\\httpdocs\\ErrorLog.txt";
+            using (StreamWriter writer = new StreamWriter(path, true))
+            {
+                writer.WriteLine(message);
+                writer.Close();
+            }
+        }
 
-        //public Guid? GetGuid(Guid? productGuid)
-        //{
-        //    var getGuid = _dbContext.ProductBasic.Where(m => m.ProductGuid == productGuid).FirstOrDefault();
-        //    return productGuid;
-        //}
     }
 }

@@ -16,5 +16,8 @@ namespace Shoppite.Application.Interfaces
         Task<MainModel> Get_Product_By_Cat(int ID);
         Task<MainModel> CategoryMaster(int orgid);
         Task<List<ProductDetailModel>> Get_Recently_Product(string id, int orgid);
+        Task<List<F_getproducts_By_BrandIdModel>> GetProductsByBrand(int OrgId, int BrandId);
+        Task News_Letter_Submit(int orgid, string email);
+        Task<List<ProductBasicModel>> SearchProduct(string searchKey);
     }
 }

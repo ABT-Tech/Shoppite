@@ -13,9 +13,12 @@ namespace Shoppite.Core.Repositories
         Task<List<f_getproducts_By_OrgID>> GetCategoryBy_Org(int orgid);
         Task<List<f_getproducts_By_NewArrivals>> _Getproducts_By_NewArrivals(int orgid);
         Task<List<sp_getcat_Result>> Sp_Getcat(int orgid);
-        Task<List<f_getproducts_By_CategoryID>> Get_Product_By_Cat(int ID);
+        Task<List<F_getproducts_By_CatId>> Get_Product_By_Cat(int ID);
         Task<List<CategoryMaster>> CategoryMaster(int orgid);
         Task<List<f_getproducts_Recentlyviewed>> F_Getproducts_Recentlyviewed(string id, int orgid);
-
+        Task<List<F_getproducts_By_BrandId>> GetProductsByBrand(int OrgId, int BrandId);
+        Task News_Letter_Submit(int orgid, string email);
+        Task<List<ProductBasic>>SearchProduct(string searchKey);
+        Task<ProductPrice> GetPrice(Guid productGuid);
     }
 }

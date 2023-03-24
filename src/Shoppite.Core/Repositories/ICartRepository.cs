@@ -15,6 +15,8 @@ namespace Shoppite.Core.Repositories
         Task<OrderBasic> CheckOrder(OrderBasic orderBasic);
         Task UpdateOrder(OrderBasic orderBasic);
         Task UpdateOrderQty(OrderBasic orderBasic);
-        Task<OrderShipping> FindAddress(string userName);
+        Task<UsersProfile> FindAddress(string userName);
+        Task<UsersProfile> GetVendorDetails(UsersProfile usersProfile);
+        Task<OrderShipping> GetAddredd(string userName);
     }
 }

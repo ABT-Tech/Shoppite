@@ -66,3 +66,28 @@
     .swiper-button-prev::after {
         display: none;
     }
+
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Responsive layout - makes a one column-layout instead of two-column layout */
+@media (max-width: 700px) {
+    .flex-container {
+        flex-direction: row;
+    }
+
+        .flex-container li {
+            margin: 2px;
+            border-radius:5px;
+        }
+        .flex-container li label{
+            padding:0px;
+            text-align:center;
+        }
+}
+.CatLI{
+    flex:20%;
+}

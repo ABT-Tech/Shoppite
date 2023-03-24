@@ -4,6 +4,11 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
 <link href="~/css/MainpageSwipper.css" rel="stylesheet" />
 <link href="~/css/site.css" rel="stylesheet" />
+
+
+<style>
+    
+</style>
 <!-- Start tab and carosel area -->
 <div id="content" class="tabandcarosel-area">
     <div class="container">
@@ -12,14 +17,14 @@
                 <!-- Start tab menu area -->
                 <div class="col-lg-3 col-md-4">
                     <div class="tab-menu-area toplist" id="myDIV">
-                        <ul id="tabs" class="nav nav-tabs tab_cates text-nowrap" data-tabs="tabs">
+                        <ul id="tabs" class="nav nav-tabs tab_cates text-nowrap flex-container" data-tabs="tabs">
                             @foreach (var Cat in Model.GetSp_Getcat_ResultModel.Take(5))
                             {
                                 int X = (int)Cat.ID;
-                                <li>
+                                <li class="shadow CatLI">
 
-                                    <a onclick="testajaxcall('@X')" data-toggle="tab" name="CatName" class="name">
-                                        <label class="name">@Cat.NAME</label>
+                                    <a onclick="testajaxcall('@X')" data-toggle="tab" name="CatName" class="">
+                                        <label class="name font-weight-bold">@Cat.NAME</label>
                                         @*<span class="thumb"><img class="imgm" src="@Cat.Icons" alt="thumb"></span>
                                         <span class="thumb"><img class="imgm" src="@Cat.Icons" alt="thumb"></span>*@
                                     </a>
@@ -33,9 +38,7 @@
                 <div class="col-lg-9 col-md-8">
                     <div class="new-product-area">
                         <div class="container">
-                            <div class="tab-contant-static-image">
-                                <a href="#"><img src="img/product/banner_tabCate.jpg" alt="Static image"></a>
-                            </div>
+                            @await Html.PartialAsync("_HorizontalBanner", Model)
 
                             <div class="pt-3 overflow-hidden">
                                 <div class="swiper mySwiper">
@@ -111,10 +114,10 @@
 
                         prod_Div = '<div class="swiper-slide">';
                         prod_Div += '<div class="product-item" >';
-                        prod_Div += '<div class="top-item">';
+                        prod_Div += '<div class="top-item"> <div class="img-hover-zoom">';
                         prod_Div += '<a href="/ProductDetail/Details/' + result[i].productGUID + '" class="product_Images" > ';
                         prod_Div += '<img src="' + result[i].image + '" alt="' + result[i].productName + '" />';
-                        prod_Div += '</a>';
+                        prod_Div += '</a> </div>';
                         prod_Div += '<div class="top-cocial">';
                         prod_Div += '<p>';
                         prod_Div += '<i class="fa fa-star-o"></i>';
@@ -153,7 +156,7 @@
                     }
                     $("#prodtabdata").html(ProdAry.join(''));
                     if (ProdAry.length == 0) {
-                        $("#prodtabdata").html('<img class="" src="/img/no-product-found.jpg" alt="NoProductFound" />');
+                        $("#prodtabdata").html('<img class="" style="margin-top: 3.6pc;" src="/img/no-product-found.jpg" alt="NoProductFound" />');
                     }
 
                 },
