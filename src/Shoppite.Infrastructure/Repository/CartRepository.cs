@@ -99,15 +99,21 @@ namespace Shoppite.Infrastructure.Repository
 
         }
 
-        public async Task<OrderShipping> FindAddress(string userName)
+        public async Task<UsersProfile> FindAddress(string userName)
         {
-            var find = await _dbContext.OrderShipping.FirstOrDefaultAsync(x => x.UserName == userName);
+            var find = await _dbContext.UsersProfile.FirstOrDefaultAsync(x => x.UserName == userName);
             return find;
         }
 
         public async Task<UsersProfile> GetVendorDetails(UsersProfile usersProfile)
         {
             return await _dbContext.UsersProfile.FirstOrDefaultAsync(x => x.OrgId == usersProfile.OrgId);
+        }
+
+        public async Task<OrderShipping> GetAddredd(string userName)
+        {
+            var find = await _dbContext.OrderShipping.FirstOrDefaultAsync(x => x.UserName == userName);
+            return find;
         }
     }
 }

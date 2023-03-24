@@ -103,7 +103,16 @@ namespace Shoppite.Application.Services
             cartModel.OrderBasicModel = ObjectMapper.Mapper.Map<OrderBasicModel>(order);
 
             var FindAddress = await _CartRepository.FindAddress(orderbasic.UserName);
-            cartModel.OrderShippingModel = ObjectMapper.Mapper.Map<OrderShippingModel>(FindAddress);
+            cartModel.UsersProfileModal = ObjectMapper.Mapper.Map<UsersProfileModal>(FindAddress);
+
+            var GetAddress = await _CartRepository.GetAddredd(orderbasic.UserName);
+            cartModel.OrderShippingModel = ObjectMapper.Mapper.Map<OrderShippingModel>(GetAddress);
+
+           // cartModel.OrderShippingModel.Contactnumber = cartModel.UsersProfileModal.ContactNumber;
+            //cartModel.OrderShippingModel.City = cartModel.UsersProfileModal.City;
+            //cartModel.OrderShippingModel.Address = cartModel.UsersProfileModal.Address;
+            //cartModel.OrderShippingModel.UserName = cartModel.UsersProfileModal.UserName;
+
             return cartModel;
         }
 

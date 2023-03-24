@@ -53,6 +53,7 @@ namespace Shoppite.Application.Services
 
             var ProductRecent = await _BrandRepository.F_Getproducts_Recentlyviewed(ipAddress, orgid);
             main.f_Getproducts_RecentlyviewedModel = ObjectMapper.Mapper.Map<List<f_getproducts_RecentlyviewedModel>>(ProductRecent);
+
             // var CategoryMaster = await _BrandRepository.CategoryMaster(orgid);
             // main.CategoryMasterModel = ObjectMapper.Mapper.Map<List<CategoryMasterModel>>(CategoryMaster);
 
@@ -107,6 +108,23 @@ namespace Shoppite.Application.Services
         public async Task News_Letter_Submit(int orgid, string email)
         {
             await _BrandRepository.News_Letter_Submit(orgid, email);
+        }
+
+        public async Task<List<ProductBasicModel>> SearchProduct(string searchKey)
+        {
+            ProductBasicModel productBasicModel = new ProductBasicModel();
+            var SearchResult = await _BrandRepository.SearchProduct(searchKey);
+           var mapped =  ObjectMapper.Mapper.Map<List<ProductBasicModel>>(SearchResult);
+
+            foreach(var prices in mapped)
+            {
+                var price = await _BrandRepository.GetPrice((Guid)prices.ProductGuid);
+                productBasicModel.ProductPricemodel = ObjectMapper.Mapper.Map<ProductPriceModel>(price);
+                prices.OldPrice = productBasicModel.ProductPricemodel.OldPrice;
+                prices.Price = productBasicModel.ProductPricemodel.Price;
+            }
+
+            return mapped;
         }
     }
 }

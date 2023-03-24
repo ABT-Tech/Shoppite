@@ -43,7 +43,7 @@ namespace Shoppite.UI.Controllers
             var brands = await _BrandPageService.GetBrands(OrgId);
             brands.CategoryMaster =  await _categoryPageService.DisplayLogo(OrgId);
             brands.MiddelBanner = await _categoryPageService.GetMiddelBannerImage(OrgId);
-          //  brands.TopBanner = await _categoryPageService.GetTopBannerImage(OrgId);
+            brands.TopBanner = await _categoryPageService.GetTopBannerImage(OrgId);
             brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
             brands.Categories = await _categoryPageService.GetCategories(CategoryId,OrgId);
             brands.HorizontalBanner = await _categoryPageService.GetHorizontalBanner(OrgId);
@@ -56,7 +56,7 @@ namespace Shoppite.UI.Controllers
             var brands = await _BrandPageService.GetBrands(OrgId);
             brands.CategoryMaster = await _categoryPageService.DisplayLogo(OrgId);
             brands.MiddelBanner = await _categoryPageService.GetMiddelBannerImage(OrgId);
-            //  brands.TopBanner = await _categoryPageService.GetTopBannerImage(OrgId);
+            brands.TopBanner = await _categoryPageService.GetTopBannerImage(OrgId);
             brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
             brands.Categories = await _categoryPageService.GetCategories(CategoryId, OrgId);
             brands.HorizontalBanner = await _categoryPageService.GetHorizontalBanner(OrgId);
@@ -85,7 +85,7 @@ namespace Shoppite.UI.Controllers
             brands.Product_specification = await _categoryPageService.GetAllProductByCategory(CategoryId,OrgId);
             brands.Wishlists = await _wishlistPageService.GetWishList("admin", OrgId);
             brands.Attributes = await _categoryPageService.GetAllAttributes(OrgId);
-           // brands.AllCategories = await _categoryPageService.GetAllCategories(OrgId);
+            brands.AllCategories = await _categoryPageService.GetAllCategories(OrgId);
             return View(brands);
 
         }
@@ -114,11 +114,17 @@ namespace Shoppite.UI.Controllers
             }
             else
             {
-                int orgid = commonHelper.GetOrgID(HttpContext);
+                int orgid = _commonHelper.GetOrgID(HttpContext);
                 await _BrandPageService.News_Letter_Submit(orgid, email);
                 TempData["EmailError"] = "You Successfully Subscribed to our NewsLetter !!";
             }
             return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public async Task<IActionResult> SearchProduct(string SearchKey)
+        {
+            var SearchResult = await _BrandPageService.SearchProduct(SearchKey);
+            return View(SearchResult);
         }
     }
 }

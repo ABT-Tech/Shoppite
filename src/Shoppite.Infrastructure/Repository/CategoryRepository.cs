@@ -62,7 +62,7 @@ namespace Shoppite.Infrastructure.Repository
                      join ad_place in _dbContext.AdsPlacement on ad_detail.AdsPlacementId equals ad_place.AdsPlacementId
                      join ad_pagename in _dbContext.AdsPageName on ad_detail.AdsPageId equals ad_pagename.AdsPageId
                      where ad_pagename.PageName.Contains("Home") && ad_place.PlacementName == "Horizontal" && ad_detail.OrgId == orgId
-                     select ad_detail).ToList();
+                     select ad_detail).ToList(); //never work(Horizontal)
             return q;
         }
         public async Task<List<F_getproducts_By_CatId>> GetAllProductByCategory(int CategoryId,int Orgid)

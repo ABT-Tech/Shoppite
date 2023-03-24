@@ -38,6 +38,7 @@ namespace Shoppite.Application.Models
         public int? OrgId { get; set; }
         public string CategoryId { get; set; }
         public string CategoryName { get; set; }
+        public string searchKey { get; set; }
         public string category_name { get; set; }
         public string Banner { get; set; }
         public List<BrandsModel> BrandsModel { get; set; }

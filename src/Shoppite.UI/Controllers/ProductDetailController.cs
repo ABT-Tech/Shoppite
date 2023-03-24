@@ -48,7 +48,7 @@ namespace Shoppite.UI.Controllers
 
         public async Task<IActionResult> AddToWhishList(int ProductId,Guid id)
         {
-            int OrgId = commonHelper.GetOrgID(HttpContext);
+            int OrgId = _commonHelper.GetOrgID(HttpContext);
             MainModel mainModel = new MainModel();
             mainModel.ProductId = ProductId;
             mainModel.OrgId = OrgId;

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Shoppite.Application.Models;
+using Shoppite.UI.Extensions;
 using Shoppite.UI.Helpers;
 using Shoppite.UI.Interfaces;
 using Shoppite.Web.Interfaces;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace Shoppite.UI.Controllers
 {
+    [Authorize]
     public class WishlistController : Controller
     {
         private readonly ICommonHelper _commonHelper;

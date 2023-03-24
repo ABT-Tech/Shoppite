@@ -7,10 +7,12 @@ using Shoppite.UI.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Threading.Tasks;
 
 namespace Shoppite.UI.Controllers
 {
+    [DataContract]
     public class AuthenticationsController : BaseController
     {
         private readonly IAuthenticationsPageService _AuthenticationPageService;

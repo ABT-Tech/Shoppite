@@ -60,5 +60,10 @@ namespace Shoppite.UI.Services
         {
             await _BrandService.News_Letter_Submit(orgid, email);
         }
+
+        public async Task<List<ProductBasicModel>> SearchProduct(string searchKey)
+        {
+            return await _BrandService.SearchProduct(searchKey);
+        }
     }
 }

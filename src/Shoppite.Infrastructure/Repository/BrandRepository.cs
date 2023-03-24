@@ -135,5 +135,16 @@ namespace Shoppite.Infrastructure.Repository
             }
             await _dbContext.SaveChangesAsync();
         }
+
+        public async Task<List<ProductBasic>> SearchProduct(string searchKey)
+        {
+            var Search = await _dbContext.ProductBasic.Where(x => x.ProductName.Contains(searchKey)).ToListAsync();
+            return Search;
+        }
+
+        public async Task<ProductPrice> GetPrice(Guid productGuid)
+        {
+            return await _dbContext.ProductPrice.FirstOrDefaultAsync(x => x.ProductGuid == productGuid);
+        }
     }
 }
