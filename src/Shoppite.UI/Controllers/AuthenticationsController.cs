@@ -39,21 +39,21 @@ namespace Shoppite.UI.Controllers
         }
         [HttpPost, AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(UsersModal usersModal)
+        public async Task<IActionResult> Login([FromBody] LoginCheckModel loginCheckModel)
         {
-            usersModal.OrgId = commonHelper.GetOrgID(HttpContext);
-            var UserValidate = await _AuthenticationPageService.Get_Login_Data(usersModal.Username, usersModal.Password, (int)usersModal.OrgId);
-            if (UserValidate.Password != null && UserValidate.Username != null)
-            {
-                _ = CreateAuthenticationTicket(UserValidate);
-
-                return RedirectToAction("Index", "Home", new { area = "" });
-            }
-            else
-            {
-                ViewBag.LoginValidError = "Username or Password is Incorrect";
-            }
-            return View(UserValidate);
+            //usersModal.OrgId = commonHelper.GetOrgID(HttpContext);
+            //var UserValidate = await _AuthenticationPageService.Get_Login_Data(usersModal.Username, usersModal.Password, (int)usersModal.OrgId);
+            //if (UserValidate.Password != null && UserValidate.Username != null)
+            //{
+            //    _ = baseController.CreateAuthenticationTicket(UserValidate);
+            //    return RedirectToAction("Index", "Home", new { area = "" });
+            //}
+            //else
+            //{
+            //    ViewBag.LoginValidError = "Username or Password is Incorrect";
+            //}
+            //return View(UserValidate);
+            return null;
         }
     }
 }
