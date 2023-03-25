@@ -184,6 +184,10 @@
                                                             {
                                                                 <li style="margin: 15px 0px 35px 0px; "><a href="#" class="cbtn download">Download Invoice</a></li>
                                                             }
+                                                            else if (Model.f_Order_MasterModel.LastOrderStatus == "Request Cancellation")
+                                                            {
+                                                                <img class="img-fluid" style="margin-top:-70px;" src="~/img/Cancel.gif" />
+                                                            }
                                                             else
                                                             {
                                                                 <li style="margin: 15px 0px 35px 0px; "><a href="/Orders/CancleOrder?orderid=@Model.f_Order_MasterModel.OrderId" class="cbtn download">Cancel Order</a></li>
@@ -194,10 +198,13 @@
                                                 </form>
                                             </div>
                                         </div>
-
                                     </div>
-                                    <h4 style="margin: 0px 0px 25px 20px; font-weight: 800; color: #000000;">Order No:- @Model.f_Order_MasterModel.OrderId</h4><p style="margin: 0px 0px 25px 20px; font-weight: 700; color: #000000;">Payment Method:- @Model.f_Order_MasterModel.PaymentMode </p>
-                                    <p style="margin: 0px 0px 25px 20px; font-weight: 700; color: #000000;">Order Status:-<label style="color: #ec4445;">@Model.f_Order_MasterModel.LastOrderStatus </label> </p>
+
+                                    <div class="OrderDT">
+                                        <h4 style="margin: 0px 0px 25px 20px; font-weight: 800; color: #000000;">Order No:- @Model.f_Order_MasterModel.OrderId</h4><p style="margin: 0px 0px 25px 20px; font-weight: 700; color: #000000;">Payment Method:- @Model.f_Order_MasterModel.PaymentMode </p>
+                                        <p style="margin: 0px 0px 25px 20px; font-weight: 700; color: #000000;">Order Status:-<label style="color: #ec4445;">@Model.f_Order_MasterModel.LastOrderStatus </label> </p>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -222,7 +229,7 @@
                                                 </div>
                                                 <div class="col-12 col-md-10 col-6 d-flex">
                                                     <div class="col-6 list-view-details" style="color: #000000; font-weight: 900; letter-spacing: 1px;">
-                                                        <h5><a>@Model.f_Order_MasterModel.ProductName</a></h5>
+                                                        <h5>@Model.f_Order_MasterModel.ProductName</h5>
                                                         <p class="product-desc">Qty:@Model.f_Order_MasterModel.Qty</p>
                                                         @*<p class="product-desc">Sold by:- Privento Marketing</p>*@
                                                         @*<p class="product-desc">Description:- Sleeveless knee-length chiffon dress. V-neckline with elastic under the bust lining.</p>*@

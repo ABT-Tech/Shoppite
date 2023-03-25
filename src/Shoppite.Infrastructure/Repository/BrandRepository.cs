@@ -193,6 +193,21 @@ namespace Shoppite.Infrastructure.Repository
                 _dbContext.Entry(findOrder).State = EntityState.Modified;
 
               // _dbContext.OrderStatus.Update(findOrder);
+            } 
+
+            var FindFromOrderBasic = await _dbContext.OrderBasic.Where(x => x.OrderId == orderid).FirstOrDefaultAsync();
+
+            if(FindFromOrderBasic != null)
+            {
+                var local = _dbContext.Set<OrderBasic>().Local.FirstOrDefault(entry => entry.OrderId.Equals(orderid));
+
+                if (local != null)
+                {
+                    _dbContext.Entry(local).State = EntityState.Detached;
+                }
+                FindFromOrderBasic.LastOrderStatus = "Request Cancellation";
+
+                _dbContext.Entry(FindFromOrderBasic).State = EntityState.Modified;
             }
             await _dbContext.SaveChangesAsync();
         }

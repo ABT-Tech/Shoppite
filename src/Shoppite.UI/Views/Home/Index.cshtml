@@ -44,8 +44,8 @@
 </style>
 
 @*<div class="containers">
-    <img src="~/img/shopping.gif" alt="">
-</div>*@
+        <img src="~/img/shopping.gif" alt="">
+    </div>*@
 
 <div class="slider-area">
     <div class="container">
@@ -78,19 +78,46 @@
 @await Html.PartialAsync("_GetRecentProduct")
 @await Html.PartialAsync("_BrandZone")
 @*<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script>
-    $(document).ready(function () {
-        //$('#loader').css('display', 'none');
-      //  $('#wrapper').css('display', 'block');
-        $(".container").attr("style", "display:none");
-    });
+    <script>
+        $(document).ready(function () {
+            //$('#loader').css('display', 'none');
+          //  $('#wrapper').css('display', 'block');
+            $(".container").attr("style", "display:none");
+        });
 
-    $(window).on('load', function () {
-      //  $(".slider-area").attr
-        $(".containers").fadeOut("slow");
-       // $(".container").remove.attr("style", "display:initial");
-        $(".container").removeAttr("style", "display:none");
+        $(window).on('load', function () {
+          //  $(".slider-area").attr
+            $(".containers").fadeOut("slow");
+           // $(".container").remove.attr("style", "display:initial");
+            $(".container").removeAttr("style", "display:none");
+        });
+    </script>*@
+<script>
+    $('#removewishlist').hide()
+    $('.addWish').click(function (e)
+    {
+        if ($(e.target).css('color') == 'rgb(255, 0, 0)')
+        {
+            $(e.target).css('color', 'white');
+        }
+        else
+        {
+            $(e.target).css('color', 'red');
+        }
+  e.preventDefault();
+  var el = $(this),
+    icon = el.find('i'),
+            productId = el.data("product")
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("Wishlist", "Wishlist")',
+            data: {
+                "id": productId
+            },
+            success: function (data) {
+        }
+        });
     });
-</script>*@
+</script>
 
 
