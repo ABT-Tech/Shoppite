@@ -79,8 +79,25 @@ namespace Shoppite.Infrastructure.Repository
                 order.OrderStatus = "Confirmed";
                 order.ReferenceId = "COD";
                 order.PaymentMode = "Cash On Delivery";
+                order.LastOrderStatus = "Pending";
+                order.InsertDate = DateTime.Now;
 
                  _dbContext.OrderBasic.Update(order);
+
+                var StatusCheck = await _dbContext.OrderStatus.FirstOrDefaultAsync(x => x.OrderId == order.OrderId);
+                if(StatusCheck == null)
+                {
+                    OrderStatus orderStatus = new OrderStatus { 
+                        OrderId = order.OrderId,
+                        OrderStatus1 = order.LastOrderStatus,
+                        StatusDate = DateTime.Now,
+                        Remarks = string.Empty,
+                        Insertby = DateTime.Now.ToString(),
+                        OrgId = order.OrgId,
+
+                    };
+                   _dbContext.OrderStatus.Add(orderStatus);
+                }
 
              await _dbContext.SaveChangesAsync();
             }

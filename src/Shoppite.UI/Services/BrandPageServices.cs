@@ -65,5 +65,15 @@ namespace Shoppite.UI.Services
         {
             return await _BrandService.SearchProduct(searchKey);
         }
+
+        public async Task<OrderModel> GetOrderDetails(int orderid)
+        {
+            return await _BrandService.GetOrderDetails(orderid);
+        }
+
+        public async Task CancleOrder(int orderid)
+        {
+            await _BrandService.CancleOrder(orderid);
+        }
     }
 }

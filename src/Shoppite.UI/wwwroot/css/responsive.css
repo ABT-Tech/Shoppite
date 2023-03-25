@@ -368,16 +368,16 @@ body.single-blog .text h4 {
 	margin-right: 0;
 	margin-top: 2px;
 }
-.service-icon {
+/*.service-icon {
 	height: 45px;
 	width: 45px;
-}
+}*/
 .service-icon i {
 	padding: 11px;
 }
-.service-icon::after {
+/*.service-icon::after {
 	width: 36px;
-}
+}*/
 .top-menu ul > li {
 	padding: 0 8px;
 }

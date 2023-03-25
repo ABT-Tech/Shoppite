@@ -84,9 +84,16 @@ namespace Shoppite.UI.Controllers
             model.Orders = await _productPageService.GetDeliveredOrders(OrgId, Profileid);
             return PartialView(model);
         }
-        public async Task<IActionResult> OrderDetails(string orderid)
+        public async Task<IActionResult> OrderDetails(int orderid)
         {
-            return View();
+          var GetOrderDetails = await _BrandPageService.GetOrderDetails(orderid);
+            return View(GetOrderDetails);
+        }
+        public async Task<IActionResult> CancleOrder(int orderid)
+        {
+             await _BrandPageService.CancleOrder(orderid);
+
+            return RedirectToAction(nameof(MyOrders));
         }
     }
 }

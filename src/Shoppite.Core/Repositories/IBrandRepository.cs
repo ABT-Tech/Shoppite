@@ -20,5 +20,10 @@ namespace Shoppite.Core.Repositories
         Task News_Letter_Submit(int orgid, string email);
         Task<List<ProductBasic>>SearchProduct(string searchKey);
         Task<ProductPrice> GetPrice(Guid productGuid);
+        Task<f_order_master> GetMyOrders(int orderid);
+        Task<OrderShipping> GetOrderShipping(Guid? orderGUID);
+        Task<UsersProfile> GetShippingDetail(string userName);
+        Task<ProductBasic> GetProductDetail(string productName, string coverImage);
+        Task CancleOrder(int orderid);
     }
 }
