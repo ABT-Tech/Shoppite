@@ -7,10 +7,12 @@ using Shoppite.UI.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Threading.Tasks;
 
 namespace Shoppite.UI.Controllers
 {
+    [DataContract]
     public class AuthenticationsController : BaseController
     {
         private readonly IAuthenticationsPageService _AuthenticationPageService;
@@ -64,7 +66,7 @@ namespace Shoppite.UI.Controllers
             var UserValidate = await _AuthenticationPageService.Get_Login_Data(loginCheckModel.datal.userid,loginCheckModel.datal.password,OrgId);
             if (UserValidate.Password != null && UserValidate.Email != null)
             {
-                _ = CreateAuthenticationTicket(UserValidate);
+                await CreateAuthenticationTicket(UserValidate);
                 return Json("Succsess");
             }
             else

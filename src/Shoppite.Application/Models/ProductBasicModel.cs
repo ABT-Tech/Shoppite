@@ -27,5 +27,8 @@ namespace Shoppite.Application.Models
         public int? ProfileId { get; set; }
         public string CoverImage { get; set; }
         public int? OrgId { get; set; }
+        public decimal? Price { get; set; }
+        public decimal? OldPrice { get; set; }
+        public ProductPriceModel ProductPricemodel { get; set; }
     }
 }

@@ -53,6 +53,7 @@ namespace Shoppite.Application.Services
 
             var ProductRecent = await _BrandRepository.F_Getproducts_Recentlyviewed(ipAddress, orgid);
             main.f_Getproducts_RecentlyviewedModel = ObjectMapper.Mapper.Map<List<f_getproducts_RecentlyviewedModel>>(ProductRecent);
+
             // var CategoryMaster = await _BrandRepository.CategoryMaster(orgid);
             // main.CategoryMasterModel = ObjectMapper.Mapper.Map<List<CategoryMasterModel>>(CategoryMaster);
 
@@ -107,6 +108,46 @@ namespace Shoppite.Application.Services
         public async Task News_Letter_Submit(int orgid, string email)
         {
             await _BrandRepository.News_Letter_Submit(orgid, email);
+        }
+
+        public async Task<List<ProductBasicModel>> SearchProduct(string searchKey)
+        {
+            ProductBasicModel productBasicModel = new ProductBasicModel();
+            var SearchResult = await _BrandRepository.SearchProduct(searchKey);
+           var mapped =  ObjectMapper.Mapper.Map<List<ProductBasicModel>>(SearchResult);
+
+            foreach(var prices in mapped)
+            {
+                var price = await _BrandRepository.GetPrice((Guid)prices.ProductGuid);
+                productBasicModel.ProductPricemodel = ObjectMapper.Mapper.Map<ProductPriceModel>(price);
+                prices.OldPrice = productBasicModel.ProductPricemodel.OldPrice;
+                prices.Price = productBasicModel.ProductPricemodel.Price;
+            }
+
+            return mapped;
+        }
+
+        public async Task<OrderModel> GetOrderDetails(int orderid)
+        {
+            OrderModel orderModel = new OrderModel();
+
+            var orders = await _BrandRepository.GetMyOrders(orderid);
+            orderModel.f_Order_MasterModel = ObjectMapper.Mapper.Map<f_order_masterModel>(orders);
+
+            var getShippingDetail = await _BrandRepository.GetShippingDetail(orderModel.f_Order_MasterModel.UserName);
+            orderModel.UsersProfileModel = ObjectMapper.Mapper.Map<UsersProfileModal>(getShippingDetail);
+
+            var GetProductDetail = await _BrandRepository.GetProductDetail(orderModel.f_Order_MasterModel.ProductName, orderModel.f_Order_MasterModel.CoverImage);
+            orderModel.ProductBasicModel = ObjectMapper.Mapper.Map<ProductBasicModel>(GetProductDetail);
+           // var OrderShipping = await _BrandRepository.GetOrderShipping(orderModel.f_Order_MasterModel.OrderGUID);
+           // orderModel.OrderShippingModel = ObjectMapper.Mapper.Map<OrderShippingModel>(OrderShipping);
+
+            return orderModel;
+        }
+
+        public async Task CancleOrder(int orderid)
+        {
+            await _BrandRepository.CancleOrder(orderid);
         }
     }
 }

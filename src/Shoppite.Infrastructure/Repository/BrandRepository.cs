@@ -135,5 +135,81 @@ namespace Shoppite.Infrastructure.Repository
             }
             await _dbContext.SaveChangesAsync();
         }
+
+        public async Task<List<ProductBasic>> SearchProduct(string searchKey)
+        {
+            var Search = await _dbContext.ProductBasic.Where(x => x.ProductName.Contains(searchKey)).ToListAsync();
+            return Search;
+        }
+
+        public async Task<ProductPrice> GetPrice(Guid productGuid)
+        {
+            return await _dbContext.ProductPrice.FirstOrDefaultAsync(x => x.ProductGuid == productGuid);
+        }
+
+        public async Task<f_order_master> GetMyOrders(int orderid)
+        {
+            string sql = "select * from f_order_master()";
+            List<SqlParameter> parms = new List<SqlParameter>
+            {
+                //new SqlParameter { ParameterName = "@orgid", Value = Orgid },
+                //new SqlParameter { ParameterName = "@profileid", Value = ProfileId }
+            };
+
+            return await _dbContext.Set<f_order_master>().FromSqlRaw(sql, parms.ToArray()).
+                  Where(x => x.OrderStatus == "Confirmed" && x.OrderId == orderid).FirstOrDefaultAsync();
+        }
+
+        public async Task<OrderShipping> GetOrderShipping(Guid? orderGUID)
+        {
+            return await _dbContext.OrderShipping.Where(x => x.OrderGuid == orderGUID).FirstOrDefaultAsync();
+        }
+
+        public async Task<UsersProfile> GetShippingDetail(string userName)
+        {
+            return await _dbContext.UsersProfile.Where(x => x.UserName == userName && x.Type == "Client").FirstOrDefaultAsync();
+        }
+
+        public async Task<ProductBasic> GetProductDetail(string productName, string coverImage)
+        {
+            return await _dbContext.ProductBasic.Where(x => x.ProductName == productName && x.CoverImage == coverImage).FirstOrDefaultAsync();
+        }
+
+        public async Task CancleOrder(int orderid)
+        {
+           var findOrder = await _dbContext.OrderStatus.Where(x => x.OrderId == orderid).FirstOrDefaultAsync();
+
+            if(findOrder != null)
+            {
+                var local = _dbContext.Set<OrderStatus>().Local.FirstOrDefault(entry => entry.OrderId.Equals(orderid));
+
+                if(local != null)
+                {
+                  _dbContext.Entry(local).State = EntityState.Detached;
+                }
+
+                findOrder.OrderStatus1 = "Request Cancellation";
+
+                _dbContext.Entry(findOrder).State = EntityState.Modified;
+
+              // _dbContext.OrderStatus.Update(findOrder);
+            } 
+
+            var FindFromOrderBasic = await _dbContext.OrderBasic.Where(x => x.OrderId == orderid).FirstOrDefaultAsync();
+
+            if(FindFromOrderBasic != null)
+            {
+                var local = _dbContext.Set<OrderBasic>().Local.FirstOrDefault(entry => entry.OrderId.Equals(orderid));
+
+                if (local != null)
+                {
+                    _dbContext.Entry(local).State = EntityState.Detached;
+                }
+                FindFromOrderBasic.LastOrderStatus = "Request Cancellation";
+
+                _dbContext.Entry(FindFromOrderBasic).State = EntityState.Modified;
+            }
+            await _dbContext.SaveChangesAsync();
+        }
     }
 }

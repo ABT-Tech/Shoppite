@@ -6,8 +6,9 @@ namespace Shoppite.Core.Entities
 {
     public partial class f_order_master
     {
+        public int OrderId { get; set; }
         public Nullable<System.Guid> OrderGUID { get; set; }
-        public string orderid { get; set; }
+        public string orderids { get; set; }
         public Nullable<decimal> totalPrice { get; set; }
         public string orderdate { get; set; }
         public string CurrencyName { get; set; }
@@ -15,6 +16,8 @@ namespace Shoppite.Core.Entities
         public string CoverImage { get; set; }
         public string UserName { get; set; }
         public Nullable<decimal> ExcludeVatPrice { get; set; }
+        public Nullable<decimal> Price { get; set; }
+        public int? Qty { get; set; }
         public string LastOrderStatus { get; set; }
         public string OrderStatus { get; set; }
         public Nullable<decimal> vat { get; set; }

@@ -4,8 +4,12 @@
 {
     @foreach (var image in Model.TopBanner.Take(4))
     {
-        <a asp-action="AllProducts" asp-route-CategoryId="@image.CategoryId"><img src="@image.Banner" alt="slider image" /></a>
+        if(image.Banner != null)
+        {
+             <a asp-action="AllProducts" asp-route-CategoryId="@image.CategoryId"><img  src="@image.Banner" alt="slider image" /></a>
+        }
     }
 
 }
+
 

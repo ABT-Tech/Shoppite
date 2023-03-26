@@ -45,7 +45,6 @@ namespace Shoppite.UI.Services
         {
            // var mapped = _mapper.Map<CheckOutModel>(guid);
           return await _CartService.CheckOrder(guid);
-
         }
 
         public async Task UpdateOrder(Guid guid)

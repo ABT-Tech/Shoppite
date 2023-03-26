@@ -68,10 +68,10 @@ namespace Shoppite.Infrastructure.Repository
                 //new SqlParameter { ParameterName = "@profileid", Value = ProfileId }
             };
 
-          var dataa =  await _dbContext.Set<f_order_master>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
+          return await _dbContext.Set<f_order_master>().FromSqlRaw(sql, parms.ToArray()).
+                Where(x => x.OrderStatus == "Confirmed" && x.UserName == username).ToListAsync();
 
-          var fliter = dataa.Where(x => x.OrderStatus == "Confirmed" && x.UserName == username).ToList();
-            return fliter;
+            //return dataa.Where(x => x.OrderStatus == "Confirmed" && x.UserName == username).ToList();
         }
         public async Task<List<F_Pending_Orders>> GetPendingOrders(int Orgid,int ProfileId)
         {

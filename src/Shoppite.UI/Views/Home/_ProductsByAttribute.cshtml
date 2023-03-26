@@ -7,7 +7,7 @@
             <div class="col-md-4 col-lg-4 col-xl-3" style="margin-bottom: 25px;">
                 <div class="product-item" style="margin-top: 15px;">
                     <div class="top-item">
-                        <a href="single-product.html">
+                        <a href="/ProductDetail/Details/@product.ProductGUID">
                             <img style="height:244px;width:250px" src="@product.image" alt="Product image">
                         </a>
                         <div class="top-cocial">
@@ -22,8 +22,8 @@
                     </div>
                     <div class="bottom-item">
                         <div class="product-info">
-                            <h6><a asp-action="ProductsByBrand" asp-route-BrandId="@product.brandid">@product.BrandName</a></h6>
-                            <h5><a href="">@product.ProductName</a></h5>
+                            @*<h6><a asp-action="ProductsByBrand" asp-route-BrandId="@product.brandid">@product.BrandName</a></h6>*@
+                            <h5><a href="/ProductDetail/Details/@product.ProductGUID" class="product_name_Over">@product.ProductName</a></h5>
                             <span>@product.Price <del>@product.OldPrice</del></span>
                             <p>
                                 <i class="fa fa-star-o"></i>

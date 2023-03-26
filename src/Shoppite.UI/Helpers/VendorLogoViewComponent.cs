@@ -20,7 +20,7 @@ namespace Shoppite.UI.Helpers
         {
             // cartModel = cartModel;
             _AuthenticationPageService = AuthenticationPageService;
-            _commonHelper = commonHelper;
+             _commonHelper = commonHelper;
         }
 
         [HttpPost]

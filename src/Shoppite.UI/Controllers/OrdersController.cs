@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Shoppite.Application.Models;
+using Shoppite.UI.Extensions;
 using Shoppite.UI.Helpers;
 using Shoppite.UI.Interfaces;
 using Shoppite.Web.Interfaces;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace Shoppite.UI.Controllers
 {
+    [Authorize]
     public class OrdersController : Controller
     {
         private readonly IWishlistPageService _productPageService;
@@ -40,7 +42,7 @@ namespace Shoppite.UI.Controllers
             brands.CategoryMaster = await _categoryPageService.DisplayLogo(OrgId);
             brands.Categories = await _categoryPageService.GetCategories(CategoryId,OrgId);
             brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
-            brands.Wishlists = await _productPageService.GetWishList("admin", OrgId);
+            brands.Wishlists = await _productPageService.GetWishList(User.Identity.Name, OrgId);
             brands.MyOrders = await _productPageService.GetMyOrders(User.Identity.Name);
            // brands.PendingOrders = await _productPageService.GetPendingOrders(OrgId, 1097);
             return View(brands);
@@ -51,8 +53,8 @@ namespace Shoppite.UI.Controllers
             MainModel model = new MainModel();
             int OrgId = _commonHelper.GetOrgID(HttpContext);
             int Profileid = await _myAccountPageService.GetProfileId(User.Identity.Name);
-
-            model.Orders = await _productPageService.GetPendingOrders(OrgId, Profileid);         
+            model.MyOrders = await _productPageService.GetMyOrders(User.Identity.Name);
+            //model.Orders = await _productPageService.GetPendingOrders(OrgId, Profileid);         
             return PartialView(model);
         }
         [HttpGet]
@@ -70,7 +72,8 @@ namespace Shoppite.UI.Controllers
             MainModel model = new MainModel();
             int OrgId = _commonHelper.GetOrgID(HttpContext);
             int Profileid = await _myAccountPageService.GetProfileId(User.Identity.Name);
-            model.Orders = await _productPageService.GetCancelledOrders(OrgId, Profileid);
+            model.MyOrders = await _productPageService.GetMyOrders(User.Identity.Name);
+           // model.Orders = await _productPageService.GetCancelledOrders(OrgId, Profileid);
             return PartialView(model);
         }
         [HttpGet]
@@ -79,8 +82,20 @@ namespace Shoppite.UI.Controllers
             MainModel model = new MainModel();
             int OrgId = _commonHelper.GetOrgID(HttpContext);
             int Profileid = await _myAccountPageService.GetProfileId(User.Identity.Name);
-            model.Orders = await _productPageService.GetDeliveredOrders(OrgId, Profileid);
+            model.MyOrders = await _productPageService.GetMyOrders(User.Identity.Name);
+            //model.Orders = await _productPageService.GetDeliveredOrders(OrgId, Profileid);
             return PartialView(model);
+        }
+        public async Task<IActionResult> OrderDetails(int orderid)
+        {
+          var GetOrderDetails = await _BrandPageService.GetOrderDetails(orderid);
+            return View(GetOrderDetails);
+        }
+        public async Task<IActionResult> CancleOrder(int orderid)
+        {
+             await _BrandPageService.CancleOrder(orderid);
+
+            return RedirectToAction(nameof(MyOrders));
         }
     }
 }
