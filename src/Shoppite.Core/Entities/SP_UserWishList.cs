@@ -9,6 +9,7 @@ namespace Shoppite.Core.Entities
         public int WishlistId { get; set; }
         public int? ProductId { get; set; }
         public decimal? Price { get; set; }
+        public Guid? ProductGuid { get; set; }
         public decimal? OldPrice { get; set; }
         public string ProductName { get; set; }
         public string CoverImage { get; set; }

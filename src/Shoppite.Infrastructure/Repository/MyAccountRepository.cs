@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Shoppite.Core.Entities;
 using Shoppite.Core.Repositories;
+using Shoppite.Core.ValueObjects;
 using Shoppite.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
@@ -13,12 +14,13 @@ namespace Shoppite.Infrastructure.Repository
     public class MyAccountRepository : IMyAccountRepository
     {
         protected readonly Shoppite_masterContext _dbContext;
+        private EncryptionHelper EncryptPass = new EncryptionHelper();
 
         public MyAccountRepository(Shoppite_masterContext dbContext)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
-        public async Task<List<f_Get_MyAccount_Data>> GetMyAccountDetail(int orgId,int profileid)
+        public async Task<f_Get_MyAccount_Data> GetMyAccountDetail(int orgId,int profileid)
         {
             string sql = "select * from f_Get_MyAccount_Data(@orgid,@profileid)";
             List<SqlParameter> parms = new List<SqlParameter>
@@ -26,7 +28,7 @@ namespace Shoppite.Infrastructure.Repository
                 new SqlParameter { ParameterName = "@orgid", Value = orgId },
                  new SqlParameter { ParameterName = "@profileid", Value = profileid }
             };
-            return await _dbContext.Set<f_Get_MyAccount_Data>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
+            return await _dbContext.Set<f_Get_MyAccount_Data>().FromSqlRaw(sql, parms.ToArray()).FirstOrDefaultAsync();
         }
         public async Task UpdateMyAccountDetail(UsersProfile myaccount)
         {
@@ -37,6 +39,9 @@ namespace Shoppite.Infrastructure.Repository
             usersProfile.State = myaccount.State;
             usersProfile.ContactNumber = myaccount.ContactNumber;
             usersProfile.Address = myaccount.Address;
+            usersProfile.City = myaccount.City;
+            usersProfile.State = myaccount.State;
+            usersProfile.Country = myaccount.Country;
 
                 if (usersProfile != null)
                 {
@@ -52,9 +57,11 @@ namespace Shoppite.Infrastructure.Repository
         }
         public async Task ChangePassword(Users users)
         {
-            Users user = await _dbContext.Users.FindAsync(users.UserId);
+            Users user = await _dbContext.Users.FirstOrDefaultAsync(X=>X.Email == users.Username);
+
             //usersProfile.UserName = myaccount.UserName;
-            user.Password = users.Password;
+            string newPass = EncryptPass.Encrypt(users.Password);
+            user.Password = newPass;
 
             if (user != null)
             {
@@ -62,6 +69,13 @@ namespace Shoppite.Infrastructure.Repository
             }
             _dbContext.Entry(user).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<int> GetProfileId(string username)
+        {
+            var findUser = await _dbContext.Users.FirstOrDefaultAsync(x => x.Email == username);
+            var ProfileFind = await _dbContext.UsersProfile.FirstOrDefaultAsync(x => x.UserName == findUser.Username);
+            return ProfileFind.ProfileId;
         }
     }
 }

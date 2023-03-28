@@ -24,7 +24,7 @@ namespace Shoppite.Infrastructure.Repository
         public async Task<Users> GetAuthenticato_Details(string email, string password,int orgid)
         {
             string ps = this.EncryptPass.Encrypt(password);
-            var UserValidate =  _MasterContext.Users.Where(x => x.Email == email && x.OrgId == orgid).FirstOrDefault();
+            var UserValidate =  _MasterContext.Users.Where(x => x.Email == email && x.Password == ps && x.OrgId == orgid).FirstOrDefault();
             return UserValidate;
         }
 
@@ -37,7 +37,8 @@ namespace Shoppite.Infrastructure.Repository
         public async Task<Users> RegisterDetail(string userName, string password, string email, int orgId)
         {
             string EnPass = this.EncryptPass.Encrypt(password);
-            var check =  _MasterContext.Users.Where(x => x.Username == userName || x.Email == email).FirstOrDefault();
+            var check = _MasterContext.Users.Where(x => x.Username == userName || x.Email == email).FirstOrDefault();
+            var checkProfile =  _MasterContext.UsersProfile.FirstOrDefault(x => x.UserName == userName); 
            if(check == null)
            {
               Users users = new Users();
@@ -49,6 +50,19 @@ namespace Shoppite.Infrastructure.Repository
               users.Guid = Guid.NewGuid();
 
               await  _MasterContext.Users.AddAsync(users);
+
+                if(checkProfile == null)
+                {
+                    UsersProfile usersProfile = new UsersProfile();
+                    usersProfile.UserName = userName;
+                    usersProfile.Type = "Client";
+                    usersProfile.InsertDate = DateTime.Now;
+                    usersProfile.OrgId = orgId;
+                    usersProfile.ProfileGuid = users.Guid;
+                    await _MasterContext.UsersProfile.AddAsync(usersProfile);
+                }
+                
+
            }
             await _MasterContext.SaveChangesAsync();
             return check;

@@ -8,11 +8,10 @@ namespace Shoppite.Application.Interfaces
 {
    public  interface IMyAccountService
     {
-        Task<List<f_Get_MyAccount_Data_Model>> GetMyAccountDetail(int orgId,int profileid);
+        Task<f_Get_MyAccount_Data_Model> GetMyAccountDetail(int orgId,int profileid);
         Task UpdateMyAccountDetail(MainModel myaccount);
         Task<MainModel> GetProfileByProfileId(int profileid);
         Task ChangePassword(MainModel model);
-
-
+        Task<int> GetProfileId(string username);
     }
 }

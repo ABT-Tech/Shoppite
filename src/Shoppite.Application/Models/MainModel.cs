@@ -38,6 +38,7 @@ namespace Shoppite.Application.Models
         public int? OrgId { get; set; }
         public string CategoryId { get; set; }
         public string CategoryName { get; set; }
+        public string searchKey { get; set; }
         public string category_name { get; set; }
         public string Banner { get; set; }
         public List<BrandsModel> BrandsModel { get; set; }
@@ -58,12 +59,14 @@ namespace Shoppite.Application.Models
         public List<AttributeSetupModel> Attributes { get; set; }
         public List<f_getproducts_By_CatID_SpecificationNameModel> Product_specification { get; set; }
         public List<Customer_WishlistModel> Wishlists { get; set; }
-        public List<F_Orders_All_Model> MyOrders { get; set; }
+        public List<f_order_masterModel> MyOrders { get; set; }
         public List<F_Pending_Orders_Model> Orders { get; set; }
-        public List<f_Get_MyAccount_Data_Model> Myaccount { get; set; }
+        public f_Get_MyAccount_Data_Model Myaccount { get; set; }
         public List<sp_getcat_ResultModel> AllCategories { get; set; }
         public List<F_getproducts_By_BrandIdModel> ProductdByBrand { get; set; }
         public ProductRecentlyViewedModel ProductRecentlyViewedModel { get; set; }
         public List<f_getproducts_RecentlyviewedModel> f_Getproducts_RecentlyviewedModel { get; set; }
+        public List<F_getproducts_By_CatIdModel> f_getproducts_By_CatIdModel { get; set; }
+        public ProductBasicModel ProductBasicModel { get; set; }
     }
 }

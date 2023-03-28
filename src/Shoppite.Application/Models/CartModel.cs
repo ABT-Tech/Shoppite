@@ -13,5 +13,6 @@ namespace Shoppite.Application.Models
       public  List<f_getproduct_CartDetails_By_OrgidModel> F_Getproduct_CartDetails_By_Orgids { get; set; }
         public OrderShippingModel OrderShippingModel { get; set; }
         public OrderBasicModel OrderBasicModel { get; set; }
+        public UsersProfileModal UsersProfileModal { get; set; }
     }
 }

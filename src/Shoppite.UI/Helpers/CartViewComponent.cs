@@ -11,20 +11,21 @@ namespace Shoppite.UI.Helpers
     public class CartViewComponent:ViewComponent
     {
         private readonly ICartPageServices _CartPageServices;
-        private readonly CommonHelper commonHelper = new CommonHelper(); 
+        private readonly ICommonHelper _commonHelper;
 
         List<CartModel> cartModel = new List<CartModel>();
 
-        public CartViewComponent(ICartPageServices CartPageServices)
+        public CartViewComponent(ICartPageServices CartPageServices, ICommonHelper commonHelper)
         {
             // cartModel = cartModel;
             _CartPageServices = CartPageServices;
+            _commonHelper = commonHelper;
            // _commonHelper = commonHelper;
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            int orgid = commonHelper.GetOrgID(HttpContext);
+            int orgid = _commonHelper.GetOrgID(HttpContext);
             var GetOrderBasic = await _CartPageServices.OrderBasic(orgid);
             var model = cartModel;
             return View("CartShow", GetOrderBasic);

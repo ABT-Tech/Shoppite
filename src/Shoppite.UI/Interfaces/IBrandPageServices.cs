@@ -15,5 +15,9 @@ namespace Shoppite.UI.Interfaces
         Task<MainModel> Get_Product_By_Cat(int ID);
         Task<MainModel> CategoryMater(int orgid);
         Task<List<F_getproducts_By_BrandIdModel>> GetProductsByBrand(int OrgId,int BrandId);
+        Task News_Letter_Submit(int orgid, string email);
+        Task<List<ProductBasicModel>> SearchProduct(string searchKey);
+        Task<OrderModel> GetOrderDetails(int orderid);
+        Task CancleOrder(int orderid);
     }
 }

@@ -31,7 +31,7 @@ namespace Shoppite.Infrastructure.Repository
         }
         public async Task AddWishList(CustomerWishlist wishlist, int ProductId)
         {
-            CustomerWishlist cuswishlist = _dbContext.CustomerWishlist.FirstOrDefault(u => u.ProductId == ProductId && u.UserName == "admin");
+            CustomerWishlist cuswishlist = _dbContext.CustomerWishlist.FirstOrDefault(u => u.ProductId == ProductId && u.UserName == wishlist.UserName);
 
             if (cuswishlist != null)
             {
@@ -51,15 +51,27 @@ namespace Shoppite.Infrastructure.Repository
 
             }
         }
-        public async Task<List<F_Orders_All>> GetMyOrders(int OrgId, int profileid)
+        public async Task<List<f_order_master>> GetMyOrders(string username)
         {
-            string sql = "select * from f_My_Orders(@orgid,@profileid)";
+            //string sql = "select * from f_My_Orders(@orgid,@profileid)";
+            //List<SqlParameter> parms = new List<SqlParameter>
+            //{
+            //    new SqlParameter { ParameterName = "@orgid", Value = OrgId },
+            //    new SqlParameter { ParameterName = "@profileid", Value = profileid }
+            //};
+            //return await _dbContext.Set<F_Orders_All>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
+
+            string sql = "select * from f_order_master()";
             List<SqlParameter> parms = new List<SqlParameter>
             {
-                new SqlParameter { ParameterName = "@orgid", Value = OrgId },
-                new SqlParameter { ParameterName = "@profileid", Value = profileid }
+                //new SqlParameter { ParameterName = "@orgid", Value = Orgid },
+                //new SqlParameter { ParameterName = "@profileid", Value = ProfileId }
             };
-            return await _dbContext.Set<F_Orders_All>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
+
+          return await _dbContext.Set<f_order_master>().FromSqlRaw(sql, parms.ToArray()).
+                Where(x => x.OrderStatus == "Confirmed" && x.UserName == username).ToListAsync();
+
+            //return dataa.Where(x => x.OrderStatus == "Confirmed" && x.UserName == username).ToList();
         }
         public async Task<List<F_Pending_Orders>> GetPendingOrders(int Orgid,int ProfileId)
         {
@@ -93,6 +105,17 @@ namespace Shoppite.Infrastructure.Repository
             };
             return await _dbContext.Set<F_Pending_Orders>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
 
+        }
+
+        public async Task AddtoWishList(CustomerWishlist wishlist)
+        {
+            var check = await _dbContext.CustomerWishlist.Where(x =>x.ProductId == wishlist.ProductId).FirstOrDefaultAsync();
+           
+            if(check == null)
+            {
+                await _dbContext.CustomerWishlist.AddAsync(wishlist);
+            }
+           await _dbContext.SaveChangesAsync();
         }
     }
 }

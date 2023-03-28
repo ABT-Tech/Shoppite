@@ -1,8 +1,18 @@
 ﻿@model Shoppite.Application.Models.MainModel
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .responsive {
+            height: auto;
+        }
+
+    </style>
 @foreach (var image in Model.MiddelBanner)
 {
-    <div class="col-md-6">
-        <a href="#"><img style="height:297px;width:575px;" src="@Url.Content("~")@image.Image" alt="slider image" /></a>
+    <div class="col-6">
+        <div class="shrink image">
+            <a href=""><img src="@image.Image"  class="rounded-3 responsive img-fluid" alt="slider image" /></a>
+        </div>
     </div>
 }
 

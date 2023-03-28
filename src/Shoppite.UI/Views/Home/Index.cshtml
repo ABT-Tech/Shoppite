@@ -6,54 +6,54 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <!-- Start mega menu area -->
-<div class="megamenu-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-9">
-                <div class="megamenu">
-                    <nav>
-                        <ul>
-                            <li>
-                                <a class="home" asp-action="Index">Home</a>
-                                <div class="megamenudown-mini home-ve">
-                                    <div class="mega-top">
-                                        <div class="mega-item-menu">
-                                            <a class="title" href="#"><span>Home variyation</span></a>
-                                            <a href="index-2.html"><span>Home2</span></a>
-                                            <a href="index-3.html"><span>Home3</span></a>
-                                            <a href="index-4.html"><span>Home4</span></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            @await Html.PartialAsync("_Categories", Model)
-                            @await Html.PartialAsync("_MoreCategories", Model)
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="search-box">
-                    <form method="get" action="#" id="searchbox-eleyas">
-                        <p>
-                            <input type="text" value="" placeholder="You keyword..." name="search_query">
-                            <button class="button-search" name="submit_search" type="submit">
-                                <span><i class="fa fa-search"></i></span>
-                            </button>
-                        </p>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+@*<link href="~/css/load.css" rel="stylesheet" />*@
+<style>
+    .theme-default img {
+        max-height: 350px;
+    }
+
+    .shrink img {
+        transition: 1s ease;
+    }
+
+        .shrink img:hover {
+            -webkit-transform: scale(0.8);
+            -ms-transform: scale(0.8);
+            transform: scale(0.8);
+            transition: 1s ease;
+        }
+    /* [1] The container */
+    .img-hover-zoom {
+        /*height: 300px;*/ /* [1.1] Set it as per your need */
+        overflow: hidden; /* [1.2] Hide the overflowing of child elements */
+    }
+
+        /* [2] Transition property for smooth transformation of images */
+        .img-hover-zoom img {
+            transition: transform .5s ease;
+        }
+
+        /* [3] Finally, transforming the image when container gets hovered */
+        .img-hover-zoom:hover img {
+            transform: scale(1.5);
+        }
+
+    .image {
+        flex-shrink: 0;
+    }
+</style>
+
+@*<div class="containers">
+        <img src="~/img/shopping.gif" alt="">
+    </div>*@
+
 <div class="slider-area">
     <div class="container">
         <div class="slider">
             <div id="container">
                 <!-- Nivo slider Demo 35 -->
                 <div id="NivosliderD35oo slider-gray-bg">
-                    <div class="nivoSlider">
+                    <div class="nivoSlider theme-default">
                         @await Html.PartialAsync("_TopBanner", Model)
                         @* <img src="img/slider/3.jpg" alt="slider image">
                             <img src="img/slider/5.jpg" alt="slider image">*@
@@ -64,7 +64,7 @@
     </div>
 </div>
 
-<div class="baner-area">
+<div class="">
     <div class="container">
         <div class="row">
             @await Html.PartialAsync("_MiddelBanner", Model)
@@ -75,9 +75,49 @@
 
 @await Html.PartialAsync("_ProductWithCatId")
 @await Html.PartialAsync("_ProductWithStatusId")
+@await Html.PartialAsync("_GetRecentProduct")
 @await Html.PartialAsync("_BrandZone")
-@Html.Partial("_GetRecentProduct")
+@*<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            //$('#loader').css('display', 'none');
+          //  $('#wrapper').css('display', 'block');
+            $(".container").attr("style", "display:none");
+        });
 
-
+        $(window).on('load', function () {
+          //  $(".slider-area").attr
+            $(".containers").fadeOut("slow");
+           // $(".container").remove.attr("style", "display:initial");
+            $(".container").removeAttr("style", "display:none");
+        });
+    </script>*@
+<script>
+    $('#removewishlist').hide()
+    $('.addWish').click(function (e)
+    {
+        if ($(e.target).css('color') == 'rgb(255, 0, 0)')
+        {
+            $(e.target).css('color', 'white');
+        }
+        else
+        {
+            $(e.target).css('color', 'red');
+        }
+  e.preventDefault();
+  var el = $(this),
+    icon = el.find('i'),
+            productId = el.data("product")
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("Wishlist", "Wishlist")',
+            data: {
+                "id": productId
+            },
+            success: function (data) {
+        }
+        });
+    });
+</script>
 
 

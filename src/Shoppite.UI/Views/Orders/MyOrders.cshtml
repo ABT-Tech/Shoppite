@@ -1,7 +1,7 @@
 ﻿@model Shoppite.Application.Models.MainModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <div class="main-area">
-    <div class="megamenu-area">
+    @*<div class="megamenu-area">
         <div class="container">
             <div class="row">
                 <div class="col-md-9">
@@ -41,21 +41,21 @@
                 </div>               
             </div>
         </div>
-    </div>
+    </div>*@
 </div>
 <!-- Start wishlists page area -->
 <div class="wishlists-page-area">
     <div class="container">
-        <div class="row">
-            <div class="breadcrumb" style="color:#777; background-color: white !important">
-                Home
-                @*<a title="Return to Home" href="index.html" class="home">Home</a>*@
-                <span class="navigation-pipe"><i class="fa fa-angle-right"></i></span>My account
-                @* <a title="Return to Home" href="index.html" class="home">My account</a>*@
-                <span class="navigation-pipe"><i class="fa fa-angle-right"></i></span>
-                My Orders
-            </div>
-        </div>
+       @*<div class="breadcrumb clearfix">
+                    <a title="Return to Home" asp-action="Index" asp-controller="Home" class="home">Home</a>
+                    <span class="navigation-pipe"><i class="fa fa-angle-right"></i></span>
+                    <span class="navigation_page">
+                        <span>
+                            <a title="Electronic" href="#"><span>My Account</span></a>
+                        </span>
+                        <span class="navigation-pipe"><i class="fa fa-angle-right"></i></span>My Orders
+                    </span>
+                </div>*@
         <select class="pendingOrders form-select-sm" style="float:right">
             <option value="1">All Orders</option>
             <option value="2">Pending Orders</option>

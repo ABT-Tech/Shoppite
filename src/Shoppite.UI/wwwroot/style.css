@@ -263,8 +263,8 @@ body {
 }
 .service-icon i{
     color: #fff;
-    font-size: 20px;
-    padding: 10px; 
+    font-size: 39px;
+    padding: 10px 9px; 
 }
 .user-icon i {
 	color: #fff;
@@ -5138,14 +5138,16 @@ textarea.form-control {
   border-top: medium none;
   color: #fff;
   font-size: 13px;
-  height: 42px;
+  height: auto;
   text-transform: uppercase;
   width: 100%;
   transition: 0.3s;
 }
-.btn.btnContact:hover{
-  background: #FE5B5A;
-}
+	.btn.btnContact:hover {
+		background: #FE5B5A;
+		color: white;
+		font-size: 13px;
+	}
 
 .btn.btnimg {
 	background: #333 none repeat scroll 0 0;
@@ -5156,7 +5158,7 @@ textarea.form-control {
 	border-top: medium none;
 	color: #fff;
 	font-size: 13px;
-	height: 32px;
+	height: auto;
 	text-transform: uppercase;
 	width: 15%;
 	transition: 0.3s;
@@ -5164,6 +5166,8 @@ textarea.form-control {
 
 	.btn.btnimg:hover {
 		background: #FE5B5A;
+		color: white;
+		font-size: 13px;
 	}
 .btn.btnpwd {
 	background: #333 none repeat scroll 0 0;
@@ -5174,7 +5178,7 @@ textarea.form-control {
 	border-top: medium none;
 	color: #fff;
 	font-size: 13px;
-	height: 32px;
+	height: auto;
 	text-transform: uppercase;
 	width: 25%;
 	transition: 0.3s;
@@ -5182,6 +5186,8 @@ textarea.form-control {
 
 	.btn.btnpwd:hover {
 		background: #FE5B5A;
+		color: white;
+		font-size: 13px;
 	}
 /*-------------------------------
 23. about us page

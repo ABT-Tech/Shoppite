@@ -13,20 +13,21 @@ namespace Shoppite.UI.Helpers
     {
 
         private readonly ICategoryPageService _categoryPageService;
-        private readonly CommonHelper commonHelper = new CommonHelper();
+        private readonly ICommonHelper _commonHelper;
 
         MainModel MainModel = new MainModel();
 
-        public MegaMenuViewComponent(ICategoryPageService categoryPageService)
+        public MegaMenuViewComponent(ICategoryPageService categoryPageService, ICommonHelper commonHelper)
         {
             _categoryPageService = categoryPageService;
+            _commonHelper = commonHelper;
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            int orgid = commonHelper.GetOrgID(HttpContext);
+            int orgid = _commonHelper.GetOrgID(HttpContext);
             MainModel.ProductsDetails = await _categoryPageService.GetProductList(orgid);
-            MainModel.Categories = await _categoryPageService.GetCategories(0);
+            MainModel.Categories = await _categoryPageService.GetCategories(0, orgid);
             return View("MegaMenu", MainModel);
         }
     }

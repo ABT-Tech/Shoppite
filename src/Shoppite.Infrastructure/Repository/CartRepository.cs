@@ -77,8 +77,27 @@ namespace Shoppite.Infrastructure.Repository
             foreach(var order in check)
             {
                 order.OrderStatus = "Confirmed";
+                order.ReferenceId = "COD";
+                order.PaymentMode = "Cash On Delivery";
+                order.LastOrderStatus = "Pending";
+                order.InsertDate = DateTime.Now;
 
                  _dbContext.OrderBasic.Update(order);
+
+                var StatusCheck = await _dbContext.OrderStatus.FirstOrDefaultAsync(x => x.OrderId == order.OrderId);
+                if(StatusCheck == null)
+                {
+                    OrderStatus orderStatus = new OrderStatus { 
+                        OrderId = order.OrderId,
+                        OrderStatus1 = order.LastOrderStatus,
+                        StatusDate = DateTime.Now,
+                        Remarks = string.Empty,
+                        Insertby = DateTime.Now.ToString(),
+                        OrgId = order.OrgId,
+
+                    };
+                   _dbContext.OrderStatus.Add(orderStatus);
+                }
 
              await _dbContext.SaveChangesAsync();
             }
@@ -97,7 +116,18 @@ namespace Shoppite.Infrastructure.Repository
 
         }
 
-        public async Task<OrderShipping> FindAddress(string userName)
+        public async Task<UsersProfile> FindAddress(string userName)
+        {
+            var find = await _dbContext.UsersProfile.FirstOrDefaultAsync(x => x.UserName == userName);
+            return find;
+        }
+
+        public async Task<UsersProfile> GetVendorDetails(UsersProfile usersProfile)
+        {
+            return await _dbContext.UsersProfile.FirstOrDefaultAsync(x => x.OrgId == usersProfile.OrgId);
+        }
+
+        public async Task<OrderShipping> GetAddredd(string userName)
         {
             var find = await _dbContext.OrderShipping.FirstOrDefaultAsync(x => x.UserName == userName);
             return find;

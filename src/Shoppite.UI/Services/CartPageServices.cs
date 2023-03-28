@@ -45,7 +45,6 @@ namespace Shoppite.UI.Services
         {
            // var mapped = _mapper.Map<CheckOutModel>(guid);
           return await _CartService.CheckOrder(guid);
-
         }
 
         public async Task UpdateOrder(Guid guid)
@@ -58,6 +57,11 @@ namespace Shoppite.UI.Services
             var mapped = _mapper.Map<CheckOutModel>(checkOut);
 
             await _CartService.UpdateOrderQty(mapped);
+        }
+
+        public async Task<UsersProfileModal> GetVendorDetails(int orgid)
+        {
+            return await _CartService.GetVendorDetails(orgid);
         }
     }
 }
