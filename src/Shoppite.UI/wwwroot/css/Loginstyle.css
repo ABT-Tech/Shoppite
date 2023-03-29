@@ -9,11 +9,11 @@ body {
 
 .box-form {
   margin: 0 auto;
-  width: 80%;
+  width: 40%;
   background: #FFFFFF;
   border-radius: 10px;
   overflow: hidden;
-  display: flex;
+  /*display: flex;*/
   flex: 1 1 100%;
   align-items: stretch;
   justify-content: space-between;
@@ -30,14 +30,14 @@ body {
 .box-form div {
   height: auto;
 }
-.box-form .left {
+.box-form   {
   color: #FFFFFF;
   background-size: cover;
   background-repeat: no-repeat;
-  background-image: url("https://i.pinimg.com/736x/5d/73/ea/5d73eaabb25e3805de1f8cdea7df4a42--tumblr-backgrounds-iphone-phone-wallpapers-iphone-wallaper-tumblr.jpg");
+  background-image: url('~/img/online-shopping-wallpapers.jpg');
   overflow: hidden;
 }
-.box-form .left .overlay {
+.box-form   .overlay {
   padding: 30px;
   width: 100%;
   height: 100%;
@@ -45,18 +45,18 @@ body {
   overflow: hidden;
   box-sizing: border-box;
 }
-.box-form .left .overlay h1 {
+.box-form   .overlay h1 {
   font-size: 8vmax;
   line-height: 1;
   font-weight: 900;
   margin-top: 40px;
   margin-bottom: 20px;
 }
-.box-form .left .overlay span p {
+.box-form .overlay span p {
   margin-top: 30px;
   font-weight: 900;
 }
-.box-form .left .overlay span a {
+.box-form .overlay span a {
   background: #3b5998;
   color: #FFFFFF;
   margin-top: 10px;
@@ -65,7 +65,7 @@ body {
   display: inline-block;
   box-shadow: 0 3px 6px 1px #042d4657;
 }
-.box-form .left .overlay span a:last-child {
+.box-form .overlay span a:last-child {
   background: #1dcaff;
   margin-left: 30px;
 }
@@ -99,14 +99,18 @@ body {
   border-bottom: 2px solid #B0B3B9;
 }
 .box-form .right .remember-me--forget-password {
-  display: flex;
+  /*display: flex;*/
   justify-content: space-between;
   align-items: center;
 }
+.right .remember-me--forget-password {
+    display: flex;
+}
+
 .box-form .right .remember-me--forget-password input {
-  margin: 0;
-  margin-right: 7px;
-  width: auto;
+    margin: 0;
+    margin-right: 7px;
+    width: auto;
 }
 .box-form .right button {
   float: right;

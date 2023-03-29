@@ -57,39 +57,45 @@ namespace Shoppite.UI.Controllers
         //        ViewBag.LoginValidError = "Username or Password is Incorrect";
         //    }
         //    return View(UserValidate);
-        //}
+        //}   public async Task<ActionResult> Login([FromBody] LoginCheckModel loginCheckModel)             var UserValidate = await _AuthenticationPageService.Get_Login_Data(loginCheckModel.datal.userid,loginCheckModel.datal.password,OrgId);
+
 
         [HttpPost, AllowAnonymous]
-        public async Task<ActionResult> Login([FromBody] LoginCheckModel loginCheckModel)
+        public async Task<ActionResult> Login(UsersModal usersModal)
         {
             int OrgId = _commonHelper.GetOrgID(HttpContext);
-            var UserValidate = await _AuthenticationPageService.Get_Login_Data(loginCheckModel.datal.userid,loginCheckModel.datal.password,OrgId);
+            var UserValidate = await _AuthenticationPageService.Get_Login_Data(usersModal.Email,usersModal.Password, OrgId);
             if (UserValidate.Password != null && UserValidate.Email != null)
             {
                 await CreateAuthenticationTicket(UserValidate);
-                return Json("Succsess");
+                return RedirectToAction("Index","Home");
             }
             else
             {
-                ViewBag.LoginValidError = "Username or Password is Incorrect";
+               TempData["LoginValidError"] = "Username or Password is Incorrect";
             }
             //return RedirectToAction("Index","Home", new { area = "" });
-            return Json("fail");
-            // return Json(loginCheckModel);
+             return View(usersModal);
+        }
+
+        public async Task<IActionResult> Register()
+        {
+            return View();
         }
 
         [HttpPost, AllowAnonymous]
-        public async Task<ActionResult> Register([FromBody] RegisterModel registerModel)
+        public async Task<ActionResult> Register(UsersModal usersModal)
         {
             int OrgId = _commonHelper.GetOrgID(HttpContext);
-          var Register = await _AuthenticationPageService.RegisterDetail(registerModel.Regdata.UserName, registerModel.Regdata.Password, registerModel.Regdata.Email,OrgId);
+          var Register = await _AuthenticationPageService.RegisterDetail(usersModal.Username,usersModal.Password,usersModal.Email,OrgId);
             if (Register == null)
-                return Json("Succsess");
-            
+                return RedirectToAction("Login");
             else
-                return Json("already");
+                TempData["SignValidError"] = "Username or Email is already exsist";
             //return RedirectToAction("Index","Home", new { area = "" });
             // return Json(loginCheckModel);
+
+            return View(usersModal);
         }
         public IActionResult LogIn1()
         {
