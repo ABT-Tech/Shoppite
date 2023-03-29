@@ -64,7 +64,7 @@
     </div>
 </div>
 
-<div class="">
+<div class="pt-4">
     <div class="container">
         <div class="row">
             @await Html.PartialAsync("_MiddelBanner", Model)
@@ -93,7 +93,7 @@
         });
     </script>*@
 <script>
-    $('#removewishlist').hide()
+    $('#removewishlist').hide();
     $('.addWish').click(function (e)
     {
         if ($(e.target).css('color') == 'rgb(255, 0, 0)')
@@ -104,7 +104,7 @@
         {
             $(e.target).css('color', 'red');
         }
-  e.preventDefault();
+      e.preventDefault();
   var el = $(this),
     icon = el.find('i'),
             productId = el.data("product")

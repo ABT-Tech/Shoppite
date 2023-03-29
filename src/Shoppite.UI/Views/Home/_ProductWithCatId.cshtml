@@ -4,32 +4,70 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
 <link href="~/css/MainpageSwipper.css" rel="stylesheet" />
 <link href="~/css/site.css" rel="stylesheet" />
-
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 <style>
-    
+
+
+    .swiper {
+        width: 100%;
+        height: 50%;
+    }
+
+    .swiper-slide {
+        text-align: center;
+        font-size: 14px;
+        background: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+        .swiper-slide img {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 </style>
 <!-- Start tab and carosel area -->
 <div id="content" class="tabandcarosel-area">
     <div class="container">
         <div class="tab-product-wrap">
+            <div class="col-lg-4 col-md-4 resswiper justify-content-center" style="margin:0px 0px 0px 0px;">
+                <div class="swiper mySwiper" style="margin:0px 0px 25px 0px ">
+                    <div class="swiper-wrapper">
+                        @foreach (var Cat in Model.GetSp_Getcat_ResultModel.Take(5))
+                        {
+                            int X = (int)Cat.ID;
+                            <div class="swiper-slide"><a onclick="testajaxcall('@X')" data-toggle="tab" name="CatName" class="" style="letter-spacing:0.5px; font-weight:600;">@Cat.NAME</a></div>
+                        }
+                    </div>
+                    <div class="swiper-button-next" style="font-weight:500;"><i class="fa-solid fa-chevron-right"></i></div>
+                    <div class="swiper-button-prev" style="font-weight:500;"><i class="fa-solid fa-chevron-left"></i></div>
+
+                </div>
+            </div>
             <div class="row">
+
                 <!-- Start tab menu area -->
-                <div class="col-lg-3 col-md-4">
+                <div class="col-lg-3 col-md-4 resmenu">
+
                     <div class="tab-menu-area toplist" id="myDIV">
                         <ul id="tabs" class="nav nav-tabs tab_cates text-nowrap flex-container" data-tabs="tabs">
-                            @foreach (var Cat in Model.GetSp_Getcat_ResultModel.Take(5))
-                            {
-                                int X = (int)Cat.ID;
-                                <li class="shadow CatLI">
 
-                                    <a onclick="testajaxcall('@X')" data-toggle="tab" name="CatName" class="">
+                            <li class="shadow CatLI">
+                                @foreach (var Cat in Model.GetSp_Getcat_ResultModel.Take(5))
+                                {
+                                    int X = (int)Cat.ID;
+                                    <a onclick="testajaxcall('@X')" data-toggle="tab" name="CatName" class="" style=" white-space:nowrap; ">
                                         <label class="name font-weight-bold">@Cat.NAME</label>
                                         @*<span class="thumb"><img class="imgm" src="@Cat.Icons" alt="thumb"></span>
-                                        <span class="thumb"><img class="imgm" src="@Cat.Icons" alt="thumb"></span>*@
+                                            <span class="thumb"><img class="imgm" src="@Cat.Icons" alt="thumb"></span>*@
                                     </a>
-                                </li>
-                            }
+                                }
+                            </li>
+
                         </ul>
                     </div>
                 </div>
@@ -60,14 +98,14 @@
 <!-- End category product and carosel area -->
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 <script>
     var swiper = new Swiper(".mySwiper", {
         slidesPerView: 4,
         spaceBetween: 20,
         //freeMode: true,
         navigation: {
-            nextEl: '.swiper-button-next',  
+            nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev'
         },
         pagination: {
@@ -118,36 +156,36 @@
                         prod_Div += '<a href="/ProductDetail/Details/' + result[i].productGUID + '" class="product_Images" > ';
                         prod_Div += '<img src="' + result[i].image + '" alt="' + result[i].productName + '" />';
                         prod_Div += '</a> </div>';
-                        prod_Div += '<div class="top-cocial">';
-                        prod_Div += '<p>';
-                        prod_Div += '<i class="fa fa-star-o"></i>';
-                        prod_Div += '<i class="fa fa-star-o"></i>';
-                        prod_Div += '<i class="fa fa-star-o"></i>';
-                        prod_Div += '<i class="fa fa-star-o"></i>';
-                        prod_Div += '<i class="fa fa-star-o"></i>';
-                        prod_Div += '</p>';
-                        prod_Div += '</div>';
+                        //prod_Div += '<div class="top-cocial">';
+                        //prod_Div += '<p>';
+                        //prod_Div += '<i class="fa fa-star-o"></i>';
+                        //prod_Div += '<i class="fa fa-star-o"></i>';
+                        //prod_Div += '<i class="fa fa-star-o"></i>';
+                        //prod_Div += '<i class="fa fa-star-o"></i>';
+                        //prod_Div += '<i class="fa fa-star-o"></i>';
+                        //prod_Div += '</p>';
+                        //prod_Div += '</div>';
                         prod_Div += '</div>';
                         prod_Div += '<div class="bottom-item">';
                         prod_Div += '<div class="product-info">';
-                        prod_Div += '<h5><a href="/ProductDetail/Details/' + result[i].productGUID + '" class="product_name_Over" id="ProductName">' + result[i].productName + '</a></h5>';
-                        prod_Div += '<span>' + '₹' + result[i].price + '</span>';
+                        prod_Div += '<h5><a href="/ProductDetail/Details/' + result[i].productGUID + '" class="product_name_Over" style="width:170px;" id="ProductName">' + result[i].productName + '</a></h5>';
+                        prod_Div += '<span>' + '₹' + result[i].price + '<del>₹' + result[i].oldPrice + '</del></span>';
                         prod_Div += '<p>';
-                        prod_Div += '<i class="fa fa-star-o"></i>';
-                        prod_Div += '<i class="fa fa-star-o"></i>';
-                        prod_Div += '<i class="fa fa-star-o"></i>';
-                        prod_Div += '<i class="fa fa-star-o"></i>';
-                        prod_Div += '<i class="fa fa-star-o"></i>';
+                        //prod_Div += '<i class="fa fa-star-o"></i>';  <del>₹product.OldPrice</del>
+                        //prod_Div += '<i class="fa fa-star-o"></i>';
+                        //prod_Div += '<i class="fa fa-star-o"></i>';
+                        //prod_Div += '<i class="fa fa-star-o"></i>';
+                        //prod_Div += '<i class="fa fa-star-o"></i>';
                         prod_Div += '</p>';
                         prod_Div += '</div>';
-                        prod_Div += '<div class="product-social">';
-                        prod_Div += '<ul>';
-                        prod_Div += '<li><a href="#"><i class="fa fa-external-link"></i></a></li>';
-                        prod_Div += '<li><a class="addWish" data-product="' + result[i].productId+'"><i class="fa fa-heart" id="addtowishlist"></i></a></li>';
-                        prod_Div += '<li><a href="#"><i class="fa fa-bar-chart"></i></a></li>';
-                        prod_Div += '<li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>';
-                        prod_Div += '</ul>';
-                        prod_Div += '</div>';
+                        //prod_Div += '<div class="product-social">';
+                        //prod_Div += '<ul>';
+                        //prod_Div += '<li><a href="#"><i class="fa fa-external-link"></i></a></li>';
+                        //prod_Div += '<li><a href="#"><i class="fa fa-heart-o"></i></a></li>';
+                        //prod_Div += '<li><a href="#"><i class="fa fa-bar-chart"></i></a></li>';
+                        //prod_Div += '<li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>';
+                        //prod_Div += '</ul>';
+                        //prod_Div += '</div>';
                         prod_Div += '</div>';
                         prod_Div += '</div>';
                         prod_Div += '</div>';
@@ -184,4 +222,17 @@
         });
     });
 
+    //var swiper = new Swiper(".mySwiper", {
+    //    slidesPerView: 1,
+    //    spaceBetween: 30,
+    //    loop: true,
+    //    pagination: {
+    //        el: ".swiper-pagination",
+    //        clickable: true,
+    //    },
+    //    navigation: {
+    //        nextEl: ".swiper-button-next",
+    //        prevEl: ".swiper-button-prev",
+    //    },
+    //});
 </script>
