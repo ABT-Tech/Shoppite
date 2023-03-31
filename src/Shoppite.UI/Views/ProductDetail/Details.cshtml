@@ -5,7 +5,7 @@
     ViewData["Title"] = "Detail Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+@*<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">*@
 
 
 <style>
@@ -35,7 +35,7 @@
     }
 
     .minus {
-        padding: 3px 6.5px;
+       /* padding: 3px 6.5px;*/
     }
 
         .minus:hover {
@@ -125,8 +125,8 @@
                         <div class="col-lg-5 col-md-6">
                             <div class="single-product-details">
                                 <h1>@Model.ProductBasicModel.ProductName</h1>
-                                <p><strong>Reference:</strong> demo_1 </p>
-                                <p><strong>Condition:</strong> New product </p>
+                                @*<p><strong>Reference:</strong> demo_1 </p>
+                                <p><strong>Condition:</strong> New product </p>*@
                                 <h2>
                                     <span>₹ @Model.ProductPriceModel.Price </span>
                                     @if (Model.ProductPriceModel.TaxExempt == true)
@@ -157,13 +157,13 @@
                                     <div class="input-group">
                                         <span class="">
                                             <button type="button" class="minus btn btn-default btn-number min" disabled="disabled" data-type="minus" data-field="OrderBasicModel.Qty">
-                                                <span class="glyphicon glyphicon-minus"></span>
+                                                <span class="fa fa-minus"></span>
                                             </button>
                                         </span>
                                         <input type="number" class="input-number count" asp-for="OrderBasicModel.Qty" name="OrderBasicModel.Qty" value="1" min="1" max="@Model.ProductBasicModel.Qty">
                                         <span class="">
                                             <button type="button" class="plus btn btn-default btn-number max" data-type="plus" data-field="OrderBasicModel.Qty">
-                                                <span class="glyphicon glyphicon-plus"></span>
+                                                <span class="fa fa-plus"></span>
                                             </button>
                                         </span>
                                     </div>
@@ -232,7 +232,7 @@
                                     <p class="sin-adto-cart-bottom">
                                         @*<a href="#"><i class="fa fa-envelope-o"></i></a>
                                           <a href="#"><i class="fa fa-print"></i></a>*@
-                                        <abbr title="WishList"><a href="/ProductDetail/AddToWhishList?ProductId=@Model.ProductBasicModel.ProductId&id=@Model.ProductBasicModel.ProductGuid"><i class="fa fa-heart-o"></i></a></abbr>
+                                        <abbr title="WishList"><a href="/ProductDetail/AddToWhishList?ProductId=@Model.ProductBasicModel.ProductId&id=@Model.ProductBasicModel.ProductGuid"><i class="fa fa-heart"></i></a></abbr>
                                         @* <abbr title="WishList"><a href="#"><i class="fa fa-list"></i></a></abbr>*@
                                     </p>
                                 }
@@ -278,7 +278,7 @@
                                             </tr>
                                             <tr class="odd">
                                                 <td>Properties</td>
-                                                <td>Short Sleeve</td>
+                                                <td>@Model.ProductBasicModel.Sku</td>
                                             </tr>
                                         </tbody>
                                     </table>

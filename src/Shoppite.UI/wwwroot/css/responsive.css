@@ -426,9 +426,9 @@
 	height: 45px;
 	width: 45px;
 }*/
-    .service-icon i {
+ /*   .service-icon i {
         padding: 11px;
-    }
+    }*/
     /*.service-icon::after {
 	width: 36px;
 }*/
@@ -1305,7 +1305,7 @@
     }
     /* checkout */
     .checkout-sidebar {
-        margin-bottom: 4px;
+        margin-bottom: 20px;
         margin-top: 30px;
     }
     /* contact */

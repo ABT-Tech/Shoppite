@@ -52,22 +52,23 @@
                     <li>
                         <a href="/">Home</a>
                     </li>
-                    <li>
-                        @foreach (var item in Model.ProductsDetails)
-                        {
+                    @foreach (var item in Model.ProductsDetails)
+                    {
+                        <li>
+
                             @*<a href="shop-grid.html">Electronic</a>*@
-                            <a href="">@item.maincaturlpath</a>
+                            <a>@item.maincaturlpath</a>
                             <ul>
                                 <li>
                                     @foreach (var subcat in item.SubcategoryDetails)
-                                    {
+                                     {
                                         <a asp-controller="Home" asp-route-CategoryId="@subcat.CategoryId" asp-action="AllProducts">@subcat.CategoryName</a>
-                                    }
+                                     }
                                 </li>
                             </ul>
-                        }
-                    </li>
-                </ul>
+                        </li>
+                    }
+                    </ul>
             </nav>
         </div>
         <div class="row">

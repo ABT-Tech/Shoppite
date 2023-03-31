@@ -211,5 +211,10 @@ namespace Shoppite.Infrastructure.Repository
             }
             await _dbContext.SaveChangesAsync();
         }
+
+        public Task<Users> GetUser(string email)
+        {
+            return _dbContext.Users.Where(x => x.Email == email).FirstOrDefaultAsync();
+        }
     }
 }
