@@ -341,11 +341,11 @@ body {
     border: 1px solid #fff;
 }
 
-.service-icon i {
+/*.service-icon i {
     color: #fff;
     font-size: 39px;
     padding: 10px 9px;
-}
+}*/
 
 .user-icon i {
     color: #fff;
@@ -4750,7 +4750,7 @@ body.single-product .producttabcarosel .owl-next {
         font-size: 20px;
         font-weight: 700;
         margin: 0;
-        padding-bottom: 15px;
+        /*padding-bottom: 15px;*/
         text-transform: uppercase;
     }
 
@@ -5849,7 +5849,7 @@ p.alrdyReg {
     color: #000;
     display: block;
     font-family: "Montserrat",sans-serif;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: bold;
     line-height: 16px;
     padding: 10px;
@@ -7375,24 +7375,26 @@ textarea:focus-visible {
         }
 
         .service-icon .headHeart {
-            padding-left: 7px;
-            font-size: 35px;
+            margin: 13px 9px;
+            font-size: 31px;
+            color: #fff;
         }
         .service-icon .fa-shopping-cart {
-            padding-left: 6px;
-            font-size: 37px;
-        }
-        .service-icon i {
+            margin: 15px 8px;
+            font-size: 29px;
             color: #fff;
-            font-size: 39px;
-            padding: 10px 3px;
+        }
+        .service-icon .HeadUser {
+            margin: 10px 9px;
+            font-size: 35px;
+            color: #fff;
         }
 
-    .fa-heart {
+/*    .fa-heart {
         color: #fff;
         font-size: 39px;
         padding: 10px 3px;
-    }
+    }*/
 
     .service-icon:after {
         width: 38px;
@@ -7403,7 +7405,7 @@ textarea:focus-visible {
         margin: 11px 0px 0px -4px;
     }
 
-    .headHeart {
+/*    .headHeart {
         padding-left: 12px;
         font-size: 35px;
     }
@@ -7411,5 +7413,5 @@ textarea:focus-visible {
     .headuser {
         margin: 0px 0px;
         font-size: 35px;
-    }
+    }*/
 }

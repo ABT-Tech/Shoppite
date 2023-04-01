@@ -25,5 +25,6 @@ namespace Shoppite.Core.Repositories
         Task<UsersProfile> GetShippingDetail(string userName);
         Task<ProductBasic> GetProductDetail(string productName, string coverImage);
         Task CancleOrder(int orderid);
+        Task<Users> GetUser(string email);
     }
 }

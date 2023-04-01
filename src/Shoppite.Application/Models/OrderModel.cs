@@ -12,5 +12,6 @@ namespace Shoppite.Application.Models
         public UsersProfileModal UsersProfileModel { get; set; }
         public ProductBasicModel ProductBasicModel { get; set; }
         public f_order_masterModel f_Order_MasterModel { get; set; }
+        public string UserName { get; set; }
     }
 }
