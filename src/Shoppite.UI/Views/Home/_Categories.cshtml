@@ -17,12 +17,11 @@
                     {
                         <section class="mega-item-menu w-auto border-1" style="padding: 0px 20px 0px 0px; ">
                             <a class="title" asp-controller="Home" asp-route-CategoryId="@subcat.CategoryId" asp-action="AllProducts"><span>@subcat.CategoryName</span></a>
-                            @foreach (var categories in subcat.ProductsDetails.Take(3))
+                            @foreach (var categories in subcat.ProductsDetails)
                             {
                                 <a href="/ProductDetail/Details/@categories.ProductGuid" class="product_name_Over"><span>@categories.ProductName</span></a>
                             }
                         </section>
-
                     }
                 </div>
                 @*<div class="mega-bottom">

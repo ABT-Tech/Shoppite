@@ -17,7 +17,10 @@ namespace Shoppite.Core.Entities
         public Nullable<decimal> OldPrice { get; set; }
         public string maincaturlpath { get; set; }
         public Nullable<int> maincatid { get; set; }
-       
-       
+        public bool? IsPublished { get; set; }
+        public bool? IsShowHomePage { get; set; }
+        public bool? IsIncludeMenu { get; set; }
+
+
     }
 }

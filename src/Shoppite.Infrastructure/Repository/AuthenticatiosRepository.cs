@@ -44,8 +44,8 @@ namespace Shoppite.Infrastructure.Repository
         public async Task<Users> RegisterDetail(string userName, string password, string email, int orgId)
         {
             string EnPass = this.EncryptPass.Encrypt(password);
-            var check = _MasterContext.Users.Where(x => x.Username == userName || x.Email == email).FirstOrDefault();
-            var checkProfile =  _MasterContext.UsersProfile.FirstOrDefault(x => x.UserName == userName); 
+            var check = _MasterContext.Users.Where(x => x.Email == email).FirstOrDefault();
+            var checkProfile =  _MasterContext.UsersProfile.FirstOrDefault(x => x.UserName == email); 
            if(check == null)
            {
               Users users = new Users();
@@ -61,7 +61,7 @@ namespace Shoppite.Infrastructure.Repository
                 if(checkProfile == null)
                 {
                     UsersProfile usersProfile = new UsersProfile();
-                    usersProfile.UserName = userName;
+                    usersProfile.UserName = email;
                     usersProfile.Type = "Client";
                     usersProfile.InsertDate = DateTime.Now;
                     usersProfile.OrgId = orgId;

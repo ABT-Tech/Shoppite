@@ -15,6 +15,7 @@ namespace Shoppite.Application.Models
         public string CoverImage { get; set; }
         public string CurrencyName { get; set; }
         public int? Qty { get; set; }
+        public int? OrgId { get; set; }
         public string UserName { get; set; }
         public Nullable<decimal> ExcludeVatPrice { get; set; }
         public Nullable<decimal> Price { get; set; }

@@ -119,7 +119,8 @@ namespace Shoppite.Infrastructure.Repository
                  new SqlParameter { ParameterName = "@ID", Value = BrandId }
              };
 
-            return await _dbContext.Set<F_getproducts_By_BrandId>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
+           var aaa =  await _dbContext.Set<F_getproducts_By_BrandId>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
+            return aaa;
         }
 
         public async Task News_Letter_Submit(int orgid, string email)

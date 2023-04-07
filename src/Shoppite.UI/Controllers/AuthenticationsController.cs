@@ -91,7 +91,7 @@ namespace Shoppite.UI.Controllers
             if (Register == null)
                 return RedirectToAction("Login");
             else
-                TempData["SignValidError"] = "Username or Email is already exsist";
+                TempData["SignValidError"] = "Email is already exsist";
             //return RedirectToAction("Index","Home", new { area = "" });
             // return Json(loginCheckModel);
 

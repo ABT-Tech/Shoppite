@@ -323,13 +323,13 @@ iframe {
   transition: all 0.4s;
 }
 
-.btn-show-pass:hover {
-  color: #6a7dfe;
-  color: -webkit-linear-gradient(left, #21d4fd, #b721ff);
-  color: -o-linear-gradient(left, #21d4fd, #b721ff);
-  color: -moz-linear-gradient(left, #21d4fd, #b721ff);
-  color: linear-gradient(left, #21d4fd, #b721ff);
-}
+	.btn-show-pass:hover {
+		color: #fe5b5a;
+		color: -webkit-linear-gradient(left, #21d4fd, #b721ff);
+		color: -o-linear-gradient(left, #21d4fd, #b721ff);
+		color: -moz-linear-gradient(left, #21d4fd, #b721ff);
+		color: linear-gradient(left, #21d4fd, #b721ff);
+	}
 
 .btn-show-pass.active {
   color: #6a7dfe;
@@ -485,6 +485,5 @@ iframe {
     opacity: 1;
   }
 }
-
 
 
