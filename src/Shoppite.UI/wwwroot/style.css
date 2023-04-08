@@ -4934,6 +4934,10 @@ body.single-product .producttabcarosel .owl-next {
     z-index: 2;
 }
 
+.Buy_Now_Btn .exclusive::before {
+    content: "\e1bc";
+}
+
 .single-product-details .exclusive {
     background: #fe5b5a;
     border-color: #fe5b5a;
@@ -7414,4 +7418,21 @@ textarea:focus-visible {
         margin: 0px 0px;
         font-size: 35px;
     }*/
+}
+@media(min-width:1200px){
+    .Buy_Now_Btn{
+        margin-left:-65px;
+    }
+}
+@media(max-width:900px){
+ .Add_Car_Btn button{
+      width:100%;
+    }
+    .Buy_Now_Btn button {
+        width: 100%;
+        margin-top:0px;
+    }
+    .Buy_Now_Btn .exclusive {
+        margin-top: 0px;
+    }
 }

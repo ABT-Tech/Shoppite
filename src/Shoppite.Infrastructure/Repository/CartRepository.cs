@@ -43,11 +43,11 @@ namespace Shoppite.Infrastructure.Repository
 
         public async Task SaveAddress(OrderShipping orderShipping)
         {
-            var OrderCheck = _dbContext.OrderShipping.FirstOrDefault(x => x.Contactnumber == orderShipping.Contactnumber);
-            if(OrderCheck == null)
-            {
+            //var OrderCheck = _dbContext.OrderShipping.FirstOrDefault(x => x.Contactnumber == orderShipping.Contactnumber);
+            //if(OrderCheck == null)
+            //{
                 _dbContext.OrderShipping.Add(orderShipping);
-            }
+           // }
            await _dbContext.SaveChangesAsync();
 
         }

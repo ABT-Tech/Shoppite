@@ -30,7 +30,7 @@
 @if (Model.MyOrders.Count > 0)
 {
     <div class="row">
-        @foreach (var myorders in Model.MyOrders.Where(x => x.LastOrderStatus == "Deliverd"))
+        @foreach (var myorders in Model.MyOrders.Where(x => x.LastOrderStatus == "Delivered"))
         {
             <div class="col-lg-4 col-md-4 col-12">
                 <div style="width:355px;" class="wishlist-box card rounded shadow d-flex">

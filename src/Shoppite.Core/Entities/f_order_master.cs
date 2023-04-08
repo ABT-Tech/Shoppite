@@ -18,6 +18,7 @@ namespace Shoppite.Core.Entities
         public Nullable<decimal> ExcludeVatPrice { get; set; }
         public Nullable<decimal> Price { get; set; }
         public int? Qty { get; set; }
+        public int? OrgId { get; set; }
         public string LastOrderStatus { get; set; }
         public string OrderStatus { get; set; }
         public Nullable<decimal> vat { get; set; }
