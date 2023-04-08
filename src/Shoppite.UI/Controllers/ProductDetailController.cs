@@ -54,7 +54,6 @@ namespace Shoppite.UI.Controllers
             mainModel.OrgId = OrgId;
 
             await _productWishListService.AddtowhishList(mainModel);
-
             return RedirectToAction("Details",new {id=id});
         }
 
@@ -64,6 +63,12 @@ namespace Shoppite.UI.Controllers
             await _ProductDetailPageService.AddToCart(productDetailModel);
             return RedirectToAction("Details",new { id = productDetailModel.ProductBasicModel.ProductGuid });
         } 
+
+        public async Task<IActionResult>BuyNow(ProductDetailModel productDetailModel)
+        {
+           var Buy =  await _ProductDetailPageService.BuyNow(productDetailModel);
+            return RedirectToAction("CheckOut", "Cart", new { orderid = Buy.OrderBasicModel.OrderGuid});
+        }
 
     }
 }

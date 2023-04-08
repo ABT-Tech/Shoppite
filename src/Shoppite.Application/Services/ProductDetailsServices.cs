@@ -289,5 +289,74 @@
 
             await _ProductDetailRepsitory.AddToCart(orderBasic);
         }
+
+        public async Task<ProductDetailModel> BuyNow(ProductDetailModel productDetailModel)
+        {
+            Guid Orderguid = Guid.NewGuid();
+            OrderMaster orderMaster = new OrderMaster
+            {
+                OrderGuid = Orderguid,
+                OrderKeyStatus = "Active",
+                InsertDate = DateTime.Now,
+                OrgId = productDetailModel.ProductBasicModel.OrgId
+            };
+            await _ProductDetailRepsitory.AddOrderMaster(orderMaster);
+
+            OrderBasic orderBasic = new OrderBasic();
+            orderBasic.ProductId = productDetailModel.ProductBasicModel.ProductId;
+            orderBasic.OrderGuid = Orderguid;
+            orderBasic.Price = productDetailModel.ProductPriceModel.Price;
+            orderBasic.DeliveryFees = productDetailModel.ProductPriceModel.DeliveryFees;
+            orderBasic.InsertDate = DateTime.Now;
+            orderBasic.OrderStatus = "Cart";
+            orderBasic.Currencyid = productDetailModel.ProductPriceModel.CurrencyId;
+            orderBasic.OrgId = productDetailModel.ProductBasicModel.OrgId;
+            orderBasic.Qty = productDetailModel.OrderBasicModel.Qty;
+            orderBasic.UserName = _accessor.HttpContext.User.Identity.Name;
+
+            await _ProductDetailRepsitory.AddToCart(orderBasic);
+
+            productDetailModel.OrderBasicModel = ObjectMapper.Mapper.Map<OrderBasicModel>(orderBasic);
+
+            return productDetailModel;
+
+            //OrderBasic orderBasic = new OrderBasic();
+            //orderBasic.ProductId = productDetailModel.ProductBasicModel.ProductId;
+            //orderBasic.OrderGuid = Guid.Empty;
+            //orderBasic.Price = productDetailModel.ProductPriceModel.Price;
+            //orderBasic.DeliveryFees = productDetailModel.ProductPriceModel.DeliveryFees;
+            //orderBasic.InsertDate = DateTime.Now;
+            //orderBasic.OrderStatus = "Cart";
+            //orderBasic.Currencyid = productDetailModel.ProductPriceModel.CurrencyId;
+            //orderBasic.OrgId = productDetailModel.ProductBasicModel.OrgId;
+            //orderBasic.Qty = productDetailModel.OrderBasicModel.Qty;
+            //orderBasic.UserName = _accessor.HttpContext.User.Identity.Name;
+
+            //var find = await _ProductDetailRepsitory.check(orderBasic);
+
+            //productDetailModel.OrderBasicModel = ObjectMapper.Mapper.Map<OrderBasicModel>(find);
+
+            //if (find != null)
+            //{
+            //    orderBasic.OrderGuid = find.OrderGuid;
+            //}
+            //else
+            //{
+            //    Guid Orderguid = Guid.NewGuid();
+
+            //    OrderMaster orderMaster = new OrderMaster
+            //    {
+            //        OrderGuid = Orderguid,
+            //        OrderKeyStatus = "Active",
+            //        InsertDate = DateTime.Now,
+            //        OrgId = productDetailModel.ProductBasicModel.OrgId
+            //    };
+            //    await _ProductDetailRepsitory.AddOrderMaster(orderMaster);
+            //    orderBasic.OrderGuid = Orderguid;
+            //}
+
+            //await _ProductDetailRepsitory.AddToCart(orderBasic);
+
+        }
     }
 }

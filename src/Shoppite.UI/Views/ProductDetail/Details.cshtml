@@ -7,7 +7,6 @@
 }
 @*<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">*@
 
-
 <style>
     /* Chrome, Safari, Edge, Opera */
     input::-webkit-outer-spin-button,
@@ -35,7 +34,7 @@
     }
 
     .minus {
-       /* padding: 3px 6.5px;*/
+        /* padding: 3px 6.5px;*/
     }
 
         .minus:hover {
@@ -52,8 +51,9 @@
         /*padding-left: 20px;*/
         width: 50px;
     }
-    .megamenu-area{
-        z-index:1;
+
+    .megamenu-area {
+        z-index: 1;
     }
 </style>
 
@@ -80,15 +80,15 @@
         <div class="single-product-area">
             <div class="container">
                 @*<div class="breadcrumb clearfix">
-                    <a title="Return to Home" asp-action="Index" asp-controller="Home" class="home">Home</a>
-                    <span class="navigation-pipe"><i class="fa fa-angle-right"></i></span>
-                    <span class="navigation_page">
-                        <span>
-                            <a title="Electronic" href="#"><span>Category</span></a>
+                        <a title="Return to Home" asp-action="Index" asp-controller="Home" class="home">Home</a>
+                        <span class="navigation-pipe"><i class="fa fa-angle-right"></i></span>
+                        <span class="navigation_page">
+                            <span>
+                                <a title="Electronic" href="#"><span>Category</span></a>
+                            </span>
+                            <span class="navigation-pipe"><i class="fa fa-angle-right"></i></span>@Model.ProductBasicModel.ProductName
                         </span>
-                        <span class="navigation-pipe"><i class="fa fa-angle-right"></i></span>@Model.ProductBasicModel.ProductName
-                    </span>
-                </div>*@
+                    </div>*@
                 <div class="single-products">
                     <div class="row">
                         <!-- Start single product image -->
@@ -126,7 +126,7 @@
                             <div class="single-product-details">
                                 <h1>@Model.ProductBasicModel.ProductName</h1>
                                 @*<p><strong>Reference:</strong> demo_1 </p>
-                                <p><strong>Condition:</strong> New product </p>*@
+                                    <p><strong>Condition:</strong> New product </p>*@
                                 <h2>
                                     <span>₹ @Model.ProductPriceModel.Price </span>
                                     @if (Model.ProductPriceModel.TaxExempt == true)
@@ -151,8 +151,8 @@
                                     <label>Quantity </label>
                                     @*  <input type="number" asp-for="OrderBasicModel.Qty" name="OrderBasicModel.Qty" id="french-hens" min="1" value="1">*@
                                     @*<span class="minus">-</span>
-            <input type="number" class="count" asp-for="OrderBasicModel.Qty" name="OrderBasicModel.Qty" min="1" max="@Model.ProductBasicModel.Qty" value="1">
-            <span class="plus">+</span>*@
+                                        <input type="number" class="count" asp-for="OrderBasicModel.Qty" name="OrderBasicModel.Qty" min="1" max="@Model.ProductBasicModel.Qty" value="1">
+                                        <span class="plus">+</span>*@
 
                                     <div class="input-group">
                                         <span class="">
@@ -172,27 +172,38 @@
                                 @*</form>*@
 
                                 @*@foreach (var prodAttr in Model.AttributesSetupModel)
-        {
-           <p class="selector1">
-                <label>@prodAttr.AttributeName</label>
-                <select id="selectProductSort2" class="select_1 select2 selectProductSort form-control" asp-items="@(new SelectList(prodAttr.GetF_Getproduct_Specification_By_GuidModel,"AttributeId","SpecificationName"))"></select>
-            </p>
-        }*@
+                                    {
+                                       <p class="selector1">
+                                            <label>@prodAttr.AttributeName</label>
+                                            <select id="selectProductSort2" class="select_1 select2 selectProductSort form-control" asp-items="@(new SelectList(prodAttr.GetF_Getproduct_Specification_By_GuidModel,"AttributeId","SpecificationName"))"></select>
+                                        </p>
+                                    }*@
 
                                 @if (Model.ProductBasicModel.Qty == 0)
                                 {
-                                    <p class="buttons_bottom_block no-print disabled" id="add_to_cart">
-                                        <button class="exclusive disabled" name="Submit" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" disabled>
-                                            <span class="">Add to cart</span>
-                                        </button>
-                                    </p>
+                                    <div class="row">
+                                        <div class="col-sm-6 Add_Car_Btn">
+                                            <p class="buttons_bottom_block no-print disabled" id="add_to_cart">
+                                                <button class="exclusive disabled" name="Submit" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" disabled>
+                                                    <span class="">Add to cart</span>
+                                                </button>
+                                            </p>
+                                        </div>
+                                        <div class="col-sm-6 Buy_Now_Btn">
+                                            <p class="buttons_bottom_block no-print disabled" id="add_to_cart">
+                                                <button class="exclusive disabled" name="Submit" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" disabled>
+                                                    <span class="">Buy Now</span>
+                                                </button>
+                                            </p>
+                                        </div>
+                                    </div>
 
                                     <!-- Modal -->
                                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                    <h5 class="modal-title" id="exampleModalLabel">Shooppy Say's..</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body fw-bold d-flex">
@@ -214,15 +225,35 @@
                                         @if (User.Identity.IsAuthenticated)
                                         {
 
-                                            <button class="exclusive" name="Submit" asp-action="AddProductToCart" asp-controller="ProductDetail" type="submit">
-                                                <span>Add to cart</span>
-                                            </button>
+                                            <div class="row">
+                                                <div class="col-sm-6 Add_Car_Btn">
+                                                    <button class="exclusive" name="Submit" asp-action="AddProductToCart" asp-controller="ProductDetail" type="submit">
+                                                        <span>Add to cart</span>
+                                                    </button>
+                                                </div>
+
+                                                <div class="col-sm-6 Buy_Now_Btn">
+                                                    <button class="exclusive" name="Submit" asp-action="BuyNow" asp-controller="ProductDetail" type="submit">
+                                                        <span>Buy Now</span>
+                                                    </button>
+                                                </div>
+                                            </div>
                                         }
                                         else
                                         {
-                                            <button class="exclusive" name="Submit" asp-action="Login" asp-controller="Authentications" type="submit">
-                                                <span>Add to cart</span>
-                                            </button>
+                                            <div class="row">
+                                                <div class="col-sm-6 Add_Car_Btn">
+                                                    <button class="exclusive" name="Submit" asp-action="Login" asp-controller="Authentications" type="submit">
+                                                        <span>Add to cart</span>
+                                                    </button>
+                                                </div>
+
+                                                <div class="col-sm-6 Buy_Now_Btn">
+                                                    <button class="exclusive" name="Submit" asp-action="Login" asp-controller="Authentications" type="submit">
+                                                        <span>Buy Now</span>
+                                                    </button>
+                                                </div>
+                                            </div>
                                         }
                                     </p>
                                 }
@@ -231,7 +262,7 @@
                                 {
                                     <p class="sin-adto-cart-bottom">
                                         @*<a href="#"><i class="fa fa-envelope-o"></i></a>
-                                          <a href="#"><i class="fa fa-print"></i></a>*@
+                                            <a href="#"><i class="fa fa-print"></i></a>*@
                                         <abbr title="WishList"><a href="/ProductDetail/AddToWhishList?ProductId=@Model.ProductBasicModel.ProductId&id=@Model.ProductBasicModel.ProductGuid"><i class="fa fa-heart"></i></a></abbr>
                                         @* <abbr title="WishList"><a href="#"><i class="fa fa-list"></i></a></abbr>*@
                                     </p>
@@ -239,13 +270,13 @@
 
 
                                 @*<div class="sin-social">
-                         <p>
-                <a class="btn btn-default twitter" href="#"><i class="fa fa-twitter"></i>Tweet</a>
-                <a class="btn btn-default facebook" href="#"><i class="fa fa-facebook"></i>Share</a>
-                <a class="btn btn-default google-plus" href="#"><i class="fa fa-google-plus"></i>Google+</a>
-                <a class="btn btn-default pinterest" href="#"><i class="fa fa-pinterest"></i>Pinterest</a>
-            </p>
-        </div>*@
+                                                     <p>
+                                            <a class="btn btn-default twitter" href="#"><i class="fa fa-twitter"></i>Tweet</a>
+                                            <a class="btn btn-default facebook" href="#"><i class="fa fa-facebook"></i>Share</a>
+                                            <a class="btn btn-default google-plus" href="#"><i class="fa fa-google-plus"></i>Google+</a>
+                                            <a class="btn btn-default pinterest" href="#"><i class="fa fa-pinterest"></i>Pinterest</a>
+                                        </p>
+                                    </div>*@
                             </div>
                         </div>
                         @*End single product details*@
@@ -266,7 +297,7 @@
                             </div>
                             <div class="tab-pane" id="sin-more2">
                                 <div class="page-product-box" id="idTab2">
-                                    <table class="table-data-sheet">
+                                    <table class="table-data-sheet" style="margin-top:11px;">
                                         <tbody>
                                             <tr class="odd">
                                                 <td>Brand</td>
@@ -286,11 +317,11 @@
                             </div>
                             <!--<div class="tab-pane" id="sin-more3">
                                 <button type="button" class="btn btn-info btn-lg" data-bs-toggle="modal" data-target="#myModal">Be the first to write your review!</button>-->
-                                <!-- Modal -->
-                                <!--<div class="modal fade" id="myModal" role="dialog">
-                                    <div class="modal-dialog">-->
-                                        <!-- Modal content-->
-                                        <!--<div class="modal-content">
+                            <!-- Modal -->
+                            <!--<div class="modal fade" id="myModal" role="dialog">
+                                <div class="modal-dialog">-->
+                            <!-- Modal content-->
+                            <!--<div class="modal-content">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                 <h4 class="modal-title">Write a review</h4>
@@ -324,7 +355,7 @@
                                                                 <textarea class="form-control" rows="3"></textarea>
                                                             </div>
                                                             <button type="submit" class="btn btn-default">Submit</button>
-                                                            
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -355,35 +386,41 @@
                                         <img src="@product.image" alt="@product.ProductName" style="height: 244px;width: 299px;">
                                     </a>
                                     @*<div class="top-cocial">
-                                        <p>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </p>
-                                    </div>*@
+                                            <p>
+                                                <i class="fa fa-star-o"></i>
+                                                <i class="fa fa-star-o"></i>
+                                                <i class="fa fa-star-o"></i>
+                                                <i class="fa fa-star-o"></i>
+                                                <i class="fa fa-star-o"></i>
+                                            </p>
+                                        </div>*@
                                 </div>
                                 <div class="bottom-item">
                                     <div class="product-info">
                                         <h5><a href="@Url.Action("Details", "ProductDetail",new { id = product.ProductGUID } )" class="product_name_Over">@product.ProductName</a></h5>
-                                        <span>₹@product.Price &nbsp;&nbsp; <del>₹@product.OldPrice</del></span>
+                                        <span>
+                                            ₹@product.Price &nbsp;&nbsp;
+                                            @if (product.OldPrice != null)
+                                            {
+                                                <del>₹@product.OldPrice</del>
+                                            }
+                                        </span>
                                         <p>
                                             @*<i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>*@
+            <i class="fa fa-star-o"></i>
+            <i class="fa fa-star-o"></i>
+            <i class="fa fa-star-o"></i>
+            <i class="fa fa-star-o"></i>*@
                                         </p>
                                     </div>
                                     @*<div class="product-social">
-                                        <ul>
-                                            <li><a href="#"><i class="fa fa-external-link"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-bar-chart"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                        </ul>
-                                    </div>*@
+                                            <ul>
+                                                <li><a href="#"><i class="fa fa-external-link"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-bar-chart"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                            </ul>
+                                        </div>*@
                                 </div>
                             </div>
                         }

@@ -35,14 +35,21 @@
                                 </div>
                                 <div class="bottom-item">
                                     <div class="product-info">
-                                        <h5><a  href="@Url.Action("Details", "ProductDetail",new { id = group.ProductGUID } )" class="product_name_Over">@group.ProductName</a></h5>
-                                        <span>₹@group.Price &nbsp;&nbsp; <del>₹@group.OldPrice</del></span>
+                                        <h5><a href="@Url.Action("Details", "ProductDetail",new { id = group.ProductGUID } )" class="product_name_Over">@group.ProductName</a></h5>
+                                        <span>
+                                            ₹@group.Price &nbsp;&nbsp;
+                                            @if (group.OldPrice != null)
+                                            {
+                                                <del>₹@group.OldPrice</del>
+
+                                            }
+                                        </span>
                                         <p>
                                             @*<i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>*@
+            <i class="fa fa-star-o"></i>
+            <i class="fa fa-star-o"></i>
+            <i class="fa fa-star-o"></i>
+            <i class="fa fa-star-o"></i>*@
                                         </p>
                                     </div>
                                     @*<div class="product-social">
