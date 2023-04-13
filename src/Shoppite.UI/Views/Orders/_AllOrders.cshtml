@@ -17,50 +17,62 @@
         .img-hover-zoom:hover img {
             transform: scale(1.5);
         }
+
     .fa-angle-right {
         color: #ec4445;
     }
+
         .fa-angle-right:hover {
             color: #000;
         }
 </style>
+
 <div class="row">
-    @foreach (var myorders in Model.MyOrders)
+    @if (Model.MyOrders.Count > 0)
     {
-        <div class="col-sm-5">
-            <div style="width:355px;" class="wishlist-box card rounded shadow d-flex">
-                <div class="d-inline-flex">
-                    <div class="img-hover-zoom">
-                        <a href="">
-                            <img class="wish-image" style="height: 100px; width: auto; margin: 5px;" src="@myorders.CoverImage" alt="">
-                        </a>
-                    </div>
+        @foreach (var myorders in Model.MyOrders)
+        {
+            <div class="col-lg-4 col-md-4 col-12">
+                <div style="width:355px;" class="wishlist-box card rounded shadow d-flex">
+                    <div class="d-inline-flex">
+                        <div class="img-hover-zoom">
+                            <a href="">
+                                <img class="wish-image" style="height: 100px; width: auto; margin: 5px;" src="@myorders.CoverImage" alt="">
+                            </a>
+                        </div>
 
                         <div>
                             <h6 style="padding:5px 0px 0px 0px;" class="product_name_Over ">@myorders.ProductName</h6>
                             <p style="margin: 0px;"> <b style="color: #fe5b5a;">Order Date:</b> @myorders.orderdate</p>
                             <p> <b style="color: #fe5b5a;">OrderId:</b> @myorders.OrderId</p>
                         </div>
-   
+
                         <div style="width: 58px;text-align:center;">
                             <abbr title="More Order Details">
                                 <a href="/Orders/OrderDetails?orderid=@myorders.OrderId">
-                                    <h2 >
+                                    <h2>
                                         <i class="fa fa-angle-right pt-4"></i>
                                     </h2>
                                 </a>
                             </abbr>
                         </div>
 
-                </div>
+                    </div>
 
-                @* <p style="margin:5px;">@myorders.OrderStatus</p>
-                <div class="wish-image">
+                    @* <p style="margin:5px;">@myorders.OrderStatus</p>
+                        <div class="wish-image">
+                        </div>
+                        <div class="wishlisst-info ">
+                        </div>*@
                 </div>
-                <div class="wishlisst-info ">           
-                </div>*@
             </div>
-        </div>
+        }
+
+    }
+    else
+    {
+            <div class="text-center">
+                <img src="~/images/NoOrderPlace.gif" style="max-height: 400px; width: 100%; margin-left: 25px;" />
+            </div>
     }
 </div>
-

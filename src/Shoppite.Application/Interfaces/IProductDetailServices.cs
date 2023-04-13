@@ -20,5 +20,6 @@ namespace Shoppite.Application.Interfaces
         Task<ProductDetailModel> ProductAttribute(int AtId);
         Task AddToCart(ProductDetailModel productDetailModel);
         Task AddOrderMaster(ProductDetailModel productDetailModel);
+        Task<ProductDetailModel> BuyNow(ProductDetailModel mapped);
     }
 }

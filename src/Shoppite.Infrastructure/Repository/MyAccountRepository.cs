@@ -74,7 +74,7 @@ namespace Shoppite.Infrastructure.Repository
         public async Task<int> GetProfileId(string username)
         {
             var findUser = await _dbContext.Users.FirstOrDefaultAsync(x => x.Email == username);
-            var ProfileFind = await _dbContext.UsersProfile.FirstOrDefaultAsync(x => x.UserName == findUser.Username);
+            var ProfileFind = await _dbContext.UsersProfile.FirstOrDefaultAsync(x => x.UserName == findUser.Email);
             return ProfileFind.ProfileId;
         }
     }

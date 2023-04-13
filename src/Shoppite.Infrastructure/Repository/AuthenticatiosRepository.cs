@@ -24,8 +24,15 @@ namespace Shoppite.Infrastructure.Repository
         public async Task<Users> GetAuthenticato_Details(string email, string password,int orgid)
         {
             string ps = this.EncryptPass.Encrypt(password);
-            var UserValidate =  _MasterContext.Users.Where(x => x.Email == email && x.Password == ps && x.OrgId == orgid).FirstOrDefault();
-            return UserValidate;
+            //var UserValidate =  _MasterContext.Users.Where(x => x.Email == email && x.Password == ps && x.OrgId == orgid).FirstOrDefault();
+
+            var q = (from user in _MasterContext.Users
+                     join userprofile in _MasterContext.UsersProfile on user.Email equals userprofile.UserName 
+                     where user.Email == email && user.Password == ps && user.OrgId == orgid && userprofile.Type == "Client"
+                     select user).FirstOrDefault();
+
+
+            return q;
         }
 
         public async Task<Logo> Get_Logo(int orgid)
@@ -37,8 +44,8 @@ namespace Shoppite.Infrastructure.Repository
         public async Task<Users> RegisterDetail(string userName, string password, string email, int orgId)
         {
             string EnPass = this.EncryptPass.Encrypt(password);
-            var check = _MasterContext.Users.Where(x => x.Username == userName || x.Email == email).FirstOrDefault();
-            var checkProfile =  _MasterContext.UsersProfile.FirstOrDefault(x => x.UserName == userName); 
+            var check = _MasterContext.Users.Where(x => x.Email == email).FirstOrDefault();
+            var checkProfile =  _MasterContext.UsersProfile.FirstOrDefault(x => x.UserName == email); 
            if(check == null)
            {
               Users users = new Users();
@@ -54,7 +61,7 @@ namespace Shoppite.Infrastructure.Repository
                 if(checkProfile == null)
                 {
                     UsersProfile usersProfile = new UsersProfile();
-                    usersProfile.UserName = userName;
+                    usersProfile.UserName = email;
                     usersProfile.Type = "Client";
                     usersProfile.InsertDate = DateTime.Now;
                     usersProfile.OrgId = orgId;

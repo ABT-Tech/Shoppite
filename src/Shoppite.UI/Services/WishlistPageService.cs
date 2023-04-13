@@ -28,9 +28,9 @@ namespace Shoppite.Web.Services
             await _productWishListService.AddWishList(wishlist, ProductId);
 
         }
-        public async Task<List<f_order_masterModel>> GetMyOrders(string Username)
+        public async Task<List<f_order_masterModel>> GetMyOrders(string Username,int Orgid)
         {
-            var orders = await _productWishListService.GetMyOrders(Username);
+            var orders = await _productWishListService.GetMyOrders(Username,Orgid);
             return orders;
         }
         public async Task<List<F_Pending_Orders_Model>> GetPendingOrders(int OrgId, int ProfileId)

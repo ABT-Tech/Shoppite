@@ -26,6 +26,13 @@ namespace Shoppite.UI.Services
             await _ProductDetailServices.AddToCart(mapped);
         }
 
+        public async Task<ProductDetailModel> BuyNow(ProductDetailModel productDetailModel)
+        {
+            var mapped = _mapper.Map<ProductDetailModel>(productDetailModel);
+            await _ProductDetailServices.BuyNow(mapped);
+            return mapped;
+        }
+
         public async Task<ProductDetailModel> GetProductDetails(Guid id,int orgid)
         {
             return await _ProductDetailServices.GetProductDetails(id, orgid);

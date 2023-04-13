@@ -114,25 +114,33 @@
                 <div class="checkout-content">
                     <div class="row">
                         <div class="col-md-9 mb-5">
-                            <div aria-multiselectable="true" role="tablist" id="accordion" class="panel-group">
-                                <div class="panel sauget-accordion">
-                                    <div id="headingOne" role="tab" class="panel-heading">
-                                        <h4 class="panel-title">
-                                            <a aria-controls="checkoutMethod" aria-expanded="true" href="#checkoutMethod" data-bs-toggle="collapse" class="">
-                                                <span>1</span>  Billing Information
-                                            </a>
-                                        </h4>
-                                    </div>
-                                    <div aria-labelledby="headingOne" data-bs-parent="#accordion" role="tabpanel" class="panel-collapse collapse show" id="checkoutMethod" aria-expanded="true" style="">
-                                        <div class="content-info">
-                                            <form enctype="multipart/form-data" method="post" class=" pt-2 text-capitalize">
-                                                    <input type="hidden" asp-for="OrderBasicModel.OrderGuid" />
+                            <form enctype="multipart/form-data" method="post" class=" pt-2 text-capitalize">
+                                <input type="hidden" asp-for="OrderBasicModel.OrderGuid" />
+                                <input type="hidden" asp-for="OrderShippingModel.FirstName" />
+                                <input type="hidden" asp-for="OrderShippingModel.LastName" />
+                                <input type="hidden" asp-for="OrderShippingModel.Street" />
+                                <input type="hidden" asp-for="OrderShippingModel.City" />
+                                <input type="hidden" asp-for="OrderShippingModel.Phone" />
+                                <input type="hidden" asp-for="OrderShippingModel.Zipcode" />
+                                <input type="hidden" asp-for="OrderShippingModel.Address" />
+                                <input type="hidden" asp-for="OrderShippingModel.Email" />
+                                <div aria-multiselectable="true" role="tablist" id="accordion" class="panel-group">
+                                    <div class="panel sauget-accordion">
+                                        <div id="headingOne" role="tab" class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a aria-controls="checkoutMethod" aria-expanded="true" href="#checkoutMethod" data-bs-toggle="collapse" class="">
+                                                    <span>1</span>  Billing Information
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div aria-labelledby="headingOne" data-bs-parent="#accordion" role="tabpanel" class="panel-collapse collapse show" id="checkoutMethod" aria-expanded="true" style="">
+                                            <div class="content-info">
                                                 <div class="row ">
 
-                                                    <div class="col-md-4 offset-md-10 mb-0"> 
-                                                      <button type="button" class="btn btn-default add-tag-btn SaveBtn mb-0" onclick="toggleEnable('IpF1','IpF2','IpF3','IpF4','IpF5','IpF6','IpF7','IpF8')">
-                                                        Edit
-                                                      </button>
+                                                    <div class="col-md-4 offset-md-10 mb-0">
+                                                        <button type="button" class="btn btn-default add-tag-btn SaveBtn mb-0" onclick="toggleEnable('IpF1','IpF2','IpF3','IpF4','IpF5','IpF6','IpF7','IpF8')">
+                                                            Edit
+                                                        </button>
                                                     </div>
 
                                                     <div class="col-sm-6 mx-auto">
@@ -217,137 +225,110 @@
 
                                                     <div class="col-12">
                                                         <div class="form-group">
-                                                            <button asp-action="SaveAddress" asp-controller="Cart" type="submit" class="SaveBtn">Save</button>
+                                                            <button type="button" style="width:auto;" id="Proceed_to_Next" class="SaveBtn" onclick="document.getElementById('Target').click()">Proceed to Next</button>
                                                         </div>
                                                     </div>
                                                 </div>
 
-                                            </form>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="panel sauget-accordion">
-                                    <div id="headingFour" role="tab" class="panel-heading">
-                                        <h4 class="panel-title">
-                                            <a aria-controls="paymentInformation" aria-expanded="false" href="#paymentInformation" data-bs-toggle="collapse" class="collapsed">
-                                                <span>2</span> Payment Information
-                                            </a>
-                                        </h4>
-                                    </div>
-                                    <div aria-labelledby="headingFour" data-bs-parent="#accordion" role="tabpanel" class="panel-collapse collapse" id="paymentInformation" aria-expanded="false">
+                                    <div class="panel sauget-accordion">
+                                        <div id="headingFour" role="tab" class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a aria-controls="paymentInformation" aria-expanded="false" id="Target" href="#paymentInformation" data-bs-toggle="collapse" class="collapsed">
+                                                    <span>2</span> Payment Information
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div aria-labelledby="headingFour" data-bs-parent="#accordion" role="tabpanel" class="panel-collapse collapse" id="paymentInformation" aria-expanded="false">
 
-                                        <div class="content-info" style="padding-left: 54px;">
+                                            <div class="content-info" style="padding-left: 54px;">
 
-                                            <div aria-multiselectable="true" role="tablist" id="accordion1" class="panel-group">
-                                                <div class="panel sauget-accordion SubPanel pt-2">
-                                                    <div id="headingFive1" role="tab" class="panel-heading">
-                                                        <h4 class="panel-title">
-                                                            <a aria-controls="orderReview1" aria-expanded="false" href="#orderReview1" data-bs-toggle="collapse" class="makeover collapsed">
-                                                                <img style="height: auto; width: auto;" src="~/img/icons8-bank-cards-30.png" /> card details
-                                                            </a>
-                                                        </h4>
-                                                    </div>
-                                                    <div aria-labelledby="headingFive1" data-bs-parent="#accordion1" role="tabpanel" class="panel-collapse collapse" id="orderReview1" aria-expanded="false">
-                                                        <div class="content-info">
-                                                            <div class="checkout-option">
-                                                                <div class="master-card-info">
-                                                                    <div class="row">
+                                                <div aria-multiselectable="true" role="tablist" id="accordion1" class="panel-group">
+                                                    <div class="panel sauget-accordion SubPanel pt-2 d-none">
+                                                        <div id="headingFive1" role="tab" class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a aria-controls="orderReview1" aria-expanded="false" href="#orderReview1" data-bs-toggle="collapse" class="makeover collapsed">
+                                                                    <img style="height: auto; width: auto;" src="~/img/icons8-bank-cards-30.png" /> card details
+                                                                </a>
+                                                            </h4>
+                                                        </div>
+                                                        <div aria-labelledby="headingFive1" data-bs-parent="#accordion1" role="tabpanel" class="panel-collapse collapse" id="orderReview1" aria-expanded="false">
+                                                            <div class="content-info">
+                                                                <div class="checkout-option">
+                                                                    <div class="master-card-info">
+                                                                        <div class="row">
 
-                                                                        <div class="col-sm-6 mx-auto">
-                                                                            <div class="form-group">
-                                                                                <label>Name on Card <sup>*</sup></label>
-                                                                                <input type="text" class="form-control">
+                                                                            <div class="col-sm-6 mx-auto">
+                                                                                <div class="form-group">
+                                                                                    <label>Name on Card <sup>*</sup></label>
+                                                                                    <input type="text" class="form-control">
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="col-sm-6 mx-auto">
-                                                                            <div class="cardtype form-group">
-                                                                                <label>Credit Card Type</label>
-                                                                                <select class="form-control">
-                                                                                    <option>--Please Select--</option>
-                                                                                    <option>American Express</option>
-                                                                                    <option>Visa</option>
-                                                                                    <option>MasterCard</option>
-                                                                                    <option>Discover</option>
-                                                                                </select>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-sm-6 mx-auto">
-                                                                            <div class="form-group">
-                                                                                <label>Credit Card Number <sup>*</sup></label>
-                                                                                <input type="text" class="form-control">
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-sm-6 mx-auto">
-                                                                            <div class="expirationdate form-group">
-                                                                                <label>Expiration Date</label>
-                                                                                <div class="d-flex g-4">
-                                                                                    <select class="form-control month-select w-50">
-                                                                                        <option>Month</option>
-                                                                                        <option>01 - January</option>
-                                                                                        <option>02 - February</option>
-                                                                                        <option>03 - March</option>
-                                                                                        <option>04 - April</option>
-                                                                                        <option>05 - May</option>
-                                                                                        <option>06 - June</option>
-                                                                                        <option>07 - July</option>
-                                                                                        <option>08 - August</option>
-                                                                                        <option>09 - September</option>
-                                                                                        <option>10 - October</option>
-                                                                                        <option>11 - November</option>
-                                                                                        <option>12 - December</option>
-                                                                                    </select> &nbsp; &nbsp;
-                                                                                    <select class="form-control year-select w-50">
-                                                                                        <option>Year</option>
-                                                                                        <option>2015</option>
-                                                                                        <option>2016</option>
-                                                                                        <option>2017</option>
-                                                                                        <option>2018</option>
-                                                                                        <option>2019</option>
-                                                                                        <option>2020</option>
-                                                                                        <option>2021</option>
-                                                                                        <option>2022</option>
-                                                                                        <option>2023</option>
-                                                                                        <option>2024</option>
-                                                                                        <option>2025</option>
+                                                                            <div class="col-sm-6 mx-auto">
+                                                                                <div class="cardtype form-group">
+                                                                                    <label>Credit Card Type</label>
+                                                                                    <select class="form-control">
+                                                                                        <option>--Please Select--</option>
+                                                                                        <option>American Express</option>
+                                                                                        <option>Visa</option>
+                                                                                        <option>MasterCard</option>
+                                                                                        <option>Discover</option>
                                                                                     </select>
                                                                                 </div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="col-sm-6 mx-auto">
-                                                                            <div class="verificationcard form-group">
-                                                                                <label>Card Verification Number <sup>*</sup></label>
-                                                                                <input type="text" class="form-control">
+                                                                            <div class="col-sm-6 mx-auto">
+                                                                                <div class="form-group">
+                                                                                    <label>Credit Card Number <sup>*</sup></label>
+                                                                                    <input type="text" class="form-control">
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="col-sm-6"></div>
+                                                                            <div class="col-sm-6 mx-auto">
+                                                                                <div class="expirationdate form-group">
+                                                                                    <label>Expiration Date</label>
+                                                                                    <div class="d-flex g-4">
+                                                                                        <select class="form-control month-select w-50">
+                                                                                            <option>Month</option>
+                                                                                            <option>01 - January</option>
+                                                                                            <option>02 - February</option>
+                                                                                            <option>03 - March</option>
+                                                                                            <option>04 - April</option>
+                                                                                            <option>05 - May</option>
+                                                                                            <option>06 - June</option>
+                                                                                            <option>07 - July</option>
+                                                                                            <option>08 - August</option>
+                                                                                            <option>09 - September</option>
+                                                                                            <option>10 - October</option>
+                                                                                            <option>11 - November</option>
+                                                                                            <option>12 - December</option>
+                                                                                        </select> &nbsp; &nbsp;
+                                                                                        <select class="form-control year-select w-50">
+                                                                                            <option>Year</option>
+                                                                                            <option>2015</option>
+                                                                                            <option>2016</option>
+                                                                                            <option>2017</option>
+                                                                                            <option>2018</option>
+                                                                                            <option>2019</option>
+                                                                                            <option>2020</option>
+                                                                                            <option>2021</option>
+                                                                                            <option>2022</option>
+                                                                                            <option>2023</option>
+                                                                                            <option>2024</option>
+                                                                                            <option>2025</option>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-6 mx-auto">
+                                                                                <div class="verificationcard form-group">
+                                                                                    <label>Card Verification Number <sup>*</sup></label>
+                                                                                    <input type="text" class="form-control">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-6"></div>
 
-                                                                        <div class="block-area-button">
-                                                                            <button class="btn btn-default add-tag-btn SaveBtn">Continue</button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="panel sauget-accordion SubPanel">
-                                                    <div id="headingFive2" role="tab" class="panel-heading">
-                                                        <h4 class="panel-title">
-                                                            <a aria-controls="orderReview2" aria-expanded="false" href="#orderReview2" data-bs-toggle="collapse" class="makeover collapsed">
-                                                                <img style="height: 21px; width: 35px;" src="~/img/UPI_logo_PNG_lyp5s5.png" /> UPI Option
-                                                            </a>
-                                                        </h4>
-                                                    </div>
-                                                    <div aria-labelledby="headingFive2" data-bs-parent="#accordion1" role="tabpanel" class="panel-collapse collapse" id="orderReview2" aria-expanded="false">
-                                                        <div class="content-info">
-                                                            <div class="page-product-box" id="idTab2">
-                                                                <div class="row">
-                                                                    <div class="col-sm-7">
-                                                                        <div class="form-group">
-                                                                            <label>Enter UPI ID</label>
-                                                                            <input type="text" class="form-control" style="margin-bottom: 10px;">
                                                                             <div class="block-area-button">
                                                                                 <button class="btn btn-default add-tag-btn SaveBtn">Continue</button>
                                                                             </div>
@@ -357,36 +338,65 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="panel sauget-accordion SubPanel">
-                                                    <div id="headingFive3" role="tab" class="panel-heading">
-                                                        <h4 class="panel-title">
-                                                            <a aria-controls="orderReview3" aria-expanded="false" href="#orderReview3" data-bs-toggle="collapse" class="makeover collapsed">
-                                                                <img style="height: 30px; width:auto;" src="~/img/icons8-cash-on-delivery-96.png" /> Cash On Delivery
-                                                            </a>
-                                                        </h4>
-                                                    </div>
-                                                    <div aria-labelledby="headingFive3" data-bs-parent="#accordion1" role="tabpanel" class="panel-collapse collapse" id="orderReview3" aria-expanded="false">
-                                                        <div class="content-info">
-                                                            <a href="/Cart/OrderSuccess?orderid=@Model.OrderBasicModel.OrderGuid" class=" mt-2 btn SaveBtn" style="width: 160px;">Cash on Delivery</a>
+                                                    <div class="panel sauget-accordion SubPanel d-none">
+                                                        <div id="headingFive2" role="tab" class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a aria-controls="orderReview2" aria-expanded="false" href="#orderReview2" data-bs-toggle="collapse" class="makeover collapsed">
+                                                                    <img style="height: 21px; width: 35px;" src="~/img/UPI_logo_PNG_lyp5s5.png" /> UPI Option
+                                                                </a>
+                                                            </h4>
+                                                        </div>
+                                                        <div aria-labelledby="headingFive2" data-bs-parent="#accordion1" role="tabpanel" class="panel-collapse collapse" id="orderReview2" aria-expanded="false">
+                                                            <div class="content-info">
+                                                                <div class="page-product-box" id="idTab2">
+                                                                    <div class="row">
+                                                                        <div class="col-sm-7">
+                                                                            <div class="form-group">
+                                                                                <label>Enter UPI ID</label>
+                                                                                <input type="text" class="form-control" style="margin-bottom: 10px;">
+                                                                                <div class="block-area-button">
+                                                                                    <button class="btn btn-default add-tag-btn SaveBtn">Continue</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
 
+                                                    <div class="panel sauget-accordion SubPanel">
+                                                        <div id="headingFive3" role="tab" class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a aria-controls="orderReview3" aria-expanded="false" href="#orderReview3" data-bs-toggle="collapse" class="makeover collapsed">
+                                                                    <img style="height: 30px; width:auto;" src="~/img/icons8-cash-on-delivery-96.png" /> Cash On Delivery
+                                                                </a>
+                                                            </h4>
+                                                        </div>
+                                                        <div aria-labelledby="headingFive3" data-bs-parent="#accordion1" role="tabpanel" class="panel-collapse collapse" id="orderReview3" aria-expanded="false">
+                                                            <div class="content-info">
+                                                                @*<a href="/Cart/OrderSuccess?orderid=@Model.OrderBasicModel.OrderGuid" class=" mt-2 btn SaveBtn" style="width: 160px;">Cash on Delivery</a>*@
+                                                                <button  style="width:auto;" asp-action="SaveAddress" asp-controller="Cart" type="submit" class="SaveBtn">Cash on Delivery</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+
+                            </form>
                         </div>
                         <div class="col-md-3">
                             <div class="checkout-sidebar">
-                                <h4>YOUR CHECKOUT PROGRESS</h4>
+                                <h4>CHECKOUT PROGRESS</h4>
                                 <ul>
-                                    <li><a href="#">Billing Address</a></li>
+                                    @*<li><a href="#">Billing Address</a></li>*@
                                     <li><a href="#">Sipping Address</a></li>
-                                    <li><a href="#">Shiping Method</a></li>
+                                    @*<li><a href="#">Shiping Method</a></li>*@
                                     <li><a href="#">Payment Method</a></li>
                                 </ul>
                             </div>
@@ -442,4 +452,8 @@
               // document.getElementById(el2).disabled = true;
            }
        }
+       //function ProceedtoNext() {
+       //    $('#Target').click();
+       //}
+
    </script>

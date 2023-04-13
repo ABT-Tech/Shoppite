@@ -82,7 +82,7 @@ $(function(){
       navText : ['<i class="icon-left-open"><i class="fa fa-angle-left"></i></i>','<i class="icon-right-open"><i class="fa fa-angle-right"></i></i>'],
       responsive: {
         0: {
-            items: 1
+            items: 2
         },
         576: {
             items: 2

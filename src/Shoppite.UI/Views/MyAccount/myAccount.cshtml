@@ -71,7 +71,7 @@
                                     @Model.Myaccount.ContactNumber
                                 </p>
                                 <p>
-                                    <span class="iconContact"><i class="fa fa-envelope-o"></i></span>
+                                    <span class="iconContact"><i class="fa fa-envelope"></i></span>
                                     Email:@Model.Myaccount.Email
                                 </p>
 
@@ -95,12 +95,17 @@
                                             <input type="email" asp-for="@Model.Myaccount.Email" readonly id="Email" class="form-control">
                                         </div>
                                     </div>
-                                    <a class="btn btnContact" asp-controller="MyAccount" asp-action="EditProfile">Edit Profile</a>
+                                    <div class="row">
+                                        <div class="col-6 cart-checkout">
+                                            <a class="text-decoration-none" asp-controller="MyAccount" asp-action="EditProfile">Edit Profile &nbsp;<i class="fa fa-pen"></i></a>
+                                        </div>
+                                        <div class="col-6 cart-checkout" id="fadeshow1">
+                                            <a class="text-decoration-none" asp-action="Logout" asp-controller="Authentications">Logout<i class="fa fa-sign-out-alt"></i></a>
+                                        </div>
+                                    </div>
                                 </form>
 
-                                <div class="cart-checkout" id="fadeshow1">
-                                    <a href="/Authentications/Login">Logout<i class="fa fa-chevron-right"></i></a>
-                                </div>
+                                
 
                             </div>
                         </div>
