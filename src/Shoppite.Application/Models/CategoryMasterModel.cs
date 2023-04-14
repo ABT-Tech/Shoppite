@@ -57,6 +57,10 @@ namespace Shoppite.Application.Models
         public Nullable<int> maincatid { get; set; }
         public string Banner { get; set; }
         public int? CategoryId { get; set; }
+        public bool? IsPublished { get; set; }
+        public bool? IsShowHomePage { get; set; }
+        public bool? IsIncludeMenu { get; set; }
+
         public List<CategoryProductModel> SubcategoryDetails { get; set; }
     }
     public class CategoryProductModel
@@ -65,6 +69,9 @@ namespace Shoppite.Application.Models
         public string Banner { get; set; }
         public string CategoryName { get; set; }
         public int ParentCategoryId { get; set; }
+        public bool? IsPublished { get; set; }
+        public bool? IsShowHomePage { get; set; }
+        public bool? IsIncludeMenu { get; set; }
         public List<ProductBaseModel> ProductsDetails { get; set; }
     }
     public class ProductBaseModel
