@@ -13,5 +13,8 @@ namespace Shoppite.Application.Models
         public string Displayname { get; set; }
         public string catnames { get; set; }
         public string Icons { get; set; }
+        public bool? IsPublished { get; set; }
+        public bool? IsShowHomePage { get; set; }
+        public bool? IsIncludeMenu { get; set; }
     }
 }

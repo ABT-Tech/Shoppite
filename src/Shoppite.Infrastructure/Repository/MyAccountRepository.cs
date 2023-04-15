@@ -69,10 +69,10 @@ namespace Shoppite.Infrastructure.Repository
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<int> GetProfileId(string username)
+        public async Task<int> GetProfileId(string username, int orgid)
         {
-            var findUser = await _dbContext.Users.FirstOrDefaultAsync(x => x.Email == username);
-            var ProfileFind = await _dbContext.UsersProfile.FirstOrDefaultAsync(x => x.UserName == findUser.Email);
+            var findUser = await _dbContext.Users.FirstOrDefaultAsync(x => x.Email == username && x.OrgId == orgid);
+            var ProfileFind = await _dbContext.UsersProfile.FirstOrDefaultAsync(x => x.UserName == findUser.Email && x.OrgId == orgid);
             return ProfileFind.ProfileId;
         }
     }

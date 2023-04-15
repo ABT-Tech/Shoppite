@@ -22,9 +22,10 @@ namespace Shoppite.Core.Repositories
         Task<ProductPrice> GetPrice(Guid productGuid);
         Task<f_order_master> GetMyOrders(int orderid);
         Task<OrderShipping> GetOrderShipping(Guid? orderGUID);
-        Task<UsersProfile> GetShippingDetail(string userName);
+        Task<UsersProfile> GetShippingDetail(string userName,int orgid);
         Task<ProductBasic> GetProductDetail(string productName, string coverImage);
         Task CancleOrder(int orderid);
-        Task<Users> GetUser(string email);
+        Task<Users> GetUser(string email,int orgid);
+        Task<OrderStatus> GetOrderStatus(int orderid,int orgid);
     }
 }

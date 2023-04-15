@@ -35,9 +35,9 @@ namespace Shoppite.UI.Services
              await _myAccountService.ChangePassword(model);
         }
 
-        public async Task<int> GetProfileId(string username)
+        public async Task<int> GetProfileId(string username,int orgid)
         {
-            return await _myAccountService.GetProfileId(username);
+            return await _myAccountService.GetProfileId(username, orgid);
         }
     }
 }
