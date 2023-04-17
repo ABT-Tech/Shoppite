@@ -55,6 +55,21 @@
     .megamenu-area {
         z-index: 1;
     }
+
+    #Des ul {
+        margin: 0px;
+        padding: 0px 0px 0px 20px;
+        list-style: disc;
+    }
+
+    .single-mori-info #Des ul li {
+        border-top: none;
+        display: revert;
+        float: none;
+    }
+    /*    .single-mori-info #Des ul{
+        position:fixed;
+    }*/
 </style>
 
 <form enctype="multipart/form-data" method="get" class="">
@@ -129,10 +144,10 @@
                                     <p><strong>Condition:</strong> New product </p>*@
                                 <h2>
                                     <span>₹ @Model.ProductPriceModel.Price </span>
-                                    @if (Model.ProductPriceModel.TaxExempt == true)
-                                    {
-                                        <span class="text-black">tax incl.</span>
-                                    }
+                                    @*@if (Model.ProductPriceModel.TaxExempt == true)
+                                        {
+                                            <span class="text-black">tax incl.</span>
+                                        }*@
                                 </h2>
                                 <p>@Model.ProductBasicModel.ShortDescription</p>
                                 <p class="sin-item">
@@ -171,11 +186,11 @@
 
                                 @*</form>*@
 
-                                @*@foreach (var prodAttr in Model.AttributesSetupModel)
+                                @*@foreach (var prodattr in Model.AttributesSetupModel)
                                     {
                                        <p class="selector1">
-                                            <label>@prodAttr.AttributeName</label>
-                                            <select id="selectProductSort2" class="select_1 select2 selectProductSort form-control" asp-items="@(new SelectList(prodAttr.GetF_Getproduct_Specification_By_GuidModel,"AttributeId","SpecificationName"))"></select>
+                                            <label>@prodattr.AttributeName</label>
+                                            <select id="selectproductsort2" class="select_1 select2 selectproductsort form-control" asp-items="@(new SelectList(prodattr.GetF_Getproduct_Specification_By_GuidModel,"attributeid","specificationname"))"></select>
                                         </p>
                                     }*@
 
@@ -218,42 +233,65 @@
                                 }
                                 else
                                 {
-
-
                                     <p class="buttons_bottom_block no-print" id="add_to_cart">
 
                                         @if (User.Identity.IsAuthenticated)
                                         {
-
-                                            <div class="row">
-                                                <div class="col-sm-6 Add_Car_Btn">
-                                                    <button class="exclusive" name="Submit" asp-action="AddProductToCart" asp-controller="ProductDetail" type="submit">
-                                                        <span>Add to cart</span>
-                                                    </button>
+                                            @if (Model.ProductPriceModel.DisableBuyButton == true)
+                                            {
+                                                <div class="row">
+                                                    <div class="col-sm-6 Coming_Soon_Btn">
+                                                        <button class="exclusive" name="Coming Soon" type="button" disabled>
+                                                            <span>Coming Soon</span>
+                                                        </button>
+                                                    </div>
                                                 </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="row">
+                                                    <div class="col-sm-6 Add_Car_Btn">
+                                                        <button class="exclusive" name="Submit" asp-action="AddProductToCart" asp-controller="ProductDetail" type="submit">
+                                                            <span>Add to cart</span>
+                                                        </button>
+                                                    </div>
 
-                                                <div class="col-sm-6 Buy_Now_Btn">
-                                                    <button class="exclusive" name="Submit" asp-action="BuyNow" asp-controller="ProductDetail" type="submit">
-                                                        <span>Buy Now</span>
-                                                    </button>
+                                                    <div class="col-sm-6 Buy_Now_Btn">
+                                                        <button class="exclusive" name="Submit" asp-action="BuyNow" asp-controller="ProductDetail" type="submit">
+                                                            <span>Buy Now</span>
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            }
                                         }
                                         else
                                         {
-                                            <div class="row">
-                                                <div class="col-sm-6 Add_Car_Btn">
-                                                    <button class="exclusive" name="Submit" asp-action="Login" asp-controller="Authentications" type="submit">
-                                                        <span>Add to cart</span>
-                                                    </button>
+                                            @if (Model.ProductPriceModel.DisableBuyButton == true)
+                                            {
+                                                <div class="row">
+                                                    <div class="col-sm-6 Coming_Soon_Btn">
+                                                        <button class="exclusive" name="Coming Soon" type="button" disabled>
+                                                            <span>Coming Soon</span>
+                                                        </button>
+                                                    </div>
                                                 </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="row">
+                                                    <div class="col-sm-6 Add_Car_Btn">
+                                                        <button class="exclusive" name="Submit" asp-action="Login" asp-controller="Authentications" type="submit">
+                                                            <span>Add to cart</span>
+                                                        </button>
+                                                    </div>
 
-                                                <div class="col-sm-6 Buy_Now_Btn">
-                                                    <button class="exclusive" name="Submit" asp-action="Login" asp-controller="Authentications" type="submit">
-                                                        <span>Buy Now</span>
-                                                    </button>
+                                                    <div class="col-sm-6 Buy_Now_Btn">
+                                                        <button class="exclusive" name="Submit" asp-action="Login" asp-controller="Authentications" type="submit">
+                                                            <span>Buy Now</span>
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            }
                                         }
                                     </p>
                                 }
@@ -293,7 +331,7 @@
                         </ul>
                         <div id="my-tab-content-eleyas" class="tab-content jump">
                             <div class="tab-pane active" id="sin-more1">
-                                <p>@Html.Raw(Model.ProductBasicModel.Description)</p>
+                                <div id="Des"><p>@Html.Raw(Model.ProductBasicModel.Description)</p></div>
                             </div>
                             <div class="tab-pane" id="sin-more2">
                                 <div class="page-product-box" id="idTab2">
@@ -407,10 +445,10 @@
                                         </span>
                                         <p>
                                             @*<i class="fa fa-star-o"></i>
-            <i class="fa fa-star-o"></i>
-            <i class="fa fa-star-o"></i>
-            <i class="fa fa-star-o"></i>
-            <i class="fa fa-star-o"></i>*@
+                                                <i class="fa fa-star-o"></i>
+                                                <i class="fa fa-star-o"></i>
+                                                <i class="fa fa-star-o"></i>
+                                                <i class="fa fa-star-o"></i>*@
                                         </p>
                                     </div>
                                     @*<div class="product-social">
@@ -489,6 +527,7 @@
 <script src="~/plugins/select2/js/select2.min.js"></script>
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="~/plugins/jquery/jquery.min.js"></script>
 <script>
 
     $('.btn-number').click(function (e) {
@@ -525,6 +564,7 @@
         }
     });
 
+
     $('.input-number').focusin(function () {
         $(this).data('oldValue', $(this).val());
     });
@@ -547,7 +587,22 @@
             alert('Sorry, the maximum Quantity was reached');
             $(this).val($(this).data('oldValue'));
         }
-
-
     });
+
+    $(document).ready(function () {
+        $('#Des ul li').each(function (i) {
+            var fontsize = $(this).css('font-size');
+            var bgcolor = $(this).css('blue');
+            var color = $(this).css('red');
+            var fontfamily = $(this).css('font-family');
+
+            $(this).parent("li").css('font-size', fontsize);
+            $(this).parent("li").css('background-color', bgcolor);
+            $(this).parent("li").css('color', color);
+            $(this).parent("li").css('font-family', fontfamily);
+
+        });
+    });
+
+
 </script>

@@ -12,6 +12,6 @@ namespace Shoppite.Application.Interfaces
         Task UpdateMyAccountDetail(MainModel myaccount);
         Task<MainModel> GetProfileByProfileId(int profileid);
         Task ChangePassword(MainModel model);
-        Task<int> GetProfileId(string username);
+        Task<int> GetProfileId(string username,int orgid);
     }
 }

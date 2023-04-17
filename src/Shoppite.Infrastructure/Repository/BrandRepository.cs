@@ -166,9 +166,9 @@ namespace Shoppite.Infrastructure.Repository
             return await _dbContext.OrderShipping.Where(x => x.OrderGuid == orderGUID).FirstOrDefaultAsync();
         }
 
-        public async Task<UsersProfile> GetShippingDetail(string userName)
+        public async Task<UsersProfile> GetShippingDetail(string userName,int orgid)
         {
-            return await _dbContext.UsersProfile.Where(x => x.UserName == userName && x.Type == "Client").FirstOrDefaultAsync();
+            return await _dbContext.UsersProfile.Where(x => x.UserName == userName && x.Type == "Client" && x.OrgId==orgid).FirstOrDefaultAsync();
         }
 
         public async Task<ProductBasic> GetProductDetail(string productName, string coverImage)
@@ -210,12 +210,31 @@ namespace Shoppite.Infrastructure.Repository
 
                 _dbContext.Entry(FindFromOrderBasic).State = EntityState.Modified;
             }
+
+            var Inventory = await _dbContext.ProductBasic.Where(x => x.ProductId == FindFromOrderBasic.ProductId).FirstOrDefaultAsync();
+
+            if (Inventory != null)
+            {
+                var local = _dbContext.Set<ProductBasic>().Local.FirstOrDefault(x => x.ProductId.Equals(Inventory.ProductId));
+                if(local != null)
+                {
+                    _dbContext.Entry(local).State = EntityState.Detached;
+                }
+                Inventory.Qty = Inventory.Qty + FindFromOrderBasic.Qty;
+
+                _dbContext.Entry(Inventory).State = EntityState.Modified;
+            }
             await _dbContext.SaveChangesAsync();
         }
 
-        public Task<Users> GetUser(string email)
+        public async Task<Users> GetUser(string email,int orgid)
         {
-            return _dbContext.Users.Where(x => x.Email == email).FirstOrDefaultAsync();
+            return await _dbContext.Users.Where(x => x.Email == email && x.OrgId == orgid ).FirstOrDefaultAsync();
+        }
+
+        public async Task<OrderStatus> GetOrderStatus(int orderid,int orgid)
+        {
+            return await _dbContext.OrderStatus.Where(x => x.OrderId == orderid && x.OrgId == orgid).FirstOrDefaultAsync();
         }
     }
 }

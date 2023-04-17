@@ -114,16 +114,9 @@
                 <div class="checkout-content">
                     <div class="row">
                         <div class="col-md-9 mb-5">
-                            <form enctype="multipart/form-data" method="post" class=" pt-2 text-capitalize">
+                            <form asp-action="SaveAddress" asp-controller="Cart" enctype="multipart/form-data" method="post" class=" pt-2 text-capitalize">
                                 <input type="hidden" asp-for="OrderBasicModel.OrderGuid" />
-                                <input type="hidden" asp-for="OrderShippingModel.FirstName" />
-                                <input type="hidden" asp-for="OrderShippingModel.LastName" />
-                                <input type="hidden" asp-for="OrderShippingModel.Street" />
-                                <input type="hidden" asp-for="OrderShippingModel.City" />
-                                <input type="hidden" asp-for="OrderShippingModel.Phone" />
-                                <input type="hidden" asp-for="OrderShippingModel.Zipcode" />
-                                <input type="hidden" asp-for="OrderShippingModel.Address" />
-                                <input type="hidden" asp-for="OrderShippingModel.Email" />
+             
                                 <div aria-multiselectable="true" role="tablist" id="accordion" class="panel-group">
                                     <div class="panel sauget-accordion">
                                         <div id="headingOne" role="tab" class="panel-heading">
@@ -222,6 +215,15 @@
                                                                   data-valmsg-for="PaypalId" data-valmsg-replace="true"></span>
                                                         </div>
                                                     </div>
+
+                                                    <input type="hidden" asp-for="OrderShippingModel.FirstName" />
+                                                    <input type="hidden" asp-for="OrderShippingModel.LastName" />
+                                                    <input type="hidden" asp-for="OrderShippingModel.Street" />
+                                                    <input type="hidden" asp-for="OrderShippingModel.City" />
+                                                    <input type="hidden" asp-for="OrderShippingModel.Phone" />
+                                                    <input type="hidden" asp-for="OrderShippingModel.Zipcode" />
+                                                    <input type="hidden" asp-for="OrderShippingModel.Address" />
+                                                    <input type="hidden" asp-for="OrderShippingModel.Email" />
 
                                                     <div class="col-12">
                                                         <div class="form-group">
@@ -377,7 +379,7 @@
                                                         <div aria-labelledby="headingFive3" data-bs-parent="#accordion1" role="tabpanel" class="panel-collapse collapse" id="orderReview3" aria-expanded="false">
                                                             <div class="content-info">
                                                                 @*<a href="/Cart/OrderSuccess?orderid=@Model.OrderBasicModel.OrderGuid" class=" mt-2 btn SaveBtn" style="width: 160px;">Cash on Delivery</a>*@
-                                                                <button  style="width:auto;" asp-action="SaveAddress" asp-controller="Cart" type="submit" class="SaveBtn">Cash on Delivery</button>
+                                                                <button  style="width:auto;" type="submit" class="SaveBtn">Cash on Delivery</button>
                                                             </div>
                                                         </div>
                                                     </div>
