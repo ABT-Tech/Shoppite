@@ -113,5 +113,14 @@ namespace Shoppite.Infrastructure.Repository
             return await _dbContext.Set<sp_getcat_Result>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
         }
 
+        public async Task<CategoryMaster> MaincatDetails(int? catId, string catname)
+        {
+            return await _dbContext.CategoryMaster.Where(x => x.CategoryId == catId && x.Urlpath == catname && x.ParentCategoryId == 0).FirstOrDefaultAsync();
+        }
+
+        public async Task<CategoryMaster> FindChaildCat(int? childCatId, string childCatname, int? catId)
+        {
+            return await _dbContext.CategoryMaster.Where(x => x.CategoryId == childCatId && x.CategoryName == childCatname && x.ParentCategoryId == catId).FirstOrDefaultAsync();
+        }
     }
 }

@@ -98,7 +98,19 @@ namespace Shoppite.Infrastructure.Repository
                     };
                    _dbContext.OrderStatus.Add(orderStatus);
                 }
+                var Inventory = await _dbContext.ProductBasic.Where(x => x.ProductId == order.ProductId && x.OrgId == order.OrgId).FirstOrDefaultAsync();
 
+                if(Inventory != null)
+                {
+                    var local = _dbContext.Set<ProductBasic>().Local.FirstOrDefault(x => x.ProductId.Equals(Inventory.ProductId));
+                    if(local != null)
+                    {
+                        _dbContext.Entry(local).State = EntityState.Detached;
+                    }
+                    Inventory.Qty = Inventory.Qty - order.Qty;
+
+                    _dbContext.Entry(Inventory).State = EntityState.Modified;
+                }
              await _dbContext.SaveChangesAsync();
             }
         }

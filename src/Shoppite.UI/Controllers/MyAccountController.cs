@@ -37,7 +37,7 @@ namespace Shoppite.UI.Controllers
         public async Task<IActionResult> myAccount(int profileId,int CategoryId)
         {
             int OrgId = _commonHelper.GetOrgID(HttpContext);
-            int Profileid = await _myAccountPageService.GetProfileId(User.Identity.Name);
+            int Profileid = await _myAccountPageService.GetProfileId(User.Identity.Name,OrgId);
             var brands = await _brandPageService.GetBrands(OrgId);
             brands.Categories = await _categoryPageService.GetCategories(CategoryId, OrgId);
             brands.CategoryMaster = await _categoryPageService.DisplayLogo(OrgId);
@@ -49,7 +49,7 @@ namespace Shoppite.UI.Controllers
         public async Task<IActionResult> EditProfile(int CategoryId)
         {
             int OrgId = _commonHelper.GetOrgID(HttpContext);
-            int Profileid = await _myAccountPageService.GetProfileId(User.Identity.Name);
+            int Profileid = await _myAccountPageService.GetProfileId(User.Identity.Name,OrgId);
             var brands=await _myAccountPageService.GetProfileByProfileId(Profileid);
             brands.CategoryMaster = await _categoryPageService.DisplayLogo(OrgId);
             brands.Categories = await _categoryPageService.GetCategories(CategoryId, OrgId);
@@ -77,7 +77,7 @@ namespace Shoppite.UI.Controllers
         public async Task<IActionResult> ChangePassword(int CategoryId, int ProfileId)
         {
             int OrgId = _commonHelper.GetOrgID(HttpContext);
-            int Profileid = await _myAccountPageService.GetProfileId(User.Identity.Name);
+            int Profileid = await _myAccountPageService.GetProfileId(User.Identity.Name,OrgId);
             var brands = await _myAccountPageService.GetProfileByProfileId(Profileid);
             brands.CategoryMaster = await _categoryPageService.DisplayLogo(OrgId);
             brands.Categories = await _categoryPageService.GetCategories(CategoryId, OrgId);

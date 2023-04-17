@@ -51,21 +51,22 @@ namespace Shoppite.UI.Controllers
             return View(order);
         }
 
-        public async Task<ActionResult> OrderSuccessAsync()
+        public async Task<IActionResult> OrderSuccess()
+        
         {
             // await _cartPageService.UpdateOrder(orderid);Guid orderid
             return View();
         }
-
-        public async Task<IActionResult> SaveAddress(CartModel cartModel)
+        [HttpPost]
+        public async Task<IActionResult> SaveAddress(CartModel Model)
         {
             int orgid = _commonHelper.GetOrgID(HttpContext);
-            cartModel.OrderShippingModel.OrgId = orgid;
-            await _cartPageService.SaveAddress(cartModel);
+            Model.OrderShippingModel.OrgId = orgid;
+            await _cartPageService.SaveAddress(Model);
 
-            await _cartPageService.UpdateOrder((Guid)cartModel.OrderBasicModel.OrderGuid);
+            await _cartPageService.UpdateOrder((Guid)Model.OrderBasicModel.OrderGuid);
 
-            return RedirectToAction(nameof(OrderSuccessAsync));
+            return RedirectToAction("OrderSuccess");
         }
     }
 }
