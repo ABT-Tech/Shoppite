@@ -78,3 +78,43 @@ body {
     text-overflow: ellipsis;
     overflow: hidden;
 }
+.resswiper{
+    display:none;
+}
+@media (max-width: 650px) {
+    .resswiper {
+        display: block;
+    }
+    .resmenu{
+        display:none;
+    }
+}
+@media (max-width: 650px) {
+    h4.cart-title {
+        color: #333333;
+        font-size: 30px;
+        margin-bottom: 24px;
+        text-transform: uppercase;
+        text-align: center;
+        margin: 27px 0px 24px 0px;
+        font-weight: 700;
+    }
+
+    .table {
+        padding: 0px 10px 0px 0px;
+        width: auto;
+    }
+
+    .mobres {
+        margin-left: 5.5rem;
+    }
+
+    .minus, .plus {
+        width: 38px;
+    }
+}
+@media (max-width: 650px) {
+    .navtext {
+        display: none;
+    }
+}

@@ -54,7 +54,7 @@ namespace Shoppite.UI
                 options.CheckConsentNeeded = context => false;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-            services.AddMvc(option => option.EnableEndpointRouting = false);
+           // services.AddMvc(option => option.EnableEndpointRouting = false);
             services.AddHttpContextAccessor();
             services.Configure<HtmlHelperOptions>(o => o.ClientValidationEnabled = false);
 

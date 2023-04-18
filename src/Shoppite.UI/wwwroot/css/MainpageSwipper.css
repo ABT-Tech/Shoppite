@@ -91,3 +91,16 @@
 .CatLI{
     flex:20%;
 }
+.rescatmob {
+    display: none;
+}
+
+@media (max-width: 650px) {
+    .rescatmob {
+        display: block;
+    }
+
+    .rescat {
+        display: none;
+    }
+}

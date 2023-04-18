@@ -4,32 +4,58 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
 <link href="~/css/MainpageSwipper.css" rel="stylesheet" />
 <link href="~/css/site.css" rel="stylesheet" />
-
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 <style>
-    
+
+
+    .swiper {
+        width: 100%;
+        height: 50%;
+    }
+
+    .swiper-slide {
+        text-align: center;
+        font-size: 14px;
+        background: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+        .swiper-slide img {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 </style>
+<div class="rescat">
 <!-- Start tab and carosel area -->
 <div id="content" class="tabandcarosel-area">
     <div class="container">
         <div class="tab-product-wrap">
+            
             <div class="row">
+
                 <!-- Start tab menu area -->
-                <div class="col-lg-3 col-md-4">
+                <div class="col-lg-3 col-md-4 resmenu">
+
                     <div class="tab-menu-area toplist" id="myDIV">
                         <ul id="tabs" class="nav nav-tabs tab_cates text-nowrap flex-container" data-tabs="tabs">
-                            @foreach (var Cat in Model.GetSp_Getcat_ResultModel.Take(5))
-                            {
-                                int X = (int)Cat.ID;
-                                <li class="shadow CatLI">
 
-                                    <a onclick="testajaxcall('@X')" data-toggle="tab" name="CatName" class="">
+                            <li class="shadow CatLI">
+                                @foreach (var Cat in Model.GetSp_Getcat_ResultModel.Take(5))
+                                {
+                                    int X = (int)Cat.ID;
+                                    <a onclick="testajaxcall('@X')" data-toggle="tab" name="CatName" class="" style=" white-space:nowrap; ">
                                         <label class="name font-weight-bold">@Cat.NAME</label>
                                         @*<span class="thumb"><img class="imgm" src="@Cat.Icons" alt="thumb"></span>
-                                        <span class="thumb"><img class="imgm" src="@Cat.Icons" alt="thumb"></span>*@
+                                            <span class="thumb"><img class="imgm" src="@Cat.Icons" alt="thumb"></span>*@
                                     </a>
-                                </li>
-                            }
+                                }
+                            </li>
+
                         </ul>
                     </div>
                 </div>
@@ -57,17 +83,45 @@
         </div>
     </div>
 </div>
+</div>
 <!-- End category product and carosel area -->
+<div class="rescatmob">
+    <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" style="margin:0px 0px 25px 0px " class="swiper mobcatname">
+        <div class="swiper-wrapper">
 
+            @foreach (var Cat in Model.GetSp_Getcat_ResultModel.Take(5))
+            {
+                int X = (int)Cat.ID;
+                <div class="swiper-slide"><a onclick="testajaxcall('@X')" data-toggle="tab" name="CatName" class="" style="letter-spacing:0.5px; font-weight:600;">@Cat.NAME</a></div>
+            }
+
+        </div>
+        <div class="swiper-button-next"><a ></a></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+    <div thumbsSlider="" class="swiper mobcatde">
+        <div class="swiper-wrapper d-flex d-flex-inline">
+            <div class="swiper-wrapper d-flex d-flex-inline " id="prodtabdata">
+                <!--Here dynamically add product as per category via ajax in script-->
+            </div>
+            <div class="swiper-button-next  "> <i class="fa fa-angle-right"></i> </div>
+            <div class="swiper-button-prev"> <i class="fa fa-angle-left"></i> </div>
+        </div>
+    </div>
+    @*<div class="pt-3 overflow-hidden">
+       
+    </div>*@
+
+</div>
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 <script>
     var swiper = new Swiper(".mySwiper", {
         slidesPerView: 4,
         spaceBetween: 20,
         //freeMode: true,
         navigation: {
-            nextEl: '.swiper-button-next',  
+            nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev'
         },
         pagination: {
@@ -184,4 +238,22 @@
         });
     });
 
+    var swiper = new Swiper(".mobcatde", {
+        loop: true,
+        spaceBetween: 10,
+        slidesPerView: 1,
+        freeMode: true,
+        watchSlidesProgress: true,
+    });
+    var swiper2 = new Swiper(".mobcatname", {
+        loop: true,
+        spaceBetween: 10,
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        thumbs: {
+            swiper: swiper,
+        },
+    });
 </script>
