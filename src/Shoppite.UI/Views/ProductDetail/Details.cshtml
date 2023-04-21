@@ -298,14 +298,26 @@
 
                                 @if (User.Identity.IsAuthenticated)
                                 {
-                                    <p class="sin-adto-cart-bottom">
-                                        @*<a href="#"><i class="fa fa-envelope-o"></i></a>
-                                            <a href="#"><i class="fa fa-print"></i></a>*@
-                                        <abbr title="WishList"><a href="/ProductDetail/AddToWhishList?ProductId=@Model.ProductBasicModel.ProductId&id=@Model.ProductBasicModel.ProductGuid"><i class="fa fa-heart"></i></a></abbr>
-                                        @* <abbr title="WishList"><a href="#"><i class="fa fa-list"></i></a></abbr>*@
-                                    </p>
+                            <p class="sin-adto-cart-bottom">
+                                @*<a href="#"><i class="fa fa-envelope-o"></i></a>
+        <a href="#"><i class="fa fa-print"></i></a>*@
+                                @if (@Model.Wishlists != null)
+                                {
+                                    @for (int i = 0; i < @Model.Wishlists.Count; i++)
+                                    {
+                                        @if (@Model.ProductBasicModel.ProductId == @Model.Wishlists[i].ProductId)
+                                        {
+                                            <abbr title="WishList"><a href="/ProductDetail/AddToWhishList?ProductId=@Model.ProductBasicModel.ProductId&id=@Model.ProductBasicModel.ProductGuid"><i style="color:red" class="fa fa-heart"></i></a></abbr>
+                                        }
+                                        else
+                                        {
+                                            <abbr title="WishList"><a href="/ProductDetail/AddToWhishList?ProductId=@Model.ProductBasicModel.ProductId&id=@Model.ProductBasicModel.ProductGuid"><i class="fa fa-heart"></i></a></abbr>
+                                        }
+                                    }
                                 }
-
+                                @* <abbr title="WishList"><a href="#"><i class="fa fa-list"></i></a></abbr>*@
+                            </p>
+                                }
 
                                 @*<div class="sin-social">
                                                      <p>

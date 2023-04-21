@@ -41,8 +41,14 @@ namespace Shoppite.UI.Controllers
         // [HttpPost]
         public async Task<IActionResult> Details(Guid id)
         {
-            int orgid = _commonHelper.GetOrgID(HttpContext);
+            int OrgId = _commonHelper.GetOrgID(HttpContext);
+            string userName = User.Identity.Name;
+            int orgid = _commonHelper.GetOrgID(HttpContext);         
             var Product_Details = await _ProductDetailPageService.GetProductDetails(id, orgid);
+            if(userName!=null)
+            {
+                Product_Details.Wishlists = await _productWishListService.GetWishList(userName, OrgId);
+            }
             return View(Product_Details);
         }
 

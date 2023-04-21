@@ -37,19 +37,7 @@ namespace Shoppite.Infrastructure.Repository
             {
                 _dbContext.CustomerWishlist.Remove(cuswishlist);
                 _dbContext.SaveChanges();
-            }
-            else
-            {
-                CustomerWishlist cw = new CustomerWishlist();
-                cw.OrgId = wishlist.OrgId;
-                cw.Ip = wishlist.Ip;
-                cw.ProductId = ProductId;
-                cw.UserName = wishlist.UserName;
-                cw.InsertDate = DateTime.Now;
-                _dbContext.CustomerWishlist.Add(cw);
-                await _dbContext.SaveChangesAsync();
-
-            }
+            }           
         }
         public async Task<List<f_order_master>> GetMyOrders(string username,int Orgid)
         {
@@ -109,12 +97,19 @@ namespace Shoppite.Infrastructure.Repository
 
         public async Task AddtoWishList(CustomerWishlist wishlist)
         {
-            var check = await _dbContext.CustomerWishlist.Where(x =>x.ProductId == wishlist.ProductId).FirstOrDefaultAsync();
+            var check = await _dbContext.CustomerWishlist.Where(x =>x.ProductId == wishlist.ProductId&&x.OrgId==wishlist.OrgId&&x.UserName==wishlist.UserName).FirstOrDefaultAsync();
            
             if(check == null)
             {
                 await _dbContext.CustomerWishlist.AddAsync(wishlist);
             }
+            else
+            {
+                CustomerWishlist cuswishlist = _dbContext.CustomerWishlist.FirstOrDefault(u => u.ProductId == wishlist.ProductId && u.UserName == wishlist.UserName);             
+                    _dbContext.CustomerWishlist.Remove(cuswishlist);
+                    _dbContext.SaveChanges();               
+            }
+
            await _dbContext.SaveChangesAsync();
         }
     }
