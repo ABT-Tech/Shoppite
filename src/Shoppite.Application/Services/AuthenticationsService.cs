@@ -21,6 +21,15 @@ namespace Shoppite.Application.Services
             _AuthenticationRepository = AuthenticationRepository ?? throw new ArgumentNullException(nameof(AuthenticationRepository));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
+
+        public async Task<UsersModal> ForgotPass(string email, string password, int orgId)
+        {
+            UsersModal usersModal = new UsersModal();
+            var Forgotpassword = await _AuthenticationRepository.ForgotPass(email, password, orgId);
+            usersModal = ObjectMapper.Mapper.Map<UsersModal>(Forgotpassword);
+            return usersModal;
+        }
+
         public async Task<UsersModal> Get_Login_Data(string email, string passWord, int orgid)
         {
             UsersModal users = new UsersModal();

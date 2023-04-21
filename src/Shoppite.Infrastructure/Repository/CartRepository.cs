@@ -74,7 +74,7 @@ namespace Shoppite.Infrastructure.Repository
         {
             var check = await _dbContext.OrderBasic.Where(x => x.OrderGuid == orderBasic.OrderGuid && x.OrderStatus == "Cart" && x.UserName == orderBasic.UserName).ToListAsync();
 
-            foreach(var order in check)
+            foreach (var order in check)
             {
                 order.OrderStatus = "Confirmed";
                 order.ReferenceId = "COD";
@@ -82,28 +82,14 @@ namespace Shoppite.Infrastructure.Repository
                 order.LastOrderStatus = "Pending";
                 order.InsertDate = DateTime.Now;
 
-                 _dbContext.OrderBasic.Update(order);
+                _dbContext.OrderBasic.Update(order);
 
-                var StatusCheck = await _dbContext.OrderStatus.FirstOrDefaultAsync(x => x.OrderId == order.OrderId);
-                if(StatusCheck == null)
-                {
-                    OrderStatus orderStatus = new OrderStatus { 
-                        OrderId = order.OrderId,
-                        OrderStatus1 = order.LastOrderStatus,
-                        StatusDate = DateTime.Now,
-                        Remarks = string.Empty,
-                        Insertby = DateTime.Now.ToString(),
-                        OrgId = order.OrgId,
-
-                    };
-                   _dbContext.OrderStatus.Add(orderStatus);
-                }
                 var Inventory = await _dbContext.ProductBasic.Where(x => x.ProductId == order.ProductId && x.OrgId == order.OrgId).FirstOrDefaultAsync();
 
-                if(Inventory != null)
+                if (Inventory != null)
                 {
                     var local = _dbContext.Set<ProductBasic>().Local.FirstOrDefault(x => x.ProductId.Equals(Inventory.ProductId));
-                    if(local != null)
+                    if (local != null)
                     {
                         _dbContext.Entry(local).State = EntityState.Detached;
                     }
@@ -111,8 +97,29 @@ namespace Shoppite.Infrastructure.Repository
 
                     _dbContext.Entry(Inventory).State = EntityState.Modified;
                 }
-             await _dbContext.SaveChangesAsync();
+                await _dbContext.SaveChangesAsync();
             }
+
+            var getOrderMster = await _dbContext.OrderMaster.Where(x => x.OrderGuid == orderBasic.OrderGuid).FirstOrDefaultAsync();
+            if (getOrderMster != null)
+            {
+                var StatusCheck = await _dbContext.OrderStatus.FirstOrDefaultAsync(x => x.OrderId == getOrderMster.OrderMasterId);
+                if (StatusCheck == null)
+                {
+                    OrderStatus orderStatus = new OrderStatus
+                    {
+                        OrderId = getOrderMster.OrderMasterId,
+                        OrderStatus1 = "Pending",
+                        StatusDate = DateTime.Now,
+                        Remarks = string.Empty,
+                        Insertby = DateTime.Now.ToString(),
+                        OrgId = getOrderMster.OrgId,
+
+                    };
+                    _dbContext.OrderStatus.Add(orderStatus);
+                }
+            }
+            await _dbContext.SaveChangesAsync();
         }
 
         public async Task UpdateOrderQty(OrderBasic orderBasic)
@@ -141,8 +148,21 @@ namespace Shoppite.Infrastructure.Repository
 
         public async Task<OrderShipping> GetAddredd(string userName)
         {
-            var find = await _dbContext.OrderShipping.FirstOrDefaultAsync(x => x.UserName == userName);
+            var find = await _dbContext.OrderShipping.FirstOrDefaultAsync(x => x.UserName == userName && x.FirstName != null && x.LastName != null && x.Address != null);
             return find;
+        }
+
+        public async Task<f_getproduct_CartDetails_By_Orgid> CheckProdInCart(int orgId, string ProductName, string Username)
+        {
+            string sql = "select * from f_getproduct_CartDetails_By_Orgid(@Orgid)";
+
+            List<SqlParameter> parms = new List<SqlParameter>
+            { 
+                // Create parameters    
+                new SqlParameter { ParameterName = "@Orgid", Value = orgId }
+            };
+            var Filter =  await _dbContext.Set<f_getproduct_CartDetails_By_Orgid>().FromSqlRaw(sql, parms.ToArray()).Where(x=>x.UserName == Username && x.ProductName == ProductName).FirstOrDefaultAsync();
+            return Filter;
         }
     }
 }

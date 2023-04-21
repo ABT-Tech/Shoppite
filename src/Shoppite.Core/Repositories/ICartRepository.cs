@@ -18,5 +18,6 @@ namespace Shoppite.Core.Repositories
         Task<UsersProfile> FindAddress(string userName);
         Task<UsersProfile> GetVendorDetails(UsersProfile usersProfile);
         Task<OrderShipping> GetAddredd(string userName);
+        Task<f_getproduct_CartDetails_By_Orgid> CheckProdInCart(int orgId,string ProductName,string Username);
     }
 }

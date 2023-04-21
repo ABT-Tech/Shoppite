@@ -15,5 +15,6 @@ namespace Shoppite.Application.Models
         public string CoverImage { get; set; }
         public decimal? Price { get; set; }
         public int? Qty { get; set; }
+        public int? BasicQty { get; set; }
     }
 }

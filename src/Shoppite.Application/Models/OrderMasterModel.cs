@@ -9,6 +9,7 @@ namespace Shoppite.Application.Models
 {
     public class OrderMasterModel
     {
+        public int? OrderMasterId { get; set; }
         public Guid OrderGuid { get; set; }
         public DateTime? InsertDate { get; set; }
         public string OrderKeyStatus { get; set; }

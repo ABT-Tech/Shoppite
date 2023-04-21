@@ -21,6 +21,7 @@ namespace Shoppite.Application.Models
     //    [RegularExpression("^((?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])|(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^a-zA-Z0-9])|(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])|(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])).{8,}$", ErrorMessage = "Passwords must be  between 8 to 15 characters and contain One UpperCase,One LowerCase and One number")]
         public string Password { get; set; }
         [Required]
+        public string ConfPassword { get; set; }
         public string Email { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? LastLoginDate { get; set; }

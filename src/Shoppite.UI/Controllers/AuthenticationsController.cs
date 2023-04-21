@@ -97,8 +97,30 @@ namespace Shoppite.UI.Controllers
 
             return View(usersModal);
         }
-        public IActionResult LogIn1()
+
+        public async Task<IActionResult> ForgotPassWord()
         {
+            return View();
+        }
+
+        [HttpPost, AllowAnonymous]
+        public async Task<ActionResult> ForgotPassWord(UsersModal usersModal)
+        {
+            if(usersModal.Password == usersModal.ConfPassword)
+            {
+                int OrgId = _commonHelper.GetOrgID(HttpContext);
+                var ForgotPass = await _AuthenticationPageService.ForgotPass(usersModal.Password, usersModal.Email, OrgId);
+
+                if (ForgotPass == null)
+                    TempData["EmailValidError"] = "Email not found";
+                else
+                    return RedirectToAction("Login");
+            }
+            else
+            {
+                TempData["PassValidError"] = "Password and Confirm Password not match.";
+            }
+            
             return View();
         }
     }

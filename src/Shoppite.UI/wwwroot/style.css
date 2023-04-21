@@ -4937,6 +4937,10 @@ body.single-product .producttabcarosel .owl-next {
 .Buy_Now_Btn .exclusive::before {
     content: "\e1bc";
 }
+.Coming_Soon_Btn .exclusive::before {
+    content: "\f254";
+}
+
 
 .single-product-details .exclusive {
     background: #fe5b5a;

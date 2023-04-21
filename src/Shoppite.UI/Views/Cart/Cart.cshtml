@@ -98,13 +98,15 @@
     .cart-checkout {
         color: white;
     }
-    .product_name_Over{
-        color:#000;
-        text-decoration:none;
+
+    .product_name_Over {
+        color: #000;
+        text-decoration: none;
     }
+
         .product_name_Over:hover {
             color: #fe5b5a;
-            text-decoration:none;
+            text-decoration: none;
         }
 </style>
 
@@ -115,10 +117,10 @@
     <div class="cart-page-area">
         <div class="container">
             @*<div class="breadcrumb">
-                <a title="Return to Home" asp-action="Index" asp-controller="Home" class="home">Home</a>
-                <span class="navigation-pipe"><i class="fa fa-angle-right"></i></span>
-                Shopping cart
-            </div>*@
+                    <a title="Return to Home" asp-action="Index" asp-controller="Home" class="home">Home</a>
+                    <span class="navigation-pipe"><i class="fa fa-angle-right"></i></span>
+                    Shopping cart
+                </div>*@
             <div class="cart-wrap">
                 <h4 class="cart-title">Shopping cart</h4>
             </div>
@@ -145,31 +147,45 @@
                                             int x = (int)cartlist.ProductId;
 
 
-                                            <tr class="">
-                                                <td class="">
-                                                    <input class="HidenProId" asp-for="@cartlist.ProductId" hidden />
-                                                    <a href="/ProductDetail/Details/@cartlist.ProductGuid"><img alt="" class="img-responsive" src="@cartlist.CoverImage"></a>
-                                                    <input class="HidenGuid" asp-for="@cartlist.OrderGuid" hidden />
-                                                </td>
-                                                <td>
-                                                    <h6><a href="/ProductDetail/Details/@cartlist.ProductGuid" class="product_name_Over">@cartlist.ProductName</a></h6>
+                                        <tr class="">
+                                            <td class="">
+                                                <input class="HidenProId" asp-for="@cartlist.ProductId" hidden />
+                                                <a href="/ProductDetail/Details/@cartlist.ProductGuid"><img alt="" class="img-responsive" src="@cartlist.CoverImage"></a>
+                                                <input class="HidenGuid" asp-for="@cartlist.OrderGuid" hidden />
+                                            </td>
+                                            <td>
+                                                <h6><a href="/ProductDetail/Details/@cartlist.ProductGuid" class="product_name_Over">@cartlist.ProductName</a></h6>
+                                                @if (cartlist.BasicQty <= 0)
+                                                {
+                                                    <div>
+                                                        <h5 class="text-danger">Out Of Stock.</h5>
+                                                             <p>Please remove this product in the cartList for the checkOut.</p>
+                                                     </div>
+                                                }
+                                                else
+                                                {
                                                     <div class="fw-bold price amount" data-price="@cartlist.Price" id="pP_@cartlist.ProductId" style="color: #FE5B5A;"></div>
-                                                </td>
-                                                <td>
+                                                }
+                                            </td>
+
+                                            <td>
+                                                @if (cartlist.BasicQty > 0)
+                                                {
                                                     <div class="number">
                                                         <span class="minus">-</span>
-                                                        <input type="number" id="ProductQTY" data-id="99" data-price="@cartlist.Price" class="quant" value="@cartlist.Qty" />
+                                                        <input type="number" id="ProductQTY" data-id="99" data-price="@cartlist.Price" class="quant" value="@cartlist.Qty" max="@cartlist.BasicQty" />
                                                         <span class="plus">+</span>
                                                     </div>
-                                                </td>
-                                                <td>
-                                                    <form method="get">
-                                                        <a class="deleteItem" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="GetDelete(@cartlist.ProductId)">
-                                                            <i class="fa fa-trash"></i>
-                                                        </a>
-                                                    </form>
-                                                </td>
-                                            </tr>
+                                                }
+                                            </td>
+                                            <td>
+                                                <form method="get">
+                                                    <a class="deleteItem" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="GetDelete(@cartlist.ProductId)">
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
+                                                </form>
+                                            </td>
+                                        </tr>
                                         }
 
                                     </tbody>

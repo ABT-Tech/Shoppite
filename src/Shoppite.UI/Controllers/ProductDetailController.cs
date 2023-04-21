@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using Shoppite.Application.Models;
 using Shoppite.UI.Helpers;
 using Shoppite.UI.Interfaces;
+using Shoppite.UI.Models;
 using Shoppite.Web.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -45,7 +46,33 @@ namespace Shoppite.UI.Controllers
             var Product_Details = await _ProductDetailPageService.GetProductDetails(id, orgid);
             return View(Product_Details);
         }
+        [HttpPost]
+        public async Task<ActionResult> Product_Spcification_Details([FromBody]GetSpecModel get )
+        {
+            Guid guid = Guid.Parse(get.Guid);
+            int orgid = _commonHelper.GetOrgID(HttpContext);
+            decimal price = 0;
+            var Product_Detals = await _ProductDetailPageService.GetProductDetails(guid, orgid);
+            if (get.Name.Contains("select"))
+            {
+                price = (decimal)Product_Detals.ProductPriceModel.Price;
+                get.Name = string.Empty;
+            }
+            else
+            {
 
+                foreach (var GET in Product_Detals.AttributesSetupModel)
+                {
+                    foreach (var SET in GET.GetF_Getproduct_Specification_By_GuidModel.Where(x => x.SpecificationName == get.Name))
+                    {
+                        price = SET.Price;
+                    }
+                }
+               
+            }
+            get.Price = price;
+            return Json(get);
+        }
         public async Task<IActionResult> AddToWhishList(int ProductId,Guid id)
         {
             int OrgId = _commonHelper.GetOrgID(HttpContext);

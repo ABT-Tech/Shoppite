@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Security.Authentication;
+using Microsoft.EntityFrameworkCore;
 
 namespace Shoppite.Infrastructure.Repository
 {
@@ -26,10 +27,10 @@ namespace Shoppite.Infrastructure.Repository
             string ps = this.EncryptPass.Encrypt(password);
             //var UserValidate =  _MasterContext.Users.Where(x => x.Email == email && x.Password == ps && x.OrgId == orgid).FirstOrDefault();
 
-            var q = (from user in _MasterContext.Users
+            var q = await (from user in _MasterContext.Users
                      join userprofile in _MasterContext.UsersProfile on user.Email equals userprofile.UserName 
                      where user.Email == email && user.Password == ps && user.OrgId == orgid && userprofile.Type == "Client"
-                     select user).FirstOrDefault();
+                     select user).FirstOrDefaultAsync();
 
 
             return q;
@@ -37,15 +38,15 @@ namespace Shoppite.Infrastructure.Repository
 
         public async Task<Logo> Get_Logo(int orgid)
         {
-            var logo = _MasterContext.Logo.Where(x => x.OrgId == orgid).FirstOrDefault();
+            var logo = await _MasterContext.Logo.Where(x => x.OrgId == orgid).FirstOrDefaultAsync();
             return logo;
         }
 
         public async Task<Users> RegisterDetail(string userName, string password, string email, int orgId)
         {
             string EnPass = this.EncryptPass.Encrypt(password);
-            var check = _MasterContext.Users.Where(x => x.Email == email && x.OrgId == orgId).FirstOrDefault();
-            var checkProfile =  _MasterContext.UsersProfile.FirstOrDefault(x => x.UserName == email && x.OrgId == orgId); 
+            var check = await _MasterContext.Users.Where(x => x.Email == email && x.OrgId == orgId).FirstOrDefaultAsync();
+            var checkProfile = await  _MasterContext.UsersProfile.FirstOrDefaultAsync(x => x.UserName == email && x.OrgId == orgId); 
            if(check == null)
            {
               Users users = new Users();
@@ -74,6 +75,29 @@ namespace Shoppite.Infrastructure.Repository
            }
             await _MasterContext.SaveChangesAsync();
             return check;
+        }
+
+
+
+        public async Task<Users> ForgotPass(string email, string password, int orgId)
+        {
+            string NewPass = this.EncryptPass.Encrypt(password);
+            var findEmail = await _MasterContext.Users.Where(x => x.Email == email && x.OrgId == orgId).FirstOrDefaultAsync();
+            if(findEmail != null)
+            {
+                var local = _MasterContext.Set<Users>().Local.FirstOrDefault(entry => entry.UserId.Equals(findEmail.UserId));
+
+                if (local != null)
+                {
+                    _MasterContext.Entry(local).State = EntityState.Detached;
+                }
+
+                findEmail.Password = NewPass;
+                _MasterContext.Entry(findEmail).State = EntityState.Modified;
+                await _MasterContext.SaveChangesAsync();
+            }
+
+            return findEmail;
         }
     }
 }

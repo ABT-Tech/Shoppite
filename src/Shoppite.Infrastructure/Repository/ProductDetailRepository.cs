@@ -210,8 +210,25 @@
         /// <returns>The <see cref="Task"/>.</returns>
         public async Task AddToCart(OrderBasic productDetailModel)
         {
-            _dbContext.OrderBasic.Add(productDetailModel);
+            //await _dbContext.SaveChangesAsync();
 
+            var Inventory = await _dbContext.OrderBasic.Where(x => x.ProductId == productDetailModel.ProductId && x.UserName == productDetailModel.UserName &&x.OrderGuid == productDetailModel.OrderGuid).FirstOrDefaultAsync();
+
+            if (Inventory != null)
+            {
+                var local = _dbContext.Set<OrderBasic>().Local.FirstOrDefault(x => x.ProductId.Equals(Inventory.ProductId) && x.OrderGuid.Equals(Inventory.OrderGuid) && x.UserName.Equals(Inventory.UserName));
+                if (local != null)
+                {
+                    _dbContext.Entry(local).State = EntityState.Detached;
+                }
+                Inventory.Qty = productDetailModel.Qty;
+
+                _dbContext.Entry(Inventory).State = EntityState.Modified;
+            }
+            else
+            {
+                _dbContext.OrderBasic.Add(productDetailModel);
+            }
             await _dbContext.SaveChangesAsync();
         }
 
@@ -229,6 +246,11 @@
 
             _dbContext.OrderMaster.Add(orderMaster);
             await _dbContext.SaveChangesAsync();
+        }
+
+        public Task<OrderBasic> updateCart()
+        {
+            throw new NotImplementedException();
         }
     }
 }
