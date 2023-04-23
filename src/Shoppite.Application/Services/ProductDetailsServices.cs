@@ -21,6 +21,7 @@
         /// Defines the _ProductDetailRepsitory.
         /// </summary>
         private readonly IProductDetailRepsitory _ProductDetailRepsitory;
+        private readonly ICartRepository _CartRepository;
 
         /// <summary>
         /// Defines the _logger.
@@ -38,10 +39,11 @@
         /// <param name="ProductDetailRepsitory">The ProductDetailRepsitory<see cref="IProductDetailRepsitory"/>.</param>
         /// <param name="appLogger">The appLogger<see cref="IAppLogger{ProductDetilServices}"/>.</param>
         /// <param name="accessor">The accessor<see cref="IHttpContextAccessor"/>.</param>
-        public ProductDetilServices(IProductDetailRepsitory ProductDetailRepsitory, IAppLogger<ProductDetilServices> appLogger, IHttpContextAccessor accessor)
+        public ProductDetilServices(IProductDetailRepsitory ProductDetailRepsitory, IAppLogger<ProductDetilServices> appLogger, ICartRepository CartRepository, IHttpContextAccessor accessor)
         {
             _ProductDetailRepsitory = ProductDetailRepsitory ?? throw new ArgumentNullException(nameof(ProductDetailRepsitory));
             _logger = appLogger ?? throw new ArgumentNullException(nameof(appLogger));
+            _CartRepository = CartRepository ?? throw new ArgumentNullException(nameof(CartRepository));
             _accessor = accessor;
         }
 
@@ -248,46 +250,78 @@
         /// <returns>The <see cref="Task"/>.</returns>
         public async Task AddToCart(ProductDetailModel productDetailModel)
         {
+            var CartCheck = await _CartRepository.CheckProdInCart((int)productDetailModel.ProductBasicModel.OrgId,productDetailModel.ProductBasicModel.ProductName, _accessor.HttpContext.User.Identity.Name);
 
-            //  await _ProductDetailRepsitory.AddOrderMaster(orderMaster);
-            //  productDetailModel.OrderMasterModel = ObjectMapper.Mapper.Map<OrderMasterModel>(orderMaster);
-
-            OrderBasic orderBasic = new OrderBasic();
-            orderBasic.ProductId = productDetailModel.ProductBasicModel.ProductId;
-            orderBasic.OrderGuid = Guid.Empty;
-            orderBasic.Price = productDetailModel.ProductPriceModel.Price;
-            orderBasic.DeliveryFees = productDetailModel.ProductPriceModel.DeliveryFees;
-            orderBasic.InsertDate = DateTime.Now;
-            orderBasic.OrderStatus = "Cart";
-            orderBasic.Currencyid = productDetailModel.ProductPriceModel.CurrencyId;
-            orderBasic.OrgId = productDetailModel.ProductBasicModel.OrgId;
-            orderBasic.Qty = productDetailModel.OrderBasicModel.Qty;
-            orderBasic.UserName = _accessor.HttpContext.User.Identity.Name;
-
-            var find = await _ProductDetailRepsitory.check(orderBasic);
-
-            productDetailModel.OrderBasicModel = ObjectMapper.Mapper.Map<OrderBasicModel>(find);
-
-            if (find != null)
+            if (CartCheck != null)
             {
-                orderBasic.OrderGuid = find.OrderGuid;
+                OrderBasic orderBasic1 = new OrderBasic
+                {
+                    UserName = CartCheck.UserName,
+                    OrderGuid = CartCheck.OrderGuid,
+                    ProductId = CartCheck.ProductId,
+                    Qty = CartCheck.Qty + productDetailModel.OrderBasicModel.Qty
+                };
+                await _ProductDetailRepsitory.AddToCart(orderBasic1);
             }
             else
             {
-                Guid Orderguid = Guid.NewGuid();
+                OrderBasic orderBasic = new OrderBasic();
+                orderBasic.ProductId = productDetailModel.ProductBasicModel.ProductId;
+                orderBasic.OrderGuid = Guid.Empty;
+                orderBasic.Price = productDetailModel.ProductPriceModel.Price;
+                orderBasic.DeliveryFees = productDetailModel.ProductPriceModel.DeliveryFees;
+                orderBasic.InsertDate = DateTime.Now;
+                orderBasic.OrderStatus = "Cart";
+                orderBasic.Currencyid = productDetailModel.ProductPriceModel.CurrencyId;
+                orderBasic.OrgId = productDetailModel.ProductBasicModel.OrgId;
+                orderBasic.Qty = productDetailModel.OrderBasicModel.Qty;
+                orderBasic.UserName = _accessor.HttpContext.User.Identity.Name;
 
-                OrderMaster orderMaster = new OrderMaster
+                var find = await _ProductDetailRepsitory.check(orderBasic);
+
+                productDetailModel.OrderBasicModel = ObjectMapper.Mapper.Map<OrderBasicModel>(find);
+
+                if (find != null)
                 {
-                    OrderGuid = Orderguid,
-                    OrderKeyStatus = "Active",
-                    InsertDate = DateTime.Now,
-                    OrgId = productDetailModel.ProductBasicModel.OrgId
-                };
-                await _ProductDetailRepsitory.AddOrderMaster(orderMaster); 
-                orderBasic.OrderGuid = Orderguid;
-            }
+                    orderBasic.OrderGuid = find.OrderGuid;
+                }
+                else
+                {
+                    Guid Orderguid = Guid.NewGuid();
 
-            await _ProductDetailRepsitory.AddToCart(orderBasic);
+                    OrderMaster orderMaster = new OrderMaster
+                    {
+                        OrderGuid = Orderguid,
+                        OrderKeyStatus = "Active",
+                        InsertDate = DateTime.Now,
+                        OrgId = productDetailModel.ProductBasicModel.OrgId
+                    };
+                    await _ProductDetailRepsitory.AddOrderMaster(orderMaster);
+                    orderBasic.OrderGuid = Orderguid;
+                }
+
+                await _ProductDetailRepsitory.AddToCart(orderBasic);
+            }
+            //{
+            //   var prodCheck = CartCheck.Where(x => x.UserName == _accessor.HttpContext.User.Identity.Name);
+
+            //    foreach (var setQty in prodCheck) 
+            //    {
+            //        if(setQty.ProductName == productDetailModel.ProductBasicModel.ProductName)
+            //        {
+            //          setQty.Qty = setQty.Qty + productDetailModel.OrderBasicModel.Qty;
+
+            //            //  var find = await _ProductDetailRepsitory.check();
+
+            //            //    await _ProductDetailRepsitory.AddToCart();
+                       
+            //        }
+                    
+            //    }
+                
+            //}
+                //  await _ProductDetailRepsitory.AddOrderMaster(orderMaster);
+                //  productDetailModel.OrderMasterModel = ObjectMapper.Mapper.Map<OrderMasterModel>(orderMaster);
         }
 
         public async Task<ProductDetailModel> BuyNow(ProductDetailModel productDetailModel)
@@ -318,7 +352,7 @@
 
             productDetailModel.OrderBasicModel = ObjectMapper.Mapper.Map<OrderBasicModel>(orderBasic);
 
-            return productDetailModel;
+                return productDetailModel;
 
             //OrderBasic orderBasic = new OrderBasic();
             //orderBasic.ProductId = productDetailModel.ProductBasicModel.ProductId;

@@ -24,6 +24,12 @@ namespace Shoppite.UI.Services
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
+
+        public async Task<UsersModal> ForgotPass(string password, string email, int orgId)
+        {
+            return await _AuthenticationService.ForgotPass(email, password, orgId);
+        }
+
         public async Task<UsersModal> Get_Login_Data(string email, string password, int orgid)
         {
             return await _AuthenticationService.Get_Login_Data(email, password, orgid);

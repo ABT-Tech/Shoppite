@@ -70,19 +70,22 @@
     /*    .single-mori-info #Des ul{
         position:fixed;
     }*/
+    #Set_Price, #Set_Name {
+        opacity: 0;
+    }
 </style>
 
 <form enctype="multipart/form-data" method="get" class="">
     <input type="hidden" asp-for="AttributesSetupModel" />
-    <input type="hidden" asp-for="ProductBasicModel.ProductName" />
     <input type="hidden" asp-for="ProductBasicModel.OrgId" />
-    <input type="hidden" asp-for="ProductBasicModel.ProductGuid" />
+    <input type="hidden" asp-for="ProductBasicModel.ProductName" />
+    <input type="hidden" id="ProdGuid" asp-for="ProductBasicModel.ProductGuid" />
     <input type="hidden" asp-for="ProductBasicModel.ProductId" />
-    <input type="hidden" asp-for="ProductPriceModel.Price" />
+    @*<input type="hidden" asp-for="ProductPriceModel.Price" />*@
     <input type="hidden" asp-for="ProductPriceModel.ProductPriceId" />
     <input type="hidden" asp-for="ProductPriceModel.CurrencyId" />
     <input type="hidden" asp-for="ProductPriceModel.DeliveryFees" />
-
+    <input type="hidden" asp-for="OrderBasicModel.UserName" />
     <!-- Start main area -->
     <div class="main-area">
         <!-- Start header -->
@@ -139,11 +142,11 @@
                         <!-- Start single product details -->
                         <div class="col-lg-5 col-md-6">
                             <div class="single-product-details">
-                                <h1>@Model.ProductBasicModel.ProductName</h1>
+                                <div class="d-inline-flex" id="Prod_Name"><h1>@Model.ProductBasicModel.ProductName</h1>&nbsp;<h1 id="Prod_Spec"></h1></div>
                                 @*<p><strong>Reference:</strong> demo_1 </p>
                                     <p><strong>Condition:</strong> New product </p>*@
                                 <h2>
-                                    <span>₹ @Model.ProductPriceModel.Price </span>
+                                    <span id="Product_Price">₹ @Model.ProductPriceModel.Price </span>
                                     @*@if (Model.ProductPriceModel.TaxExempt == true)
                                         {
                                             <span class="text-black">tax incl.</span>
@@ -186,13 +189,21 @@
 
                                 @*</form>*@
 
-                                @*@foreach (var prodattr in Model.AttributesSetupModel)
-                                    {
-                                       <p class="selector1">
-                                            <label>@prodattr.AttributeName</label>
-                                            <select id="selectproductsort2" class="select_1 select2 selectproductsort form-control" asp-items="@(new SelectList(prodattr.GetF_Getproduct_Specification_By_GuidModel,"attributeid","specificationname"))"></select>
-                                        </p>
-                                    }*@
+                                @foreach (var prodattr in Model.AttributesSetupModel)
+                                {
+                                    <p class="selector1">
+                                        <h6>@prodattr.AttributeName</h6>
+                                        @*<select id="selectproductsort2" onselect="GETproduct()" class="select_1 select2 selectproductsort form-control" asp-items="@(new SelectList(prodattr.GetF_Getproduct_Specification_By_GuidModel,"AttributeId","SpecificationName"))"></select>*@
+                                        <select id="selectproductsort2" name="dropspec" class="select_1 select2 selectproductsort form-control">
+                                            <option selected>select @prodattr.AttributeName</option>
+                                            @foreach (var spec in prodattr.GetF_Getproduct_Specification_By_GuidModel)
+                                            {
+                                                <option id="sel_Opt">@spec.SpecificationName</option>
+                                            }
+                                        </select>
+
+                                    </p>
+                                }
 
                                 @if (Model.ProductBasicModel.Qty == 0)
                                 {
@@ -522,6 +533,7 @@
         <!-- Start footer area -->
         <!-- End footer area -->
     </div>
+    <input id="Set_Price" asp-for="ProductPriceModel.Price" />
 </form>
 <!-- End main area -->
 <script src="~/plugins/select2/js/select2.min.js"></script>
@@ -551,17 +563,25 @@
             } else if (type == 'plus') {
 
                 if (currentVal < input.attr('max')) {
-                    input.val(currentVal + 1).change();
-                    $('.min').attr('disabled', false);
+                    if (currentVal >= 10) {
+                        $(this).attr('disabled', true);
+                        alert('Sorry, the maximum purchase Quantity was reached');
+                        //$(this).val($(this).data('oldValue'));
+                    } else {
+                        input.val(currentVal + 1).change();
+                        $('.min').attr('disabled', false);
+                    }
                 }
                 if (parseInt(input.val()) == input.attr('max')) {
                     $(this).attr('disabled', true);
                 }
 
             }
+
         } else {
             input.val(0);
         }
+
     });
 
 
@@ -587,22 +607,59 @@
             alert('Sorry, the maximum Quantity was reached');
             $(this).val($(this).data('oldValue'));
         }
+        
     });
 
-    $(document).ready(function () {
-        $('#Des ul li').each(function (i) {
-            var fontsize = $(this).css('font-size');
-            var bgcolor = $(this).css('blue');
-            var color = $(this).css('red');
-            var fontfamily = $(this).css('font-family');
 
-            $(this).parent("li").css('font-size', fontsize);
-            $(this).parent("li").css('background-color', bgcolor);
-            $(this).parent("li").css('color', color);
-            $(this).parent("li").css('font-family', fontfamily);
+    //  var Guid = $('#ProdGuid').val();
+    var PName = $('#Prod_Name').val();
+    $('select[name="dropspec"]').change(function () {
+       // var Name = $(this).val();
 
-        });
+        var Daata = Object();
+        Daata.Guid = $('#ProdGuid').val();
+        Daata.Name = $(this).val();
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("Product_Spcification_Details", "ProductDetail")',
+            dataType: 'JSON',
+            data: JSON.stringify(Daata),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $('#Product_Price').text('₹' + data.price);
+                $('#Prod_Spec').text(data.name);
+
+                document.getElementById("Set_Price").value = data.price;
+               // var PName = $('#Set_Name').val();
+               //  document.getElementById("Set_Name").value = PName +" "+ data.name;
+            },
+            error: function (xhr, status, error) {
+                alert("some thing worng");
+            }
+        })
+
+
+       // alert("you selected " + $(this).val());
+       
     });
 
+
+    //  if ($(this).val() == "2") {
+    //   }
+    //$(document).ready(function () {
+    //    $('#Des ul li').each(function (i) {
+    //        var fontsize = $(this).css('font-size');
+    //        var bgcolor = $(this).css('blue');
+    //        var color = $(this).css('red');
+    //        var fontfamily = $(this).css('font-family');
+
+    //        $(this).parent("li").css('font-size', fontsize);
+    //        $(this).parent("li").css('background-color', bgcolor);
+    //        $(this).parent("li").css('color', color);
+    //        $(this).parent("li").css('font-family', fontfamily);
+
+    //    });
+    //});
 
 </script>

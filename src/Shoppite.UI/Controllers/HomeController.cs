@@ -66,7 +66,12 @@ namespace Shoppite.UI.Controllers
         }
         public async Task<IActionResult> PageNotFound()
         {
-            return View(); 
+            int OrgId = _commonHelper.GetOrgID(HttpContext);
+            if (OrgId == 0)
+            {
+                return View();
+            }
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
