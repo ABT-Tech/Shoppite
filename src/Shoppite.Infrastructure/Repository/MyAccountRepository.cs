@@ -35,6 +35,8 @@ namespace Shoppite.Infrastructure.Repository
             UsersProfile usersProfile = await _dbContext.UsersProfile.FindAsync(myaccount.ProfileId);
             //usersProfile.UserName = myaccount.UserName;
             usersProfile.CoverImage = myaccount.CoverImage;
+            usersProfile.City = myaccount.City;
+            usersProfile.State = myaccount.State;
             usersProfile.ContactNumber = myaccount.ContactNumber;
             usersProfile.Address = myaccount.Address;
             usersProfile.City = myaccount.City;
