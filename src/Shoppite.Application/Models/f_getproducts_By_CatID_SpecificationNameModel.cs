@@ -34,11 +34,11 @@ namespace Shoppite.Application.Models
         public Nullable<int> maincatid { get; set; }
         //public int StatusId { get; set; }
         public string deals { get; set; }
-        public string badgestatus { get; set; }
-        public string CurrencyName { get; set; }
-        public string shopname { get; set; }
-        public string ShopURLPath { get; set; }
-        public string logo { get; set; }
+        //public string badgestatus { get; set; }
+        //public string CurrencyName { get; set; }
+       // public string shopname { get; set; }
+        //public string ShopURLPath { get; set; }
+        //public string logo { get; set; }
       /*  public string brands { get; set; }*/
         public string BrandName { get; set; }
         public string brandsurlpath { get; set; }
