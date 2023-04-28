@@ -36,10 +36,10 @@ namespace Shoppite.Application.Services
             await _wishlistRepository.AddWishList(mapped, ProductId);
 
         }
-        public async Task<List<f_order_masterModel>> GetMyOrders(string UserName,int Orgid)
+        public async Task<List<f_order_masterDetailsModel>> GetMyOrders(string UserName,int Orgid)
         {
             var orders = await _wishlistRepository.GetMyOrders(UserName, Orgid);
-            var mapped = ObjectMapper.Mapper.Map<List<f_order_masterModel>>(orders);
+            var mapped = ObjectMapper.Mapper.Map<List<f_order_masterDetailsModel>>(orders);
             return mapped;
         }
         public async Task<List<F_Pending_Orders_Model>> GetPendingOrders(int OrgId, int ProfileId)

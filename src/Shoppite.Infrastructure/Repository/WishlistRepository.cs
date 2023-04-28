@@ -39,7 +39,7 @@ namespace Shoppite.Infrastructure.Repository
                 _dbContext.SaveChanges();
             }           
         }
-        public async Task<List<f_order_master>> GetMyOrders(string username,int Orgid)
+        public async Task<List<f_order_masterDetails>> GetMyOrders(string username,int Orgid)
         {
             //string sql = "select * from f_My_Orders(@orgid,@profileid)";
             //List<SqlParameter> parms = new List<SqlParameter>
@@ -49,15 +49,15 @@ namespace Shoppite.Infrastructure.Repository
             //};
             //return await _dbContext.Set<F_Orders_All>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
 
-            string sql = "select * from f_order_master()";
+            string sql = "select * from f_order_masterDetails()";
             List<SqlParameter> parms = new List<SqlParameter>
             {
                 //new SqlParameter { ParameterName = "@orgid", Value = Orgid },
                 //new SqlParameter { ParameterName = "@profileid", Value = ProfileId }
             };
 
-          return await _dbContext.Set<f_order_master>().FromSqlRaw(sql, parms.ToArray()).
-                Where(x => x.OrderStatus == "Confirmed" && x.UserName == username && x.OrgId == Orgid).ToListAsync();
+          return await _dbContext.Set<f_order_masterDetails>().FromSqlRaw(sql, parms.ToArray()).
+                Where( x=>x.UserName == username && x.OrgId == Orgid).ToListAsync();
 
             //return dataa.Where(x => x.OrderStatus == "Confirmed" && x.UserName == username).ToList();
         }

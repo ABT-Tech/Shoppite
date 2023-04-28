@@ -75,7 +75,7 @@
             var Product_By_Cat = await _ProductDetailRepsitory.F_Getproducts_By_CategoryID(x);
             productDetailModel.f_Getproducts_By_CategoryIDModels = ObjectMapper.Mapper.Map<List<f_getproducts_By_CategoryIDModel>>(Product_By_Cat);
 
-            var productAttribute = await _ProductDetailRepsitory.ProductAttribute(1);
+            var productAttribute = await _ProductDetailRepsitory.ProductAttribute(orgid);
             productDetailModel.AttributesSetupModel = ObjectMapper.Mapper.Map<List<AttributesSetupModel>>(productAttribute);
 
             var productSpecVal = await _ProductDetailRepsitory.specificationSetups(id);
