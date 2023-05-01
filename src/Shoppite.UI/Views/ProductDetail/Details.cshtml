@@ -134,13 +134,13 @@
                             <div class="single-product-details">
                                 <div class="d-inline-flex" id="Prod_Name"><h1>@Model.ProductBasicModel.ProductName</h1>&nbsp;<h1 id="Prod_Spec"></h1></div>
                                 @*<p><strong>Reference:</strong> demo_1 </p>
-                                    <p><strong>Condition:</strong> New product </p>*@
+        <p><strong>Condition:</strong> New product </p>*@
                                 <h2>
                                     <span id="Product_Price">₹ @Model.ProductPriceModel.Price </span>
                                     @*@if (Model.ProductPriceModel.TaxExempt == true)
-                                        {
-                                            <span class="text-black">tax incl.</span>
-                                        }*@
+            {
+                <span class="text-black">tax incl.</span>
+            }*@
                                 </h2>
                                 <p>@Model.ProductBasicModel.ShortDescription</p>
                                 <p class="sin-item">
@@ -159,8 +159,8 @@
                                     <label>Quantity </label>
                                     @*  <input type="number" asp-for="OrderBasicModel.Qty" name="OrderBasicModel.Qty" id="french-hens" min="1" value="1">*@
                                     @*<span class="minus">-</span>
-                                        <input type="number" class="count" asp-for="OrderBasicModel.Qty" name="OrderBasicModel.Qty" min="1" max="@Model.ProductBasicModel.Qty" value="1">
-                                        <span class="plus">+</span>*@
+            <input type="number" class="count" asp-for="OrderBasicModel.Qty" name="OrderBasicModel.Qty" min="1" max="@Model.ProductBasicModel.Qty" value="1">
+            <span class="plus">+</span>*@
 
                                     <div class="input-group">
                                         <span class="">
@@ -296,15 +296,10 @@
                                         }
                                     </p>
                                 }
-
                                 @if (User.Identity.IsAuthenticated)
                                 {
-                            <p class="sin-adto-cart-bottom">
-                                @if (@Model.Wishlists != null)
-                                {
-                                    @for (int i = 0; i < @Model.Wishlists.Count; i++)
-                                    {
-                                        @if (@Model.ProductBasicModel.ProductId == @Model.Wishlists[i].ProductId)
+                                    <p class="sin-adto-cart-bottom">
+                                        @if (@Model.ProductBasicModel.WishlistedProduct == true)
                                         {
                                             <abbr title="WishList"><a href="/ProductDetail/AddToWhishList?ProductId=@Model.ProductBasicModel.ProductId&id=@Model.ProductBasicModel.ProductGuid"><i style="color:red" class="fa fa-heart"></i></a></abbr>
                                         }
@@ -312,11 +307,16 @@
                                         {
                                             <abbr title="WishList"><a href="/ProductDetail/AddToWhishList?ProductId=@Model.ProductBasicModel.ProductId&id=@Model.ProductBasicModel.ProductGuid"><i class="fa fa-heart"></i></a></abbr>
                                         }
-                                    }
+                                    </p>
                                 }
-                            </p>
-                                }
-                            </div>
+                                else
+                                {
+                                    <p class="sin-adto-cart-bottom">
+                                        <abbr title="WishList"><a href="/ProductDetail/AddToWhishList?ProductId=@Model.ProductBasicModel.ProductId&id=@Model.ProductBasicModel.ProductGuid"><i class="fa fa-heart"></i></a></abbr>
+                                    </p>
+
+                                        }
+                                </div>
                         </div>
                         @*End single product details*@
 

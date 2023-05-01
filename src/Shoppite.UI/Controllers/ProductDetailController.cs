@@ -45,7 +45,7 @@ namespace Shoppite.UI.Controllers
             int OrgId = _commonHelper.GetOrgID(HttpContext);
             string userName = User.Identity.Name;
             int orgid = _commonHelper.GetOrgID(HttpContext);         
-            var Product_Details = await _ProductDetailPageService.GetProductDetails(id, orgid);
+            var Product_Details = await _ProductDetailPageService.GetProductDetails(id, orgid, userName);
             if(userName!=null)
             {
                 Product_Details.Wishlists = await _productWishListService.GetWishList(userName, OrgId);
@@ -56,9 +56,10 @@ namespace Shoppite.UI.Controllers
         public async Task<ActionResult> Product_Spcification_Details([FromBody]GetSpecModel get )
         {
             Guid guid = Guid.Parse(get.Guid);
+            string userName = User.Identity.Name;
             int orgid = _commonHelper.GetOrgID(HttpContext);
             decimal price = 0;
-            var Product_Detals = await _ProductDetailPageService.GetProductDetails(guid, orgid);
+            var Product_Detals = await _ProductDetailPageService.GetProductDetails(guid, orgid, userName);
             if (get.Name.Contains("select"))
             {
                 price = (decimal)Product_Detals.ProductPriceModel.Price;
