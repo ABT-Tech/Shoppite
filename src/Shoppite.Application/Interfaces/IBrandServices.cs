@@ -20,6 +20,7 @@ namespace Shoppite.Application.Interfaces
         Task News_Letter_Submit(int orgid, string email);
         Task<List<ProductBasicModel>> SearchProduct(string searchKey);
         Task<OrderModel> GetOrderDetails(int orderid,int orgid);
+        Task<List<f_order_masterModel>> GetOrderedproductDetails(int orderid);
         Task CancleOrder(int orderid);
     }
 }

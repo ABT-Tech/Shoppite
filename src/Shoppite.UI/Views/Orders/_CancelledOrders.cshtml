@@ -26,29 +26,29 @@
             color: #000;
         }
 </style>
-@if (Model.MyOrders.Count > 0)
+@if (Model.MyOrderDetails != null & Model.MyOrderDetails.Count >0)
 {
     <div class="row">
-        @foreach (var myorders in Model.MyOrders.Where(x => x.LastOrderStatus == "Request Cancellation"))
+        @foreach (var myorders in Model.MyOrderDetails.Where(x => x.OrderStatus == "Cancelled"))
         {
             <div class="col-lg-4 col-md-4 col-12">
                 <div style="width:355px;" class="wishlist-box card rounded shadow d-flex">
                     <div class="d-inline-flex">
                         <div class="img-hover-zoom">
-                            <a href="">
+                           @* <a href="">
                                 <img class="wish-image" style="height: 100px; width: 100px; margin: 5px; object-fit: contain;" src="@myorders.CoverImage" alt="">
-                            </a>
+                            </a>*@
                         </div>
 
                         <div>
-                            <h6 style="padding:5px 0px 0px 0px;" class="product_name_Over ">@myorders.ProductName</h6>
+                           @* <h6 style="padding:5px 0px 0px 0px;" class="product_name_Over ">@myorders.ProductName</h6>*@
                             <p style="margin: 0px;"> <b style="color: #fe5b5a;">Order Date:</b> @myorders.orderdate</p>
-                            <p> <b style="color: #fe5b5a;">OrderId:</b> @myorders.OrderId</p>
+                            <p> <b style="color: #fe5b5a;">OrderId:</b> @myorders.OrderMasterId</p>
                         </div>
 
                         <div style="width: 58px;text-align:center;">
                             <abbr title="More Order Details">
-                                <a href="/Orders/OrderDetails?orderid=@myorders.OrderId">
+                                <a href="/Orders/OrderDetails?orderid=@myorders.OrderMasterId">
                                     <h2>
                                         <i class="fa fa-angle-right pt-4"></i>
                                     </h2>

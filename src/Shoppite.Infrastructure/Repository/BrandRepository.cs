@@ -158,7 +158,18 @@ namespace Shoppite.Infrastructure.Repository
             };
 
             return await _dbContext.Set<f_order_master>().FromSqlRaw(sql, parms.ToArray()).
-                  Where(x => x.OrderStatus == "Confirmed" && x.OrderId == orderid).FirstOrDefaultAsync();
+                  Where(x =>x.OrderId == orderid).FirstOrDefaultAsync();
+        }
+        public async Task<List<f_order_master>> GetOrderedproductDetails(int orderid)
+        {
+            string sql = "select * from f_order_master()";
+            List<SqlParameter> parms = new List<SqlParameter>
+            {
+                //new SqlParameter { ParameterName = "@orgid", Value = Orgid },
+                //new SqlParameter { ParameterName = "@profileid", Value = ProfileId }
+            };
+
+            return await _dbContext.Set<f_order_master>().FromSqlRaw(sql, parms.ToArray()).Where(x=>x.OrderId== orderid).ToListAsync();
         }
 
         public async Task<OrderShipping> GetOrderShipping(Guid? orderGUID)
@@ -171,9 +182,9 @@ namespace Shoppite.Infrastructure.Repository
             return await _dbContext.UsersProfile.Where(x => x.UserName == userName && x.Type == "Client" && x.OrgId==orgid).FirstOrDefaultAsync();
         }
 
-        public async Task<ProductBasic> GetProductDetail(string productName, string coverImage)
+        public async Task<List<ProductBasic>> GetProductDetail(string productName, string coverImage)
         {
-            return await _dbContext.ProductBasic.Where(x => x.ProductName == productName && x.CoverImage == coverImage).FirstOrDefaultAsync();
+            return await _dbContext.ProductBasic.Where(x => x.ProductName == productName && x.CoverImage == coverImage).ToListAsync();
         }
 
         public async Task CancleOrder(int orderid)
@@ -189,7 +200,7 @@ namespace Shoppite.Infrastructure.Repository
                   _dbContext.Entry(local).State = EntityState.Detached;
                 }
 
-                findOrder.OrderStatus1 = "Request Cancellation";
+                findOrder.OrderStatus1 = "Cancelled";
 
                 _dbContext.Entry(findOrder).State = EntityState.Modified;
 
@@ -206,7 +217,7 @@ namespace Shoppite.Infrastructure.Repository
                 {
                     _dbContext.Entry(local).State = EntityState.Detached;
                 }
-                FindFromOrderBasic.LastOrderStatus = "Request Cancellation";
+                FindFromOrderBasic.LastOrderStatus = "Cancelled";
 
                 _dbContext.Entry(FindFromOrderBasic).State = EntityState.Modified;
             }

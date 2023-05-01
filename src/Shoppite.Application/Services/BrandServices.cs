@@ -138,7 +138,7 @@ namespace Shoppite.Application.Services
             orderModel.UsersProfileModel = ObjectMapper.Mapper.Map<UsersProfileModal>(getShippingDetail);
 
             var GetProductDetail = await _BrandRepository.GetProductDetail(orderModel.f_Order_MasterModel.ProductName, orderModel.f_Order_MasterModel.CoverImage);
-            orderModel.ProductBasicModel = ObjectMapper.Mapper.Map<ProductBasicModel>(GetProductDetail);
+            orderModel.ProductBasicModel = ObjectMapper.Mapper.Map<List<ProductBasicModel>>(GetProductDetail);
 
             var GetOrderSATUS = await _BrandRepository.GetOrderStatus(orderid,orgid);
             orderModel.OrderStatusModel = ObjectMapper.Mapper.Map<OrderStatusModel>(GetOrderSATUS);
@@ -146,9 +146,14 @@ namespace Shoppite.Application.Services
             var getUsername = await _BrandRepository.GetUser(orderModel.f_Order_MasterModel.UserName,orgid);
             orderModel.UserName = getUsername.Username;
 
-           // var OrderShipping = await _BrandRepository.GetOrderShipping(orderModel.f_Order_MasterModel.OrderGUID);
-           // orderModel.OrderShippingModel = ObjectMapper.Mapper.Map<OrderShippingModel>(OrderShipping);
+            return orderModel;
+        }
+        public async Task<List<f_order_masterModel>> GetOrderedproductDetails(int orderid)
+        {
+            List<f_order_masterModel> orderModel = new List<f_order_masterModel>();
 
+            var productsDetails = await _BrandRepository.GetOrderedproductDetails(orderid);
+            orderModel= ObjectMapper.Mapper.Map<List<f_order_masterModel>>(productsDetails);
             return orderModel;
         }
 

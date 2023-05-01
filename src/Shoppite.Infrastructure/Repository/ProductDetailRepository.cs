@@ -186,9 +186,9 @@
         /// </summary>
         /// <param name="AtId">The AtId<see cref="int"/>.</param>
         /// <returns>The <see cref="Task{IEnumerable{AttributesSetup}}"/>.</returns>
-        public async Task<IEnumerable<AttributesSetup>> ProductAttribute(int AtId)
+        public async Task<IEnumerable<AttributesSetup>> ProductAttribute(int OrgId)
         {
-            var productAttribute = await _dbContext.AttributesSetup.OrderBy(x => x.AttributeName).ToListAsync();
+            var productAttribute = await _dbContext.AttributesSetup.Where(x => x.OrgId== OrgId).ToListAsync();
             return productAttribute;
         }
 

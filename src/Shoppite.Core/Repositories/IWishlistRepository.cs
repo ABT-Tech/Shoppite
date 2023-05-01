@@ -10,7 +10,7 @@ namespace Shoppite.Core.Repositories
     {
         Task<List<SP_UserWishList>> GetWishList(string Username, int OrgId);
         Task AddWishList(CustomerWishlist wishlist, int ProductId);
-        Task<List<f_order_master>> GetMyOrders(string UserName,int Orgid);
+        Task<List<f_order_masterDetails>> GetMyOrders(string UserName,int Orgid);
         Task<List<F_Pending_Orders>> GetPendingOrders(int OrgId, int ProfileId);
         Task<List<F_Pending_Orders>> GetCancelledOrders(int OrgId, int ProfileId);
         Task<List<F_Pending_Orders>> GetDeliveredOrders(int OrgId, int ProfileId);

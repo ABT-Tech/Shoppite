@@ -206,7 +206,7 @@
                                             <h4 style="margin: 0px 0px 25px 20px; font-weight: 800; color: #000000;">Order No:- @Model.f_Order_MasterModel.OrderId</h4>
                                             <p style="margin: 0px 0px 25px 20px; font-weight: 700; color: #000000;">Payment Method:- @Model.f_Order_MasterModel.PaymentMode</p>
                                             <p style="margin: 0px 0px 25px 20px; font-weight: 700; color: #000000;">Remarks From Vendor:- @Model.OrderStatusModel.Remarks</p>
-                                            <p style="margin: 0px 0px 25px 20px; font-weight: 700; color: #000000;">Order Status:-<label style="color: #ec4445;">@Model.f_Order_MasterModel.LastOrderStatus</label> </p>
+                                            <p style="margin: 0px 0px 25px 20px; font-weight: 700; color: #000000;">Order Status:-<label style="color: #ec4445;">@Model.f_Order_MasterModel.OrderStatus</label> </p>
                                         </div>
                                     </div>
 
@@ -224,34 +224,43 @@
                                     <div id="list" class="tab-pane active categori-list-view">
                                         <div class="list-view-single-product shadow" style="border-radius: 6px;">
                                             <div class="row">
-                                                <div class="col-md-2">
-                                                    <div class="list-view-image" style="margin-left: 8px;">
-                                                        <a href="#">
-                                                            <img src="@Model.f_Order_MasterModel.CoverImage"
-                                                                 alt="">
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 col-md-10 col-6 d-flex">
-                                                    <div class="col-6 list-view-details" style="color: #000000; font-weight: 900; letter-spacing: 1px;">
-                                                        <h5>@Model.f_Order_MasterModel.ProductName</h5>
-                                                        <p class="product-desc">Qty:@Model.f_Order_MasterModel.Qty</p>
-                                                        @*<p class="product-desc">Sold by:- Privento Marketing</p>*@
-                                                        @*<p class="product-desc">Description:- Sleeveless knee-length chiffon dress. V-neckline with elastic under the bust lining.</p>*@
-                                                        <div class="">
-                                                            <label class="list-product-price" style="font-size: 20px; color: #ec4445;">₹@Model.f_Order_MasterModel.Price</label>
+                                               
+                                                @foreach (var productImg in Model.productDetails)
+                                                {
+                                                    <div class="col-md-2">
+                                                        <div class="list-view-image" style="margin-left: 8px;">
+                                                            <a href="#">
+                                                                <img src="@productImg.CoverImage" alt="" />
+                                                            </a>
                                                         </div>
                                                     </div>
-                                                    <div class="col-6 col-md-8 list-view-details justify-content-end">
-                                                        <div class="cartPage-btn">
-                                                            <ul class="text-center mt-5">
-                                                                @*<li style="margin: 25px 0px 35px 0px; "><a href="#" class="cbtn return">Return Order</a></li>*@
-                                                                <li style="margin: 25px 0px 35px 0px; "><a href="/ProductDetail/Details/@Model.ProductBasicModel.ProductGuid" class="cbtn return">Buy Again</a></li>
-                                                            </ul>
+                                                    <div class="col-12 col-md-10 col-6 d-flex">
+                                                        <div class="col-6 list-view-details" style="color: #000000; font-weight: 900; letter-spacing: 1px;">
+
+                                                            <h5>@productImg.ProductName</h5>
+                                                            <p class="product-desc">Qty:@productImg.Qty</p>
+
+
+                                                            <div class="">
+
+                                                                <label class="list-product-price" style="font-size: 20px; color: #ec4445;">@productImg.totalPrice</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-md-8 list-view-details justify-content-end">
+                                                            <div class="cartPage-btn">
+                                                                <ul class="text-center mt-5">
+                                                                    
+                                                                        <li style="margin: 25px 0px 35px 0px; "><a href="/ProductDetail/Details/@productImg.ProductGUID" class="cbtn return">Buy Again</a></li>
+
+                                                                 
+
+                                                                </ul>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                }
                                             </div>
+                                                
                                         </div>
                                     </div>
                                 </div>

@@ -60,6 +60,7 @@ namespace Shoppite.Application.Models
         public List<f_getproducts_By_CatID_SpecificationNameModel> Product_specification { get; set; }
         public List<Customer_WishlistModel> Wishlists { get; set; }
         public List<f_order_masterModel> MyOrders { get; set; }
+        public List<f_order_masterDetailsModel> MyOrderDetails { get; set; }
         public List<F_Pending_Orders_Model> Orders { get; set; }
         public f_Get_MyAccount_Data_Model Myaccount { get; set; }
         public List<sp_getcat_ResultModel> AllCategories { get; set; }
