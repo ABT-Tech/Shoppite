@@ -30,5 +30,6 @@ namespace Shoppite.Application.Models
         public decimal? Price { get; set; }
         public decimal? OldPrice { get; set; }
         public ProductPriceModel ProductPricemodel { get; set; }
+        public Boolean WishlistedProduct { get; set; }
     }
 }

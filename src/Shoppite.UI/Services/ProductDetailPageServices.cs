@@ -33,9 +33,9 @@ namespace Shoppite.UI.Services
             return mapped;
         }
 
-        public async Task<ProductDetailModel> GetProductDetails(Guid id,int orgid)
+        public async Task<ProductDetailModel> GetProductDetails(Guid id,int orgid,string? Username)
         {
-            return await _ProductDetailServices.GetProductDetails(id, orgid);
+            return await _ProductDetailServices.GetProductDetails(id, orgid, Username);
         }
 
         public async Task<List<ProductDetailModel>> GetproductImages(Guid id)

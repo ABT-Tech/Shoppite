@@ -8,7 +8,7 @@ namespace Shoppite.Application.Interfaces
 {
    public interface IProductDetailServices
     {
-        Task<ProductDetailModel> GetProductDetails(Guid id,int orgid);
+        Task<ProductDetailModel> GetProductDetails(Guid id,int orgid,string? Username);
         Task<List<ProductDetailModel>> GetProductImages(Guid id);
         Task<ProductDetailModel> GetProductPrice(Guid id);
         Task<ProductDetailModel> Get_Brand_Name(Guid guid, int id);

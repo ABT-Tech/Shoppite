@@ -21,6 +21,7 @@
         /// Defines the _ProductDetailRepsitory.
         /// </summary>
         private readonly IProductDetailRepsitory _ProductDetailRepsitory;
+        private readonly IWishlistRepository _wishlistRepository;
         private readonly ICartRepository _CartRepository;
 
         /// <summary>
@@ -39,11 +40,12 @@
         /// <param name="ProductDetailRepsitory">The ProductDetailRepsitory<see cref="IProductDetailRepsitory"/>.</param>
         /// <param name="appLogger">The appLogger<see cref="IAppLogger{ProductDetilServices}"/>.</param>
         /// <param name="accessor">The accessor<see cref="IHttpContextAccessor"/>.</param>
-        public ProductDetilServices(IProductDetailRepsitory ProductDetailRepsitory, IAppLogger<ProductDetilServices> appLogger, ICartRepository CartRepository, IHttpContextAccessor accessor)
+        public ProductDetilServices(IWishlistRepository wishlistRepository, IProductDetailRepsitory ProductDetailRepsitory, IAppLogger<ProductDetilServices> appLogger, ICartRepository CartRepository, IHttpContextAccessor accessor)
         {
             _ProductDetailRepsitory = ProductDetailRepsitory ?? throw new ArgumentNullException(nameof(ProductDetailRepsitory));
             _logger = appLogger ?? throw new ArgumentNullException(nameof(appLogger));
             _CartRepository = CartRepository ?? throw new ArgumentNullException(nameof(CartRepository));
+            _wishlistRepository = wishlistRepository ?? throw new ArgumentNullException(nameof(wishlistRepository));
             _accessor = accessor;
         }
 
@@ -53,13 +55,17 @@
         /// <param name="id">The id<see cref="Guid"/>.</param>
         /// <param name="orgid">The orgid<see cref="int"/>.</param>
         /// <returns>The <see cref="Task{ProductDetailModel}"/>.</returns>
-        public async Task<ProductDetailModel> GetProductDetails(Guid id, int orgid)
+        public async Task<ProductDetailModel> GetProductDetails(Guid id, int orgid,string? username)
         {
             int x = 1;
             ProductDetailModel productDetailModel = new ProductDetailModel();
             var productDetail = await _ProductDetailRepsitory.productBasic(id);
             productDetailModel.ProductBasicModel = ObjectMapper.Mapper.Map<ProductBasicModel>(productDetail);
-
+            if(username!=null)
+            {
+                var wishlist = await _wishlistRepository.GetWishList(username, orgid);
+                productDetailModel.Wishlists = ObjectMapper.Mapper.Map<List<Customer_WishlistModel>>(wishlist);
+            }                         
             var ProductImages = await _ProductDetailRepsitory.ProductImages(id);
             productDetailModel.ProductImagesModel = ObjectMapper.Mapper.Map<List<ProductImagesModel>>(ProductImages);
 
@@ -97,7 +103,19 @@
 
             //var ProductRecent = await _ProductDetailRepsitory.F_Getproducts_Recentlyviewed(ipAddress, orgid);
             //productDetailModel.f_Getproducts_RecentlyviewedModel = ObjectMapper.Mapper.Map<List<f_getproducts_RecentlyviewedModel>>(ProductRecent);
+            if(productDetailModel.Wishlists!=null)
+            {
+                for (int i = 0; i < productDetailModel.Wishlists.Count; i++)
+                {
+                    if (productDetailModel.ProductBasicModel.ProductId == productDetailModel.Wishlists[i].ProductId)
+                    {
+                        productDetailModel.ProductBasicModel.WishlistedProduct = true;
 
+                    }
+                }
+
+            }
+            
             return productDetailModel;
         }
 
