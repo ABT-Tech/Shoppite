@@ -137,7 +137,6 @@
         var prod_Div = '';
         var ProdAry = [];
 
-
             $.ajax({
                 type: "GET",
                 url: '@Url.Action("Get_Product_By_Cat", "Home")',
@@ -168,7 +167,11 @@
                         prod_Div += '<div class="bottom-item">';
                         prod_Div += '<div class="product-info">';
                         prod_Div += '<h5><a href="/ProductDetail/Details/' + result[i].productGUID + '" class="product_name_Over" style="width:170px;" id="ProductName">' + result[i].productName + '</a></h5>';
-                        prod_Div += '<span>' + '₹' + result[i].price + '&nbsp;&nbsp;<del>₹' + result[i].oldPrice + '</del></span>';
+                        if (result[i].oldPrice != null) {
+                            prod_Div += '<span>' + '₹' + result[i].price + '&nbsp;&nbsp;<del id="Old_Price">₹' + result[i].oldPrice + '</del></span>';
+                        } else {
+                            prod_Div += '<span>' + '₹' + result[i].price +'</span>';
+                        }
                         prod_Div += '<p>';
                         //prod_Div += '<i class="fa fa-star-o"></i>';  <del>₹product.OldPrice</del>
                         //prod_Div += '<i class="fa fa-star-o"></i>';
@@ -192,6 +195,7 @@
                         ProdAry.push(resetdiv);
                     }
                     $("#prodtabdata").html(ProdAry.join(''));
+
                     if (ProdAry.length == 0) {
                         $("#prodtabdata").html('<img class="" style="margin-top: 3.6pc;" src="/img/no-product-found.jpg" alt="NoProductFound" />');
                     }

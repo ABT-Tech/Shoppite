@@ -5,7 +5,7 @@
     <div class="container">
         @foreach (var product in Model.ProductNewArrivalModel.GroupBy(x => x.StatusId))
         {
-            foreach (var groupq in product.Take(1))
+            foreach (var groupq in product.Take(1).Where(x=>x.ShowOnFront == true))
             {
                 <!-- Start product title -->
                 <div class="new-product-title">
