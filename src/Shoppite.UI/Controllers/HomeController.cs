@@ -47,7 +47,7 @@ namespace Shoppite.UI.Controllers
             brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
             brands.Categories = await _categoryPageService.GetCategories(CategoryId,OrgId);
             brands.HorizontalBanner = await _categoryPageService.GetHorizontalBanner(OrgId);
-            brands.TopBanner = await _categoryPageService.GetBannerByCategory(OrgId);
+            brands.BannersByCategory = await _categoryPageService.GetBannerByCategory(OrgId);
             return View(brands);
         }
         public async Task<IActionResult> ProductsByBrand(int CategoryId,int BrandId)
