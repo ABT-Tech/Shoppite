@@ -19,5 +19,6 @@ namespace Shoppite.Web.Interfaces
         Task<List<AttributeSetupModel>> GetAllAttributes(int orgId);
         Task<List<CategoryMasterModel>> GetBannerByCategory(int orgId);
         Task<List<sp_getcat_ResultModel>> GetAllCategories(int OrgId);
+        Task<List<CategoryMasterModel>> GetCategoryBannerImage(int orgId);
     }
 }

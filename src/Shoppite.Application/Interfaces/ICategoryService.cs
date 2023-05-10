@@ -17,5 +17,6 @@ namespace Shoppite.Application.Interfaces
         Task<List<f_getproducts_By_CatID_SpecificationNameModel>> GetAllProductByAttribute(int CategoryId,string SpecificationName);
         Task<List<CategoryMasterModel>> GetBannerByCategory(int orgId);
         Task<List<sp_getcat_ResultModel>> GetAllCategories(int OrgId);
+        Task<List<CategoryMasterModel>> GetCategoryBannerImage(int orgId);
     }
 }

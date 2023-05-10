@@ -1,13 +1,29 @@
 ﻿@model Shoppite.Application.Models.MainModel
 @if (Model.TopBanner.Count == 0)
 {
-    @if (Model.BannersByCategory != null)
+    @if (Model.BannersByCategory.Count == 0)
     {
-        @foreach (var image in Model.BannersByCategory)
+        @if (Model.CategoryBanner != null)
         {
-            if (image.Banner != null)
+            @foreach (var image in Model.CategoryBanner)
             {
-                <a asp-action="AllProducts" asp-route-CategoryId="@image.CategoryId"><img src="@image.Banner" alt="slider image" class="rounded-3" /></a>
+                if (image.Banner != null)
+                {
+                    <a asp-action="AllProducts" asp-route-CategoryId="@image.CategoryId"><img src="@image.Banner" alt="slider image" class="rounded-3" /></a>
+                }
+            }
+        }
+    }
+    else
+    {
+        @if (Model.BannersByCategory != null)
+        {
+            @foreach (var image in Model.BannersByCategory)
+            {
+                if (image.Banner != null)
+                {
+                    <a asp-action="AllProducts" asp-route-CategoryId="@image.CategoryId"><img src="@image.Banner" alt="slider image" class="rounded-3" /></a>
+                }
             }
         }
 
@@ -21,7 +37,7 @@ else
         {
             if (image.Image != null)
             {
-                <a><img src="@image.Image" alt="slider image" class="rounded-3" /></a>
+                <a asp-action="AllProducts" asp-route-CategoryId="@image.CategoryId"><img src="@image.Image" alt="slider image" class="rounded-3" /></a>
             }
         }
 

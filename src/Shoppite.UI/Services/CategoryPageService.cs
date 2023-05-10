@@ -77,5 +77,11 @@ namespace Shoppite.Web.Services
             var mapped = _mapper.Map<List<sp_getcat_ResultModel>>(categories);
             return mapped;
         }
+        public async Task<List<CategoryMasterModel>> GetCategoryBannerImage(int orgId)
+        {
+            var image = await _categoryService.GetCategoryBannerImage(orgId);
+            var mapped = _mapper.Map<List<CategoryMasterModel>>(image);
+            return mapped;
+        }
     }
 }
