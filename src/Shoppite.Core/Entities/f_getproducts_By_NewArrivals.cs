@@ -18,6 +18,7 @@ namespace Shoppite.Core.Entities
         public Nullable<System.DateTime> ProductStartDate { get; set; }
         public Nullable<System.DateTime> ProductEndDate { get; set; }
         public Nullable<bool> IsPublished { get; set; }
+        public bool? ShowOnFront { get; set; }
         public Nullable<System.DateTime> InsertDate { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<int> ProfileId { get; set; }

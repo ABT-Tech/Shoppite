@@ -10,7 +10,7 @@
             <div class="producttabcarosel pos-logo-slide owl-carousel logo-carousel">
                 @if (Model.BrandsModel != null)
                 {
-                    @foreach (var BLogo in Model.BrandsModel)
+                    @foreach (var BLogo in Model.BrandsModel.Where(x=>x.IsPublished == true))
                     {
                         if (BLogo.BrandImage != "")
                         {

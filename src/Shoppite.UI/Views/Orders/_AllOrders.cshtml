@@ -33,7 +33,7 @@
         @foreach (var myorders in Model.MyOrderDetails)
         {
             <div class="col-lg-4 col-md-4 col-12">
-                <div style="width:355px;" class="wishlist-box card rounded shadow d-flex">
+                <div style="width:fit-content;" class="wishlist-box card rounded shadow d-flex">
                     <div class="d-inline-flex">
                         <div class="img-hover-zoom">
                            @* <a href="">
@@ -41,9 +41,9 @@
                             </a>*@
                         </div>
 
-                        <div>
+                        <div style="margin:5px;">
                            @* <h6 style="padding:5px 0px 0px 0px;" class="product_name_Over ">@myorders.ProductName</h6>*@
-                            <p style="margin: 0px;"> <b style="color: #fe5b5a;">Order Date:</b> @myorders.orderdate</p>
+                            <p> <b style="color: #fe5b5a;">Order Date:</b> @myorders.orderdate</p>
                             <p> <b style="color: #fe5b5a;">OrderId:</b> @myorders.OrderMasterId</p>
                         </div>
 
