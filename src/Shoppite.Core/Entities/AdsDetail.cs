@@ -11,8 +11,9 @@ namespace Shoppite.Core.Entities
     {
         public int AdId { get; set; }
         public int? AdsPlacementId { get; set; }
+        public int? CategoryId { get; set; }
         public int? AdsPageId { get; set; }
-        public string Image { get; set; }
+        public string Image { get; set; }      
         public string Description { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }

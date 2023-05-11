@@ -144,5 +144,11 @@ namespace Shoppite.Application.Services
             var mapped = ObjectMapper.Mapper.Map<List<sp_getcat_ResultModel>>(categories);
             return mapped;
         }
+        public async Task<List<CategoryMasterModel>> GetCategoryBannerImage(int orgId)
+        {
+            var image = await _categoryRepository.GetCategoryBannerImage(orgId);
+            var mapped = ObjectMapper.Mapper.Map<List<CategoryMasterModel>>(image);
+            return mapped;
+        }
     }
 }

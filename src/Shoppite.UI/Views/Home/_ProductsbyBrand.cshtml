@@ -2,53 +2,38 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <div id="grid" class="tab-pane active categoti-grid-view">
     <div class="row">
-        @foreach (var product in Model.ProductdByBrand)
+        @if (Model.ProductdByBrand.Count == 0)
         {
-            <div class="col-md-4 col-lg-4 col-sm-6 col-xl-3" style="margin-top:25px">
-                <div class="product-item">
-                    <div class="top-item">
-                        <a href="@Url.Action("Details","ProductDetail", new {id = product.ProductGuid })">
-                            <img style="height:244px;width:250px" src="@product.Image" alt="Product image">
-                        </a>
-                        @*<div class="top-cocial">
-                                <p>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                </p>
-                            </div>*@
-                    </div>
-                    <div class="bottom-item">
-                        <div class="product-info">
-                            <h5><a href="@Url.Action("Details","ProductDetail" , new { id = product.ProductGuid })" class="product_name_Over">@product.ProductName</a></h5>
-                            <span>
-                                ₹@product.Price &nbsp;&nbsp;
-                                @if (product.OldPrice != null)
-                                {
-                                    <del>₹@product.OldPrice</del>
-                                }
-                            </span>
-                            <p>
-                                @*<i class="fa fa-star-o"></i>
-            <i class="fa fa-star-o"></i>
-            <i class="fa fa-star-o"></i>
-            <i class="fa fa-star-o"></i>
-            <i class="fa fa-star-o"></i>*@
-                            </p>
+            <img class="" style="margin-top: 3.6pc;" src="/img/no-product-found.jpg" alt="NoProductFound">
+        }
+        else
+        {
+            @foreach (var product in Model.ProductdByBrand)
+            {
+                <div class="col-md-4 col-lg-4 col-sm-6 col-xl-3" style="margin-top:25px">
+                    <div class="product-item">
+                        <div class="top-item">
+                            <a href="@Url.Action("Details","ProductDetail", new {id = product.ProductGuid })">
+                                <img style="height:244px;width:250px" src="@product.Image" alt="Product image">
+                            </a>
                         </div>
-                        @*<div class="product-social">
-                                <ul>
-                                    <li><a href="#"><i class="fa fa-external-link"></i></a></li>
-                                    <li><a class="addWish" data-product="@product.ProductId"><i class="fa fa-heart" id="addtowishlist"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-bar-chart"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                </ul>
-                            </div>*@
+                        <div class="bottom-item">
+                            <div class="product-info">
+                                <h5><a href="@Url.Action("Details","ProductDetail" , new { id = product.ProductGuid })" class="product_name_Over">@product.ProductName</a></h5>
+                                <span>
+                                    ₹@product.Price &nbsp;&nbsp;
+                                    @if (product.OldPrice != null)
+                                    {
+                                        <del>₹@product.OldPrice</del>
+                                    }
+                                </span>
+                                <p>
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
         }
     </div>
 </div>

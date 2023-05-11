@@ -34,7 +34,7 @@ namespace Shoppite.Infrastructure.Repository
             var q = (from ad_detail in _dbContext.AdsDetail
                      join ad_place in _dbContext.AdsPlacement on ad_detail.AdsPlacementId equals ad_place.AdsPlacementId
                      join ad_pagename in _dbContext.AdsPageName on ad_detail.AdsPageId equals ad_pagename.AdsPageId
-                     where ad_pagename.PageName.Contains("Home") && ad_place.PlacementName == "Middle" && ad_detail.OrgId == orgId
+                     where ad_pagename.PageName.Contains("Home") && ad_place.PlacementName == "Middle" && ad_detail.Status=="Active"&& ad_detail.OrgId == orgId
                      select ad_detail).ToList();
             return q;
         }
@@ -122,5 +122,16 @@ namespace Shoppite.Infrastructure.Repository
         {
             return await _dbContext.CategoryMaster.Where(x => x.CategoryId == childCatId && x.CategoryName == childCatname && x.ParentCategoryId == catId).FirstOrDefaultAsync();
         }
-    }
+        public async Task<List<AdsDetail>> GetCategoryBannerImage(int orgId)
+        {
+
+            var q = (from ad_detail in _dbContext.AdsDetail
+                     join ad_place in _dbContext.AdsPlacement on ad_detail.AdsPlacementId equals ad_place.AdsPlacementId
+                     join ad_pagename in _dbContext.AdsPageName on ad_detail.AdsPageId equals ad_pagename.AdsPageId
+                     join categories in _dbContext.CategoryMaster on ad_detail.CategoryId equals categories.CategoryId
+                     where  ad_detail.Status == "Active" && ad_detail.OrgId == orgId
+                     select ad_detail).ToList();
+            return q;
+        }
+    }   
 }

@@ -1,18 +1,22 @@
 ﻿@model Shoppite.Application.Models.MainModel
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        .responsive {
-            height: auto;
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+    .responsive {
+        height: auto;
+    }
+</style>
+@if (Model.MiddelBanner != null)
+    @foreach (var image in Model.MiddelBanner.TakeLast(2))
+    {
+        if (Model.MiddelBanner.Count == 2)
+        {
+            <div class="col-md-6">
+                <div class="shrink image">
+                    <a a asp-action="AllProducts" asp-route-CategoryId="@image.CategoryId"><img src="@image.Image" class="rounded-2 mt-2 responsive img-fluid" alt="slider image" /></a>
+                </div>
+            </div>
         }
-
-    </style>
-@foreach (var image in Model.MiddelBanner)
-{
-    <div class="col-md-6">
-        <div class="shrink image">
-            <a href=""><img src="@image.Image"  class="rounded-2 mt-2 responsive img-fluid" alt="slider image" /></a>
-        </div>
-    </div>
+    }
 }
 

@@ -49,6 +49,8 @@ namespace Shoppite.Application.Models
         public List<CategoryMasterModel> CategoryMasterModel { get; set; }
         public CategoryMasterModel CategoryMaster { get; set; }
         public List<CategoryMasterModel> TopBanner { get; set; }
+        public List<CategoryMasterModel> BannersByCategory { get; set; }
+        public List<CategoryMasterModel> CategoryBanner { get; set; }
         public List<CategoryMasterModel> MiddelBanner { get; set; }
         public IEnumerable<MainCategoryModel> ProductsDetails { get; set; }
         public List<SpecificationSetupModel> Specification { get; set; }
