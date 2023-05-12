@@ -50,6 +50,7 @@ namespace Shoppite.Application.Models
         public CategoryMasterModel CategoryMaster { get; set; }
         public List<CategoryMasterModel> TopBanner { get; set; }
         public List<CategoryMasterModel> BannersByCategory { get; set; }
+        public List<CategoryMasterModel> LeftBanner { get; set; }
         public List<CategoryMasterModel> CategoryBanner { get; set; }
         public List<CategoryMasterModel> MiddelBanner { get; set; }
         public IEnumerable<MainCategoryModel> ProductsDetails { get; set; }
@@ -57,7 +58,7 @@ namespace Shoppite.Application.Models
         public List<CategoryMasterModel> CategoryProduct { get; set; }
         public List<CategoryMasterModel> Categories { get; set; }
         public List<CategoryMasterModel> SubCategories { get; set; }
-        public List<CategoryMasterModel> HorizontalBanner { get; set; }
+        public List<CategoryMasterModel> BottomBanner { get; set; }
         public List<AttributeSetupModel> Attributes { get; set; }
         public List<f_getproducts_By_CatID_SpecificationNameModel> Product_specification { get; set; }
         public List<Customer_WishlistModel> Wishlists { get; set; }

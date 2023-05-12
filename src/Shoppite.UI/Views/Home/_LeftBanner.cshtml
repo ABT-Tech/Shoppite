@@ -1,0 +1,11 @@
+﻿@model Shoppite.Application.Models.MainModel
+@if (Model.LeftBanner != null)
+{
+    @foreach (var image in Model.LeftBanner.TakeLast(1))
+    {
+
+            <a asp-action="AllProducts" asp-route-CategoryId="@image.CategoryId"><img src="@Url.Content("~")@image.Image"/></a>
+    }
+}
+
+
