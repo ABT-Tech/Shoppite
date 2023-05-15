@@ -48,7 +48,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-2 col-md-2">
+                <div class="col-lg-3 col-md-2">
             @await Html.PartialAsync("_LeftBanner")
         </div>
                 <!-- Start tab menu area -->
@@ -74,7 +74,7 @@
                 </div>
                 <!-- End tab menu area -->
                 <!-- Start category product content area -->
-                <div class="col-lg-7 col-md-7">
+                <div class="col-lg-6 col-md-7">
                     <div class="new-product-area">
                         <div class="container">
                             @* @await Html.PartialAsync("_BottomBanner.cshtml", Model)*@
@@ -102,7 +102,7 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 <script>
     var swiper = new Swiper(".mySwiper", {
-        slidesPerView: 4,
+        slidesPerView: 3,
         spaceBetween: 20,
         //freeMode: true,
         navigation: {
@@ -127,7 +127,7 @@
                 spaceBetween: 20
           },
             992: {
-                slidesPerView: 4,
+                slidesPerView: 3,
                 spaceBetween: 20
             }
         }
