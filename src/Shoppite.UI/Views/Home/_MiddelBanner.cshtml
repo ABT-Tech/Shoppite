@@ -7,13 +7,14 @@
     }
 </style>
 @if (Model.MiddelBanner != null)
+{
     @foreach (var image in Model.MiddelBanner.TakeLast(2))
     {
         if (Model.MiddelBanner.Count == 2)
         {
             <div class="col-md-6">
                 <div class="shrink image">
-                    <a a asp-action="AllProducts" asp-route-CategoryId="@image.CategoryId"><img src="@image.Image" class="rounded-2 mt-2 responsive img-fluid" alt="slider image" /></a>
+                    <a  asp-action="AllProducts" asp-route-CategoryId="@image.CategoryId"><img src="@image.Image" class="rounded-2 mt-2 responsive img-fluid" alt="slider image" /></a>
                 </div>
             </div>
         }

@@ -48,9 +48,11 @@
                 </div>
             </div>
             <div class="row">
-
+                <div class="col-lg-3 col-md-2">
+            @await Html.PartialAsync("_LeftBanner")
+        </div>
                 <!-- Start tab menu area -->
-                <div class="col-lg-3 col-md-4 resmenu">
+                <div class="col-lg-3 col-md-3 resmenu">
 
                     <div class="tab-menu-area toplist" id="myDIV">
                         <ul id="tabs" class="nav nav-tabs tab_cates text-nowrap flex-container" data-tabs="tabs">
@@ -62,7 +64,7 @@
                                     <a onclick="testajaxcall('@X')" data-toggle="tab" name="CatName" class="" style=" white-space:nowrap; ">
                                         <label class="name font-weight-bold">@Cat.NAME</label>
                                         @*<span class="thumb"><img class="imgm" src="@Cat.Icons" alt="thumb"></span>
-                                            <span class="thumb"><img class="imgm" src="@Cat.Icons" alt="thumb"></span>*@
+                                <span class="thumb"><img class="imgm" src="@Cat.Icons" alt="thumb"></span>*@
                                     </a>
                                 }
                             </li>
@@ -72,10 +74,10 @@
                 </div>
                 <!-- End tab menu area -->
                 <!-- Start category product content area -->
-                <div class="col-lg-9 col-md-8">
+                <div class="col-lg-6 col-md-7">
                     <div class="new-product-area">
                         <div class="container">
-                            @await Html.PartialAsync("_HorizontalBanner", Model)
+                            @* @await Html.PartialAsync("_BottomBanner.cshtml", Model)*@
 
                             <div class="pt-3 overflow-hidden">
                                 <div class="swiper mySwiper">
@@ -100,7 +102,7 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 <script>
     var swiper = new Swiper(".mySwiper", {
-        slidesPerView: 4,
+        slidesPerView: 3,
         spaceBetween: 20,
         //freeMode: true,
         navigation: {
@@ -125,7 +127,7 @@
                 spaceBetween: 20
           },
             992: {
-                slidesPerView: 4,
+                slidesPerView: 3,
                 spaceBetween: 20
             }
         }

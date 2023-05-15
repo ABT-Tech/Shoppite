@@ -56,14 +56,14 @@ namespace Shoppite.Infrastructure.Repository
         {
             return await _dbContext.Logo.Where(x => x.OrgId == orgId).FirstOrDefaultAsync();
         }
-        public async Task<List<AdsDetail>> GetHorizontalBanner(int orgId)
+        public async Task<List<AdsDetail>> GetBottomBanner(int orgId)
         {
             var q = (from ad_detail in _dbContext.AdsDetail
                      join ad_place in _dbContext.AdsPlacement on ad_detail.AdsPlacementId equals ad_place.AdsPlacementId
                      join ad_pagename in _dbContext.AdsPageName on ad_detail.AdsPageId equals ad_pagename.AdsPageId
-                     where ad_pagename.PageName.Contains("Home") && ad_place.PlacementName == "Horizontal" && ad_detail.OrgId == orgId
-                     select ad_detail).ToList(); //never work(Horizontal)
-            return q;
+                     where ad_pagename.PageName.Contains("Home") && ad_place.PlacementName == "Bottom" && ad_detail.OrgId == orgId
+                     select ad_detail).ToList().TakeLast(1); 
+            return q.ToList();
         }
         public async Task<List<F_getproducts_By_CatId>> GetAllProductByCategory(int CategoryId,int Orgid)
         {
@@ -132,6 +132,16 @@ namespace Shoppite.Infrastructure.Repository
                      where  ad_detail.Status == "Active" && ad_detail.OrgId == orgId
                      select ad_detail).ToList();
             return q;
+        }
+        public async Task<List<AdsDetail>> GetLeftBanner(int orgId)
+        {
+
+            var q = (from ad_detail in _dbContext.AdsDetail
+                     join ad_place in _dbContext.AdsPlacement on ad_detail.AdsPlacementId equals ad_place.AdsPlacementId
+                     join ad_pagename in _dbContext.AdsPageName on ad_detail.AdsPageId equals ad_pagename.AdsPageId
+                     where ad_pagename.PageName.Contains("Home") && ad_place.PlacementName == "Left Side" && ad_detail.OrgId == orgId
+                     select ad_detail).ToList().TakeLast(1);
+            return q.ToList();
         }
     }   
 }

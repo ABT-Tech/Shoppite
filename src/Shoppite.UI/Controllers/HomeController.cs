@@ -46,9 +46,10 @@ namespace Shoppite.UI.Controllers
             brands.TopBanner = await _categoryPageService.GetTopBannerImage(OrgId);
             brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
             brands.Categories = await _categoryPageService.GetCategories(CategoryId,OrgId);
-            brands.HorizontalBanner = await _categoryPageService.GetHorizontalBanner(OrgId);
+            brands.BottomBanner = await _categoryPageService.GetBottomBanner(OrgId);
             brands.BannersByCategory = await _categoryPageService.GetBannerByCategory(OrgId);
             brands.CategoryBanner = await _categoryPageService.GetCategoryBannerImage(OrgId);
+            brands.LeftBanner = await _categoryPageService.GetLeftBanner(OrgId);
             return View(brands);
         }
         public async Task<IActionResult> ProductsByBrand(int CategoryId,int BrandId)
@@ -60,9 +61,10 @@ namespace Shoppite.UI.Controllers
             brands.TopBanner = await _categoryPageService.GetTopBannerImage(OrgId);
             brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
             brands.Categories = await _categoryPageService.GetCategories(CategoryId, OrgId);
-            brands.HorizontalBanner = await _categoryPageService.GetHorizontalBanner(OrgId);
+            brands.BottomBanner = await _categoryPageService.GetBottomBanner(OrgId);
             brands.BannersByCategory = await _categoryPageService.GetBannerByCategory(OrgId);
             brands.CategoryBanner = await _categoryPageService.GetCategoryBannerImage(OrgId);
+            brands.LeftBanner = await _categoryPageService.GetLeftBanner(OrgId);
             brands.ProductdByBrand = await _BrandPageService.GetProductsByBrand(OrgId, BrandId);
             return View(brands);
         }
