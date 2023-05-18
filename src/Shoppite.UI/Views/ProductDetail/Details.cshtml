@@ -181,18 +181,22 @@
 
                                 @foreach (var prodattr in Model.AttributesSetupModel)
                                 {
-                                    <p class="selector1">
-                                        <h6>@prodattr.AttributeName</h6>
-                                        @*<select id="selectproductsort2" onselect="GETproduct()" class="select_1 select2 selectproductsort form-control" asp-items="@(new SelectList(prodattr.GetF_Getproduct_Specification_By_GuidModel,"AttributeId","SpecificationName"))"></select>*@
-                                        <select id="selectproductsort2" name="dropspec" class="select_1 select2 selectproductsort form-control">
-                                            <option selected>select @prodattr.AttributeName</option>
-                                            @foreach (var spec in prodattr.GetF_Getproduct_Specification_By_GuidModel)
-                                            {
-                                                <option id="sel_Opt">@spec.SpecificationName</option>
-                                            }
-                                        </select>
+                                    if (prodattr.GetF_Getproduct_Specification_By_GuidModel.Count > 0)
+                                    {
 
-                                    </p>
+                                        <p class="selector1">
+                                            <h6>@prodattr.AttributeName</h6>
+                                            @*<select id="selectproductsort2" onselect="GETproduct()" class="select_1 select2 selectproductsort form-control" asp-items="@(new SelectList(prodattr.GetF_Getproduct_Specification_By_GuidModel,"AttributeId","SpecificationName"))"></select>*@
+                                            <select id="selectproductsort2" name="dropspec" class="select_1 select2 selectproductsort form-control">
+                                                <option selected>select @prodattr.AttributeName</option>
+                                                @foreach (var spec in prodattr.GetF_Getproduct_Specification_By_GuidModel)
+                                                {
+                                                    <option id="sel_Opt">@spec.SpecificationName</option>
+                                                }
+                                            </select>
+
+                                        </p>
+                                    }
                                 }
 
                                 @if (Model.ProductBasicModel.Qty == 0)
@@ -315,8 +319,8 @@
                                         <abbr title="WishList"><a href="/Authentications/Login"><i class="fa fa-heart"></i></a></abbr>
                                     </p>
 
-                                        }
-                                </div>
+                                }
+                            </div>
                         </div>
                         @*End single product details*@
 
