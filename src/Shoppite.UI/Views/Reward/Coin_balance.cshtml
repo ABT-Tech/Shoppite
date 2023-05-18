@@ -1,4 +1,10 @@
-﻿<style>
+﻿@model Shoppite.Application.Models.Reward_Point_LogModel
+@{
+    int rewardpointBalance = 0;
+    var rewardpoints=0;
+}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<style>
     .coins {
         justify-content: center;
         padding-top: 20px;
@@ -6,48 +12,89 @@
         margin: auto;
         display: flex;
     }
+
     .coinlist {
         margin: auto;
         margin-top: 4px;
         padding-top: 4px;
         display: flex;
     }
+    .translog {
+        margin: auto;
+        padding-bottom:20px;
+    }
 </style>
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-sm-8 col-lg-8 col-xl-8 coins">
             <h3>Total Available coins</h3>
+            <h2>@rewardpointBalance</h2>
         </div>
         <div class="col-md-8 col-sm-8 col-lg-8 col-xl-8 coinlist">
             <table class="table table-hover">
                 <thead>
                     <tr>
                         <th scope="col">Description</th>
-                        <th scope="col">Credit</th>
-                        <th scope="col">Debit</th>
+                        <th scope="col">Credit/Debit</th>
+                        <th scope="col">Reward Points</th>
                         <th scope="col">Balance</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>fat</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>twitter</td>
-                    </tr>
+                    @foreach (var rewardbalance in Model.Reward_PointList)
+                    {
+                        <tr>
+                            <td scope="row">
+                                @rewardbalance.Reward_type
+                                <p>Expiry: @rewardbalance.Expired_on</p>
+                            </td>
+                            <td>@rewardbalance.Operation_type</td>
+                            <td>
+                                @if (rewardbalance.Operation_type=="Debit")
+                                {
+                                    <p>-@rewardbalance.Reward_points</p>
+                                }
+                                else
+                                {
+                                    <p>+@rewardbalance.Reward_points</p>
+                                }
+                            </td>
+                            <td>
+                                @for (int i = 0; i < Model.Reward_PointList.Count; i++)
+                                {
+                                    @if (Model.Reward_PointList[i].Operation_type == "Credit")
+                                    {
+                                        rewardpointBalance += @rewardbalance.Reward_points;
+                                    }
+                                    else
+                                    {
+                                        rewardpointBalance = rewardpointBalance- @rewardbalance.Reward_points;
+                                    }
+                            }
+                               
+                            </td>
+                        </tr>
+                    }
                 </tbody>
             </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-lg-8 col-sm-8 translog">
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Accordion Item #1
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

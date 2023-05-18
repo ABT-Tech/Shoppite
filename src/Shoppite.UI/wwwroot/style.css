@@ -5620,6 +5620,8 @@ body.cart .cartPage-btn {
         .cart-discount-code-area a:hover,
         body.cart .Stmate-shoping-and-cart form button:hover {
             background: #ED4F50;
+            color: #fff;
+            text-decoration:none;
         }
 /*-------------------------------
 20.2 shooing and cart

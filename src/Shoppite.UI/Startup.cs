@@ -118,6 +118,7 @@ namespace Shoppite.UI
             services.AddScoped<IAuthenticationsRepository, AuthenticatiosRepository>();
             services.AddScoped<ICartRepository, CartRepository>();
             services.AddScoped<ICommonRepository, CommonRepository>();
+            services.AddScoped<IRewardRepository, RewardRepository>();
 
             // Add Application Layer
             services.AddScoped<IBrandServices, BrandServices>();
@@ -127,6 +128,7 @@ namespace Shoppite.UI
             services.AddScoped<ICartServices, CartServices>();
             services.AddScoped<IWishlistService, WishlistService>();
             services.AddScoped<IMyAccountService, MyAccountService>();
+            services.AddScoped<IRewardService, Rewardservice>();
 
             // Add Web Layer
             services.AddAutoMapper(typeof(Startup));
@@ -139,6 +141,7 @@ namespace Shoppite.UI
             services.AddScoped<IAuthenticationsPageService, AuthenticationPageService>();
             services.AddScoped<IWishlistPageService, WishlistPageService>();
             services.AddScoped<IMyAccountPageService, MyAccountPageService>();
+            services.AddScoped<IRewardPageService, RewardPageService>();
 
             // Add Miscellaneous
             services.AddHttpContextAccessor();

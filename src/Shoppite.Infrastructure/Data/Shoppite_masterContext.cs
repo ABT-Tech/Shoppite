@@ -104,6 +104,7 @@ namespace Shoppite.Infrastructure.Data
         public virtual DbSet<f_getproduct_CartDetails_By_Orgid> F_Getproduct_CartDetails_By_Orgid { get; set; }
         public virtual DbSet<f_order_master> F_Order_Master { get; set; }
         public virtual DbSet<f_order_masterDetails> f_order_masterDetails { get; set; }
+        public virtual DbSet<Reward_Point_Log> Reward_Point_Logs { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -1300,6 +1301,22 @@ namespace Shoppite.Infrastructure.Data
                 entity.Property(e => e.Title).HasMaxLength(50);
 
                 entity.Property(e => e.Type).HasMaxLength(30);
+            });
+            modelBuilder.Entity<Reward_Point_Log>(entity =>
+            {
+                entity.HasKey(e => e.Id);                
+
+                entity.ToTable("Reward_Point_Log");
+
+                entity.Property(e=>e.Reward_points).HasMaxLength((int)50);
+
+                entity.Property(e => e.Reward_type).HasMaxLength(100);
+
+                entity.Property(e => e.Operation_type).HasMaxLength(100);
+
+                entity.Property(e => e.Date_created).HasColumnType("datetime");
+
+                entity.Property(e => e.Expired_on).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<SP_Status_HasProducts_Result>(entity =>
