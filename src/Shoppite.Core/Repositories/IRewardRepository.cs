@@ -8,6 +8,7 @@ namespace Shoppite.Core.Repositories
 {
     public interface IRewardRepository
     {
-        Task<IEnumerable<Reward_Point_Log>> GetRewardBalance(int OrgId, int ProfileId);
+        Task<IEnumerable<Reward_Point_Log>> GetRewardBalance(int OrgId);
+        Task AddRewards(Reward_Point_Log rewards);
     }
 }

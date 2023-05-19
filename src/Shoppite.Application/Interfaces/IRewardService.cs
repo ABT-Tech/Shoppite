@@ -8,6 +8,7 @@ namespace Shoppite.Application.Interfaces
 {
     public interface IRewardService
     {
-        Task<List<Reward_Point_LogModel>> GetRewardBalance(int OrgId, int ProfileId);
+        Task<List<Reward_Point_LogModel>> GetRewardBalance(int OrgId);
+        Task AddRewards(Reward_Point_LogModel reward);
     }
 }

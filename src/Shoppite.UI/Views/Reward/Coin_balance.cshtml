@@ -1,7 +1,6 @@
 ﻿@model Shoppite.Application.Models.Reward_Point_LogModel
 @{
     int rewardpointBalance = 0;
-    var rewardpoints=0;
 }
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <style>
@@ -26,8 +25,13 @@
 </style>
 <div class="container">
     <div class="row">
+        <div class="col-md-2 col-lg-2">
+            <img src="~/img/Definitive-guide-to-total-rewards.png"/>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md-8 col-sm-8 col-lg-8 col-xl-8 coins">
-            <h3>Total Available coins</h3>
+            <h3>Total Available coins</h3><br/>
             <h2>@rewardpointBalance</h2>
         </div>
         <div class="col-md-8 col-sm-8 col-lg-8 col-xl-8 coinlist">
@@ -68,10 +72,10 @@
                                     }
                                     else
                                     {
-                                        rewardpointBalance = rewardpointBalance- @rewardbalance.Reward_points;
+                                        rewardpointBalance = rewardpointBalance - @rewardbalance.Reward_points;
                                     }
-                            }
-                               
+                                }
+                                @rewardpointBalance
                             </td>
                         </tr>
                     }
@@ -79,7 +83,7 @@
             </table>
         </div>
     </div>
-    <div class="row">
+    @*<div class="row">
         <div class="col-md-8 col-lg-8 col-sm-8 translog">
             <div class="accordion" id="accordionExample">
                 <div class="accordion-item">
@@ -96,5 +100,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>*@
 </div>

@@ -379,7 +379,7 @@
                                                         <div aria-labelledby="headingFive3" data-bs-parent="#accordion1" role="tabpanel" class="panel-collapse collapse" id="orderReview3" aria-expanded="false">
                                                             <div class="content-info">
                                                                 @*<a href="/Cart/OrderSuccess?orderid=@Model.OrderBasicModel.OrderGuid" class=" mt-2 btn SaveBtn" style="width: 160px;">Cash on Delivery</a>*@
-                                                                <button  style="width:auto;" type="submit" class="SaveBtn">Cash on Delivery</button>
+                                                                <button  style="width:auto;" type="submit" id="rewardclick" class="SaveBtn">Cash on Delivery</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -412,7 +412,18 @@
     </div>
 </div>
 
-   <script>
+<script>
+
+       document.querySelector('#rewardclick').addEventListener('click', function () {
+           console.log('The button was clicked!')
+             $.ajax({
+            type: 'POST',
+            url: '@Url.Action("Rewards","Reward")',
+            success: function (data) {
+        }
+        });
+
+       });
 
        document.getElementById("IpF1").disabled = true;
        document.getElementById("IpF2").disabled = true;
@@ -426,10 +437,10 @@
        function toggleEnable(el1, el2, el3, el4, el5, el6, el7, el8)
        {
            var textbox = document.getElementById(el1, el2, el3, el4, el5, el6, el7, el8);
-                          
+
            if (textbox.disabled)
            {
-               // If disabled, do this 
+               // If disabled, do this
                document.getElementById("IpF1").disabled = false;
                document.getElementById("IpF2").disabled = false;
                document.getElementById("IpF3").disabled = false;
@@ -458,4 +469,4 @@
        //    $('#Target').click();
        //}
 
-   </script>
+</script>

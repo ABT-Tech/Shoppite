@@ -48,9 +48,10 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-3 col-md-2">
-            @await Html.PartialAsync("_LeftBanner")
-        </div>
+                @if (Model.LeftBanner.Count != 0) {<div class="col-lg-3 col-md-2">
+    @await Html.PartialAsync("_LeftBanner")
+</div> }
+                
                 <!-- Start tab menu area -->
                 <div class="col-lg-3 col-md-3 resmenu">
 

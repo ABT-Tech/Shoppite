@@ -16,30 +16,39 @@ namespace Shoppite.UI.Controllers
         private readonly ICommonHelper _commonHelper;
         private readonly IWishlistPageService _productWishListService;
         private IHttpContextAccessor _accessor;
-        private readonly ILogger<WishlistController> _logger;
-        private readonly IBrandPageServices _BrandPageService;
         private readonly ICategoryPageService _categoryPageService;
         private readonly IRewardPageService _rewardPageService;
         private readonly IMyAccountPageService _myAccountPage;
-        public RewardController(IRewardPageService rewardPageService,IMyAccountPageService myAccountPageService,IBrandPageServices brandPageServices, ICategoryPageService categoryPageService, ILogger<WishlistController> logger, IWishlistPageService productPageService, IHttpContextAccessor accessor, ICommonHelper commonHelper)
+        public RewardController(IRewardPageService rewardPageService,ILogger<WishlistController> logger, IHttpContextAccessor accessor, ICommonHelper commonHelper,IWishlistPageService pageservice)
         {
             _accessor = accessor;
-            _BrandPageService = brandPageServices ?? throw new ArgumentNullException(nameof(brandPageServices));
-            _categoryPageService = categoryPageService ?? throw new ArgumentNullException(nameof(categoryPageService));
-            _logger = logger ?? throw new ArgumentNullException();
+            _productWishListService = pageservice;
             _commonHelper = commonHelper;
             _rewardPageService = rewardPageService;
-            _productWishListService = productPageService ?? throw new ArgumentNullException(nameof(productPageService));
-            _myAccountPage = myAccountPageService ?? throw new ArgumentNullException(nameof(productPageService));
         }
+        [HttpGet]
         public async Task<IActionResult> Rewards()
         {
             int OrgId = _commonHelper.GetOrgID(HttpContext);
             Reward_Point_LogModel rewards = new Reward_Point_LogModel();
-            //  string userName = User.Identity.Name;
-            //  int Profileid = await _myAccountPage.GetProfileId(User.Identity.Name, OrgId);
-            rewards.Reward_PointList = await _rewardPageService.GetRewardBalance(OrgId, 4);
+            rewards.Reward_PointList = await _rewardPageService.GetRewardBalance(OrgId);
             return View(rewards);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Rewards(Reward_Point_LogModel reward)
+        {
+            int OrgId = _commonHelper.GetOrgID(HttpContext);
+            reward.MyOrderDetails = await _productWishListService.GetMyOrders(User.Identity.Name, OrgId);        
+            reward.OrgId = OrgId;
+            if(reward.MyOrderDetails.Count==0)
+            {
+                await _rewardPageService.AddRewards(reward);
+
+            }
+            
+            return View(reward);
+
         }
         [HttpGet]
         public  IActionResult Claim_reward()
@@ -50,7 +59,7 @@ namespace Shoppite.UI.Controllers
         {
             int OrgId = _commonHelper.GetOrgID(HttpContext);
             Reward_Point_LogModel rewards = new Reward_Point_LogModel();
-            rewards.Reward_PointList = await _rewardPageService.GetRewardBalance(OrgId, 4);
+            rewards.Reward_PointList = await _rewardPageService.GetRewardBalance(OrgId);
             return View(rewards);
         }
         public IActionResult Bank_Coupan()

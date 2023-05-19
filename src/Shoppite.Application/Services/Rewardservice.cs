@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Shoppite.Application.Interfaces;
 using Shoppite.Application.Mapper;
 using Shoppite.Application.Models;
+using Shoppite.Core.Entities;
 using Shoppite.Core.Repositories;
 using System;
 using System.Collections.Generic;
@@ -24,11 +25,17 @@ namespace Shoppite.Application.Services
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _accessor = accessor;
         }
-        public async Task<List<Reward_Point_LogModel>> GetRewardBalance(int OrgId, int ProfileId)
+        public async Task<List<Reward_Point_LogModel>> GetRewardBalance(int OrgId)
         {
-            var delivered = await _rewardRepository.GetRewardBalance(OrgId, ProfileId);
-            var mapped = ObjectMapper.Mapper.Map<List<Reward_Point_LogModel>>(delivered);
+            var reward_Points = await _rewardRepository.GetRewardBalance(OrgId);
+            var mapped = ObjectMapper.Mapper.Map<List<Reward_Point_LogModel>>(reward_Points);
             return mapped;
+        }
+        public async Task AddRewards(Reward_Point_LogModel rewards)
+        {
+            var mapped = ObjectMapper.Mapper.Map<Reward_Point_Log>(rewards);
+            await _rewardRepository.AddRewards(mapped);
+
         }
     }
 }

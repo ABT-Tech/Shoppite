@@ -18,10 +18,14 @@ namespace Shoppite.UI.Services
             _RewardService = rewardService ?? throw new ArgumentNullException(nameof(rewardService));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
-        public async Task<List<Reward_Point_LogModel>> GetRewardBalance(int OrgId, int ProfileId)
+        public async Task<List<Reward_Point_LogModel>> GetRewardBalance(int OrgId)
         {
-            var rewards = await _RewardService.GetRewardBalance(OrgId, ProfileId);
+            var rewards = await _RewardService.GetRewardBalance(OrgId);
             return rewards;
+        }
+        public async Task AddRewards(Reward_Point_LogModel mainModel)
+        {
+            await _RewardService.AddRewards(mainModel);
         }
     }
 }
