@@ -81,5 +81,15 @@ namespace Shoppite.UI.Services
         {
             await _BrandService.CancleOrder(orderid);
         }
+
+        public async Task<MessagesModel> SendMessageVendor(MessagesModel messagesModel)
+        {
+            return await _BrandService.SendMessageVendor(messagesModel);
+        }
+
+        public async Task<List<MessagesModel>> Get_Vendor_Message(string userName, int orgid)
+        {
+            return await _BrandService.Get_Vendor_Message(userName, orgid);
+        }
     }
 }

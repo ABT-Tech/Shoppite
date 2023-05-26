@@ -425,17 +425,19 @@
             </div>-->
             <!-- End footer menu area -->
             <!-- Start footer copyright area -->
-            <div class="footer-copyright-area">
-                <div class="container">
-                    <div class="footer-copyright">
-                        <p>Copyright &copy; 2023 <a href="https://shooppy.in/" target="_blank">Shooppy</a>. All rights reserved.</p>
-                    </div>
-                </div>
-                <div class="scroll-to-top pull-right">
-                    <a href="#" class="bstore-scrollertop"><i class="fa fa-arrow-up"></i></a>
-                  @* @await Html.PartialAsync("_ChatBot")*@
+        <div class="footer-copyright-area">
+            <div class="container">
+                <div class="footer-copyright">
+                    <p>Copyright &copy; 2023 <a href="https://shooppy.in/" target="_blank">Shooppy</a>. All rights reserved.</p>
                 </div>
             </div>
+            <div class="scroll-to-top">@await Component.InvokeAsync("ChatBot")</div>
+            <div class="scroll-to-top-2 pull-right d-inline">
+                <a href="#" class="bstore-scrollertop mb-3">
+                 <i class="fa fa-arrow-up"></i>
+                </a>
+            </div>
+        </div>
             <!-- Start footer copyright area -->
         </footer>
         <!-- End footer area -->

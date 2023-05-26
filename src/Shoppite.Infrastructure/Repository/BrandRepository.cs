@@ -85,7 +85,7 @@ namespace Shoppite.Infrastructure.Repository
 
             return FilterCat;
         }
-
+    
         public async Task<List<CategoryMaster>> CategoryMaster(int orgid)
         {
             var brands = await _dbContext.CategoryMaster.Where(x => x.OrgId == orgid).ToListAsync();
@@ -246,6 +246,52 @@ namespace Shoppite.Infrastructure.Repository
         public async Task<OrderStatus> GetOrderStatus(int orderid,int orgid)
         {
             return await _dbContext.OrderStatus.Where(x => x.OrderId == orderid && x.OrgId == orgid).FirstOrDefaultAsync();
+        }
+
+        public async Task<Organization> GetOrg(int? orgId)
+        {
+            try
+            {
+                return await _dbContext.Organization.Where(x => x.Id == orgId).FirstOrDefaultAsync();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public async Task<Messages> SendMessageVendor(Messages messages)
+        {
+            var check = await _dbContext.Messages.Where(x => x.OrgId == messages.OrgId && x.Recipient == messages.Recipient && x.Sender == messages.Sender).FirstOrDefaultAsync();
+            if(check != null)
+            {
+                messages.ChatId = check.ChatId;
+            }
+            await _dbContext.AddAsync(messages);
+            await  _dbContext.SaveChangesAsync();
+
+            return messages;
+        }
+
+        public async Task<List<Messages>> Get_Vendor_Message(string userName, int orgid)
+        {
+            var Get_Vendor_Message = await _dbContext.Messages.Where(x => x.Recipient == userName && x.OrgId == orgid && x.Status == "UnRead").ToListAsync();
+
+            foreach (var VendorMsg in Get_Vendor_Message)
+            {
+               var local =  _dbContext.Set<Messages>().Local.FirstOrDefault(x => x.MesageId.Equals(VendorMsg.MesageId));
+                if(local != null)
+                {
+                    _dbContext.Entry(local).State = EntityState.Detached;
+                }
+
+                VendorMsg.Recieveddate = DateTime.Now;
+                VendorMsg.Status = "Read";
+                _dbContext.Entry(VendorMsg).State = EntityState.Modified;
+            }
+            await _dbContext.SaveChangesAsync();
+
+            return Get_Vendor_Message;
         }
     }
 }

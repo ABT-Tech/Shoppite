@@ -28,5 +28,8 @@ namespace Shoppite.Core.Repositories
         Task CancleOrder(int orderid);
         Task<Users> GetUser(string email,int orgid);
         Task<OrderStatus> GetOrderStatus(int orderid,int orgid);
+        Task<Organization> GetOrg(int? orgId);
+        Task<Messages> SendMessageVendor(Messages messages);
+        Task<List<Messages>> Get_Vendor_Message(string userName, int orgid);
     }
 }

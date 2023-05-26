@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Shoppite.Application.Interfaces;
 using Shoppite.Application.Mapper;
 using Shoppite.Application.Models;
+using Shoppite.Core.Entities;
 using Shoppite.Core.Interfaces;
 using Shoppite.Core.Repositories;
 using System;
@@ -160,6 +161,34 @@ namespace Shoppite.Application.Services
         public async Task CancleOrder(int orderid)
         {
             await _BrandRepository.CancleOrder(orderid);
+        }
+
+        public async Task<MessagesModel> SendMessageVendor(MessagesModel messagesModel)
+        {
+            var getOrg = await _BrandRepository.GetOrg(messagesModel.OrgId);
+
+            Messages messages = new Messages
+            {
+                ChatId = Guid.NewGuid(),
+                Recipient = getOrg.VEmail,
+                Senddate = DateTime.Now,
+                Status = "UnRead",
+                OrgId = messagesModel.OrgId,
+                Sender = messagesModel.Sender,
+                Message = messagesModel.Message,
+            };
+
+            var SendVendor = await _BrandRepository.SendMessageVendor(messages);
+
+          return messagesModel = ObjectMapper.Mapper.Map<MessagesModel>(SendVendor);
+            
+        }
+
+        public async Task<List<MessagesModel>> Get_Vendor_Message(string userName, int orgid)
+        {
+            List<MessagesModel> messagesModel = new List<MessagesModel>();
+            var Get_Vendor_Message = await _BrandRepository.Get_Vendor_Message(userName, orgid);
+          return messagesModel = ObjectMapper.Mapper.Map<List<MessagesModel>>(Get_Vendor_Message);
         }
     }
 }

@@ -22,5 +22,7 @@ namespace Shoppite.Application.Interfaces
         Task<OrderModel> GetOrderDetails(int orderid,int orgid);
         Task<List<f_order_masterModel>> GetOrderedproductDetails(int orderid);
         Task CancleOrder(int orderid);
+        Task<MessagesModel>SendMessageVendor(MessagesModel messagesModel);
+        Task<List<MessagesModel>> Get_Vendor_Message(string userName, int orgid);
     }
 }

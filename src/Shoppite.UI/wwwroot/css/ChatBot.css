@@ -12,7 +12,7 @@
     margin: auto;
     /* font-size:x-large; */
     font-family: Raleway, sans-serif;
-    color: #eb2229;
+    color: #fe5b5a;
 }
 
     .title h3 {
@@ -49,7 +49,7 @@
     overflow: hidden;
     right: 0;
     bottom: 0;
-    position: absolute;
+    position: fixed;
     transition: all 0.5s;
     box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2),0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
@@ -60,7 +60,7 @@
     border: none;
     height: 48px;
     width: 48px;
-    background: #eb2229;
+    background: #fe5b5a;
     padding: 14px;
     color: white;
 }
@@ -71,13 +71,13 @@
 
 .line {
     height: 1px;
-    background-color: #eb2229;
+    background-color: #fe5b5a;
     width: 100%;
     opacity: 0.2;
 }
 
 .main-title {
-    background-color: #eb2229;
+    background-color: #fe5b5a;
     font-size: large;
     font-weight: bold;
     display: flex;
@@ -113,6 +113,7 @@
     padding: 8px 48px 8px 16px;
     flex-grow: 1;
     border: none;
+    color: #fe5b5a;
 }
 
     .input-message:focus {
