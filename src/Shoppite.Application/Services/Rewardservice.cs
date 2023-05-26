@@ -35,6 +35,11 @@ namespace Shoppite.Application.Services
         {
             var mapped = ObjectMapper.Mapper.Map<Reward_Point_Log>(rewards);
             await _rewardRepository.AddRewards(mapped);
+        }
+        public async Task ClaimReward(Reward_Point_LogModel rewards)
+        {
+            var mapped = ObjectMapper.Mapper.Map<Reward_Point_Log>(rewards);
+            await _rewardRepository.ClaimReward(mapped);
 
         }
     }

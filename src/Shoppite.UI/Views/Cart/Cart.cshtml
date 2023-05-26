@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Cart Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    decimal rewardpointBalance = 0;
 }
 <link href="~/css/site.css" rel="stylesheet" />
 <style>
@@ -42,13 +43,13 @@
     }
 
 
-    .minus:hover {
-        background-color: #FE5B5A;
-    }
+        .minus:hover {
+            background-color: #FE5B5A;
+        }
 
-    .plus:hover {
-        background-color: #FE5B5A;
-    }
+        .plus:hover {
+            background-color: #FE5B5A;
+        }
 
     .fa-trash:hover {
         color: #FE5B5A;
@@ -108,7 +109,17 @@
             text-decoration: none;
         }
 </style>
-
+@foreach (var rewardbalance in Model.myreward)
+{
+    @if (rewardbalance.Operation_type == "Credit")
+    {
+        rewardpointBalance += @rewardbalance.Reward_points;
+    }
+    else
+    {
+        rewardpointBalance -= @rewardbalance.Reward_points;
+    }
+}
 <!-- Start main area -->
 <div class="main-area">
 
@@ -146,45 +157,45 @@
                                             int x = (int)cartlist.ProductId;
 
 
-                                        <tr class="">
-                                            <td class="">
-                                                <input class="HidenProId" asp-for="@cartlist.ProductId" hidden />
-                                                <a href="/ProductDetail/Details/@cartlist.ProductGuid"><img alt="" class="img-responsive" src="@cartlist.CoverImage"></a>
-                                                <input class="HidenGuid" asp-for="@cartlist.OrderGuid" hidden />
-                                            </td>
-                                            <td>
-                                                <h6><a href="/ProductDetail/Details/@cartlist.ProductGuid" class="product_name_Over">@cartlist.ProductName</a></h6>
-                                                @if (cartlist.BasicQty <= 0)
-                                                {
-                                                    <div>
-                                                        <h5 class="text-danger">Out Of Stock.</h5>
-                                                             <p>Please remove this product in the cartList for the checkOut.</p>
-                                                     </div>
-                                                }
-                                                else
-                                                {
-                                                    <div class="fw-bold price amount" data-price="@cartlist.Price" id="pP_@cartlist.ProductId" style="color: #FE5B5A;"></div>
-                                                }
-                                            </td>
+                                            <tr class="">
+                                                <td class="">
+                                                    <input class="HidenProId" asp-for="@cartlist.ProductId" hidden />
+                                                    <a href="/ProductDetail/Details/@cartlist.ProductGuid"><img alt="" class="img-responsive" src="@cartlist.CoverImage"></a>
+                                                    <input class="HidenGuid" asp-for="@cartlist.OrderGuid" hidden />
+                                                </td>
+                                                <td>
+                                                    <h6><a href="/ProductDetail/Details/@cartlist.ProductGuid" class="product_name_Over">@cartlist.ProductName</a></h6>
+                                                    @if (cartlist.BasicQty <= 0)
+                                                    {
+                                                        <div>
+                                                            <h5 class="text-danger">Out Of Stock.</h5>
+                                                            <p>Please remove this product in the cartList for the checkOut.</p>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="fw-bold price amount" data-price="@cartlist.Price" id="pP_@cartlist.ProductId" style="color: #FE5B5A;"></div>
+                                                    }
+                                                </td>
 
-                                            <td>
-                                                @if (cartlist.BasicQty > 0)
-                                                {
-                                                    <div class="number">
-                                                        <span class="minus">-</span>
-                                                        <input type="number" id="ProductQTY" data-id="99" data-price="@cartlist.Price" class="quant" value="@cartlist.Qty" max="@cartlist.BasicQty" />
-                                                        <span class="plus">+</span>
-                                                    </div>
-                                                }
-                                            </td>
-                                            <td>
-                                                <form method="get">
-                                                    <a class="deleteItem" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="GetDelete(@cartlist.ProductId)">
-                                                        <i class="fa fa-trash"></i>
-                                                    </a>
-                                                </form>
-                                            </td>
-                                        </tr>
+                                                <td>
+                                                    @if (cartlist.BasicQty > 0)
+                                                    {
+                                                        <div class="number">
+                                                            <span class="minus">-</span>
+                                                            <input type="number" id="ProductQTY" data-id="99" data-price="@cartlist.Price" class="quant" value="@cartlist.Qty" max="@cartlist.BasicQty" />
+                                                            <span class="plus">+</span>
+                                                        </div>
+                                                    }
+                                                </td>
+                                                <td>
+                                                    <form method="get">
+                                                        <a class="deleteItem" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="GetDelete(@cartlist.ProductId)">
+                                                            <i class="fa fa-trash"></i>
+                                                        </a>
+                                                    </form>
+                                                </td>
+                                            </tr>
                                         }
 
                                     </tbody>
@@ -204,6 +215,18 @@
                                             <span>Shipping</span>
                                             <span class="free-shiping">Free shipping!</span>
                                         </div>
+                                        <div class="cart-product-line hideme ">
+                                            <span>Total</span>
+                                            <span class="mytotal free-shiping"></span>
+                                        </div>
+                                        <div class="cart-product-line hideme">
+                                            <span>Reward points</span>
+                                            <span id="rp" class="free-shiping">
+                                                -@if (rewardpointBalance >= 100)
+                                                {@((rewardpointBalance * 1 )/100)}
+                                                ₹
+                                            </span>
+                                        </div>                                       
                                         <div class="cart-product-line">
                                             <span>Final Total</span>
                                             <span class="total"></span>
@@ -258,12 +281,12 @@
                     </div>
                 </div>*@
             <!-- start cart discount code area -->
-            <div class="cart-discount-code-area">
-                    <h2>Discount codes</h2>
-                    <p>Enter your coupon code if you have one.</p>
-                    <input type="text">
-                    <a href="#">Apply coupon</a>
-                </div>
+           @* <div class="cart-discount-code-area">
+                <h2>Discount codes</h2>
+                <p>Enter your coupon code if you have one.</p>
+                <input type="text">
+                <a href="#">Apply coupon</a>
+            </div>*@
             <!-- End cart discount code area -->
             <!-- Start Stmate shoping and cart -->
             <!-- End Stmate shoping and cart -->
@@ -280,7 +303,23 @@
 <script src="~/js/vendor/jquery-migrate-3.3.0.min.js"></script>
 
 <script>
+    @*const url_string = window.location.href;
+    var url = new URL(url_string);
+    var userEncode = url.searchParams.get("username");
+   // window.btoa(userEncode);
 
+    const encodeGetParams = p =>
+        Object.entries(p).map(kv => kv.map(encodeURIComponent).join("=")).join("&");
+
+    const params = {
+        username: userEncode,      
+        "ZOMG+&=*(": "*^%*GMOZ"
+    };
+
+*@
+   // console.log(userEncode);
+   // console.log(window.btoa(userEncode));
+    //console.log(encodeURIComponent(userEncode));
     var arr = [];
     var count;
     $(document).ready(function (id) {
@@ -320,15 +359,28 @@
             var sum = 0.0;
             var quantity;
             $('#myTable > tbody  > tr').each(function () {
-
+                var rp = parseFloat($('#rp').text().replace('-', ''))
                 quantity = $(this).find('.quant').val();
                 var price = parseFloat($(this).find('.price').attr('data-price').replace(',', '.'));
                 var amount = (quantity * price);
-
                 sum += amount;
+                rewardsum =sum-rp
                 $(this).find('.amount').text('₹' + amount);
             });
-            $('.total').text('₹' + sum);
+
+            const url = window.location.href;
+
+            if (url.includes('?')) {
+                $(".hideme").show();
+                $('.mytotal').text('₹' + sum);
+                $('.total').text('₹' + rewardsum)
+            }
+            else {
+                $(".hideme").hide();
+                 $('.total').text('₹' + sum);
+           // $('.mytotal').text('₹' + rewardsum)
+            }
+
         }
     });
 
@@ -355,7 +407,7 @@
         }
 
         var makeString = JSON.stringify({ar});
-
+        const url = window.location.href;  
         $.ajax({
             type: "POST",
             url: '@Url.Action("AddToCheck", "Cart")',
@@ -363,7 +415,10 @@
             data: makeString,
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                window.location = "/Cart/CheckOut?orderid=" + $('.HidenGuid').val()
+                if (url.includes('?')) {
+                    window.location = "/Cart/CheckOut?orderid=" + $('.HidenGuid').val() +'&'+'reward'
+                }
+                else { window.location = "/Cart/CheckOut?orderid=" + $('.HidenGuid').val()}
             },
             error: function (xhr, status, error) {
                 alert( window.location = "/Cart/CheckOut/" + $('.HidenGuid').val())
@@ -371,6 +426,4 @@
         });
 
     };
-
-
 </script>

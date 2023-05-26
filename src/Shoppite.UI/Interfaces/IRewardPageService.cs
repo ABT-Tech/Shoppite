@@ -10,5 +10,6 @@ namespace Shoppite.UI.Interfaces
     {
         Task<List<Reward_Point_LogModel>> GetRewardBalance(int OrgId);
         Task AddRewards(Reward_Point_LogModel rewards);
+        Task ClaimReward(Reward_Point_LogModel rewards);
     }
 }

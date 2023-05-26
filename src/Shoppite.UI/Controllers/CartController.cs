@@ -4,6 +4,7 @@
     using Shoppite.Application.Models;
     using Shoppite.UI.Extensions;
     using Shoppite.UI.Interfaces;
+    using Shoppite.Web.Interfaces;
     using System;
     using System.Threading.Tasks;
 
@@ -28,10 +29,15 @@
         /// </summary>
         /// <param name="cartPageServices">The cartPageServices<see cref="ICartPageServices"/>.</param>
         /// <param name="commonHelper">The commonHelper<see cref="ICommonHelper"/>.</param>
-        public CartController(ICartPageServices cartPageServices, ICommonHelper commonHelper)
+        /// 
+        private readonly IRewardPageService _rewardPageService;
+        private readonly IWishlistPageService _wishlistpageService;
+        public CartController(IWishlistPageService wishlistPageService,ICartPageServices cartPageServices, ICommonHelper commonHelper,IRewardPageService rewardPageService)
         {
             _cartPageService = cartPageServices ?? throw new ArgumentNullException(nameof(cartPageServices));
             _commonHelper = commonHelper;
+            _rewardPageService = rewardPageService;
+            _wishlistpageService = wishlistPageService;
         }
 
         /// <summary>
@@ -42,6 +48,7 @@
         {
             int orgid = _commonHelper.GetOrgID(HttpContext);
             var cartlist = await _cartPageService.OrderBasic(orgid);
+            cartlist.myreward = await _rewardPageService.GetRewardBalance(orgid);
             foreach (var swap in cartlist.F_Getproduct_CartDetails_By_Orgids)
             {
                 if (swap.Qty > swap.BasicQty)
@@ -109,11 +116,53 @@
         public async Task<IActionResult> SaveAddress(CartModel Model)
         {
             int orgid = _commonHelper.GetOrgID(HttpContext);
+            Model.MyOrderDetails = await _wishlistpageService.GetMyOrders(User.Identity.Name, orgid);
+            Model.reward_Point_Log = new Reward_Point_LogModel();
+            Model.reward_Point_Log.OrgId = orgid;
+            if (Model.MyOrderDetails.Count == 0)
+            {
+                await _rewardPageService.AddRewards(Model.reward_Point_Log);
+            }
             Model.OrderShippingModel.OrgId = orgid;
             await _cartPageService.SaveAddress(Model);
 
-            await _cartPageService.UpdateOrder((Guid)Model.OrderBasicModel.OrderGuid);
+            await _cartPageService.UpdateOrder((Guid)Model.OrderBasicModel.OrderGuid);            
 
+            return RedirectToAction("OrderSuccess");
+        }
+        [HttpPost]
+        public async Task<IActionResult> SaveAddress2(CartModel cartModel)
+        {
+            int id = _commonHelper.GetOrgID(HttpContext);
+            cartModel.OrderShippingModel.OrgId = id;
+            await _cartPageService.SaveAddress(cartModel);
+
+            await _cartPageService.UpdateOrder((Guid)cartModel.OrderBasicModel.OrderGuid);
+            var rewardpointBalance = 0.0M;
+            cartModel.myreward = await _rewardPageService.GetRewardBalance(id);
+            cartModel.reward_Point_Log = new Reward_Point_LogModel();
+            cartModel.reward_Point_Log.OrgId = id;
+            if (cartModel.myreward != null)
+            {
+                foreach (var rewardpoint in cartModel.myreward)
+                {
+                    if (rewardpoint.Operation_type == "Credit")
+                    {
+                        rewardpointBalance += rewardpoint.Reward_points;
+                    }
+                    else
+                    {
+                        rewardpointBalance -= rewardpoint.Reward_points;
+                    }
+                }
+
+            }
+            if(rewardpointBalance!=0)
+            {
+                cartModel.reward_Point_Log.Reward_points = (rewardpointBalance * 30) / 100;
+                await _rewardPageService.ClaimReward(cartModel.reward_Point_Log);
+
+            }
             return RedirectToAction("OrderSuccess");
         }
     }

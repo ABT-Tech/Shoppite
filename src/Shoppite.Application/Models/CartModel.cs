@@ -14,5 +14,8 @@ namespace Shoppite.Application.Models
         public OrderShippingModel OrderShippingModel { get; set; }
         public OrderBasicModel OrderBasicModel { get; set; }
         public UsersProfileModal UsersProfileModal { get; set; }
+        public Reward_Point_LogModel reward_Point_Log { get; set; }
+        public List<Reward_Point_LogModel> myreward { get; set; }
+        public List<f_order_masterDetailsModel> MyOrderDetails { get; set; }
     }
 }

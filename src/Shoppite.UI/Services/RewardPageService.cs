@@ -27,5 +27,9 @@ namespace Shoppite.UI.Services
         {
             await _RewardService.AddRewards(mainModel);
         }
+        public async Task ClaimReward(Reward_Point_LogModel mainModel)
+        {
+            await _RewardService.ClaimReward(mainModel);
+        }
     }
 }

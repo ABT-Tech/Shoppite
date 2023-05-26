@@ -138,36 +138,46 @@
 
                                 @if (User.Identity.IsAuthenticated)
                                 {
-                                    <div class="service-icon-text service-text-icon-active col-lg-3 col-md-3 col-3">
-                                        <a asp-action="myAccount" asp-controller="MyAccount" class="d-flex">
-                                            <div class="service-icon floatleft">
-                                                <i class="fa fa-user HeadUser" style=""></i>
+                                <div class="service-icon-text service-text-icon-active col-lg-3 col-md-3 col-3">
+                                    <a asp-action="myAccount" asp-controller="MyAccount" class="d-flex">
+                                        <div class="service-icon floatleft">
+                                            <i class="fa fa-user HeadUser" style=""></i>
+                                        </div>
+                                        <div class="service-text floatright d-none d-sm-none d-md-block pl-2">
+                                            <h3>My Account</h3>
+                                            <p></p>
+                                        </div>
+                                    </a>
+                                    <div class="add-to-cart-product pull-right">
+                                        <div class="cart-product product-item11">
+                                            <div class="cart-product-image">
+                                                <a asp-action="coin_balance" asp-controller="Reward"><img src="~/img/money.png" alt="Product"></a>
                                             </div>
-                                            <div class="service-text floatright d-none d-sm-none d-md-block pl-2">
-                                                <h3>My Account</h3>
-                                                <p></p>
-                                            </div>
-                                        </a>
-                                              @*<div class="add-to-cart-product pull-right">
-                                            @if (User.Identity.IsAuthenticated)
-                                             {
-                                           <div class="cart-price">
-                                         <div class="cart-product-line fast-line">
-                                              <span>Hi @User.Identity.Name</span>
-                                           </div>
-                                         </div>
-                                         <div class="cart-checkout">
-                                          <a href="/Authentications/Login">Logout<i class="fa fa-chevron-right"></i></a>
-                                               </div>
-                                             }
-                                             else
-                                              {
-                                           <div class="cart-checkout">
-                                           <a href="/Authentications/Login">Login<i class="fa fa-chevron-right"></i></a>
-                                         </div>
-                                          }
-                                        </div>*@
+                                            <div class="cart-product-info">
+                                                <p><span class="price"><a asp-action="coin_balance" asp-controller="Reward">Rewards</a></span></p>                           
+                                            </div>                               
+                                        </div>                                                                    
                                     </div>
+                                    @*<div class="add-to-cart-product pull-right">
+            @if (User.Identity.IsAuthenticated)
+             {
+           <div class="cart-price">
+         <div class="cart-product-line fast-line">
+              <span>Hi @User.Identity.Name</span>
+           </div>
+         </div>
+         <div class="cart-checkout">
+          <a href="/Authentications/Login">Logout<i class="fa fa-chevron-right"></i></a>
+               </div>
+             }
+             else
+              {
+           <div class="cart-checkout">
+           <a href="/Authentications/Login">Login<i class="fa fa-chevron-right"></i></a>
+         </div>
+          }
+        </div>*@
+                                </div>
                                     <div class="service-icon-text service-text-icon-active col-lg-3 col-md-3 col-3">
                                         <a asp-action="MyOrders" asp-controller="Orders" class="d-flex">
                                             <div class="service-icon floatleft">

@@ -10,5 +10,6 @@ namespace Shoppite.Core.Repositories
     {
         Task<IEnumerable<Reward_Point_Log>> GetRewardBalance(int OrgId);
         Task AddRewards(Reward_Point_Log rewards);
+        Task ClaimReward(Reward_Point_Log rewards);
     }
 }

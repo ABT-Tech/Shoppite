@@ -51,9 +51,14 @@ namespace Shoppite.UI.Controllers
 
         }
         [HttpGet]
-        public  IActionResult Claim_reward()
-        {            
-            return View();
+        public async Task<IActionResult> Claim_reward()
+        {
+            int OrgId = _commonHelper.GetOrgID(HttpContext);
+            Reward_Point_LogModel rewards = new Reward_Point_LogModel
+            {
+                Reward_PointList = await _rewardPageService.GetRewardBalance(OrgId)
+            };
+            return View(rewards);
         }
         public async Task<IActionResult> Coin_balance()
         {
