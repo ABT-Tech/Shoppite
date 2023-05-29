@@ -1,6 +1,5 @@
 ﻿@model Shoppite.Application.Models.MainModel
 <!-- Start new product area -->
-<link href="~/css/site.css" rel="stylesheet" />
 <div class="new-product-area">
     <div class="container">
         @foreach (var product in Model.ProductNewArrivalModel.GroupBy(x => x.StatusId))

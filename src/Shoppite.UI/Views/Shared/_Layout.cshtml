@@ -69,30 +69,7 @@
     <link href="~/plugins/select2/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link href="~/css/load.css" rel="stylesheet" />
-    <style>
-        .BagImg {
-            max-width: 58px;
-            margin: 9px 0px 0px 0px;
-        }
-        .headprize {
-            margin: 10px 11.5px;
-            font-size: 35px;
-        }
-
-        .headHeart {
-            margin: 10px 11.5px;
-            font-size: 35px;
-            color: #fff;
-        }
-        .col-half-offset {
-            margin-left: 4.166666667%
-        }
-        .HeadUser {
-            margin: 10px 14px;
-            font-size: 35px;
-            color: #fff;
-        }
-    </style>
+    <link rel="stylesheet" href="~/css/Shooppy.css"/>
 
 </head>
 
@@ -133,9 +110,6 @@
                 <div class="container">
                     <div class="row headRow">
                         <div style="padding-bottom: 10px; margin-top: -25px;" class="col-lg-2 col-md-2 col-3 MobLogoDiv">
-                            @* <div class="logo res">
-                                    <a href="index.html"><img src="img/logo.png" alt=""></a>
-                                </div>*@
                             @await Component.InvokeAsync("VendorLogo")
                         </div>
 
@@ -154,35 +128,7 @@
                                                 <p></p>
                                             </div>
                                         </a>
-                                        @*<div class="add-to-cart-product pull-right">
-                    <div class="cart-product product-item11">
-                        <div class="cart-product-image">
-                            <a asp-action="coin_balance" asp-controller="Reward"><img src="~/img/money.png" alt="Product"></a>
-                        </div>
-                        <div class="cart-product-info">
-                            <p><span class="price"><a asp-action="coin_balance" asp-controller="Reward">Rewards</a></span></p>
-                        </div>
-                    </div>
-                </div>*@
-                                        @*<div class="add-to-cart-product pull-right">
-                    @if (User.Identity.IsAuthenticated)
-                     {
-                   <div class="cart-price">
-                 <div class="cart-product-line fast-line">
-                      <span>Hi @User.Identity.Name</span>
-                   </div>
-                 </div>
-                 <div class="cart-checkout">
-                  <a href="/Authentications/Login">Logout<i class="fa fa-chevron-right"></i></a>
-                       </div>
-                     }
-                     else
-                      {
-                   <div class="cart-checkout">
-                   <a href="/Authentications/Login">Login<i class="fa fa-chevron-right"></i></a>
-                 </div>
-                  }
-                </div>*@
+                                        
                                     </div>
                                     <div class="service-icon-text service-text-icon-active col-half-offset col-lg-2 col-md-2 col-2">
                                         <a asp-action="MyOrders" asp-controller="Orders" class="d-flex">
@@ -271,73 +217,7 @@
                                 }
 
                                 @await Component.InvokeAsync("Cart")
-
-                                @*<div class="service-icon-text service-text-icon-active">
-            <a href="cart.html" class="d-flex">
-                <div class="service-icon floatleft">
-                    <i class="fa fa-shopping-cart"></i>
-                </div>
-                <div class="service-text floatright pl-2">
-                    <h3>My Cart</h3>
-                    <p>3 items £ 88.81</p>
-                </div>
-            </a>
-            <div class="add-to-cart-product pull-right">
-                <div class="cart-product product-item11">
-                    <div class="cart-product-image">
-                        <a href="single-product.html"><img src="img/cart/faded-short-sleeves-tshirt.jpg" alt="Product"></a>
-                    </div>
-                    <div class="cart-product-info">
-                        <p><span>1</span>x<a href="single-product.html">Faded...</a></p>
-                        <a href="single-product.html">S, Orange</a>
-                        <span class="price">£ 19.81</span>
-                    </div>
-                    <div class="cart-product-remove">
-                        <i class="fa fa-times"></i>
-                    </div>
-                </div>
-                <div class="cart-product">
-                    <div class="cart-product-image">
-                        <a href="single-product.html"><img src="img/cart/blouse.jpg" alt="Product"></a>
-                    </div>
-                    <div class="cart-product-info">
-                        <p><span>1</span>x<a href="single-product.html">blouse</a></p>
-                        <a href="single-product.html">S, Black</a>
-                        <span class="price">£ 32.40</span>
-                    </div>
-                    <div class="cart-product-remove">
-                        <i class="fa fa-times"></i>
-                    </div>
-                </div>
-                <div class="cart-product">
-                    <div class="cart-product-image">
-                        <a href="single-product.html"><img src="img/cart/printed-summer-dress.jpg" alt="Product"></a>
-                    </div>
-                    <div class="cart-product-info">
-                        <p><span>1</span>x<a href="single-product.html">Printed...</a></p>
-                        <a href="single-product.html">S, Yellow</a>
-                        <span class="price">£ 36.60</span>
-                    </div>
-                    <div class="cart-product-remove">
-                        <i class="fa fa-times"></i>
-                    </div>
-                </div>
-                <div class="cart-price">
-                    <div class="cart-product-line fast-line">
-                        <span>Shipping</span>
-                        <span class="free-shiping">Free shipping!</span>
-                    </div>
-                    <div class="cart-product-line">
-                        <span>Total</span>
-                        <span class="total">£ 88.81</span>
-                    </div>
-                </div>
-                <div class="cart-checkout">
-                    <a href="checkout.html">Check out<i class="fa fa-chevron-right"></i></a>
-                </div>
-            </div>
-        </div>*@
-                            </div>
+                                       </div>
                         </div>
                     </div>
                 </div>
@@ -359,13 +239,7 @@
                                     @await Component.InvokeAsync("VendorLogo")
                                     @*<a href="index.html"><img src="img/footer-logo.png" alt="footer logo"></a>*@
                                 </div>
-                                <div class="footer-top-sociul">
-                                    @*<p>
-                                            <a href="#"><i class="fa fa-facebook"></i></a>
-                                            <a href="#"><i class="fa fa-twitter"></i></a>
-                                            <a href="#"><i class="fa fa-rss"></i></a>
-                                            <a href="#"><i class="fa fa-google-plus"></i></a>
-                                        </p>*@
+                                <div class="footer-top-sociul">                                   
                                 </div>
                             </div>
                             <div class="col-lg-8 col-md-8">
@@ -385,33 +259,7 @@
                     <div class="footer-center">
                         <div class="row">
                             @await Component.InvokeAsync("FooterDetails")
-                            @*<div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-40">
-                                    <div class="footer-center-title">
-                                        <h4><span>Categories</span></h4>
-                                    </div>
-                                    <div class="footer-center-categoris">
-                                        <ul>
-                                            <li><a href="shop-grid.html">Electronic</a></li>
-                                            <li><a href="shop-grid.html">phones</a></li>
-                                            <li><a href="shop-grid.html">fashion</a></li>
-                                            <li><a href="shop-grid.html">Tablets</a></li>
-                                            <li><a href="shop-grid.html">Sport</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-40">
-                                    <div class="footer-center-title">
-                                        <h4><span>My account</span></h4>
-                                    </div>
-                                    <div class="footer-center-categoris">
-                                        <ul>
-                                            <li><a href="#">My orders</a></li>
-                                            <li><a href="#">My credit slips</a></li>
-                                            <li><a href="#">My addresses</a></li>
-                                            <li><a href="#">My personal</a></li>
-                                        </ul>
-                                    </div>
-                                </div>*@
+                           
                             <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-40">
                                 <div class="footer-center-title">
                                     <h4><span>Newsletter</span></h4>
@@ -430,38 +278,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- Start footer center area -->
-            <!-- Start footer menu area -->
-            <!--<div class="footer-menu-area">
-                <div class="container">
-                    <div class="footer-menu-and-card">
-                        <!--<div class="row">
-                            <div class="col-md-9 col-12 pull-left">
-                                <div class="footer-menu">
-                                    <nav>
-                                        <ul>-->
-            <!--@*<li><a href="shop-grid.html">Specials</a></li>
-            <li><a href="shop-grid.html">New products</a></li>
-            <li><a href="shop-grid.html">Best sellers</a></li>*@-->
-            <!--<li><a href="shop-grid.html">Our stores</a></li>
-                                <li><a href="contact-us.html">Contact us</a></li>
-                                <li><a href="about-us.html">About us</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-                <div class="col-md-3 col-12 pull-right">
-                    <div class="footer-card pull-right">
-                        <img src="img/paypal.png" alt="paypal">
-                    </div>
-                </div>
-            </div>-->
-            <!--</div>
-                </div>
-            </div>-->
-            <!-- End footer menu area -->
-            <!-- Start footer copyright area -->
+            </div>           
             <div class="footer-copyright-area">
                 <div class="container">
                     <div class="footer-copyright">

@@ -5,110 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     decimal rewardpointBalance = 0;
 }
-<link href="~/css/site.css" rel="stylesheet" />
-<style>
-
-    /* Chrome, Safari, Edge, Opera */
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
-
-    /* Firefox */
-    input[type=number] {
-        -moz-appearance: textfield;
-    }
-
-    span {
-        cursor: pointer;
-    }
-
-    .number {
-        margin: 0px;
-    }
-
-    .minus, .plus {
-        width: 25px;
-        height: 20px;
-        background: #f2f2f2;
-        border-radius: 74px;
-        /*padding: 8px 5px 8px 5px;*/
-        border: 1px solid #ddd;
-        display: inline-block;
-        vertical-align: middle;
-        text-align: center;
-        margin: 6px 0px 5px 8px;
-        padding: 0px 0px 25px 0px;
-    }
-
-
-        .minus:hover {
-            background-color: #FE5B5A;
-        }
-
-        .plus:hover {
-            background-color: #FE5B5A;
-        }
-
-    .fa-trash:hover {
-        color: #FE5B5A;
-    }
-
-    input {
-        /*height: 34px;*/
-        width: 38px;
-        text-align: center;
-        font-size: 18px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        display: inline-block;
-        vertical-align: middle;
-    }
-
-    .cart-product-line {
-        border-top: 0px solid #515151;
-    }
-    /*.QA{
-        text-align: center;
-        padding: 9px 10px;
-    }*/
-
-    .Shop_Now {
-        background-color: #363636;
-        padding: 10px;
-        color: white;
-        border-radius: 1px;
-    }
-
-        .Shop_Now:hover {
-            background-color: #fe5b5a;
-            color: white;
-            text-decoration: none;
-        }
-
-    .Shop_Now_Div {
-        padding: 20px;
-    }
-
-    .modal-header {
-        background-color: #fe5b5a;
-    }
-
-    .cart-checkout {
-        color: white;
-    }
-
-    .product_name_Over {
-        color: #000;
-        text-decoration: none;
-    }
-
-        .product_name_Over:hover {
-            color: #fe5b5a;
-            text-decoration: none;
-        }
-</style>
 @foreach (var rewardbalance in Model.myreward)
 {
     @if (rewardbalance.Operation_type == "Credit")
@@ -126,11 +22,6 @@
     <!-- Start cart page area -->
     <div class="cart-page-area">
         <div class="container">
-            @*<div class="breadcrumb">
-                    <a title="Return to Home" asp-action="Index" asp-controller="Home" class="home">Home</a>
-                    <span class="navigation-pipe"><i class="fa fa-angle-right"></i></span>
-                    Shopping cart
-                </div>*@
             <div class="cart-wrap">
                 <h4 class="cart-title">Shopping cart</h4>
             </div>
@@ -270,31 +161,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            @*<div class="actions">
-                    <div class="cartpage-btn">
-                        <ul> /Cart/DeleteProduct/@cartlist.ProductId
-                            <li><a asp-action="index" asp-controller="home" class="cbtn">continue shopping</a></li>
-                            <li><a href="#" class="cbtn">update shopping cart</a></li>
-                            <li><a href="#" class="cbtn">clear shopping cart</a></li>
-                        </ul>
-                    </div>
-                </div>*@
-            <!-- start cart discount code area -->
-           @* <div class="cart-discount-code-area">
-                <h2>Discount codes</h2>
-                <p>Enter your coupon code if you have one.</p>
-                <input type="text">
-                <a href="#">Apply coupon</a>
-            </div>*@
-            <!-- End cart discount code area -->
-            <!-- Start Stmate shoping and cart -->
-            <!-- End Stmate shoping and cart -->
+            </div>         
         </div>
     </div>
-    <!-- End cart page area -->
-    <!-- Start brand logo area -->
-    <!-- End brand logo area -->
 </div>
 <!-- End main area -->
 <!-- JS -->
@@ -303,18 +172,7 @@
 <script src="~/js/vendor/jquery-migrate-3.3.0.min.js"></script>
 
 <script>
-    const url_string = window.location.href;
-    var url = new URL(url_string);
-    var userEncode = url.searchParams.get("username");
-   // window.btoa(userEncode);
-
-    const encodeGetParams = p =>
-        Object.entries(p).map(kv => kv.map(encodeURIComponent).join("=")).join("&");
-
-    const params = {
-        username: userEncode,      
-        "ZOMG+&=*(": "*^%*GMOZ"
-    };
+   
 
 
    // console.log(userEncode);

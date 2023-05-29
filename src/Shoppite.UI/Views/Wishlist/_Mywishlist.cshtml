@@ -3,19 +3,19 @@
 <link href="~/css/overlay.css" rel="stylesheet" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <style>
-    .Shop_Now {
+    .Shop_Wish {
         /*background-color: #363636;*/
         padding: 10px;
         color: black;
-        font-weight:bold;
+        font-weight: bold;
         /*border-radius: 1px;*/
     }
 
-        .Shop_Now:hover {
-            color: #fe5b5a;
-            /*color: white;*/
-            text-decoration: none;
-        }
+    .Shop_Wish:hover {
+        color: #fe5b5a;
+        /*color: white;*/
+        text-decoration: none;
+    }
 </style>
 <div class="row">
     @if (Model.Wishlists.Count > 0)
@@ -61,7 +61,7 @@
             <h4 style="color: #fe5b5a; margin-top: -35px;">Your Wishlist is Empty! </h4>
             <h6>seems like you don't have wishes here.</h6>
             <div class="Shop_Now_Div">
-                <a class="Shop_Now" asp-action="Index" asp-controller="Home">Make a Wish!</a>
+                <a class="Shop_Wish" asp-action="Index" asp-controller="Home">Make a Wish!</a>
             </div>
         </div>
     }

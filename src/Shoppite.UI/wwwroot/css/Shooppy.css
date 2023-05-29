@@ -1,0 +1,281 @@
+
+/*Nav icon*/
+.BagImg {
+    max-width: 58px;
+    margin: 9px 0px 0px 0px;
+}
+
+.headprize {
+    margin: 10px 11.5px;
+    font-size: 35px;
+}
+
+.headHeart {
+    margin: 10px 11.5px;
+    font-size: 35px;
+    color: #fff;
+}
+
+.col-half-offset {
+    margin-left: 4.166666667%
+}
+
+.HeadUser {
+    margin: 10px 14px;
+    font-size: 35px;
+    color: #fff;
+}
+
+/* Reward page style*/
+.claimbtn {
+    margin-bottom: 12px;
+    margin-left: 18px;
+}
+
+.coins {
+    justify-content: center;
+    padding-top: 20px;
+    margin: auto;
+    display: flex;
+}
+
+.table {
+    border-spacing: 10px;
+}
+
+.coinlist {
+    margin: auto;
+    margin-top: 4px;
+    padding-top: 4px;
+    display: flex;
+}
+
+.translog {
+    margin: auto;
+    padding-bottom: 20px;
+}
+
+.tabel {
+    border-spacing: 20px;
+}
+
+
+/*Cart Page Style*/
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+span {
+    cursor: pointer;
+}
+
+.number {
+    margin: 0px;
+}
+
+.minus, .plus {
+    width: 25px;
+    height: 20px;
+    background: #f2f2f2;
+    border-radius: 74px;
+    /*padding: 8px 5px 8px 5px;*/
+    border: 1px solid #ddd;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    margin: 6px 0px 5px 8px;
+    padding: 0px 0px 25px 0px;
+}
+
+
+    .minus:hover {
+        background-color: #FE5B5A;
+    }
+
+    .plus:hover {
+        background-color: #FE5B5A;
+    }
+
+.fa-trash:hover {
+    color: #FE5B5A;
+}
+
+input {
+    /*height: 34px;*/
+    width: 38px;
+    text-align: center;
+    font-size: 18px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.cart-product-line {
+    border-top: 0px solid #515151;
+}
+/*.QA{
+        text-align: center;
+        padding: 9px 10px;
+    }*/
+
+.Shop_Now {
+    background-color: #363636;
+    padding: 10px;
+    color: white;
+    border-radius: 1px;
+}
+
+    .Shop_Now:hover {
+        background-color: #fe5b5a;
+        color: white;
+        text-decoration: none;
+    }
+
+.Shop_Now_Div {
+    padding: 20px;
+}
+
+.modal-header {
+    background-color: #fe5b5a;
+}
+
+.cart-checkout {
+    color: white;
+}
+
+.product_name_Over {
+    color: #000;
+    text-decoration: none;
+}
+    .product_name_Over:hover {
+        color: #fe5b5a;
+        text-decoration: none;
+    }
+        
+/*Order sucess*/
+.successimg {
+    max-width: 100%;
+    max-height: 500px;
+}
+/*Checkout Page*/
+.SaveBtn {
+    background: #ff5b5a;
+    color: #fff;
+    border: none;
+    display: block;
+    height: 30px;
+    /*line-height: 31px;*/
+    margin-bottom: 20px;
+    margin-left: 4px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    width: 115px;
+    border-radius: 10px;
+}
+
+    .SaveBtn:hover {
+        background: #363636;
+        color: #fff;
+    }
+
+
+.makeover {
+    width: 220px;
+    border-radius: 40px;
+}
+
+/*_AllOrder*/
+/* [1] The container */
+.img-hover-zoom {
+    /*height: 300px;*/ /* [1.1] Set it as per your need */
+    /*overflow: hidden;*/ /* [1.2] Hide the overflowing of child elements */
+}
+
+    /* [2] Transition property for smooth transformation of images */
+    .img-hover-zoom img {
+        transition: transform .5s ease;
+    }
+
+    /* [3] Finally, transforming the image when container gets hovered */
+    .img-hover-zoom:hover img {
+        transform: scale(1.5);
+    }
+
+.fa-angle-right {
+    color: #ec4445;
+}
+
+    .fa-angle-right:hover {
+        color: #000;
+    }
+
+    /*Order Details*/
+.download {
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 6px;
+    background-color: #363636;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+    .download:hover {
+        background-color: #FE5B5A;
+        color: #ffffff;
+        border: none;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+        text-decoration: none;
+    }
+
+.return {
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 6px;
+    background-color: #FE5B5A;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+    .return:hover {
+        background-color: #363636;
+        color: #ffffff;
+        border: none;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+        text-decoration: none;
+    }
+
+.Icon {
+    color: #ec4445;
+}
+
+/*Bottom Banner*/
+#bottomimg {
+    margin-top: 22px;
+}
+.responsive {
+    height: auto;
+}
+
+/*My Wishlist Page*/
+.Shop_Wish {
+    padding: 10px;
+    color: black;
+    font-weight: bold;
+}
+
+    .Shop_Wish:hover {
+        color: #fe5b5a;
+        text-decoration: none;
+    }
