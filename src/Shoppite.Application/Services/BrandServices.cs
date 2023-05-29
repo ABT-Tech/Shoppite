@@ -110,10 +110,10 @@ namespace Shoppite.Application.Services
             await _BrandRepository.News_Letter_Submit(orgid, email);
         }
 
-        public async Task<List<ProductBasicModel>> SearchProduct(string searchKey)
+        public async Task<List<ProductBasicModel>> SearchProduct(string searchKey, int OrgId)
         {
             ProductBasicModel productBasicModel = new ProductBasicModel();
-            var SearchResult = await _BrandRepository.SearchProduct(searchKey);
+            var SearchResult = await _BrandRepository.SearchProduct(searchKey,OrgId);
            var mapped =  ObjectMapper.Mapper.Map<List<ProductBasicModel>>(SearchResult);
 
             foreach(var prices in mapped)

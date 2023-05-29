@@ -137,9 +137,9 @@ namespace Shoppite.Infrastructure.Repository
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<List<ProductBasic>> SearchProduct(string searchKey)
+        public async Task<List<ProductBasic>> SearchProduct(string searchKey,int OrgId)
         {
-            var Search = await _dbContext.ProductBasic.Where(x => x.ProductName.Contains(searchKey)).ToListAsync();
+            var Search = await _dbContext.ProductBasic.Where(x=>x.OrgId==OrgId&&x.ProductName.Contains(searchKey)).ToListAsync();
             return Search;
         }
 

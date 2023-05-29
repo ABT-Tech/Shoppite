@@ -136,7 +136,8 @@ namespace Shoppite.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> SearchProduct(string SearchKey)
         {
-            var SearchResult = await _BrandPageService.SearchProduct(SearchKey);
+            int orgid = _commonHelper.GetOrgID(HttpContext);
+            var SearchResult = await _BrandPageService.SearchProduct(SearchKey, orgid);
             return View(SearchResult);
         }
     }
