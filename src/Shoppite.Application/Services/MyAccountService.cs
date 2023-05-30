@@ -16,12 +16,10 @@ namespace Shoppite.Application.Services
     public class MyAccountService:IMyAccountService
     {
         private readonly IMyAccountRepository _myAccountRepository;
-        private readonly IMapper _mapper;
         private IHttpContextAccessor _accessor;
-        public MyAccountService(IMyAccountRepository myAccountRepository, IMapper mapper, IHttpContextAccessor accessor)
+        public MyAccountService(IMyAccountRepository myAccountRepository, IHttpContextAccessor accessor)
         {
             _myAccountRepository = myAccountRepository ?? throw new ArgumentNullException(nameof(myAccountRepository));
-            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _accessor = accessor;
         }
         public async Task<f_Get_MyAccount_Data_Model> GetMyAccountDetail(int orgId,int profileid)

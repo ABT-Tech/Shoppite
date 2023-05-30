@@ -16,12 +16,10 @@ namespace Shoppite.Application.Services
     public class WishlistService : IWishlistService
     {
         private readonly IWishlistRepository _wishlistRepository;
-        private readonly IMapper _mapper;
         private IHttpContextAccessor _accessor;
         public WishlistService(IWishlistRepository productRepository, IMapper mapper, IHttpContextAccessor accessor)
         {
             _wishlistRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
-            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _accessor = accessor;
         }
         public async Task<List<Customer_WishlistModel>> GetWishList(string Username, int OrgId)

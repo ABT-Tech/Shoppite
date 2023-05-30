@@ -6143,6 +6143,7 @@ input.form-control {
     color: #a5a5a5;
     font-family: Arial;
     font-size: 14px;
+    text-align: left;
     font-weight: normal;
     margin-bottom: 25px;
 }

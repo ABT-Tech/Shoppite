@@ -14,9 +14,6 @@
 
         <div class="row col-lg-12">
             <h4 class="cart-title">My Orders</h4>
-            @*<div class="wishlist-permalink">
-                <p><a href="#"></a></p>
-            </div>*@
             <div class="wishlist-product">
                 @await Html.PartialAsync("_AllOrders", Model)
             </div>
@@ -24,7 +21,9 @@
     </div>
     @await Html.PartialAsync("~/Views/Home/_BrandZone.cshtml", Model)
 </div>
-<script>
+@section scripts
+{
+    <script>
     $(".pendingOrders").change(function () {
         var valueofDropDown = $(this).val();
         if (valueofDropDown == 2) {
@@ -65,4 +64,4 @@
         }
     });
 
-</script>
+    </script>}

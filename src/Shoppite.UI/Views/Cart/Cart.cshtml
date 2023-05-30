@@ -117,7 +117,7 @@
                                                 {@((rewardpointBalance * 1 )/100)}
                                                 ₹
                                             </span>
-                                        </div>                                       
+                                        </div>
                                         <div class="cart-product-line">
                                             <span>Final Total</span>
                                             <span class="total"></span>
@@ -161,23 +161,13 @@
                         </div>
                     </div>
                 </div>
-            </div>         
+            </div>
         </div>
     </div>
 </div>
-<!-- End main area -->
-<!-- JS -->
-<!-- jquery -->
-<script src="~/js/vendor/jquery-3.5.1.min.js"></script>
-<script src="~/js/vendor/jquery-migrate-3.3.0.min.js"></script>
-
-<script>
-   
-
-
-   // console.log(userEncode);
-   // console.log(window.btoa(userEncode));
-    //console.log(encodeURIComponent(userEncode));
+@section scripts
+{
+    <script>
     var arr = [];
     var count;
     $(document).ready(function (id) {
@@ -197,9 +187,7 @@
             $input.change();
             return false;
         });
-    });
 
-    $(document).ready(function () {
         update();
         $(".quant").change(function () {
             //this: context of the input that was changed
@@ -265,7 +253,7 @@
         }
 
         var makeString = JSON.stringify({ar});
-        const url = window.location.href;  
+        const url = window.location.href;
         $.ajax({
             type: "POST",
             url: '@Url.Action("AddToCheck", "Cart")',
@@ -284,4 +272,5 @@
         });
 
     };
-</script>
+    </script>
+}

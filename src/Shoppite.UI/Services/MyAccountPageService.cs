@@ -11,11 +11,9 @@ namespace Shoppite.UI.Services
     public class MyAccountPageService:IMyAccountPageService
     {
         private readonly IMyAccountService _myAccountService;
-        private readonly IMapper _mapper;
-        public MyAccountPageService(IMyAccountService myAccountService, IMapper mapper)
+        public MyAccountPageService(IMyAccountService myAccountService)
         {
             _myAccountService = myAccountService ?? throw new ArgumentNullException(nameof(myAccountService));
-            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
         public async Task<f_Get_MyAccount_Data_Model> GetMyAccountDetail(int orgId,int profileid)
         {

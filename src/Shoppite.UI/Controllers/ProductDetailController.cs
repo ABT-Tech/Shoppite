@@ -15,23 +15,14 @@ namespace Shoppite.UI.Controllers
 {
     public class ProductDetailController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly IproductDetailPageServices _ProductDetailPageService;
         private readonly IWishlistPageService _productWishListService;
-
-        //private readonly ICategoryPageService _categoryPageService;
-        private readonly ICommonHelper _commonHelper;
-
-
-        
-        public ProductDetailController(ILogger<HomeController> logger, IproductDetailPageServices categoryPageService, ICommonHelper commonHelper, IWishlistPageService productWishListService)
+        private readonly ICommonHelper _commonHelper;      
+        public ProductDetailController( IproductDetailPageServices categoryPageService, ICommonHelper commonHelper, IWishlistPageService productWishListService)
         {
-            _logger = logger ?? throw new ArgumentNullException();
             _ProductDetailPageService = categoryPageService ?? throw new ArgumentNullException(nameof(categoryPageService));
             _commonHelper = commonHelper;
-            _productWishListService = productWishListService;
-
-            //_categoryPageService = categoryPageService ?? throw new ArgumentNullException(nameof(categoryPageService));
+            _productWishListService = productWishListService;          
         }
 
         public IActionResult Index()
@@ -88,7 +79,7 @@ namespace Shoppite.UI.Controllers
             mainModel.OrgId = OrgId;
 
             await _productWishListService.AddtowhishList(mainModel);
-            return RedirectToAction("Details",new {id=id});
+            return RedirectToAction("Details", new { id });
         }
 
         [HttpGet]

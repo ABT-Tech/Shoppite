@@ -12,11 +12,9 @@ namespace Shoppite.Web.Services
     public class WishlistPageService:IWishlistPageService
     {
         private readonly IWishlistService _productWishListService;
-        private readonly IMapper _mapper;
-        public WishlistPageService(IWishlistService productService, IMapper mapper)
+        public WishlistPageService(IWishlistService productService)
         {
             _productWishListService = productService ?? throw new ArgumentNullException(nameof(productService));
-            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
         public async Task<List<Customer_WishlistModel>> GetWishList(string Username, int OrgId)
         {

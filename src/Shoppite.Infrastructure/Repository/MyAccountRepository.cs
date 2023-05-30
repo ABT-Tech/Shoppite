@@ -14,7 +14,7 @@ namespace Shoppite.Infrastructure.Repository
     public class MyAccountRepository : IMyAccountRepository
     {
         protected readonly Shoppite_masterContext _dbContext;
-        private EncryptionHelper EncryptPass = new EncryptionHelper();
+        private readonly EncryptionHelper EncryptPass = new EncryptionHelper();
 
         public MyAccountRepository(Shoppite_masterContext dbContext)
         {

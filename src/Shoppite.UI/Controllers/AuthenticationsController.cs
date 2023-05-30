@@ -17,12 +17,10 @@ namespace Shoppite.UI.Controllers
     {
         private readonly IAuthenticationsPageService _AuthenticationPageService;
         private readonly ICommonHelper _commonHelper;
-        private readonly IHostingEnvironment _hostingEnvironment;
 
-        public AuthenticationsController(IAuthenticationsPageService AuthenticationPageService, IHostingEnvironment hostingEnvironment, ICommonHelper commonHelper)
+        public AuthenticationsController(IAuthenticationsPageService AuthenticationPageService, ICommonHelper commonHelper)
         {
             _AuthenticationPageService = AuthenticationPageService ?? throw new ArgumentNullException(nameof(AuthenticationPageService));
-            _hostingEnvironment = hostingEnvironment;
             _commonHelper = commonHelper;
         }
 

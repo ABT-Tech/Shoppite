@@ -1,22 +1,5 @@
 ﻿@model Shoppite.Application.Models.MainModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-<link href="~/css/overlay.css" rel="stylesheet" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<style>
-    .Shop_Wish {
-        /*background-color: #363636;*/
-        padding: 10px;
-        color: black;
-        font-weight: bold;
-        /*border-radius: 1px;*/
-    }
-
-    .Shop_Wish:hover {
-        color: #fe5b5a;
-        /*color: white;*/
-        text-decoration: none;
-    }
-</style>
 <div class="row">
     @if (Model.Wishlists.Count > 0)
     {
@@ -67,7 +50,9 @@
     }
 
 </div>
-<script>
+@section scripts
+{
+    <script>
     $('.removewish').click(function (e)
     {
         e.preventDefault();
@@ -85,4 +70,4 @@
         }
          });
     });
-</script>
+    </script>}

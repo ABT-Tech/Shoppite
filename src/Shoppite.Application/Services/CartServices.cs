@@ -17,12 +17,10 @@ namespace Shoppite.Application.Services
     public class CartServices : ICartServices
     {
         private readonly ICartRepository _CartRepository;
-        private readonly IAppLogger<CartServices> _logger;
         private IHttpContextAccessor _accessor;
         public CartServices(ICartRepository CartRepository, IAppLogger<CartServices> appLogger, IHttpContextAccessor accessor)
         {
             _CartRepository = CartRepository ?? throw new ArgumentNullException(nameof(CartRepository));
-            _logger = appLogger ?? throw new ArgumentNullException(nameof(appLogger));
             _accessor = accessor;
         }
 
@@ -35,7 +33,6 @@ namespace Shoppite.Application.Services
                 CartModel orderbasic = new CartModel();
                 var Orderbasic = await _CartRepository.OrderBasic(orgid);
                 orderbasic.F_Getproduct_CartDetails_By_Orgids = ObjectMapper.Mapper.Map<List<f_getproduct_CartDetails_By_OrgidModel>>(Orderbasic).Where(x => x.UserName == userName).ToList();
-                //var filter = orderbasic.F_Getproduct_CartDetails_By_Orgids.Where(x => x.UserName == userName).ToList();
                 return orderbasic;
 
             }
@@ -90,9 +87,6 @@ namespace Shoppite.Application.Services
 
         public async Task<CartModel> CheckOrder(Guid guid)
         {
-
-            //guid guid = guid.parse(update.guid);
-            // int qty = convert.toint32(update.qty);
             CartModel cartModel = new CartModel();
             OrderBasic orderbasic = new OrderBasic
             {
@@ -107,11 +101,6 @@ namespace Shoppite.Application.Services
 
             var GetAddress = await _CartRepository.GetAddredd(orderbasic.UserName);
             cartModel.OrderShippingModel = ObjectMapper.Mapper.Map<OrderShippingModel>(GetAddress);
-
-           // cartModel.OrderShippingModel.Contactnumber = cartModel.UsersProfileModal.ContactNumber;
-            //cartModel.OrderShippingModel.City = cartModel.UsersProfileModal.City;
-            //cartModel.OrderShippingModel.Address = cartModel.UsersProfileModal.Address;
-            //cartModel.OrderShippingModel.UserName = cartModel.UsersProfileModal.UserName;
 
             return cartModel;
         }

@@ -4,27 +4,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!-- Favicon
-       ============================================ -->
-<link rel="shortcut icon" type="image/x-icon" href="~/img/favicon.ico">
-
-<!-- Fonts  -->
-
-<link href='https://fonts.googleapis.com/css?family=Raleway:400,500,600,700,300,800' rel='stylesheet' type='text/css'>
-
-<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-
-<link rel="stylesheet" href="css/font-awesome.min.css">
-
-
 <div class="main-area">
 
     <!-- Start checkout page area -->
     <div class="checkout-page-area">
         <div class="container">
-            <div class="breadcrumb">
-                <a title="Return to Home" href="/" class="home">Home</a>
-                <span class="navigation-pipe"><i class="fa fa-angle-right"></i></span>
+            <div class="breadcrumb" style="background-color:white;">
+                <a title="Return to Home" href="/" class="home" style="text-decoration: none; color: #363636;">Home</a>
+                <span class="navigation-pipe"><i class="fa fa-angle-right" style="color:black;"></i></span>
                 checkout
             </div>
             <!-- Start checkout content -->
@@ -33,7 +20,7 @@
                 <div class="checkout-content">
                     <div class="row">
                         <div class="col-md-9 mb-5">
-                            <form id="formsubmitid"  method="post" class=" pt-2 text-capitalize">
+                            <form id="formsubmitid" method="post" class=" pt-2 text-capitalize">
                                 <input type="hidden" asp-for="OrderBasicModel.OrderGuid" />
 
                                 <div aria-multiselectable="true" role="tablist" id="accordion" class="panel-group">
@@ -310,18 +297,7 @@
                                 </div>
 
                             </form>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="checkout-sidebar">
-                                <h4>CHECKOUT PROGRESS</h4>
-                                <ul>
-                                    @*<li><a href="#">Billing Address</a></li>*@
-                                    <li><a href="#">Sipping Address</a></li>
-                                    @*<li><a href="#">Shiping Method</a></li>*@
-                                    <li><a href="#">Payment Method</a></li>
-                                </ul>
-                            </div>
-                        </div>
+                        </div>                       
                     </div>
                     <!-- End checkout content -->
                 </div>
@@ -330,8 +306,9 @@
         </div>
     </div>
 </div>
-<script src="~/js/vendor/jquery-3.5.1.min.js"></script>
-<script>
+@section scripts
+{
+    <script>
     $('#formsubmitid').submit(function (e)
     {
         e.preventDefault();
@@ -410,4 +387,4 @@
        //    $('#Target').click();
        //}
 
-</script>
+    </script>}

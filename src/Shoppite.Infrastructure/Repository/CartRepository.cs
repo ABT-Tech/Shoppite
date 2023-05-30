@@ -93,7 +93,7 @@ namespace Shoppite.Infrastructure.Repository
                     {
                         _dbContext.Entry(local).State = EntityState.Detached;
                     }
-                    Inventory.Qty = Inventory.Qty - order.Qty;
+                    Inventory.Qty -= order.Qty;
 
                     _dbContext.Entry(Inventory).State = EntityState.Modified;
                 }

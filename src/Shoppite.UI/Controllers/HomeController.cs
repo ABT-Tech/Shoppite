@@ -16,18 +16,13 @@ namespace Shoppite.UI.Controllers
 {
     public class HomeController : Controller
     {
-        private IHttpContextAccessor _accessor;
-
-        private readonly ILogger<HomeController> _logger;
         private readonly IBrandPageServices _BrandPageService;
         private readonly IWishlistPageService _wishlistPageService;
         private readonly ICategoryPageService _categoryPageService;
         private readonly ICommonHelper _commonHelper;
 
-        public HomeController(IBrandPageServices brandPageServices, ILogger<HomeController> logger, ICategoryPageService categoryPageService, IHttpContextAccessor accessor,IWishlistPageService wishlistPageService, ICommonHelper commonHelper)
+        public HomeController(IBrandPageServices brandPageServices, ICategoryPageService categoryPageService,IWishlistPageService wishlistPageService, ICommonHelper commonHelper)
         {
-            _accessor = accessor;
-            _logger = logger ?? throw new ArgumentNullException();
             _BrandPageService = brandPageServices ?? throw new ArgumentNullException(nameof(brandPageServices));
             _categoryPageService = categoryPageService ?? throw new ArgumentNullException(nameof(categoryPageService));
             _wishlistPageService = wishlistPageService ?? throw new ArgumentNullException(nameof(wishlistPageService));
