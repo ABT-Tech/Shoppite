@@ -91,5 +91,10 @@ namespace Shoppite.UI.Services
         {
             return await _BrandService.Get_Vendor_Message(userName, orgid);
         }
+
+        public async Task<MessagesModel> GetUnReadCount(int orgid, string username)
+        {
+            return await _BrandService.GetUnReadCount(orgid, username);
+        }
     }
 }

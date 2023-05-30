@@ -12,14 +12,21 @@ namespace Shoppite.UI.Helpers
     {
         MessagesModel messagesModel = new MessagesModel();
         private readonly ICommonHelper _commonHelper;
-        public ChatBotViewComponent(ICommonHelper commonHelper)
+        private readonly IBrandPageServices _BrandPageService;
+
+
+        public ChatBotViewComponent(ICommonHelper commonHelper, IBrandPageServices brandPageServices)
         {
             _commonHelper = commonHelper;
+            _BrandPageService = brandPageServices;
         }
         [HttpPost]
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            return View("ChatBot",messagesModel);
+            int orgid = _commonHelper.GetOrgID(HttpContext);
+            string username = User.Identity.Name;
+            var GetOrderBasic = await _BrandPageService.GetUnReadCount(orgid,username);
+            return View("ChatBot", GetOrderBasic);
         }
     }
 }

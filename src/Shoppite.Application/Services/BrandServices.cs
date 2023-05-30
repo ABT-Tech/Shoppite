@@ -190,5 +190,13 @@ namespace Shoppite.Application.Services
             var Get_Vendor_Message = await _BrandRepository.Get_Vendor_Message(userName, orgid);
           return messagesModel = ObjectMapper.Mapper.Map<List<MessagesModel>>(Get_Vendor_Message);
         }
+
+        public async Task<MessagesModel> GetUnReadCount(int orgid, string username)
+        {
+            MessagesModel messagesModel = new MessagesModel();
+            var GetUnReadCount = await _BrandRepository.GetUnReadCount(orgid, username);
+            messagesModel.MessagesModelList = ObjectMapper.Mapper.Map<List<MessagesModel>>(GetUnReadCount);
+            return messagesModel;
+        }
     }
 }

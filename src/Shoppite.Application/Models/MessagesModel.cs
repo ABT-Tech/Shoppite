@@ -20,5 +20,6 @@ namespace Shoppite.Application.Models
         public string Attachment { get; set; }
         public int? SessionBookingId { get; set; }
         public int? OrgId { get; set; }
+        public List<MessagesModel> MessagesModelList { get; set; }
     }
 }

@@ -24,5 +24,6 @@ namespace Shoppite.Application.Interfaces
         Task CancleOrder(int orderid);
         Task<MessagesModel>SendMessageVendor(MessagesModel messagesModel);
         Task<List<MessagesModel>> Get_Vendor_Message(string userName, int orgid);
+        Task<MessagesModel> GetUnReadCount(int orgid, string username);
     }
 }

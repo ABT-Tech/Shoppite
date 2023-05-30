@@ -293,5 +293,10 @@ namespace Shoppite.Infrastructure.Repository
 
             return Get_Vendor_Message;
         }
+
+        public async Task<List<Messages>> GetUnReadCount(int orgid, string username)
+        {
+            return await _dbContext.Messages.Where(x => x.OrgId == orgid && x.Recipient == username && x.Status == "UnRead").ToListAsync();
+        }
     }
 }
