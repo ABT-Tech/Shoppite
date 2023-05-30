@@ -89,9 +89,9 @@
             if (msg == "Welcome, What is your name ?") {
                 window.setTimeout(addResponseMsg, 1000, msg);
                 return;
-            } else if (msg == "help" || msg == "i need help" || msg == "help me" || msg == "order" || msg == "account" || msg == "message vendor" || msg == "chat with vendor" || msg == "talk to vendor") {
+            } else if (msg == "help" || msg == "i need help" || msg == "help me" || msg == "order" || msg == "account" || msg == "message vendor" || msg == "chat with vendor" || msg == "talk to vendor" || msg == "i need support" || msg == "help from vendor" || msg == "vendor help" || msg == "i need vendor help" || msg == "vendor support") {
 
-                if (msg == "help" || msg == "i need help" || msg == "help me") {
+                if (msg == "help" || msg == "i need help" || msg == "help me" || msg == "i need support") {
                     window.setTimeout(addResponseMsg, 1000, "Help from vendor");
                     window.setTimeout(addResponseMsg, 1300, "send email to admin@ashokinfotech.in to get help from shooppy");
                     //document.getElementById("message").setAttribute("disabled", "disabled");
@@ -118,7 +118,7 @@
                     // document.getElementById("message").setAttribute("disabled", "disabled");
                     return;
 
-                } else if (msg == "message vendor" || msg == "chat with vendor" || msg == "talk to vendor") {
+                } else if (msg == "message vendor" || msg == "chat with vendor" || msg == "talk to vendor" || msg == "help from vendor" || msg == "vendor help" || msg == "i need vendor help" || msg == "vendor support") {
                     if (validuser == "False") {
                         window.setTimeout(addResponseMsg, 1000, "you have to login first!");
                         window.setTimeout(SetLink, 1200, 'Authentications', 'Login');
