@@ -4,6 +4,7 @@ using Shoppite.Infrastructure.Data;
 using Shoppite.UI.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -85,6 +86,14 @@ namespace Shoppite.UI.Helpers
                 writer.WriteLine(message);
                 writer.Close();
             }
+        }
+
+        public bool DoesPropertyExist(dynamic settings, string name)
+        {
+            if (settings is ExpandoObject)
+                return ((IDictionary<string, object>)settings).ContainsKey(name);
+
+            return settings.GetType().GetProperty(name) != null;
         }
 
     }
