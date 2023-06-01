@@ -1,11 +1,17 @@
 ﻿namespace Shoppite.UI.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Configuration;
+    using Newtonsoft.Json;
     using Shoppite.Application.Models;
     using Shoppite.UI.Extensions;
+    using Shoppite.UI.Helpers;
     using Shoppite.UI.Interfaces;
     using Shoppite.Web.Interfaces;
     using System;
+    using System.Dynamic;
+    using System.Net.Http;
+    using System.Text;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -25,17 +31,23 @@
         private readonly ICommonHelper _commonHelper;
 
         /// <summary>
+        /// Defines the _commonHelper.
+        /// </summary>
+        private readonly IConfiguration _configuration;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="CartController"/> class.
         /// </summary>
         /// <param name="cartPageServices">The cartPageServices<see cref="ICartPageServices"/>.</param>
         /// <param name="commonHelper">The commonHelper<see cref="ICommonHelper"/>.</param>
-        /// 
+       
         private readonly IRewardPageService _rewardPageService;
         private readonly IWishlistPageService _wishlistpageService;
-        public CartController(IWishlistPageService wishlistPageService,ICartPageServices cartPageServices, ICommonHelper commonHelper,IRewardPageService rewardPageService)
+        public CartController(IWishlistPageService wishlistPageService,ICartPageServices cartPageServices, ICommonHelper commonHelper,IRewardPageService rewardPageService, IConfiguration configuration)
         {
             _cartPageService = cartPageServices ?? throw new ArgumentNullException(nameof(cartPageServices));
             _commonHelper = commonHelper;
+            _configuration = configuration;
             _rewardPageService = rewardPageService;
             _wishlistpageService = wishlistPageService;
         }
@@ -130,40 +142,55 @@
 
             return RedirectToAction("OrderSuccess");
         }
-        [HttpPost]
-        public async Task<IActionResult> SaveAddress2(CartModel cartModel)
-        {
-            int id = _commonHelper.GetOrgID(HttpContext);
-            cartModel.OrderShippingModel.OrgId = id;
-            await _cartPageService.SaveAddress(cartModel);
 
-            await _cartPageService.UpdateOrder((Guid)cartModel.OrderBasicModel.OrderGuid);
-            var rewardpointBalance = 0.0M;
-            cartModel.myreward = await _rewardPageService.GetRewardBalance(id);
-            cartModel.reward_Point_Log = new Reward_Point_LogModel();
-            cartModel.reward_Point_Log.OrgId = id;
-            if (cartModel.myreward != null)
+        [HttpPost]
+        public async Task<IActionResult> MakePaymentRequest(CartModel Model)
+        {
+            if (Model.IsPaytm)
             {
-                foreach (var rewardpoint in cartModel.myreward)
+                var order = await _cartPageService.CheckOrder((Guid)Model.OrderBasicModel.OrderGuid);
+                using (HttpClient client = new HttpClient())
                 {
-                    if (rewardpoint.Operation_type == "Credit")
+                    CashfreeRequest cashfreeRequest = new CashfreeRequest();
+                    var orderId = Guid.NewGuid();
+                    cashfreeRequest.customer_details = new CustomerDetails();
+                    cashfreeRequest.customer_details.customer_email = Model.OrderShippingModel.Email;
+                    cashfreeRequest.customer_details.customer_id = Model.OrderShippingModel.ShippingId.ToString();
+                    cashfreeRequest.customer_details.customer_phone = "+918200408816";//Model.OrderShippingModel.Phone;
+                    cashfreeRequest.order_amount = (decimal)order.OrderBasicModel.Price;
+                    cashfreeRequest.order_currency = "INR";
+                    cashfreeRequest.order_id = orderId.ToString();
+                    StringContent content = new StringContent(JsonConvert.SerializeObject(cashfreeRequest), Encoding.UTF8, "application/json");
+                    client.DefaultRequestHeaders.Add("x-api-version", _configuration.GetSection("CashFreeSettings")["x-api-version"]);
+                    client.DefaultRequestHeaders.Add("x-client-id", _configuration.GetSection("CashFreeSettings")["x-client-id"]);
+                    client.DefaultRequestHeaders.Add("x-client-secret", _configuration.GetSection("CashFreeSettings")["x-client-secret"]);
+                    string endpoint = _configuration.GetSection("CashFreeSettings")["URL"];
+                    using (var Response = await client.PostAsync(endpoint, content))
                     {
-                        rewardpointBalance += rewardpoint.Reward_points;
-                    }
-                    else
-                    {
-                        rewardpointBalance -= rewardpoint.Reward_points;
+                        var payment_session = string.Empty;
+                        var stream = await Response.Content.ReadAsStringAsync();
+                        var dynamicObject = JsonConvert.DeserializeObject<ExpandoObject>(stream) as dynamic;
+                        if (_commonHelper.DoesPropertyExist(dynamicObject, "payment_session_id")){
+                            payment_session = dynamicObject.payment_session_id;
+                        }
+                        ViewBag.PaymentSession = payment_session;
                     }
                 }
-
+                int orgid = _commonHelper.GetOrgID(HttpContext);
+                Model.OrderShippingModel.OrgId = orgid;
+                await _cartPageService.SaveAddress(Model);
+                await _cartPageService.UpdateOrder((Guid)Model.OrderBasicModel.OrderGuid);
+                return View();
             }
-            if(rewardpointBalance!=0)
+            else
             {
-                cartModel.reward_Point_Log.Reward_points = (rewardpointBalance * 30) / 100;
-                await _rewardPageService.ClaimReward(cartModel.reward_Point_Log);
-
+                int orgid = _commonHelper.GetOrgID(HttpContext);
+                Model.OrderShippingModel.OrgId = orgid;
+                await _cartPageService.SaveAddress(Model);
+                await _cartPageService.UpdateOrder((Guid)Model.OrderBasicModel.OrderGuid);
+                return RedirectToAction("OrderSuccess");
             }
-            return RedirectToAction("OrderSuccess");
+            
         }
     }
 }

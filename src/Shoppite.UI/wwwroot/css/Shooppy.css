@@ -72,6 +72,10 @@ input::-webkit-inner-spin-button {
 input[type=number] {
     -moz-appearance: textfield;
 }
+.modal-header {
+    background-color: #fe5b5a;
+}
+
 
 span {
     cursor: pointer;
@@ -311,3 +315,31 @@ input {
           font-size: 34px;
           color: #fff;
       }
+
+/*Product Detail Page*/
+#Set_Price, #Set_Name {
+    opacity: 0;
+}
+/*
+.megamenu-area {
+    z-index: 1;
+}*/
+
+#Des ul {
+    margin: 0px;
+    padding: 0px 0px 0px 20px;
+    list-style: disc;
+}
+
+.single-mori-info #Des ul li {
+    border-top: none;
+    display: revert;
+    float: none;
+}
+
+.count {
+    border: none;
+    text-align: center;
+    /*padding-left: 20px;*/
+    width: 50px;
+}

@@ -8,22 +8,6 @@
 @*<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">*@
 
 <style>
-    /* Chrome, Safari, Edge, Opera */
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
-
-    /* Firefox */
-    input[type=number] {
-        -moz-appearance: textfield;
-    }
-
-    .modal-header {
-        background-color: #fe5b5a;
-    }
-
     .minus, .plus {
         color: white;
         border-radius: 100%;
@@ -31,47 +15,6 @@
         margin: 1px;
         font-weight: 900;
         background-color: #343a40;
-    }
-
-    .minus {
-        /* padding: 3px 6.5px;*/
-    }
-
-        .minus:hover {
-            background-color: #fe5b5a;
-        }
-
-    .plus:hover {
-        background-color: #fe5b5a;
-    }
-
-    .count {
-        border: none;
-        text-align: center;
-        /*padding-left: 20px;*/
-        width: 50px;
-    }
-
-    .megamenu-area {
-        z-index: 1;
-    }
-
-    #Des ul {
-        margin: 0px;
-        padding: 0px 0px 0px 20px;
-        list-style: disc;
-    }
-
-    .single-mori-info #Des ul li {
-        border-top: none;
-        display: revert;
-        float: none;
-    }
-    /*    .single-mori-info #Des ul{
-        position:fixed;
-    }*/
-    #Set_Price, #Set_Name {
-        opacity: 0;
     }
 </style>
 
@@ -96,7 +39,7 @@
         <!-- End mobile menu -->
         <!-- Start single product area -->
         <div class="single-product-area">
-            <div class="container">              
+            <div class="container">
                 <div class="single-products">
                     <div class="row">
                         <!-- Start single product image -->
@@ -134,13 +77,13 @@
                             <div class="single-product-details">
                                 <div class="d-inline-flex" id="Prod_Name"><h1>@Model.ProductBasicModel.ProductName</h1>&nbsp;<h1 id="Prod_Spec"></h1></div>
                                 @*<p><strong>Reference:</strong> demo_1 </p>
-        <p><strong>Condition:</strong> New product </p>*@
+                                    <p><strong>Condition:</strong> New product </p>*@
                                 <h2>
                                     <span id="Product_Price">₹ @Model.ProductPriceModel.Price </span>
                                     @*@if (Model.ProductPriceModel.TaxExempt == true)
-            {
-                <span class="text-black">tax incl.</span>
-            }*@
+                                        {
+                                            <span class="text-black">tax incl.</span>
+                                        }*@
                                 </h2>
                                 <p>@Model.ProductBasicModel.ShortDescription</p>
                                 <p class="sin-item">
@@ -159,8 +102,8 @@
                                     <label>Quantity </label>
                                     @*  <input type="number" asp-for="OrderBasicModel.Qty" name="OrderBasicModel.Qty" id="french-hens" min="1" value="1">*@
                                     @*<span class="minus">-</span>
-            <input type="number" class="count" asp-for="OrderBasicModel.Qty" name="OrderBasicModel.Qty" min="1" max="@Model.ProductBasicModel.Qty" value="1">
-            <span class="plus">+</span>*@
+                                        <input type="number" class="count" asp-for="OrderBasicModel.Qty" name="OrderBasicModel.Qty" min="1" max="@Model.ProductBasicModel.Qty" value="1">
+                                        <span class="plus">+</span>*@
 
                                     <div class="input-group">
                                         <span class="">
@@ -315,8 +258,8 @@
                                         <abbr title="WishList"><a href="/Authentications/Login"><i class="fa fa-heart"></i></a></abbr>
                                     </p>
 
-                                        }
-                                </div>
+                                }
+                            </div>
                         </div>
                         @*End single product details*@
 
@@ -383,9 +326,9 @@
                                                 <del>₹@product.OldPrice</del>
                                             }
                                         </span>
-                                        <p>                                           
+                                        <p>
                                         </p>
-                                    </div>                                  
+                                    </div>
                                 </div>
                             </div>
                         }
@@ -397,11 +340,9 @@
     <input id="Set_Price" asp-for="ProductPriceModel.Price" />
 </form>
 <!-- End main area -->
-<script src="~/plugins/select2/js/select2.min.js"></script>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<script src="~/plugins/jquery/jquery.min.js"></script>
-<script>
+@section scripts
+{
+    <script>
 
     $('.btn-number').click(function (e) {
         e.preventDefault();
@@ -468,7 +409,7 @@
             alert('Sorry, the maximum Quantity was reached');
             $(this).val($(this).data('oldValue'));
         }
-        
+
     });
 
 
@@ -497,7 +438,8 @@
                 alert("some thing worng");
             }
         })
-       
+
     });
 
-</script>
+    </script>
+    }

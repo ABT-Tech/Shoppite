@@ -70,7 +70,7 @@
                                         </a>
 
                                     </div>
-                                    <div class="service-icon-text service-text-icon-active col-half-offset col-lg-2 col-md-2 col-2">
+                                    <div class="service-icon-text col-half-offset service-text-icon-active col-lg-2 col-md-2 col-2">
                                         <a asp-action="MyOrders" asp-controller="Orders" class="d-flex">
                                             <div class="service-icon floatleft">
                                                 <img class="BagImg" src="~/img/shoppingbagWhite-fotor-bg-remover-orignal.png" style="">
@@ -142,7 +142,7 @@
                                                 <p></p>
                                             </div>
                                         </a>
-                                    </div>
+                                    </div>                           
                                     <div class="service-icon-text col-half-offset service-text-icon-active col-lg-2 col-md-2 col-2">
                                         <a asp-action="Login" asp-controller="Authentications" class="d-flex">
                                             <div class="service-icon floatleft">
@@ -235,7 +235,7 @@
     </div>
     <partial name="_Scripts" />
     <partial name="_ValidationScriptsPartial" />
-    @await RenderSectionAsync("Scripts", required: false)
+ @*   @await RenderSectionAsync("Scripts", required: false)*@
 
     <!-- End main area -->
     <script>
@@ -249,7 +249,7 @@
             $(".main-area").removeAttr("style", "filter: blur(20px)");
         });
     </script>
-
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 
 </html>

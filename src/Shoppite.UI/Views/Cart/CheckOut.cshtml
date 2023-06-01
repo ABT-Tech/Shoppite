@@ -20,7 +20,7 @@
                 <div class="checkout-content">
                     <div class="row">
                         <div class="col-md-9 mb-5">
-                            <form id="formsubmitid" method="post" class=" pt-2 text-capitalize">
+                            <form asp-action="MakePaymentRequest" asp-controller="Cart" enctype="multipart/form-data" method="post" class=" pt-2 text-capitalize">
                                 <input type="hidden" asp-for="OrderBasicModel.OrderGuid" />
 
                                 <div aria-multiselectable="true" role="tablist" id="accordion" class="panel-group">
@@ -130,6 +130,7 @@
                                                     <input type="hidden" asp-for="OrderShippingModel.Zipcode" />
                                                     <input type="hidden" asp-for="OrderShippingModel.Address" />
                                                     <input type="hidden" asp-for="OrderShippingModel.Email" />
+                                                    <input type="hidden" asp-for="IsPaytm" />
 
                                                     <div class="col-12">
                                                         <div class="form-group">
@@ -247,11 +248,11 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="panel sauget-accordion SubPanel d-none">
+                                                    <div class="panel sauget-accordion SubPanel">
                                                         <div id="headingFive2" role="tab" class="panel-heading">
                                                             <h4 class="panel-title">
                                                                 <a aria-controls="orderReview2" aria-expanded="false" href="#orderReview2" data-bs-toggle="collapse" class="makeover collapsed">
-                                                                    <img style="height: 21px; width: 35px;" src="~/img/UPI_logo_PNG_lyp5s5.png" /> UPI Option
+                                                                    <img style="height: 21px; width: 35px;" src="~/img/UPI_logo_PNG_lyp5s5.png" /> Pay With PAYTM
                                                                 </a>
                                                             </h4>
                                                         </div>
@@ -261,10 +262,8 @@
                                                                     <div class="row">
                                                                         <div class="col-sm-7">
                                                                             <div class="form-group">
-                                                                                <label>Enter UPI ID</label>
-                                                                                <input type="text" class="form-control" style="margin-bottom: 10px;">
                                                                                 <div class="block-area-button">
-                                                                                    <button class="btn btn-default add-tag-btn SaveBtn">Continue</button>
+                                                                                    <button style="width:auto;" id="paytm-btn-click" class="SaveBtn">Paytm</button>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -285,10 +284,12 @@
                                                         <div aria-labelledby="headingFive3" data-bs-parent="#accordion1" role="tabpanel" class="panel-collapse collapse" id="orderReview3" aria-expanded="false">
                                                             <div class="content-info">
                                                                 @*<a href="/Cart/OrderSuccess?orderid=@Model.OrderBasicModel.OrderGuid" class=" mt-2 btn SaveBtn" style="width: 160px;">Cash on Delivery</a>*@
-                                                                <button style="width:auto;" type="submit" id="rewardclick" class="SaveBtn">Cash on Delivery</button>
+                                                                <button id="rewardclick" style="width:auto;" type="submit" class="SaveBtn">Cash on Delivery</button>
+                                                                
                                                             </div>
                                                         </div>
                                                     </div>
+
 
                                                 </div>
                                             </div>
@@ -306,85 +307,53 @@
         </div>
     </div>
 </div>
-@section scripts
-{
-    <script>
-    $('#formsubmitid').submit(function (e)
-    {
-        e.preventDefault();
-        var formData = new FormData($('#formsubmitid')[0]);
-        const url = window.location.href;
-          // console.log('The button was clicked!')
-        if (url.includes('&')) {
-            $.ajax({
-                type: 'POST',
-                contentType: false,
-                cache: false,
-                processData: false,
-                data: formData,
-                url: '@Url.Action("SaveAddress2", "Cart")',
-                success: function (data) {
-                    window.location.href = "/Cart/OrderSuccess";
-                }
-            });
+@section scripts {
+<script>
+
+    document.getElementById("IpF1").disabled = true;
+    document.getElementById("IpF2").disabled = true;
+    document.getElementById("IpF3").disabled = true;
+    document.getElementById("IpF4").disabled = true;
+    document.getElementById("IpF5").disabled = true;
+    document.getElementById("IpF6").disabled = true;
+    document.getElementById("IpF7").disabled = true;
+    document.getElementById("IpF8").disabled = true;
+
+    function toggleEnable(el1, el2, el3, el4, el5, el6, el7, el8) {
+        var textbox = document.getElementById(el1, el2, el3, el4, el5, el6, el7, el8);
+
+        if (textbox.disabled) {
+            // If disabled, do this
+            document.getElementById("IpF1").disabled = false;
+            document.getElementById("IpF2").disabled = false;
+            document.getElementById("IpF3").disabled = false;
+            document.getElementById("IpF4").disabled = false;
+            document.getElementById("IpF5").disabled = false;
+            document.getElementById("IpF6").disabled = false;
+            document.getElementById("IpF7").disabled = false;
+            document.getElementById("IpF8").disabled = false;
+            // document.getElementById(el2).disabled = false;
         }
         else {
-             $.ajax({
-            type: 'POST',
-            contentType: false,
-            cache: false,
-            processData: false,
-            data: formData,
-            url: '@Url.Action("SaveAddress", "Cart")',
-                 success: function (data) {
-                     window.location.href =  "/Cart/OrderSuccess";
-                }
-            });
+            // Enter code here
+            document.getElementById("IpF1").disabled = true;
+            document.getElementById("IpF2").disabled = true;
+            document.getElementById("IpF3").disabled = true;
+            document.getElementById("IpF4").disabled = true;
+            document.getElementById("IpF5").disabled = true;
+            document.getElementById("IpF6").disabled = true;
+            document.getElementById("IpF7").disabled = true;
+            document.getElementById("IpF8").disabled = true;
+            // document.getElementById(el2).disabled = true;
         }
-    });
+    }
+    //function ProceedtoNext() {
+    //    $('#Target').click();
+    //}
 
-       document.getElementById("IpF1").disabled = true;
-       document.getElementById("IpF2").disabled = true;
-       document.getElementById("IpF3").disabled = true;
-       document.getElementById("IpF4").disabled = true;
-       document.getElementById("IpF5").disabled = true;
-       document.getElementById("IpF6").disabled = true;
-       document.getElementById("IpF7").disabled = true;
-       document.getElementById("IpF8").disabled = true;
-
-       function toggleEnable(el1, el2, el3, el4, el5, el6, el7, el8)
-       {
-           var textbox = document.getElementById(el1, el2, el3, el4, el5, el6, el7, el8);
-
-           if (textbox.disabled)
-           {
-               // If disabled, do this
-               document.getElementById("IpF1").disabled = false;
-               document.getElementById("IpF2").disabled = false;
-               document.getElementById("IpF3").disabled = false;
-               document.getElementById("IpF4").disabled = false;
-               document.getElementById("IpF5").disabled = false;
-               document.getElementById("IpF6").disabled = false;
-               document.getElementById("IpF7").disabled = false;
-               document.getElementById("IpF8").disabled = false;
-              // document.getElementById(el2).disabled = false;
-           }
-           else
-           {
-               // Enter code here
-               document.getElementById("IpF1").disabled = true;
-               document.getElementById("IpF2").disabled = true;
-               document.getElementById("IpF3").disabled = true;
-               document.getElementById("IpF4").disabled = true;
-               document.getElementById("IpF5").disabled = true;
-               document.getElementById("IpF6").disabled = true;
-               document.getElementById("IpF7").disabled = true;
-               document.getElementById("IpF8").disabled = true;
-              // document.getElementById(el2).disabled = true;
-           }
-       }
-       //function ProceedtoNext() {
-       //    $('#Target').click();
-       //}
-
-    </script>}
+    $("#paytm-btn-click").click(function () {
+        $("#IsPaytm").val('true');
+        $("form").submit();
+    })
+</script>
+}
