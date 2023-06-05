@@ -16,5 +16,6 @@ namespace Shoppite.UI.Interfaces
         Task UpdateOrder(Guid guid);
         Task UpdateOrderQty(CheckOutModel checkOut);
         Task<UsersProfileModal> GetVendorDetails(int orgid);
+        Task<OrderShippingModel> FindOrganizationName(int? OrgId);
     }
 }

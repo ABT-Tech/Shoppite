@@ -4,7 +4,7 @@
     <div class="container">
         @foreach (var product in Model.ProductNewArrivalModel.GroupBy(x => x.StatusId))
         {
-            foreach (var groupq in product.Take(1).Where(x=>x.ShowOnFront == true))
+            foreach (var groupq in product.Take(1).Where(x => x.ShowOnFront == true))
             {
                 <!-- Start product title -->
                 <div class="new-product-title">
@@ -16,11 +16,11 @@
                     <div class="producttabcarosel carosel-product5 owl-carousel">
 
                         @foreach (var group in product)
-                         {
+                        {
                             <div class="product-item">
                                 <div class="top-item">
                                     <a href="@Url.Action("Details", "ProductDetail",new { id = group.ProductGUID } )">
-                                        <img src="@group.image"  alt="@group.ProductName" style="height: 244px;"/>
+                                        <img src="@group.image" alt="@group.ProductName" style="height: 244px;" />
                                     </a>
                                 </div>
                                 <div class="bottom-item">
@@ -36,10 +36,10 @@
                                         </span>
                                         <p>
                                         </p>
-                                    </div>                                   
+                                    </div>
                                 </div>
                             </div>
-                         }
+                        }
                     </div>
                 </div>
                 <!-- End new product -->
@@ -48,8 +48,12 @@
     </div>
 </div>
 @*<div id="test"></div>*@
+@section scripts{ 
 <script>
-    function GetProductDetails(id) {
+    function 
+        
+        
+        (id) {
         $.ajax({
             type: 'GET',
             url: '@Url.Action("Details","ProductDetail")',
@@ -69,3 +73,4 @@
         });
     }
 </script>
+}

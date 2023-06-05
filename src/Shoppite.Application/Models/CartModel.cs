@@ -14,5 +14,6 @@ namespace Shoppite.Application.Models
         public List<Reward_Point_LogModel> myreward { get; set; }
         public List<f_order_masterDetailsModel> MyOrderDetails { get; set; }
         public bool IsPaytm { get; set; }
+        public bool IsReward { get; set; }
     }
 }

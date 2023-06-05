@@ -164,5 +164,10 @@ namespace Shoppite.Infrastructure.Repository
             var Filter =  await _dbContext.Set<f_getproduct_CartDetails_By_Orgid>().FromSqlRaw(sql, parms.ToArray()).Where(x=>x.UserName == Username && x.ProductName == ProductName).FirstOrDefaultAsync();
             return Filter;
         }
+        public async Task<Organization> FindOrganizationName(int? orgId)
+        {
+            var find = await _dbContext.Organization.FirstOrDefaultAsync(x => x.Id == orgId);
+            return find;
+        }
     }
 }

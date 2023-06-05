@@ -87,7 +87,7 @@
                                                             <label class="control-label">Phone Number</label>
                                                             <input asp-for="OrderShippingModel.Phone" id="IpF5" class="form-control input-validation-error IpF"
                                                                    data-val="true" data-val-required="Zip code is required" />
-                                                            <span asp-validation-for="OrderShippingModel.Phone" id="Zip" class="text-danger field-valiation-error"
+                                                            <span asp-validation-for="OrderShippingModel.Phone" id="message" class="text-danger field-valiation-error"
                                                                   data-valmsg-for="Zip" data-valmsg-replace="true"></span>
                                                         </div>
                                                     </div>
@@ -131,6 +131,7 @@
                                                     <input type="hidden" asp-for="OrderShippingModel.Address" />
                                                     <input type="hidden" asp-for="OrderShippingModel.Email" />
                                                     <input type="hidden" asp-for="IsPaytm" />
+                                                    <input type="hidden" asp-for="IsReward" />
 
                                                     <div class="col-12">
                                                         <div class="form-group">
@@ -347,11 +348,22 @@
             // document.getElementById(el2).disabled = true;
         }
     }
-    //function ProceedtoNext() {
-    //    $('#Target').click();
-    //}
+    const url = window.location.href;
+
+    if (url.includes('&'))
+    {
+        $("#IsReward").val('true');
+    }
 
     $("#paytm-btn-click").click(function () {
+       @* var mobile = document.getElementById('IpF5');
+        var message = document.getElementById('message');
+        if (mobile.value.length != 10) {
+
+            message.innerHTML = "required 10 digits!"
+            return false;
+        }*@
+
         $("#IsPaytm").val('true');
         $("form").submit();
     })

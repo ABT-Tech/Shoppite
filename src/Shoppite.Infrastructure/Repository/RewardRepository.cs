@@ -35,7 +35,7 @@ namespace Shoppite.Infrastructure.Repository
             // Reward_Point_Log reward_Point = new Reward_Point_Log();
             reward.Date_created = DateTime.Now;
             reward.Reward_type = "Promotional";
-            reward.Reward_points = 100;
+            reward.Reward_points = 1000;
             reward.UserId = finduser.UserId;
             reward.Operation_type = "Credit";
             reward.Expired_on = DateTime.Now.AddMonths(6);

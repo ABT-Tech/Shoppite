@@ -5,12 +5,10 @@
     var username = User.Identity.Name;
 }
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-<script src="~/js/vendor/jquery-3.5.1.min.js"></script>
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-sm-8 col-lg-8 col-xl-8 coins">
             <h1>
-                <img src="~/img/reward.png" height="70" width="60" />
                 @if (Model.Reward_PointList != null)
                 {
                     @foreach (var rewardbalance in Model.Reward_PointList)
@@ -58,7 +56,7 @@
                                         <p id="getdate_@rewardbalance.Id">@Convert.ToDateTime(@rewardbalance.Date_created).ToString("dd-MMM-yyyy")</p>
                                     </td>
                                     <td>
-                                       @rewardbalance.Reward_type
+                                       @rewardbalance.Operation_type
                                     </td>
                                     <td>
                                         @if (rewardbalance.Operation_type == "Debit")

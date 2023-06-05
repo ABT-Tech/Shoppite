@@ -1,5 +1,4 @@
 ﻿@model Shoppite.Application.Models.MainModel
-<!-- Start tab and carosel area -->
 <div id="content" class="tabandcarosel-area">
     <div class="container">
         <div class="tab-product-wrap">
@@ -20,8 +19,6 @@
                 @if (Model.LeftBanner.Count != 0) {<div class="col-lg-3 col-md-2">
     @await Html.PartialAsync("_LeftBanner")
 </div> }
-                
-                <!-- Start tab menu area -->
                 <div class="col-lg-3 col-md-3 resmenu">
 
                     <div class="tab-menu-area toplist" id="myDIV">
@@ -33,8 +30,6 @@
                                     int X = (int)Cat.ID;
                                     <a onclick="testajaxcall('@X')" data-toggle="tab" name="CatName" class="" style=" white-space:nowrap; ">
                                         <label class="name font-weight-bold">@Cat.NAME</label>
-                                        @*<span class="thumb"><img class="imgm" src="@Cat.Icons" alt="thumb"></span>
-                                <span class="thumb"><img class="imgm" src="@Cat.Icons" alt="thumb"></span>*@
                                     </a>
                                 }
                             </li>
@@ -42,13 +37,9 @@
                         </ul>
                     </div>
                 </div>
-                <!-- End tab menu area -->
-                <!-- Start category product content area -->
                 <div class="col-lg-6 col-md-7">
                     <div class="new-product-area">
                         <div class="container">
-                            @* @await Html.PartialAsync("_BottomBanner.cshtml", Model)*@
-
                             <div class="pt-3 overflow-hidden">
                                 <div class="swiper mySwiper">
                                     <div class="swiper-wrapper d-flex d-flex-inline " id="prodtabdata">

@@ -30,6 +30,7 @@ namespace Shoppite.Application.Models
         public string UserName { get; set; }
         public string Email { get; set; }
         public string Contactnumber { get; set; }
+        public string OrgName { get; set; }
         public int? OrgId { get; set; }
     }
 }

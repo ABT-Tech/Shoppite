@@ -121,5 +121,12 @@ namespace Shoppite.Application.Services
             var userProfile =  await _CartRepository.GetVendorDetails(usersProfileModal);
             return ObjectMapper.Mapper.Map<UsersProfileModal>(userProfile);
         }
+        public async Task<OrderShippingModel> FindOrganizationName(int? OrgId)
+        {
+            var GetAddress = await _CartRepository.FindOrganizationName(OrgId);
+            var mapped= ObjectMapper.Mapper.Map<OrderShippingModel>(GetAddress);
+            return mapped;
+
+        }
     }
 }

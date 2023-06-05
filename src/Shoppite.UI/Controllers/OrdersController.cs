@@ -32,7 +32,7 @@ namespace Shoppite.UI.Controllers
             _commonHelper = commonHelper;
         }
         [HttpGet]
-        public async Task<IActionResult> MyOrders(int CategoryId, string Username)
+        public async Task<IActionResult> MyOrders(int CategoryId)
         {
             int OrgId = _commonHelper.GetOrgID(HttpContext);
             var brands = await _BrandPageService.GetBrands(OrgId);

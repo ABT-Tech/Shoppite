@@ -1,7 +1,7 @@
-﻿@section scripts { 
-<script>
+﻿@section scripts {
+    <script>
     const paymentSessionId = '@ViewBag.PaymentSession';
     const cashfree = new Cashfree(paymentSessionId);
     cashfree.redirect();
-</script>
+    </script>
 }

@@ -5,18 +5,6 @@
     ViewData["Title"] = "Detail Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@*<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">*@
-
-<style>
-    .minus, .plus {
-        color: white;
-        border-radius: 100%;
-        padding: 2px 6.5px;
-        margin: 1px;
-        font-weight: 900;
-        background-color: #343a40;
-    }
-</style>
 
 <form enctype="multipart/form-data" method="get" class="">
     <input type="hidden" asp-for="AttributesSetupModel" />
@@ -31,13 +19,7 @@
     <input type="hidden" asp-for="OrderBasicModel.UserName" />
     <!-- Start main area -->
     <div class="main-area">
-        <!-- Start header -->
-        <!-- End header -->
-        <!-- Start mega menu area -->
-        <!-- End mega menu area -->
-        <!-- Start mobile menu -->
-        <!-- End mobile menu -->
-        <!-- Start single product area -->
+
         <div class="single-product-area">
             <div class="container">
                 <div class="single-products">
@@ -64,26 +46,18 @@
                                         {
                                             <div class="pro-view"><a href="#view_@Preview.ProductImagesId" data-bs-toggle="tab"><img src="@Preview.Image" alt=""></a></div>
                                         }
-                                        @*<div class="pro-view"><a href="@Model.ProductImagesModel.Image" data-bs-toggle="tab"><img src="@Model.ProductImagesModel.Image" alt=""></a></div>
-                                            <div class="pro-view"><a href="@Model.ProductImagesModel.Image" data-bs-toggle="tab"><img src="@Model.ProductImagesModel.Image" alt=""></a></div>*@
+
                                     </div>
 
                                 </div>
                             </div>
                         </div>
-                        <!-- End single product image -->
-                        <!-- Start single product details -->
+
                         <div class="col-lg-5 col-md-6">
                             <div class="single-product-details">
-                                <div class="d-inline-flex" id="Prod_Name"><h1>@Model.ProductBasicModel.ProductName</h1>&nbsp;<h1 id="Prod_Spec"></h1></div>
-                                @*<p><strong>Reference:</strong> demo_1 </p>
-                                    <p><strong>Condition:</strong> New product </p>*@
+                                <div class="d-inline-flex" id="Prod_Name"><h1>@Model.ProductBasicModel.ProductName</h1>&nbsp;<h1 id="Prod_Spec"></h1></div>                             
                                 <h2>
                                     <span id="Product_Price">₹ @Model.ProductPriceModel.Price </span>
-                                    @*@if (Model.ProductPriceModel.TaxExempt == true)
-                                        {
-                                            <span class="text-black">tax incl.</span>
-                                        }*@
                                 </h2>
                                 <p>@Model.ProductBasicModel.ShortDescription</p>
                                 <p class="sin-item">
@@ -97,37 +71,28 @@
                                         <span class="sin-item-out-stock">Out of stock</span>
                                     }
                                 </p>
-                                @*<form method="post" action="#">*@
                                 <div class="">
                                     <label>Quantity </label>
-                                    @*  <input type="number" asp-for="OrderBasicModel.Qty" name="OrderBasicModel.Qty" id="french-hens" min="1" value="1">*@
-                                    @*<span class="minus">-</span>
-                                        <input type="number" class="count" asp-for="OrderBasicModel.Qty" name="OrderBasicModel.Qty" min="1" max="@Model.ProductBasicModel.Qty" value="1">
-                                        <span class="plus">+</span>*@
-
                                     <div class="input-group">
                                         <span class="">
-                                            <button type="button" class="minus btn btn-default btn-number min" disabled="disabled" data-type="minus" data-field="OrderBasicModel.Qty">
+                                            <button type="button" class="productminusbtn btn btn-default btn-number min" disabled="disabled" data-type="minus" data-field="OrderBasicModel.Qty">
                                                 <span class="fa fa-minus"></span>
                                             </button>
                                         </span>
                                         <input type="number" class="input-number count" asp-for="OrderBasicModel.Qty" name="OrderBasicModel.Qty" value="1" min="1" max="@Model.ProductBasicModel.Qty">
                                         <span class="">
-                                            <button type="button" class="plus btn btn-default btn-number max" data-type="plus" data-field="OrderBasicModel.Qty">
+                                            <button type="button" class="productplusbtn btn btn-default btn-number max" data-type="plus" data-field="OrderBasicModel.Qty">
                                                 <span class="fa fa-plus"></span>
                                             </button>
                                         </span>
                                     </div>
                                 </div>
 
-                                @*</form>*@
-
                                 @foreach (var prodattr in Model.AttributesSetupModel)
                                 {
                                     <p class="selector1">
                                         <h6>@prodattr.AttributeName</h6>
-                                        @*<select id="selectproductsort2" onselect="GETproduct()" class="select_1 select2 selectproductsort form-control" asp-items="@(new SelectList(prodattr.GetF_Getproduct_Specification_By_GuidModel,"AttributeId","SpecificationName"))"></select>*@
-                                        <select id="selectproductsort2" name="dropspec" class="select_1 select2 selectproductsort form-control">
+                                        <select  name="dropspec" class="select_1 select2 selectproductsort form-control">
                                             <option selected>select @prodattr.AttributeName</option>
                                             @foreach (var spec in prodattr.GetF_Getproduct_Specification_By_GuidModel)
                                             {
@@ -261,7 +226,6 @@
                                 }
                             </div>
                         </div>
-                        @*End single product details*@
 
                     </div>
                 </div>
@@ -271,7 +235,6 @@
                         <ul class="idTabs idTabsShort nav" id="single-tabs" data-tabs="tabs" style="margin-top: 15px;">
                             <li class="first"><a href="#sin-more1" data-bs-toggle="tab" class="active"><span>More info</span></a></li>
                             <li><a href="#sin-more2" class="" data-bs-toggle="tab">Additional Info</a></li>
-                            @*<li class="last"><a class="idTabHrefShort page-product-heading" href="#sin-more3" data-bs-toggle="tab">Reviews</a></li>*@
                         </ul>
                         <div id="my-tab-content-eleyas" class="tab-content jump">
                             <div class="tab-pane active" id="sin-more1">

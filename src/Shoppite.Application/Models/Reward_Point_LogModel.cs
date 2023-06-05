@@ -16,5 +16,6 @@ namespace Shoppite.Application.Models
         public DateTime? Expired_on { get; set; }
         public List<Reward_Point_LogModel> Reward_PointList { get; set; }
         public List<f_order_masterDetailsModel> MyOrderDetails { get; set; }
+        public bool IsReward { get; set; }
     }
 }

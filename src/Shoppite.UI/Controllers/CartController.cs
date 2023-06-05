@@ -9,7 +9,9 @@
     using Shoppite.UI.Interfaces;
     using Shoppite.Web.Interfaces;
     using System;
+    using System.Collections.Generic;
     using System.Dynamic;
+    using System.IO;
     using System.Net.Http;
     using System.Text;
     using System.Threading.Tasks;
@@ -105,7 +107,6 @@
         public async Task<ActionResult> CheckOut(Guid orderid)
         {
             var order = await _cartPageService.CheckOrder(orderid);
-            //  var orderId = Request.Query
             return View(order);
         }
 
@@ -115,37 +116,30 @@
         /// <returns>The <see cref="Task{IActionResult}"/>.</returns>
         public async Task<IActionResult> OrderSuccess()
         {
-            // await _cartPageService.UpdateOrder(orderid);Guid orderid
             return View();
         }
-
-        /// <summary>
-        /// The SaveAddress.
-        /// </summary>
-        /// <param name="Model">The Model<see cref="CartModel"/>.</param>
-        /// <returns>The <see cref="Task{IActionResult}"/>.</returns>
-        [HttpPost]
-        public async Task<IActionResult> SaveAddress(CartModel Model)
-        {
-            int orgid = _commonHelper.GetOrgID(HttpContext);
-            Model.MyOrderDetails = await _wishlistpageService.GetMyOrders(User.Identity.Name, orgid);
-            Model.reward_Point_Log = new Reward_Point_LogModel();
-            Model.reward_Point_Log.OrgId = orgid;
-            if (Model.MyOrderDetails.Count == 0)
-            {
-                await _rewardPageService.AddRewards(Model.reward_Point_Log);
-            }
-            Model.OrderShippingModel.OrgId = orgid;
-            await _cartPageService.SaveAddress(Model);
-
-            await _cartPageService.UpdateOrder((Guid)Model.OrderBasicModel.OrderGuid);            
-
-            return RedirectToAction("OrderSuccess");
-        }
-
+        
         [HttpPost]
         public async Task<IActionResult> MakePaymentRequest(CartModel Model)
         {
+            int orgid = _commonHelper.GetOrgID(HttpContext);
+            var orgname=await _cartPageService.FindOrganizationName(orgid);
+            Model.myreward = await _rewardPageService.GetRewardBalance(orgid);
+            var rewardpointBalance = 0.0M;
+            if (Model.myreward != null)
+            {
+                foreach (var rewardpoint in Model.myreward)
+                {
+                    if (rewardpoint.Operation_type == "Credit")
+                    {
+                        rewardpointBalance += rewardpoint.Reward_points;
+                    }
+                    else
+                    {
+                        rewardpointBalance -= rewardpoint.Reward_points;
+                    }
+                }
+            }
             if (Model.IsPaytm)
             {
                 var order = await _cartPageService.CheckOrder((Guid)Model.OrderBasicModel.OrderGuid);
@@ -156,10 +150,11 @@
                     cashfreeRequest.customer_details = new CustomerDetails();
                     cashfreeRequest.customer_details.customer_email = Model.OrderShippingModel.Email;
                     cashfreeRequest.customer_details.customer_id = Model.OrderShippingModel.ShippingId.ToString();
-                    cashfreeRequest.customer_details.customer_phone = "+918200408816";//Model.OrderShippingModel.Phone;
+                    cashfreeRequest.customer_details.customer_phone = Model.OrderShippingModel.Phone;
+                    cashfreeRequest.customer_details.OrganizationName = orgname.OrgName;
                     cashfreeRequest.order_amount = (decimal)order.OrderBasicModel.Price;
                     cashfreeRequest.order_currency = "INR";
-                    cashfreeRequest.order_id = orderId.ToString();
+                    cashfreeRequest.order_id = Model.OrderBasicModel.OrderGuid.ToString();
                     StringContent content = new StringContent(JsonConvert.SerializeObject(cashfreeRequest), Encoding.UTF8, "application/json");
                     client.DefaultRequestHeaders.Add("x-api-version", _configuration.GetSection("CashFreeSettings")["x-api-version"]);
                     client.DefaultRequestHeaders.Add("x-client-id", _configuration.GetSection("CashFreeSettings")["x-client-id"]);
@@ -176,7 +171,23 @@
                         ViewBag.PaymentSession = payment_session;
                     }
                 }
-                int orgid = _commonHelper.GetOrgID(HttpContext);
+                Model.MyOrderDetails = await _wishlistpageService.GetMyOrders(User.Identity.Name, orgid);
+                Model.reward_Point_Log = new Reward_Point_LogModel();
+                Model.reward_Point_Log.OrgId = orgid;
+                if (Model.MyOrderDetails.Count == 0)
+                {
+                    await _rewardPageService.AddRewards(Model.reward_Point_Log);
+                }
+                //if reward is claimed
+                if (Model.IsReward)
+                {
+                    if (rewardpointBalance != 0)
+                    {
+                        Model.reward_Point_Log.Reward_points = (rewardpointBalance * 30) / 100;
+                        await _rewardPageService.ClaimReward(Model.reward_Point_Log);
+                    }
+                }
+
                 Model.OrderShippingModel.OrgId = orgid;
                 await _cartPageService.SaveAddress(Model);
                 await _cartPageService.UpdateOrder((Guid)Model.OrderBasicModel.OrderGuid);
@@ -184,7 +195,23 @@
             }
             else
             {
-                int orgid = _commonHelper.GetOrgID(HttpContext);
+                Model.MyOrderDetails = await _wishlistpageService.GetMyOrders(User.Identity.Name, orgid);
+                Model.reward_Point_Log = new Reward_Point_LogModel();
+                Model.reward_Point_Log.OrgId = orgid;
+                if (Model.MyOrderDetails.Count == 0)
+                {
+                    await _rewardPageService.AddRewards(Model.reward_Point_Log);
+                }
+
+                if (Model.IsReward)
+                {                   
+                    if (rewardpointBalance != 0)
+                    {
+                        Model.reward_Point_Log.Reward_points = (rewardpointBalance * 30) / 100;
+                        await _rewardPageService.ClaimReward(Model.reward_Point_Log);
+                    }
+                }
+
                 Model.OrderShippingModel.OrgId = orgid;
                 await _cartPageService.SaveAddress(Model);
                 await _cartPageService.UpdateOrder((Guid)Model.OrderBasicModel.OrderGuid);

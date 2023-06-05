@@ -63,5 +63,9 @@ namespace Shoppite.UI.Services
         {
             return await _CartService.GetVendorDetails(orgid);
         }
+        public async Task<OrderShippingModel> FindOrganizationName(int? OrgId)
+        {
+            return await _CartService.FindOrganizationName(OrgId);
+        }
     }
 }

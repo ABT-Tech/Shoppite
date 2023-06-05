@@ -343,3 +343,67 @@ input {
     /*padding-left: 20px;*/
     width: 50px;
 }
+
+/*Index page */
+.theme-default img {
+    max-height: 350px;
+}
+
+.shrink img {
+    transition: 1s ease;
+}
+
+    .shrink img:hover {
+        -webkit-transform: scale(0.8);
+        -ms-transform: scale(0.8);
+        transform: scale(0.8);
+        transition: 1s ease;
+    }
+/* [1] The container */
+.img-hover-zoom {
+    /*height: 300px;*/ /* [1.1] Set it as per your need */
+    overflow: hidden; /* [1.2] Hide the overflowing of child elements */
+}
+
+    /* [2] Transition property for smooth transformation of images */
+    .img-hover-zoom img {
+        transition: transform .5s ease;
+    }
+
+    /* [3] Finally, transforming the image when container gets hovered */
+    .img-hover-zoom:hover img {
+        transform: scale(1.5);
+    }
+
+.image {
+    flex-shrink: 0;
+}
+
+/*Product Detail Page*/
+.productminusbtn, .productplusbtn {
+    color: white;
+    border-radius: 100%;
+    padding: 2px 6.5px;
+    margin: 1px;
+    font-weight: 900;
+    background-color: #343a40;
+}
+
+.productminusbtn:hover {
+        background-color: #FE5B5A;
+    }
+
+ .productplusbtn:hover {
+        background-color: #FE5B5A;
+    }
+.coins_cards {
+    display: flex;
+    justify-content: space-around;
+    margin: 0;
+    padding: 0;
+}
+
+.cardstyle {
+    margin-right: 35px;
+    margin-top: 20px;
+}

@@ -85,7 +85,7 @@
                                         <div class="">
                                             <h4 style="margin: 0px 0px 25px 20px; font-weight: 800; color: #000000;">Order No:- @Model.f_Order_MasterModel.OrderId</h4>
                                             <p style="margin: 0px 0px 25px 20px; font-weight: 700; color: #000000;">Payment Method:- @Model.f_Order_MasterModel.PaymentMode</p>
-                                            <p style="margin: 0px 0px 25px 20px; font-weight: 700; color: #000000;">Remarks From Vendor:- @Model.OrderStatusModel.Remarks</p>
+                                           @if (Model.OrderStatusModel.Remarks != null) {<p style="margin: 0px 0px 25px 20px; font-weight: 700; color: #000000;">Remarks From Vendor:- @Model.OrderStatusModel.Remarks</p> } 
                                             <p style="margin: 0px 0px 25px 20px; font-weight: 700; color: #000000;">Order Status:-<label style="color: #ec4445;">@Model.f_Order_MasterModel.OrderStatus</label> </p>
                                         </div>
                                     </div>

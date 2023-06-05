@@ -5,45 +5,6 @@
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<style>
-    .theme-default img {
-        max-height: 350px;
-    }
-
-    .shrink img {
-        transition: 1s ease;
-    }
-
-        .shrink img:hover {
-            -webkit-transform: scale(0.8);
-            -ms-transform: scale(0.8);
-            transform: scale(0.8);
-            transition: 1s ease;
-        }
-    /* [1] The container */
-    .img-hover-zoom {
-        /*height: 300px;*/ /* [1.1] Set it as per your need */
-        overflow: hidden; /* [1.2] Hide the overflowing of child elements */
-    }
-
-        /* [2] Transition property for smooth transformation of images */
-        .img-hover-zoom img {
-            transition: transform .5s ease;
-        }
-
-        /* [3] Finally, transforming the image when container gets hovered */
-        .img-hover-zoom:hover img {
-            transform: scale(1.5);
-        }
-
-    .image {
-        flex-shrink: 0;
-    }
-</style>
-
-@*<div class="containers">
-        <img src="~/img/shopping.gif" alt="">
-    </div>*@
 
 <div class="slider-area">
     <div class="container">
@@ -52,9 +13,7 @@
                 <!-- Nivo slider Demo 35 -->
                 <div id="NivosliderD35oo slider-gray-bg">
                     <div class="nivoSlider theme-default">
-                        @await Html.PartialAsync("_TopBanner", Model)
-                        @* <img src="img/slider/3.jpg" alt="slider image">
-                            <img src="img/slider/5.jpg" alt="slider image">*@
+                        @await Html.PartialAsync("_TopBanner", Model)                      
                     </div>
                 </div>
             </div>
@@ -76,32 +35,5 @@
 @await Html.PartialAsync("_GetRecentProduct")
 @await Html.PartialAsync("_BottomBanner")
 @await Html.PartialAsync("_BrandZone")
-<script>
-    $('#removewishlist').hide();
-    $('.addWish').click(function (e)
-    {
-        if ($(e.target).css('color') == 'rgb(255, 0, 0)')
-        {
-            $(e.target).css('color', 'white');
-        }
-        else
-        {
-            $(e.target).css('color', 'red');
-        }
-      e.preventDefault();
-  var el = $(this),
-    icon = el.find('i'),
-            productId = el.data("product")
-        $.ajax({
-            type: 'POST',
-            url: '@Url.Action("Wishlist", "Wishlist")',
-            data: {
-                "id": productId
-            },
-            success: function (data) {
-        }
-        });
-    });
-</script>
 
 
