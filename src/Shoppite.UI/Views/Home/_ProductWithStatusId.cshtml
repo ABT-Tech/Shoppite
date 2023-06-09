@@ -50,10 +50,7 @@
 @*<div id="test"></div>*@
 @section scripts{ 
 <script>
-    function 
-        
-        
-        (id) {
+    function GetProductDetails (id) {
         $.ajax({
             type: 'GET',
             url: '@Url.Action("Details","ProductDetail")',

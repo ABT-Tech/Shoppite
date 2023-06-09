@@ -24,33 +24,3 @@
         }
     </div>
 </div>
-@section scripts
-{
-    <script>
-    $('#removewishlist').hide()
-    $('.addWish').click(function (e)
-    {
-        if ($(e.target).css('color') == 'rgb(255, 0, 0)')
-        {
-            $(e.target).css('color', 'white');
-        }
-        else
-        {
-            $(e.target).css('color', 'red');
-        }
-  e.preventDefault();
-  var el = $(this),
-    icon = el.find('i'),
-            productId = el.data("product")
-        $.ajax({
-            type: 'POST',
-            url: '@Url.Action("Wishlist", "Wishlist")',
-            data: {
-                "id": productId
-            },
-            success: function (data) {
-        }
-        });
-    });
-    </script>
-}

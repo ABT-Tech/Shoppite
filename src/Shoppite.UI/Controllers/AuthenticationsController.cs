@@ -25,9 +25,9 @@ namespace Shoppite.UI.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> Login(int orgid)
+        public async Task<IActionResult> Login()
         {
-            orgid = _commonHelper.GetOrgID(HttpContext);
+           int orgid = _commonHelper.GetOrgID(HttpContext);
             var logo = await _AuthenticationPageService.Get_Logo(orgid);
             return View(logo);
         }
@@ -38,26 +38,7 @@ namespace Shoppite.UI.Controllers
             HttpContext.Session.Clear();
             return RedirectToAction("Login");
         }
-        //[HttpPost, AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Login(UsersModal usersModal)
-        //{
-        //    usersModal.OrgId = commonHelper.GetOrgID(HttpContext);
-        //    var UserValidate = await _AuthenticationPageService.Get_Login_Data(usersModal.Username, usersModal.Password, (int)usersModal.OrgId);
-        //    if (UserValidate.Password != null && UserValidate.Username != null)
-        //    {
-        //        _ = CreateAuthenticationTicket(UserValidate);
-
-        //        return RedirectToAction("Index", "Home", new { area = "" });
-        //    }
-        //    else
-        //    {
-        //        ViewBag.LoginValidError = "Username or Password is Incorrect";
-        //    }
-        //    return View(UserValidate);
-        //}   public async Task<ActionResult> Login([FromBody] LoginCheckModel loginCheckModel)             var UserValidate = await _AuthenticationPageService.Get_Login_Data(loginCheckModel.datal.userid,loginCheckModel.datal.password,OrgId);
-
-
+        
         [HttpPost, AllowAnonymous]
         public async Task<ActionResult> Login(UsersModal usersModal)
         {
@@ -72,7 +53,6 @@ namespace Shoppite.UI.Controllers
             {
                TempData["LoginValidError"] = "Username or Password is Incorrect";
             }
-            //return RedirectToAction("Index","Home", new { area = "" });
              return View(usersModal);
         }
 
@@ -90,8 +70,6 @@ namespace Shoppite.UI.Controllers
                 return RedirectToAction("Login");
             else
                 TempData["SignValidError"] = "Email is already exsist";
-            //return RedirectToAction("Index","Home", new { area = "" });
-            // return Json(loginCheckModel);
 
             return View(usersModal);
         }

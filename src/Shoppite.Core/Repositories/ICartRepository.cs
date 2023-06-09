@@ -10,14 +10,14 @@ namespace Shoppite.Core.Repositories
    public interface ICartRepository
     {
         Task<List<f_getproduct_CartDetails_By_Orgid>> OrderBasic(int orgid);
-        Task<OrderBasic> DeleteAsync(int id);
+        Task<OrderBasic> DeleteAsync(int id,int OrgId);
         Task SaveAddress(OrderShipping orderShipping);
         Task<OrderBasic> CheckOrder(OrderBasic orderBasic);
         Task UpdateOrder(OrderBasic orderBasic);
         Task UpdateOrderQty(OrderBasic orderBasic);
-        Task<UsersProfile> FindAddress(string userName);
+        Task<UsersProfile> FindAddress(string userName,int? Orgid);
         Task<UsersProfile> GetVendorDetails(UsersProfile usersProfile);
-        Task<OrderShipping> GetAddredd(string userName);
+        Task<OrderShipping> GetAddredd(string userName,int? OrgId);
         Task<f_getproduct_CartDetails_By_Orgid> CheckProdInCart(int orgId,string ProductName,string Username);
         Task<Organization> FindOrganizationName(int? OrgID);
     }

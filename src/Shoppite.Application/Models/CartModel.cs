@@ -15,5 +15,6 @@ namespace Shoppite.Application.Models
         public List<f_order_masterDetailsModel> MyOrderDetails { get; set; }
         public bool IsPaytm { get; set; }
         public bool IsReward { get; set; }
+        public decimal? TotalAmount { get; set; }
     }
 }

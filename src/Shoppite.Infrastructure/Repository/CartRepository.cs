@@ -30,9 +30,9 @@ namespace Shoppite.Infrastructure.Repository
             };
             return await _dbContext.Set<f_getproduct_CartDetails_By_Orgid>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
         }
-        public async Task<OrderBasic> DeleteAsync(int id)
+        public async Task<OrderBasic> DeleteAsync(int id,int OrgId)
         {
-            var product = _dbContext.OrderBasic.FirstOrDefault(x => x.ProductId == id && x.OrderStatus == "Cart");
+            var product = _dbContext.OrderBasic.FirstOrDefault(x => x.ProductId == id && x.OrderStatus == "Cart"&&x.OrgId==OrgId);
             if (product != null)
             {
                 _dbContext.OrderBasic.Remove(product);
@@ -42,28 +42,10 @@ namespace Shoppite.Infrastructure.Repository
         }
 
         public async Task SaveAddress(OrderShipping orderShipping)
-        {
-            //var OrderCheck = _dbContext.OrderShipping.FirstOrDefault(x => x.Contactnumber == orderShipping.Contactnumber);
-            //if(OrderCheck == null)
-            //{
-                _dbContext.OrderShipping.Add(orderShipping);
-           // }
+        {            
+           _dbContext.OrderShipping.Add(orderShipping);
            await _dbContext.SaveChangesAsync();
-
         }
-
-        //public async Task<OrderBasic> CheckOrder(OrderBasic orderBasic)
-        //{
-        //    var check = await _dbContext.OrderBasic.FirstOrDefaultAsync(x => x.OrderGuid == orderBasic.OrderGuid && x.OrderStatus == "Cart");
-
-        //    if(check != null)
-        //    {
-        //        check.Qty = orderBasic.Qty;
-
-        //        _dbContext.OrderBasic.Update(check);
-        //    }
-        // await _dbContext.SaveChangesAsync();
-        //}
         public async Task<OrderBasic> CheckOrder(OrderBasic orderBasic)
         {
             var check = await _dbContext.OrderBasic.FirstOrDefaultAsync(x => x.OrderGuid == orderBasic.OrderGuid && x.OrderStatus == "Cart" && x.UserName == orderBasic.UserName);
@@ -135,9 +117,9 @@ namespace Shoppite.Infrastructure.Repository
 
         }
 
-        public async Task<UsersProfile> FindAddress(string userName)
+        public async Task<UsersProfile> FindAddress(string userName,int? OrgId)
         {
-            var find = await _dbContext.UsersProfile.FirstOrDefaultAsync(x => x.UserName == userName);
+            var find = await _dbContext.UsersProfile.FirstOrDefaultAsync(x => x.UserName == userName&x.OrgId==OrgId);
             return find;
         }
 
@@ -146,9 +128,9 @@ namespace Shoppite.Infrastructure.Repository
             return await _dbContext.UsersProfile.FirstOrDefaultAsync(x => x.OrgId == usersProfile.OrgId);
         }
 
-        public async Task<OrderShipping> GetAddredd(string userName)
+        public async Task<OrderShipping> GetAddredd(string userName,int? Orgid)
         {
-            var find = await _dbContext.OrderShipping.FirstOrDefaultAsync(x => x.UserName == userName && x.FirstName != null && x.LastName != null && x.Address != null);
+            var find = await _dbContext.OrderShipping.FirstOrDefaultAsync(x => x.UserName == userName &&x.OrgId==Orgid && x.FirstName != null && x.LastName != null && x.Address != null);
             return find;
         }
 

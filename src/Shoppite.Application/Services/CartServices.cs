@@ -17,7 +17,7 @@ namespace Shoppite.Application.Services
     public class CartServices : ICartServices
     {
         private readonly ICartRepository _CartRepository;
-        private IHttpContextAccessor _accessor;
+        private readonly IHttpContextAccessor _accessor;
         public CartServices(ICartRepository CartRepository, IAppLogger<CartServices> appLogger, IHttpContextAccessor accessor)
         {
             _CartRepository = CartRepository ?? throw new ArgumentNullException(nameof(CartRepository));
@@ -39,9 +39,9 @@ namespace Shoppite.Application.Services
 
             return null;
         }
-        public async Task<CartModel> Delete(int id)
+        public async Task<CartModel> Delete(int id,int Orgid)
         {
-            var productDelete = await _CartRepository.DeleteAsync(id);
+            var productDelete = await _CartRepository.DeleteAsync(id, Orgid);
             var mapped = ObjectMapper.Mapper.Map<CartModel>(productDelete);
             return mapped;
         }
@@ -96,10 +96,10 @@ namespace Shoppite.Application.Services
                var order = await _CartRepository.CheckOrder(orderbasic);
             cartModel.OrderBasicModel = ObjectMapper.Mapper.Map<OrderBasicModel>(order);
 
-            var FindAddress = await _CartRepository.FindAddress(orderbasic.UserName);
+            var FindAddress = await _CartRepository.FindAddress(orderbasic.UserName,order.OrgId);
             cartModel.UsersProfileModal = ObjectMapper.Mapper.Map<UsersProfileModal>(FindAddress);
 
-            var GetAddress = await _CartRepository.GetAddredd(orderbasic.UserName);
+            var GetAddress = await _CartRepository.GetAddredd(orderbasic.UserName,order.OrgId);
             cartModel.OrderShippingModel = ObjectMapper.Mapper.Map<OrderShippingModel>(GetAddress);
 
             return cartModel;

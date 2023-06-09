@@ -33,7 +33,6 @@ namespace Shoppite.Infrastructure.Repository
         public async Task UpdateMyAccountDetail(UsersProfile myaccount)
         {
             UsersProfile usersProfile = await _dbContext.UsersProfile.FindAsync(myaccount.ProfileId);
-            //usersProfile.UserName = myaccount.UserName;
             usersProfile.CoverImage = myaccount.CoverImage;
             usersProfile.City = myaccount.City;
             usersProfile.State = myaccount.State;
@@ -57,9 +56,7 @@ namespace Shoppite.Infrastructure.Repository
         }
         public async Task ChangePassword(Users users)
         {
-            Users user = await _dbContext.Users.FirstOrDefaultAsync(X=>X.Email == users.Username);
-
-            //usersProfile.UserName = myaccount.UserName;
+            Users user = await _dbContext.Users.FirstOrDefaultAsync(X=>X.Email == users.Username&&X.OrgId==users.OrgId);         
             string newPass = EncryptPass.Encrypt(users.Password);
             user.Password = newPass;
 

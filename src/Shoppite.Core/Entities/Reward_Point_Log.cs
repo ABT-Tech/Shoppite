@@ -7,7 +7,7 @@ namespace Shoppite.Core.Entities
     public partial class Reward_Point_Log
     {
         public int Id { get; set; }
-        public int? UserId { get; set; }
+        public Guid ProfileGUID { get; set; }
         public int? OrgId { get; set; }
         public decimal Reward_points { get; set; }
         public string Reward_type  { get; set; }

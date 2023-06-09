@@ -50,24 +50,3 @@
     }
 
 </div>
-@section scripts
-{
-    <script>
-    $('.removewish').click(function (e)
-    {
-        e.preventDefault();
-        var el = $(this),
-            icon = el.find('i'),
-            productId = el.data("product")
-        $.ajax({
-            type: 'POST',
-            url: '@Url.Action("Wishlist", "Wishlist")',
-            data: {
-                "id": productId
-            },
-            success: function (data) {
-                window.location.reload();
-        }
-         });
-    });
-    </script>}

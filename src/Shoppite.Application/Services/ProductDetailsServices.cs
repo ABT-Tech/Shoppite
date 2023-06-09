@@ -101,8 +101,6 @@
             var productRecent = ObjectMapper.Mapper.Map<ProductRecentlyViewed>(productRecently);
             await _ProductDetailRepsitory.AddIp(productRecent);
 
-            //var ProductRecent = await _ProductDetailRepsitory.F_Getproducts_Recentlyviewed(ipAddress, orgid);
-            //productDetailModel.f_Getproducts_RecentlyviewedModel = ObjectMapper.Mapper.Map<List<f_getproducts_RecentlyviewedModel>>(ProductRecent);
             if(productDetailModel.Wishlists!=null)
             {
                 for (int i = 0; i < productDetailModel.Wishlists.Count; i++)
@@ -319,27 +317,7 @@
                 }
 
                 await _ProductDetailRepsitory.AddToCart(orderBasic);
-            }
-            //{
-            //   var prodCheck = CartCheck.Where(x => x.UserName == _accessor.HttpContext.User.Identity.Name);
-
-            //    foreach (var setQty in prodCheck) 
-            //    {
-            //        if(setQty.ProductName == productDetailModel.ProductBasicModel.ProductName)
-            //        {
-            //          setQty.Qty = setQty.Qty + productDetailModel.OrderBasicModel.Qty;
-
-            //            //  var find = await _ProductDetailRepsitory.check();
-
-            //            //    await _ProductDetailRepsitory.AddToCart();
-                       
-            //        }
-                    
-            //    }
-                
-            //}
-                //  await _ProductDetailRepsitory.AddOrderMaster(orderMaster);
-                //  productDetailModel.OrderMasterModel = ObjectMapper.Mapper.Map<OrderMasterModel>(orderMaster);
+            }           
         }
 
         public async Task<ProductDetailModel> BuyNow(ProductDetailModel productDetailModel)
@@ -371,44 +349,7 @@
             productDetailModel.OrderBasicModel = ObjectMapper.Mapper.Map<OrderBasicModel>(orderBasic);
 
                 return productDetailModel;
-
-            //OrderBasic orderBasic = new OrderBasic();
-            //orderBasic.ProductId = productDetailModel.ProductBasicModel.ProductId;
-            //orderBasic.OrderGuid = Guid.Empty;
-            //orderBasic.Price = productDetailModel.ProductPriceModel.Price;
-            //orderBasic.DeliveryFees = productDetailModel.ProductPriceModel.DeliveryFees;
-            //orderBasic.InsertDate = DateTime.Now;
-            //orderBasic.OrderStatus = "Cart";
-            //orderBasic.Currencyid = productDetailModel.ProductPriceModel.CurrencyId;
-            //orderBasic.OrgId = productDetailModel.ProductBasicModel.OrgId;
-            //orderBasic.Qty = productDetailModel.OrderBasicModel.Qty;
-            //orderBasic.UserName = _accessor.HttpContext.User.Identity.Name;
-
-            //var find = await _ProductDetailRepsitory.check(orderBasic);
-
-            //productDetailModel.OrderBasicModel = ObjectMapper.Mapper.Map<OrderBasicModel>(find);
-
-            //if (find != null)
-            //{
-            //    orderBasic.OrderGuid = find.OrderGuid;
-            //}
-            //else
-            //{
-            //    Guid Orderguid = Guid.NewGuid();
-
-            //    OrderMaster orderMaster = new OrderMaster
-            //    {
-            //        OrderGuid = Orderguid,
-            //        OrderKeyStatus = "Active",
-            //        InsertDate = DateTime.Now,
-            //        OrgId = productDetailModel.ProductBasicModel.OrgId
-            //    };
-            //    await _ProductDetailRepsitory.AddOrderMaster(orderMaster);
-            //    orderBasic.OrderGuid = Orderguid;
-            //}
-
-            //await _ProductDetailRepsitory.AddToCart(orderBasic);
-
+           
         }
     }
 }

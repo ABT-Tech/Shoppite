@@ -1,5 +1,6 @@
 ﻿namespace Shoppite.UI.Controllers
 {
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
     using Newtonsoft.Json;
@@ -9,9 +10,6 @@
     using Shoppite.UI.Interfaces;
     using Shoppite.Web.Interfaces;
     using System;
-    using System.Collections.Generic;
-    using System.Dynamic;
-    using System.IO;
     using System.Net.Http;
     using System.Text;
     using System.Threading.Tasks;
@@ -82,7 +80,8 @@
         [HttpGet]
         public ActionResult DeleteProduct(int id)
         {
-            _cartPageService.DeleteAysnc(id);
+            int orgid = _commonHelper.GetOrgID(HttpContext);
+            _cartPageService.DeleteAysnc(id,orgid);
             return RedirectToAction("Cart");
         }
 
@@ -94,8 +93,8 @@
         [HttpPost]
         public async Task<ActionResult> AddToCheck([FromBody] CheckOutModel checkOut)
         {
+            HttpContext.Session.SetString("totalamount", checkOut.total.ToString());          
             await _cartPageService.UpdateOrderQty(checkOut);
-
             return Json(checkOut);
         }
 
@@ -105,7 +104,7 @@
         /// <param name="orderid">The orderid<see cref="Guid"/>.</param>
         /// <returns>The <see cref="Task{ActionResult}"/>.</returns>
         public async Task<ActionResult> CheckOut(Guid orderid)
-        {
+        {         
             var order = await _cartPageService.CheckOrder(orderid);
             return View(order);
         }
@@ -122,8 +121,9 @@
         [HttpPost]
         public async Task<IActionResult> MakePaymentRequest(CartModel Model)
         {
+            Model.TotalAmount = Convert.ToDecimal(HttpContext.Session.GetString("totalamount"));
             int orgid = _commonHelper.GetOrgID(HttpContext);
-            var orgname=await _cartPageService.FindOrganizationName(orgid);
+            Model.MyOrderDetails = await _wishlistpageService.GetMyOrders(User.Identity.Name, orgid);
             Model.myreward = await _rewardPageService.GetRewardBalance(orgid);
             var rewardpointBalance = 0.0M;
             if (Model.myreward != null)
@@ -141,43 +141,64 @@
                 }
             }
             if (Model.IsPaytm)
-            {
+            {             
                 var order = await _cartPageService.CheckOrder((Guid)Model.OrderBasicModel.OrderGuid);
                 using (HttpClient client = new HttpClient())
                 {
-                    CashfreeRequest cashfreeRequest = new CashfreeRequest();
-                    var orderId = Guid.NewGuid();
-                    cashfreeRequest.customer_details = new CustomerDetails();
-                    cashfreeRequest.customer_details.customer_email = Model.OrderShippingModel.Email;
-                    cashfreeRequest.customer_details.customer_id = Model.OrderShippingModel.ShippingId.ToString();
-                    cashfreeRequest.customer_details.customer_phone = Model.OrderShippingModel.Phone;
-                    cashfreeRequest.customer_details.OrganizationName = orgname.OrgName;
-                    cashfreeRequest.order_amount = (decimal)order.OrderBasicModel.Price;
-                    cashfreeRequest.order_currency = "INR";
-                    cashfreeRequest.order_id = Model.OrderBasicModel.OrderGuid.ToString();
-                    StringContent content = new StringContent(JsonConvert.SerializeObject(cashfreeRequest), Encoding.UTF8, "application/json");
-                    client.DefaultRequestHeaders.Add("x-api-version", _configuration.GetSection("CashFreeSettings")["x-api-version"]);
-                    client.DefaultRequestHeaders.Add("x-client-id", _configuration.GetSection("CashFreeSettings")["x-client-id"]);
-                    client.DefaultRequestHeaders.Add("x-client-secret", _configuration.GetSection("CashFreeSettings")["x-client-secret"]);
-                    string endpoint = _configuration.GetSection("CashFreeSettings")["URL"];
-                    using (var Response = await client.PostAsync(endpoint, content))
-                    {
-                        var payment_session = string.Empty;
-                        var stream = await Response.Content.ReadAsStringAsync();
-                        var dynamicObject = JsonConvert.DeserializeObject<ExpandoObject>(stream) as dynamic;
-                        if (_commonHelper.DoesPropertyExist(dynamicObject, "payment_session_id")){
-                            payment_session = dynamicObject.payment_session_id;
-                        }
-                        ViewBag.PaymentSession = payment_session;
-                    }
-                }
-                Model.MyOrderDetails = await _wishlistpageService.GetMyOrders(User.Identity.Name, orgid);
+                    EaseBuzzRequest request = new EaseBuzzRequest();
+                    request.key = _configuration.GetSection("EaseBuzzSettings")["key"];
+                    request.hash= _configuration.GetSection("EaseBuzzSettings")["hash"];
+                    request.email = Model.OrderShippingModel.Email;
+                    request.phone = Model.OrderShippingModel.Phone;
+                    request.amount = Model.TotalAmount;
+                    request.txnid = Model.OrderBasicModel.OrderGuid.ToString();
+                    StringContent content = new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json");
+                    string endpoint = _configuration.GetSection("EaseBuzzSettings")["URL"];
+
+                    using var response = await client.PostAsync(endpoint, content);
+                    response.EnsureSuccessStatusCode();
+                    var body = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine(body);
+                }            
+                /* using (HttpClient client = new HttpClient())
+                 {
+                     CashfreeRequest cashfreeRequest = new CashfreeRequest();
+                     var orderId = Guid.NewGuid();
+                     cashfreeRequest.customer_details = new CustomerDetails();
+                     cashfreeRequest.customer_details.customer_email = Model.OrderShippingModel.Email;
+                     cashfreeRequest.customer_details.customer_id = Model.OrderShippingModel.ShippingId.ToString();
+                     cashfreeRequest.customer_details.customer_phone = Model.OrderShippingModel.Phone;            
+                     cashfreeRequest.order_amount = Model.TotalAmount;
+                     cashfreeRequest.order_currency = "INR";
+                     cashfreeRequest.order_id = Model.OrderBasicModel.OrderGuid.ToString();
+                     StringContent content = new StringContent(JsonConvert.SerializeObject(cashfreeRequest), Encoding.UTF8, "application/json");
+                     client.DefaultRequestHeaders.Add("x-api-version", _configuration.GetSection("CashFreeSettings")["x-api-version"]);
+                     client.DefaultRequestHeaders.Add("x-client-id", _configuration.GetSection("CashFreeSettings")["x-client-id"]);
+                     client.DefaultRequestHeaders.Add("x-client-secret", _configuration.GetSection("CashFreeSettings")["x-client-secret"]);
+                     string endpoint = _configuration.GetSection("CashFreeSettings")["URL"];
+                     using (var Response = await client.PostAsync(endpoint, content))
+                     {
+                         var payment_session = string.Empty;
+                         var stream = await Response.Content.ReadAsStringAsync();
+                         var dynamicObject = JsonConvert.DeserializeObject<ExpandoObject>(stream) as dynamic;
+                         if (_commonHelper.DoesPropertyExist(dynamicObject, "payment_session_id")){
+                             payment_session = dynamicObject.payment_session_id;
+                         }
+                         ViewBag.PaymentSession = payment_session;
+                     }
+                 }*/
                 Model.reward_Point_Log = new Reward_Point_LogModel();
                 Model.reward_Point_Log.OrgId = orgid;
-                if (Model.MyOrderDetails.Count == 0)
+                if (Model.MyOrderDetails.Count < 5)
                 {
-                    await _rewardPageService.AddRewards(Model.reward_Point_Log);
+                    Model.reward_Point_Log.Reward_points = 1000;
                 }
+                else
+                { 
+                    Model.reward_Point_Log.Reward_points = 500; 
+                }
+                await _rewardPageService.AddRewards(Model.reward_Point_Log);
+
                 //if reward is claimed
                 if (Model.IsReward)
                 {
@@ -194,20 +215,26 @@
                 return View();
             }
             else
-            {
-                Model.MyOrderDetails = await _wishlistpageService.GetMyOrders(User.Identity.Name, orgid);
+            {       
                 Model.reward_Point_Log = new Reward_Point_LogModel();
                 Model.reward_Point_Log.OrgId = orgid;
-                if (Model.MyOrderDetails.Count == 0)
+
+                if (Model.MyOrderDetails.Count < 5)
                 {
-                    await _rewardPageService.AddRewards(Model.reward_Point_Log);
+                    Model.reward_Point_Log.Reward_points = 1000;
+                }
+                else
+                { 
+                    Model.reward_Point_Log.Reward_points = 500; 
                 }
 
+                await _rewardPageService.AddRewards(Model.reward_Point_Log);
+ 
                 if (Model.IsReward)
                 {                   
                     if (rewardpointBalance != 0)
                     {
-                        Model.reward_Point_Log.Reward_points = (rewardpointBalance * 30) / 100;
+                        Model.reward_Point_Log.Reward_points = (rewardpointBalance * 70) / 100;
                         await _rewardPageService.ClaimReward(Model.reward_Point_Log);
                     }
                 }
@@ -216,8 +243,7 @@
                 await _cartPageService.SaveAddress(Model);
                 await _cartPageService.UpdateOrder((Guid)Model.OrderBasicModel.OrderGuid);
                 return RedirectToAction("OrderSuccess");
-            }
-            
+            }          
         }
     }
 }

@@ -12,11 +12,10 @@ namespace Shoppite.UI.Services
     public class RewardPageService :IRewardPageService
     {
         private readonly IRewardService _RewardService;
-        private readonly IMapper _mapper;
-        public RewardPageService(IRewardService rewardService, IMapper mapper)
+       
+        public RewardPageService(IRewardService rewardService)
         {
-            _RewardService = rewardService ?? throw new ArgumentNullException(nameof(rewardService));
-            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _RewardService = rewardService ?? throw new ArgumentNullException(nameof(rewardService));         
         }
         public async Task<List<Reward_Point_LogModel>> GetRewardBalance(int OrgId)
         {

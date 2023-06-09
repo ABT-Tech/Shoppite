@@ -37,7 +37,7 @@
                                                 <div class="row ">
 
                                                     <div class="col-md-4 offset-md-10 mb-0">
-                                                        <button type="button" class="btn btn-default add-tag-btn SaveBtn mb-0" onclick="toggleEnable('IpF1','IpF2','IpF3','IpF4','IpF5','IpF6','IpF7','IpF8')">
+                                                        <button type="button" style="width: 110px;" class="btn btn-default add-tag-btn SaveBtn mb-0" onclick="toggleEnable('IpF1','IpF2','IpF3','IpF4','IpF5','IpF6','IpF7','IpF8')">
                                                             Edit
                                                         </button>
                                                     </div>
@@ -355,15 +355,19 @@
         $("#IsReward").val('true');
     }
 
-    $("#paytm-btn-click").click(function () {
-       @* var mobile = document.getElementById('IpF5');
-        var message = document.getElementById('message');
-        if (mobile.value.length != 10) {
-
-            message.innerHTML = "required 10 digits!"
-            return false;
-        }*@
-
+   @* var easebuzzCheckout = new EasebuzzCheckout(key, 'prod')
+    document.getElementById('ebz-checkout-btn').onclick = function (e) {
+        var options = {
+            access_key: access_key, // access key received via Initiate Payment
+            onResponse: (response) => {
+                console.log(response);
+            },
+            theme: "#123456" // color hex
+        }
+        easebuzzCheckout.initiatePayment(options);
+    }
+*@
+    $("#paytm-btn-click").click(function () {      
         $("#IsPaytm").val('true');
         $("form").submit();
     })

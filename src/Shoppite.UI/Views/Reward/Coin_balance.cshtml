@@ -2,7 +2,6 @@
 @{
     decimal rewardpointBalance = 0;
     decimal balance = 0;
-    var username = User.Identity.Name;
 }
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <div class="container">
@@ -22,11 +21,16 @@
                             balance -= @rewardbalance.Reward_points;
                         }
                     }
+                    @foreach(var getUser in Model.Reward_PointList.Take(1))
+                    {
+                        <a class="btn btn-dark text-white claimbtn" asp-controller="Cart" asp-action="Cart" asp-route-userid="@getUser.ProfileGUID">Claim Reward</a>
+                    }
                 } @balance Points
-                @if (balance >= 100)
+
+               @* @if (balance >= 100)
                 {
                     <a class="btn btn-dark text-white claimbtn" asp-controller="Cart" asp-action="Cart" asp-route-username="@username">Claim Reward</a>
-                }
+                }*@
             </h1>
         </div>
         @if (balance == 0)

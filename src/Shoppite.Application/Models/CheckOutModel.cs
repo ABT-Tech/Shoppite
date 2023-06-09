@@ -6,7 +6,8 @@ namespace Shoppite.Application.Models
 {
    public class CheckOutModel
     {
-       public List<CheckOutOrder> ar { get; set; }
+        public decimal total { get; set; }
+        public List<CheckOutOrder> ar { get; set; }
     }
 
     public class CheckOutOrder

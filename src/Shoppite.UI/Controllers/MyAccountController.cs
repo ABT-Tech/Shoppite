@@ -80,6 +80,8 @@ namespace Shoppite.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> ChangePassword(MainModel model)
         {
+            int OrgId = _commonHelper.GetOrgID(HttpContext);
+            model.OrgId=OrgId;          
             await _myAccountPageService.ChangePassword(model);
             return View(model);
         }

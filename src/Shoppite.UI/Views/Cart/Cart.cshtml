@@ -16,6 +16,10 @@
         rewardpointBalance -= @rewardbalance.Reward_points;
     }
 }
+@foreach (var profileid in Model.myreward.Take(1))
+{
+    <input type="hidden" id="profileguid" asp-for="@profileid.ProfileGUID">
+}
 <!-- Start main area -->
 <div class="main-area">
 
@@ -74,7 +78,7 @@
                                                     {
                                                         <div class="number">
                                                             <span class="minus">-</span>
-                                                            <input type="number" id="ProductQTY" data-id="99" data-price="@cartlist.Price" class="quant" value="@cartlist.Qty" max="@cartlist.BasicQty" />
+                                                            <input type="number" id="qty_@cartlist.ProductId" data-id="99" data-price="@cartlist.Price" class="quant" value="@cartlist.Qty" min="@cartlist.Qty" max="@cartlist.BasicQty" />
                                                             <span class="plus">+</span>
                                                         </div>
                                                     }
@@ -114,7 +118,7 @@
                                             <span>Reward points</span>
                                             <span id="rp" class="free-shiping">
                                                 -@if (rewardpointBalance >= 100)
-                                                {@((rewardpointBalance * 10 )/100)}
+                                                {@((rewardpointBalance * 700 )/100000)}
                                                 ₹
                                             </span>
                                         </div>
@@ -149,7 +153,7 @@
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Remove From Cart</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body fw-bold">
@@ -168,8 +172,10 @@
 @section scripts
 {
     <script>
-    var arr = [];
-    var count;
+        var total = 0.0;
+        var arr = [];
+        var count;
+        var profileguid = $("#profileguid").val();
     $(document).ready(function (id) {
 
         $('.minus').click(function () {
@@ -183,23 +189,21 @@
 
         $('.plus').click(function (id) {
             var $input = $(this).parent().find('input');
-            $input.val(parseInt($input.val()) + 1);
-            $input.change();
+            var id = $($input).attr("id");
+            var max = document.getElementById(id).max;
+            var min = document.getElementById(id).min;           
+            if (max != min) {
+                $input.val(parseInt($input.val()) + 1);
+                $input.change();
+            }
+            else {
+                alert('Only '+ max + 'Item Left!');
+            }
+            
             return false;
         });
 
-        update();
-        $(".quant").change(function () {
-            //this: context of the input that was changed
-            //console.log('calling /Cart/AddTocart; id:', $(this).attr('data-id'), ' quantity: ', $(this).val());
-            $.get(
-                '/Cart/AddTocart', {
-                id: $(this).attr('data-id'),
-                returnUrl: '',
-                quantity: $(this).val()
-            });
-            update();
-        });
+        update();      
 
         function update() {
             var sum = 0.0;
@@ -220,11 +224,14 @@
                 $(".hideme").show();
                 $('.mytotal').text('₹' + sum);
                 $('.total').text('₹' + rewardsum)
+                $("#TotalAmount").val(rewardsum);
+                total = rewardsum;
             }
             else {
                 $(".hideme").hide();
-                 $('.total').text('₹' + sum);
-           // $('.mytotal').text('₹' + rewardsum)
+                $('.total').text('₹' + sum);
+                $("#TotalAmount").val(sum);
+                total = sum;
             }
 
         }
@@ -246,23 +253,21 @@
         });
 
         for (var i = 0; i < tab.length; i++) {
-
-           // dataBunch = [(tab[i].cells[0].childNodes[1].childNodes[0].currentSrc), (tab[i].children[0].children[1].value), (tab[i].cells[1].children[0].childNodes[0].innerText), (tab[i].cells[1].children[1].innerText), (tab[i].cells[2].children[0].children[1].value)];
-           // "Image": tab[i].cells[0].childNodes[1].childNodes[0].currentSrc, "ProductName": tab[i].cells[1].children[0].childNodes[0].innerText, "Price": tab[i].cells[1].children[1].innerText,
             ar.push({ "Guid": tab[i].children[0].children[2].value, "Qty": tab[i].cells[2].children[0].children[1].value, "ProductId": tab[i].cells[0].children[0].value });
         }
-
-        var makeString = JSON.stringify({ar});
+       
+        var makeString = JSON.stringify({ ar,total });
+        var totalAmount = JSON.stringify(total);
         const url = window.location.href;
         $.ajax({
             type: "POST",
             url: '@Url.Action("AddToCheck", "Cart")',
             dataType: 'JSON',
-            data: makeString,
+            data:  makeString ,
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 if (url.includes('?')) {
-                    window.location = "/Cart/CheckOut?orderid=" + $('.HidenGuid').val() +'&'+'reward'
+                    window.location = "/Cart/CheckOut?orderid=" + $('.HidenGuid').val() + '&' + 'reward=' + profileguid
                 }
                 else { window.location = "/Cart/CheckOut?orderid=" + $('.HidenGuid').val()}
             },

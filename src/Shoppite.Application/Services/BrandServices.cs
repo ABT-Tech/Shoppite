@@ -17,7 +17,7 @@ namespace Shoppite.Application.Services
     {
         private readonly IBrandRepository _BrandRepository;
         private readonly IAppLogger<BrandServices> _logger;
-        private IHttpContextAccessor _accessor;
+        private readonly IHttpContextAccessor _accessor;
         public BrandServices(IBrandRepository brandRepository, IAppLogger<BrandServices> appLogger, IHttpContextAccessor accessor)
         {
             _BrandRepository = brandRepository ?? throw new ArgumentNullException(nameof(brandRepository));

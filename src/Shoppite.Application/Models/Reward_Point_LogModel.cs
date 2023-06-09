@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-
 namespace Shoppite.Application.Models
 {
     public class Reward_Point_LogModel
     {
         public int Id { get; set; }
-        public int? UserId { get; set; }
+        public Guid ProfileGUID { get; set; }
         public int? OrgId { get; set; }
         public decimal Reward_points { get; set; }
         public string Reward_type { get; set; }

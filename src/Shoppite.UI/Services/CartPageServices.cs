@@ -24,9 +24,9 @@ namespace Shoppite.UI.Services
         {
             return await _CartService.Orderbasic(orgid);
         }
-        public async Task<CartModel> DeleteAysnc(int id)
+        public async Task<CartModel> DeleteAysnc(int id,int OrgId)
         {
-            return await _CartService.Delete(id);
+            return await _CartService.Delete(id,OrgId);
         }
 
         public async Task SaveAddress(CartModel cartModel)

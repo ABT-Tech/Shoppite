@@ -62,7 +62,7 @@
                                 <p>@Model.ProductBasicModel.ShortDescription</p>
                                 <p class="sin-item">
                                     <span class="sin-item-text"> @Model.ProductBasicModel.Qty Items </span>
-                                    @if (@Model.ProductBasicModel.Qty != 0)
+                                    @if (@Model.ProductBasicModel.Qty != 0 && Model.ProductBasicModel.Qty>0)
                                     {
                                         <span class="sin-item-btn">In stock</span>
                                     }
