@@ -56,7 +56,7 @@ namespace Shoppite.UI.Helpers
             int orgid = 1;
             var subdomain = GetSubDomain(httpContext);
             if (subdomain.Contains("localhost"))
-                orgid = 3;
+                orgid = 1;
             else
             {
                 LogError(subdomain);
@@ -86,6 +86,6 @@ namespace Shoppite.UI.Helpers
                 writer.Close();
             }
         }
-
+      
     }
 }

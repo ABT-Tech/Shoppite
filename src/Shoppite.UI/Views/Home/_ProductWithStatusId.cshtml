@@ -2,7 +2,7 @@
 <!-- Start new product area -->
 <link href="~/css/site.css" rel="stylesheet" />
 <div class="new-product-area">
-    <div class="container">
+    <div class="container-fluid">
         @foreach (var product in Model.ProductNewArrivalModel.GroupBy(x => x.StatusId))
         {
             foreach (var groupq in product.Take(1).Where(x=>x.ShowOnFront == true))

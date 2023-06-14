@@ -10,7 +10,7 @@
 <link href="~/css/MainpageSwipper.css" rel="stylesheet" />
 <!-- Start mega menu area -->
 <div class="megamenu-area">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-9">
                 <div class="megamenu">
@@ -164,7 +164,7 @@
 <!-- End mega menu area -->
 <!-- Start mobile menu -->
 <div class="mobile-menu-area">
-    <div class="container">
+    <div class="container-fluid">
         <div class="mobile-menu clearfix">
             <nav id="dropdown">
                 <ul class="nav">
@@ -334,7 +334,7 @@
                 <div class="mobile-search-box">
                     <form method="get" action="#" id="searchbox">
                         <p>
-                            <input type="text" value="" placeholder="You keyword..." name="search_query">
+                            <input type="text" value="" placeholder="Your keyword..." name="search_query">
                             <button class="button-search" name="submit_search" type="submit">
                                 <span><i class="fa fa-search"></i></span>
                             </button>
@@ -348,7 +348,7 @@
 <!-- End mobile menu -->
 <!-- Start slider area -->
 <div class="slider-area">
-    <div class="container">
+    <div class="container-fluid">
         <div class="slider">
             <div id="container">
                 <!-- Nivo slider Demo 35 -->
@@ -365,7 +365,7 @@
 <!-- End slider area -->
 <!-- Start baner area -->
 <div class="baner-area">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-6">
                 <a href="#"><img src="img/baner/banner_img1.jpg" alt=""></a>
@@ -379,7 +379,7 @@
 <!-- End baner area -->
 <!-- Start tab and carosel area -->
 <div id="content" class="tabandcarosel-area">
-    <div class="container">
+    <div class="container-fluid">
         <div class="tab-product-wrap">
             <div class="row">
                 <!-- Start tab menu area -->
@@ -405,7 +405,7 @@
                 <!-- Start category product content area -->
                 <div class="col-lg-9 col-md-8">
                     <div class="new-product-area">
-                        <div class="container">
+                        <div class="container-fluid">
                             <div class="tab-contant-static-image">
                                 <a href="#"><img src="img/product/banner_tabCate.jpg" alt="Static image"></a>
                             </div>
@@ -430,7 +430,7 @@
 <!-- End category product and carosel area -->
 <!-- Start new product area -->
 <div class="new-product-area">
-    <div class="container">
+    <div class="container-fluid">
         @foreach (var product in Model.ProductNewArrivalModel.GroupBy(x => x.StatusId))
         {
             foreach (var groupq in product.Take(1))
@@ -497,7 +497,7 @@
 </div>
 <!-- Start brand logo area -->
 <div class="brand-logo-area mt-auto">
-    <div class="container">
+    <div class="container-fluid">
         <div class="new-product-title">
             <h4><span>Brand Zone </span></h4>
         </div>
