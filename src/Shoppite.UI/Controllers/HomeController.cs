@@ -17,7 +17,6 @@ namespace Shoppite.UI.Controllers
     public class HomeController : Controller
     {
         private IHttpContextAccessor _accessor;
-
         private readonly ILogger<HomeController> _logger;
         private readonly IBrandPageServices _BrandPageService;
         private readonly IWishlistPageService _wishlistPageService;
@@ -94,13 +93,12 @@ namespace Shoppite.UI.Controllers
             brands.Product_specification = await _categoryPageService.GetAllProductByCategory(CategoryId,OrgId);
             if (User.Identity.Name != null)
             {
-            brands.Wishlists = await _wishlistPageService.GetWishList(User.Identity.Name, OrgId);
+              brands.Wishlists = await _wishlistPageService.GetWishList(User.Identity.Name, OrgId);
             }
 
             brands.Attributes = await _categoryPageService.GetAllAttributes(OrgId);
             brands.AllCategories = await _categoryPageService.GetAllCategories(OrgId);
             return View(brands);
-
         }
         [HttpGet]
         public async Task<IActionResult> _ProductsByAttribute(int CategoryId, string SpecificationName)
