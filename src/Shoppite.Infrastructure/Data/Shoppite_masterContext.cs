@@ -109,7 +109,7 @@ namespace Shoppite.Infrastructure.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer("Data Source=103.150.186.216;Initial Catalog=Shoppite_master;User ID=sa;Password=Z8Lix[jg3K@R74;MultipleActiveResultSets=True;Application Name=EntityFramework");
                 //optionsBuilder.UseSqlServer("Data Source=DESKTOP-40G3LDG;Initial Catalog=Shoppite_master;MultipleActiveResultSets=True;Application Name=EntityFramework");
             }
