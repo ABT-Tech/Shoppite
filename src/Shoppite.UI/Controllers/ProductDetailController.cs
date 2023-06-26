@@ -59,23 +59,30 @@ namespace Shoppite.UI.Controllers
             string userName = User.Identity.Name;
             int orgid = _commonHelper.GetOrgID(HttpContext);
             decimal price = 0;
+            string Subname = "";
             var Product_Varients = await _ProductDetailPageService.GetProductVarients(guid, orgid, userName);
-            if (get.Name.Contains("select"))
+            try
             {
-               // price = (decimal)Product_Varients.ProductPriceModel.Price;
-                //get.Name = string.Empty;
+                foreach (var GET in Product_Varients.Where(x => x.SpecificationName == get.Name && x.SubSpecificationName == get.SubName))
+                {
+                    price = GET.Price;
+                    Subname = GET.SubSpecificationName;
+                }
             }
-            else
+            catch (Exception e)
             {
 
-                foreach (var GET in Product_Varients.Where(x => x.SpecificationName == get.Name))
-                {
-                        price = GET.Price;
-                    get.SubName = GET.SubSpecificationName;
-                }
-               
-            }
+                throw e;
+            }    
+
             get.Price = price;
+            get.SubName = Subname;
+
+            if(price == 0 || Subname == "")
+            {
+                return Json("nothing");
+            }
+
             return Json(get);
         }
         public async Task<IActionResult> AddToWhishList(int ProductId,Guid id)

@@ -202,37 +202,44 @@
                                         </span>
                                     </div>
                                 </div>
-                                @foreach (var pro in Model.AttributesSetupModel)
-                                 {
-                                     if (pro.GetF_Getproduct_Specification_By_GuidModel.Count > 0)
-                                     {
-                                         <div class="hungry d-inline-flex">
+
+                               @foreach (var pro in Model.AttributesSetupModel.Take(1))
+                                {
+                                    if (pro.GetF_Getproduct_Specification_By_GuidModel.Count > 0)
+                                    {
+                                        <div class="hungry d-inline-flex">
                                             <h6>@pro.AttributeName</h6>
-                                            @foreach (var spec in pro.GetF_Getproduct_Specification_By_GuidModel.GroupBy(x=>x.SpecificationName).Select(x=>x.First()))
-                                             {
+                                           @foreach (var spec in pro.GetF_Getproduct_Specification_By_GuidModel.GroupBy(x => x.SpecificationName).Select(x => x.First()))
+                                            {
                                                 <div class="selection m-1">
-                                                    <input id="@spec.SpecificationName" class="@spec.SubSpecificationName" onclick="Match('@spec.SpecificationName')" name="dropspec" type="radio">
+                                                    <input id="@spec.SpecificationName" class="@spec.SubSpecificationName" onclick="SubMatch('@spec.SpecificationName')" name="dropspec" type="radio">
                                                     <label for="@spec.SpecificationName">@spec.SpecificationName</label>
                                                 </div>
-                                             }
-                                         </div>
+                                            }
+                                        </div>
+                                    }
+                                }
 
-                                         <div class="hungry d-inline-flex">
+                               @foreach (var pro in Model.AttributesSetupModel.Take(1))
+                                {
+                                    if (pro.GetF_Getproduct_Specification_By_GuidModel.Count > 0)
+                                    {
+                                        <div class="hungry d-inline-flex">
                                             <h6>@pro.AttributeName</h6>
-                                            @foreach (var SubSpec in pro.GetF_Getproduct_Specification_By_GuidModel.GroupBy(x=>x.SubSpecificationName).Select(x=>x.First()))
-                                             {
+                                           @foreach (var SubSpec in pro.GetF_Getproduct_Specification_By_GuidModel.GroupBy(x => x.SubSpecificationName).Select(x => x.First()))
+                                            {
                                                 <div class="selection m-1">
-                                                    <input id="@SubSpec.SubSpecificationName" name="subhungry" type="radio">
+                                                    <input id="@SubSpec.SubSpecificationName" onclick="SubMatch('@SubSpec.SubSpecificationName')" name="subhungry" type="radio">
                                                     <label for="@SubSpec.SubSpecificationName">@SubSpec.SubSpecificationName</label>
                                                 </div>
-                                             }
-                                         </div>
-                                     }
-                                 }
+                                            }
+                                        </div>
+                                    }
+                                }
 
                                 @*</form>*@
 
-                                @if (Model.ProductBasicModel.Qty == 0)
+                               @if (Model.ProductBasicModel.Qty == 0)
                                 {
                                     <div class="row">
                                         <div class="col-sm-6 Add_Car_Btn">
@@ -273,9 +280,9 @@
                                 {
                                     <p class="buttons_bottom_block no-print" id="add_to_cart">
 
-                                        @if (User.Identity.IsAuthenticated)
+                                       @if (User.Identity.IsAuthenticated)
                                         {
-                                            @if (Model.ProductPriceModel.DisableBuyButton == true)
+                                           @if (Model.ProductPriceModel.DisableBuyButton == true)
                                             {
                                                 <div class="row">
                                                     <div class="col-sm-6 Coming_Soon_Btn">
@@ -304,7 +311,7 @@
                                         }
                                         else
                                         {
-                                            @if (Model.ProductPriceModel.DisableBuyButton == true)
+                                           @if (Model.ProductPriceModel.DisableBuyButton == true)
                                             {
                                                 <div class="row">
                                                     <div class="col-sm-6 Coming_Soon_Btn">
@@ -334,18 +341,18 @@
                                     </p>
                                 }
                                 @if (User.Identity.IsAuthenticated)
-                                {
-                                    <p class="sin-adto-cart-bottom">
+                                 {
+                                     <p class="sin-adto-cart-bottom">
                                         @if (@Model.ProductBasicModel.WishlistedProduct == true)
-                                        {
+                                         {
                                             <abbr title="WishList"><a href="/ProductDetail/AddToWhishList?ProductId=@Model.ProductBasicModel.ProductId&id=@Model.ProductBasicModel.ProductGuid"><i style="color:red" class="fa fa-heart"></i></a></abbr>
-                                        }
-                                        else
-                                        {
+                                         }
+                                         else
+                                         {
                                             <abbr title="WishList"><a href="/ProductDetail/AddToWhishList?ProductId=@Model.ProductBasicModel.ProductId&id=@Model.ProductBasicModel.ProductGuid"><i class="fa fa-heart"></i></a></abbr>
-                                        }
-                                    </p>
-                                }
+                                         }
+                                     </p>
+                                 }
                                 else
                                 {
                                     <p class="sin-adto-cart-bottom">
@@ -509,16 +516,22 @@
     });
 
 
-    function Match(id) {
-        document.getElementById(id).click();
+    function Match(id, subid) {
+
+        if (id == undefined || subid == undefined) {
+            return;
+        }
+
+       // document.getElementById(id).click();
         //  var Guid = $('#ProdGuid').val();
         var PName = $('#Prod_Name').val();
-   
+
        // var Name = $(this).val();
 
         var Daata = Object();
         Daata.Guid = $('#ProdGuid').val();
         Daata.Name = id;
+        Daata.SubName = subid;
             //document.getElementsByClassName(id)[0].id;
 
         $.ajax({
@@ -528,11 +541,17 @@
             data: JSON.stringify(Daata),
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                $('#Product_Price').text('₹' + data.price);
-                $('#Prod_Spec').text(data.name);
-                $('#' + data.subName).click();
+                if (data == "nothing") {
+                    alert("this match is not awailable");
+                    location.reload();
+                } else {
+                  $('#Product_Price').text('₹' + data.price);
+                  $('#Prod_Spec').text(data.name + ',' + data.subName);
+                  document.getElementById("Set_Price").value = data.price;
+                }
+               // $('#' + data.subName).click();
 
-                document.getElementById("Set_Price").value = data.price;
+                
             },
             error: function (xhr, status, error) {
                 alert("some thing worng");
@@ -540,6 +559,28 @@
         })
 
     };
+
+    function SubMatch(id) {
+
+            var the_value;
+            //the_value = jQuery('input:radio:checked').val();
+            //the_value = jQuery('input[name=macro]:radio:checked').val();
+        the_value = getChecklistItems();
+
+        Match(the_value[0], the_value[1]);
+    };
+
+        function getChecklistItems() {
+            var result =
+                $("div.selection > input:radio:checked").get();
+
+            var columns = $.map(result, function (element) {
+                return $(element).attr("id");
+            });
+
+            return columns;
+        };
+
 
 </script>
 <!--foreach (var prodattr in Model.AttributesSetupModel)
