@@ -59,21 +59,19 @@ namespace Shoppite.UI.Controllers
             string userName = User.Identity.Name;
             int orgid = _commonHelper.GetOrgID(HttpContext);
             decimal price = 0;
-            var Product_Detals = await _ProductDetailPageService.GetProductDetails(guid, orgid, userName);
+            var Product_Varients = await _ProductDetailPageService.GetProductVarients(guid, orgid, userName);
             if (get.Name.Contains("select"))
             {
-                price = (decimal)Product_Detals.ProductPriceModel.Price;
-                get.Name = string.Empty;
+               // price = (decimal)Product_Varients.ProductPriceModel.Price;
+                //get.Name = string.Empty;
             }
             else
             {
 
-                foreach (var GET in Product_Detals.AttributesSetupModel)
+                foreach (var GET in Product_Varients.Where(x => x.SpecificationName == get.Name))
                 {
-                    foreach (var SET in GET.GetF_Getproduct_Specification_By_GuidModel.Where(x => x.SpecificationName == get.Name))
-                    {
-                        price = SET.Price;
-                    }
+                        price = GET.Price;
+                    get.SubName = GET.SubSpecificationName;
                 }
                
             }

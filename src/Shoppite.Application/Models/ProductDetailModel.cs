@@ -21,7 +21,7 @@ namespace Shoppite.Application.Models
         public List<AttributesSetupModel> AttributesSetupModel { get; set; }
         public OrderBasicModel OrderBasicModel { get; set; }
         public OrderMasterModel OrderMasterModel { get; set; }
-
+        public List<ProductVariantModel> productVariantModel  { get; set; }
 
     }
 }

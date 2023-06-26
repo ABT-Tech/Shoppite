@@ -160,13 +160,13 @@
                             <div class="single-product-details">
                                 <div class="d-inline-flex" id="Prod_Name"><h1>@Model.ProductBasicModel.ProductName</h1>&nbsp;<h1 id="Prod_Spec"></h1></div>
                                 @*<p><strong>Reference:</strong> demo_1 </p>
-                                    <p><strong>Condition:</strong> New product </p>*@
+        <p><strong>Condition:</strong> New product </p>*@
                                 <h2>
                                     <span id="Product_Price">₹ @Model.ProductPriceModel.Price </span>
                                     @*@if (Model.ProductPriceModel.TaxExempt == true)
-                                        {
-                                            <span class="text-black">tax incl.</span>
-                                        }*@
+            {
+                <span class="text-black">tax incl.</span>
+            }*@
                                 </h2>
                                 <p>@Model.ProductBasicModel.ShortDescription</p>
                                 <p class="sin-item">
@@ -185,8 +185,8 @@
                                     <label>Quantity </label>
                                     @*  <input type="number" asp-for="OrderBasicModel.Qty" name="OrderBasicModel.Qty" id="french-hens" min="1" value="1">*@
                                     @*<span class="minus">-</span>
-                                        <input type="number" class="count" asp-for="OrderBasicModel.Qty" name="OrderBasicModel.Qty" min="1" max="@Model.ProductBasicModel.Qty" value="1">
-                                        <span class="plus">+</span>*@
+                                      <input type="number" class="count" asp-for="OrderBasicModel.Qty" name="OrderBasicModel.Qty" min="1" max="@Model.ProductBasicModel.Qty" value="1">
+                                      <span class="plus">+</span>*@
 
                                     <div class="input-group">
                                         <span class="">
@@ -203,22 +203,33 @@
                                     </div>
                                 </div>
                                 @foreach (var pro in Model.AttributesSetupModel)
-                                {
+                                 {
+                                     if (pro.GetF_Getproduct_Specification_By_GuidModel.Count > 0)
+                                     {
+                                         <div class="hungry d-inline-flex">
+                                            <h6>@pro.AttributeName</h6>
+                                            @foreach (var spec in pro.GetF_Getproduct_Specification_By_GuidModel.GroupBy(x=>x.SpecificationName).Select(x=>x.First()))
+                                             {
+                                                <div class="selection m-1">
+                                                    <input id="@spec.SpecificationName" class="@spec.SubSpecificationName" onclick="Match('@spec.SpecificationName')" name="dropspec" type="radio">
+                                                    <label for="@spec.SpecificationName">@spec.SpecificationName</label>
+                                                </div>
+                                             }
+                                         </div>
 
-                                    if (pro.GetF_Getproduct_Specification_By_GuidModel.Count > 0)
-                                    {
-                                        <div class="hungry d-inline-flex">
-                                          <h6>@pro.AttributeName</h6>
-                                          @foreach (var spec in pro.GetF_Getproduct_Specification_By_GuidModel)
-                                           {
-                                              <div class="selection m-1">
-                                                 <input id="@spec.SpecificationName" name="hungry" type="radio">
-                                                 <label for="@spec.SpecificationName">@spec.SpecificationName</label>
-                                              </div>
-                                           }
-                                        </div>
-                                    }
-                                }
+                                         <div class="hungry d-inline-flex">
+                                            <h6>@pro.AttributeName</h6>
+                                            @foreach (var SubSpec in pro.GetF_Getproduct_Specification_By_GuidModel.GroupBy(x=>x.SubSpecificationName).Select(x=>x.First()))
+                                             {
+                                                <div class="selection m-1">
+                                                    <input id="@SubSpec.SubSpecificationName" name="subhungry" type="radio">
+                                                    <label for="@SubSpec.SubSpecificationName">@SubSpec.SubSpecificationName</label>
+                                                </div>
+                                             }
+                                         </div>
+                                     }
+                                 }
+
                                 @*</form>*@
 
                                 @if (Model.ProductBasicModel.Qty == 0)
@@ -391,7 +402,7 @@
                         <h4><span>Similar products</span></h4>
                     </div>
                     <div class="producttabcarosel carosel-product5 owl-carousel">
-                        @foreach (var product in Model.f_Getproducts_By_CategoryIDModels)
+                       @foreach (var product in Model.f_Getproducts_By_CategoryIDModels)
                         {
                             <div class="product-item mb-3">
                                 <div class="top-item">
@@ -498,14 +509,17 @@
     });
 
 
-    //  var Guid = $('#ProdGuid').val();
-    var PName = $('#Prod_Name').val();
-    $('select[name="dropspec"]').change(function () {
+    function Match(id) {
+        document.getElementById(id).click();
+        //  var Guid = $('#ProdGuid').val();
+        var PName = $('#Prod_Name').val();
+   
        // var Name = $(this).val();
 
         var Daata = Object();
         Daata.Guid = $('#ProdGuid').val();
-        Daata.Name = $(this).val();
+        Daata.Name = id;
+            //document.getElementsByClassName(id)[0].id;
 
         $.ajax({
             type: 'POST',
@@ -516,6 +530,7 @@
             success: function (data) {
                 $('#Product_Price').text('₹' + data.price);
                 $('#Prod_Spec').text(data.name);
+                $('#' + data.subName).click();
 
                 document.getElementById("Set_Price").value = data.price;
             },
@@ -524,7 +539,7 @@
             }
         })
 
-    });
+    };
 
 </script>
 <!--foreach (var prodattr in Model.AttributesSetupModel)

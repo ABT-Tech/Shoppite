@@ -55,7 +55,7 @@
         /// <param name="id">The id<see cref="Guid"/>.</param>
         /// <param name="orgid">The orgid<see cref="int"/>.</param>
         /// <returns>The <see cref="Task{ProductDetailModel}"/>.</returns>
-        public async Task<ProductDetailModel> GetProductDetails(Guid id, int orgid,string? username)
+        public async Task<ProductDetailModel> GetProductDetails(Guid id, int orgid,string username)
         {
             int x = 1;
             ProductDetailModel productDetailModel = new ProductDetailModel();
@@ -83,6 +83,10 @@
 
             var productAttribute = await _ProductDetailRepsitory.ProductAttribute(orgid);
             productDetailModel.AttributesSetupModel = ObjectMapper.Mapper.Map<List<AttributesSetupModel>>(productAttribute);
+
+            var ProductVariant = await _ProductDetailRepsitory.GetProductVarient(orgid, id, username);
+            productDetailModel.productVariantModel = ObjectMapper.Mapper.Map<List<ProductVariantModel>>(ProductVariant);
+
 
             var productSpecVal = await _ProductDetailRepsitory.specificationSetups(id);
             var spectype = ObjectMapper.Mapper.Map<List<f_getproduct_specification_By_GuidModel>>(productSpecVal);
@@ -409,6 +413,21 @@
 
             //await _ProductDetailRepsitory.AddToCart(orderBasic);
 
+        }
+
+        public async Task<List<f_getproduct_varient_By_GuidModel>> GetProductVarients(Guid guid, int orgid, string userName)
+        {
+            try
+            {
+                var GetProductVarients = await _ProductDetailRepsitory.GetProductVarients(guid, orgid);
+                return ObjectMapper.Mapper.Map<List<f_getproduct_varient_By_GuidModel>>(GetProductVarients);
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+            
         }
     }
 }

@@ -104,6 +104,8 @@ namespace Shoppite.Infrastructure.Data
         public virtual DbSet<f_getproduct_CartDetails_By_Orgid> F_Getproduct_CartDetails_By_Orgid { get; set; }
         public virtual DbSet<f_order_master> F_Order_Master { get; set; }
         public virtual DbSet<f_order_masterDetails> f_order_masterDetails { get; set; }
+        public virtual DbSet<ProductVariant> ProductVariant { get; set; }
+        public virtual DbSet<f_getproduct_varient_By_Guid> F_Getproduct_Varient_By_Guid { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -1376,6 +1378,17 @@ namespace Shoppite.Infrastructure.Data
             {
                 entity.HasNoKey();
             });
+            modelBuilder.Entity<ProductVariant>(entity =>
+            {
+                entity.HasKey(e => e.ProductId);
+
+                entity.ToTable("Product_Variant");
+            });
+            modelBuilder.Entity<f_getproduct_varient_By_Guid>(entity =>
+            {
+                entity.HasNoKey();
+            });
+
             OnModelCreatingPartial(modelBuilder);
         }
 

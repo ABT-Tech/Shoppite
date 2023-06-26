@@ -252,5 +252,21 @@
         {
             throw new NotImplementedException();
         }
+
+        public async Task<List<ProductVariant>> GetProductVarient(int orgid, Guid id, string username)
+        {
+            return await _dbContext.ProductVariant.Where(x => x.OrgId == orgid && x.ProductGuid == id).ToListAsync();
+        }
+
+        public async Task<List<f_getproduct_varient_By_Guid>> GetProductVarients(Guid guid, int orgid)
+        {
+            string sql = "select * from f_getproduct_varient_By_Guid(@ProductGUID,@Orgid)";
+            List<SqlParameter> sqlParameters = new List<SqlParameter>
+            {
+                new SqlParameter{ParameterName = "@ProductGUID",Value = guid},
+                new SqlParameter{ParameterName = "@Orgid",Value = orgid}
+            };
+            return await _dbContext.Set<f_getproduct_varient_By_Guid>().FromSqlRaw(sql, sqlParameters.ToArray()).ToListAsync();
+        }
     }
 }

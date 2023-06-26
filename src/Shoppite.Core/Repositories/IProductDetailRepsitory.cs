@@ -23,5 +23,7 @@ namespace Shoppite.Core.Repositories
         Task AddOrderMaster(OrderMaster orderMaster);
         Task<OrderBasic> check(OrderBasic productDetailModel);
         Task<OrderBasic> updateCart();
+        Task<List<ProductVariant>> GetProductVarient(int orgid, Guid id, string username);
+        Task <List<f_getproduct_varient_By_Guid>>GetProductVarients(Guid guid, int orgid);
     }
 }
