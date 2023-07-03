@@ -48,9 +48,9 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-3 col-md-2">
-            @await Html.PartialAsync("_LeftBanner")
-        </div>
+                <div class="col-lg-3 col-md-2 Middle_Banner">
+                     @await Html.PartialAsync("_LeftBanner")
+                </div>
                 <!-- Start tab menu area -->
                 <div class="col-lg-3 col-md-3 resmenu">
 
@@ -59,14 +59,14 @@
 
                             <li class="shadow CatLI">
                                 @foreach (var Cat in Model.GetSp_Getcat_ResultModel.Where(x => x.IsPublished == true && x.IsShowHomePage == true).Take(5))
-                                {
+                                 {
                                     int X = (int)Cat.ID;
                                     <a onclick="testajaxcall('@X')" data-toggle="tab" name="CatName" class="" style=" white-space:nowrap; ">
                                         <label class="name font-weight-bold">@Cat.NAME</label>
                                         @*<span class="thumb"><img class="imgm" src="@Cat.Icons" alt="thumb"></span>
-                                <span class="thumb"><img class="imgm" src="@Cat.Icons" alt="thumb"></span>*@
+                                          <span class="thumb"><img class="imgm" src="@Cat.Icons" alt="thumb"></span>*@
                                     </a>
-                                }
+                                 }
                             </li>
 
                         </ul>
@@ -81,7 +81,7 @@
 
                             <div class="pt-3 overflow-hidden">
                                 <div class="swiper mySwiper">
-                                    <div class="swiper-wrapper d-flex d-flex-inline " id="prodtabdata">
+                                    <div class="swiper-wrapper d-flex d-flex-inline ml-2" id="prodtabdata">
                                         <!--Here dynamically add product as per category via ajax in script-->
                                     </div>
                                     <div class="swiper-button-next"> <i class="fa fa-angle-right"></i> </div>

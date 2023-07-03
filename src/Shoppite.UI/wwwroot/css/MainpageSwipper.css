@@ -26,6 +26,7 @@
         display: block;
         min-width: auto;
         min-height: 250px;
+        max-height: 251px;
         object-fit: contain;
     }
 
