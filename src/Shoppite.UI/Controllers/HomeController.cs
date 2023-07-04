@@ -16,6 +16,8 @@ namespace Shoppite.UI.Controllers
 {
     public class HomeController : Controller
     {
+        private IHttpContextAccessor _accessor;
+        private readonly ILogger<HomeController> _logger;
         private readonly IBrandPageServices _BrandPageService;
         private readonly IWishlistPageService _wishlistPageService;
         private readonly ICategoryPageService _categoryPageService;
@@ -89,13 +91,12 @@ namespace Shoppite.UI.Controllers
             brands.Product_specification = await _categoryPageService.GetAllProductByCategory(CategoryId,OrgId);
             if (User.Identity.Name != null)
             {
-            brands.Wishlists = await _wishlistPageService.GetWishList(User.Identity.Name, OrgId);
+              brands.Wishlists = await _wishlistPageService.GetWishList(User.Identity.Name, OrgId);
             }
 
             brands.Attributes = await _categoryPageService.GetAllAttributes(OrgId);
             brands.AllCategories = await _categoryPageService.GetAllCategories(OrgId);
             return View(brands);
-
         }
         [HttpGet]
         public async Task<IActionResult> _ProductsByAttribute(int CategoryId, string SpecificationName)
@@ -132,7 +133,8 @@ namespace Shoppite.UI.Controllers
         public async Task<IActionResult> SearchProduct(string SearchKey)
         {
             int orgid = _commonHelper.GetOrgID(HttpContext);
-            var SearchResult = await _BrandPageService.SearchProduct(SearchKey, orgid);
+
+            var SearchResult = await _BrandPageService.SearchProduct(SearchKey,orgid);
             return View(SearchResult);
         }
     }

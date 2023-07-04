@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Shoppite.Application.Interfaces;
 using Shoppite.Application.Mapper;
 using Shoppite.Application.Models;
+using Shoppite.Core.Entities;
 using Shoppite.Core.Interfaces;
 using Shoppite.Core.Repositories;
 using System;
@@ -110,10 +111,10 @@ namespace Shoppite.Application.Services
             await _BrandRepository.News_Letter_Submit(orgid, email);
         }
 
-        public async Task<List<ProductBasicModel>> SearchProduct(string searchKey, int OrgId)
+        public async Task<List<ProductBasicModel>> SearchProduct(string searchKey, int orgid)
         {
             ProductBasicModel productBasicModel = new ProductBasicModel();
-            var SearchResult = await _BrandRepository.SearchProduct(searchKey,OrgId);
+            var SearchResult = await _BrandRepository.SearchProduct(searchKey,orgid);
            var mapped =  ObjectMapper.Mapper.Map<List<ProductBasicModel>>(SearchResult);
 
             foreach(var prices in mapped)
@@ -160,6 +161,42 @@ namespace Shoppite.Application.Services
         public async Task CancleOrder(int orderid)
         {
             await _BrandRepository.CancleOrder(orderid);
+        }
+
+        public async Task<MessagesModel> SendMessageVendor(MessagesModel messagesModel)
+        {
+            var getOrg = await _BrandRepository.GetOrg(messagesModel.OrgId);
+
+            Messages messages = new Messages
+            {
+                ChatId = Guid.NewGuid(),
+                Recipient = getOrg.VEmail,
+                Senddate = DateTime.Now,
+                Status = "UnRead",
+                OrgId = messagesModel.OrgId,
+                Sender = messagesModel.Sender,
+                Message = messagesModel.Message,
+            };
+
+            var SendVendor = await _BrandRepository.SendMessageVendor(messages);
+
+          return messagesModel = ObjectMapper.Mapper.Map<MessagesModel>(SendVendor);
+            
+        }
+
+        public async Task<List<MessagesModel>> Get_Vendor_Message(string userName, int orgid)
+        {
+            List<MessagesModel> messagesModel = new List<MessagesModel>();
+            var Get_Vendor_Message = await _BrandRepository.Get_Vendor_Message(userName, orgid);
+          return messagesModel = ObjectMapper.Mapper.Map<List<MessagesModel>>(Get_Vendor_Message);
+        }
+
+        public async Task<MessagesModel> GetUnReadCount(int orgid, string username)
+        {
+            MessagesModel messagesModel = new MessagesModel();
+            var GetUnReadCount = await _BrandRepository.GetUnReadCount(orgid, username);
+            messagesModel.MessagesModelList = ObjectMapper.Mapper.Map<List<MessagesModel>>(GetUnReadCount);
+            return messagesModel;
         }
     }
 }

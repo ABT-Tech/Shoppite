@@ -6,6 +6,66 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+    .plus:hover {
+        background-color: #fe5b5a;
+    }
+
+    .count {
+        border: none;
+        text-align: center;
+        /*padding-left: 20px;*/
+        width: 50px;
+    }
+
+    .megamenu-area {
+        z-index: 1;
+    }
+
+    #Des ul {
+        margin: 0px;
+        padding: 0px 0px 0px 20px;
+        list-style: disc;
+    }
+
+    .single-mori-info #Des ul li {
+        border-top: none;
+        display: revert;
+        float: none;
+    }
+    /*    .single-mori-info #Des ul{
+        position:fixed;
+    }*/
+    #Set_Price, #Set_Name {
+        opacity: 0;
+    }
+
+    .hungry .selection {
+        margin-bottom: 1em;
+    }
+
+        .hungry .selection label {
+            display: inline-block;
+            width: 8em;
+            background-color: #42b4d6;
+            border-radius: 6px;
+            color: #ffffff;
+            padding: 0.5em;
+            cursor: pointer;
+        }
+
+            .hungry .selection label:hover {
+                background-color: #5fc0dc;
+            }
+
+        .hungry .selection input[type=radio] {
+            display: none;
+        }
+
+            .hungry .selection input[type=radio]:checked ~ label {
+                background-color: #f1592a;
+            }
+</style>
+
 <form enctype="multipart/form-data" method="get" class="">
     <input type="hidden" asp-for="AttributesSetupModel" />
     <input type="hidden" asp-for="ProductBasicModel.OrgId" />
@@ -55,9 +115,15 @@
 
                         <div class="col-lg-5 col-md-6">
                             <div class="single-product-details">
-                                <div class="d-inline-flex" id="Prod_Name"><h1>@Model.ProductBasicModel.ProductName</h1>&nbsp;<h1 id="Prod_Spec"></h1></div>                             
+                                <div class="d-inline-flex" id="Prod_Name"><h1>@Model.ProductBasicModel.ProductName</h1>&nbsp;<h1 id="Prod_Spec"></h1></div>
+                                @*<p><strong>Reference:</strong> demo_1 </p>
+                                    <p><strong>Condition:</strong> New product </p>*@
                                 <h2>
                                     <span id="Product_Price">₹ @Model.ProductPriceModel.Price </span>
+                                    @*@if (Model.ProductPriceModel.TaxExempt == true)
+                                        {
+                                            <span class="text-black">tax incl.</span>
+                                        }*@
                                 </h2>
                                 <p>@Model.ProductBasicModel.ShortDescription</p>
                                 <p class="sin-item">
@@ -73,6 +139,11 @@
                                 </p>
                                 <div class="">
                                     <label>Quantity </label>
+                                    @*  <input type="number" asp-for="OrderBasicModel.Qty" name="OrderBasicModel.Qty" id="french-hens" min="1" value="1">*@
+                                    @*<span class="minus">-</span>
+                                        <input type="number" class="count" asp-for="OrderBasicModel.Qty" name="OrderBasicModel.Qty" min="1" max="@Model.ProductBasicModel.Qty" value="1">
+                                        <span class="plus">+</span>*@
+
                                     <div class="input-group">
                                         <span class="">
                                             <button type="button" class="productminusbtn btn btn-default btn-number min" disabled="disabled" data-type="minus" data-field="OrderBasicModel.Qty">
@@ -87,21 +158,24 @@
                                         </span>
                                     </div>
                                 </div>
-
-                                @foreach (var prodattr in Model.AttributesSetupModel)
+                                @foreach (var pro in Model.AttributesSetupModel)
                                 {
-                                    <p class="selector1">
-                                        <h6>@prodattr.AttributeName</h6>
-                                        <select  name="dropspec" class="select_1 select2 selectproductsort form-control">
-                                            <option selected>select @prodattr.AttributeName</option>
-                                            @foreach (var spec in prodattr.GetF_Getproduct_Specification_By_GuidModel)
-                                            {
-                                                <option id="sel_Opt">@spec.SpecificationName</option>
-                                            }
-                                        </select>
 
-                                    </p>
+                                    if (pro.GetF_Getproduct_Specification_By_GuidModel.Count > 0)
+                                    {
+                                        <div class="hungry d-inline-flex">
+                                          <h6>@pro.AttributeName</h6>
+                                          @foreach (var spec in pro.GetF_Getproduct_Specification_By_GuidModel)
+                                           {
+                                              <div class="selection m-1">
+                                                 <input id="@spec.SpecificationName" name="hungry" type="radio">
+                                                 <label for="@spec.SpecificationName">@spec.SpecificationName</label>
+                                              </div>
+                                           }
+                                        </div>
+                                    }
                                 }
+                                @*</form>*@
 
                                 @if (Model.ProductBasicModel.Qty == 0)
                                 {
@@ -404,5 +478,21 @@
 
     });
 
-    </script>
+</script>
+<!--foreach (var prodattr in Model.AttributesSetupModel)
+{
+    if (prodattr.GetF_Getproduct_Specification_By_GuidModel.Count > 0)
+    {
+        <p class="selector1">
+  <select id="selectproductsort2" onselect="GETproduct()" class="select_1 select2 selectproductsort form-control" asp-items="(new SelectList(prodattr.GetF_Getproduct_Specification_By_GuidModel," AttributeId","SpecificationName"))"></select>
+            <h6>prodattr.AttributeName</h6>-->
+<!--<select id="selectproductsort2" name="dropspec" class="select_1 select2 selectproductsort form-control">
+                <option selected>select prodattr.AttributeName</option>
+                foreach (var spec in prodattr.GetF_Getproduct_Specification_By_GuidModel)
+                {
+                    <option id="sel_Opt">spec.SpecificationName</option>
+                }
+            </select>
+        </p>
     }
+}-->

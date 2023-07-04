@@ -18,7 +18,7 @@ namespace Shoppite.Core.Repositories
         Task<List<f_getproducts_Recentlyviewed>> F_Getproducts_Recentlyviewed(string id, int orgid);
         Task<List<F_getproducts_By_BrandId>> GetProductsByBrand(int OrgId, int BrandId);
         Task News_Letter_Submit(int orgid, string email);
-        Task<List<ProductBasic>>SearchProduct(string searchKey, int OrgId);
+        Task<List<ProductBasic>>SearchProduct(string searchKey, int orgid);
         Task<ProductPrice> GetPrice(Guid productGuid);
         Task<f_order_master> GetMyOrders(int orderid);
         Task<List<f_order_master>> GetOrderedproductDetails(int orderid);
@@ -28,5 +28,9 @@ namespace Shoppite.Core.Repositories
         Task CancleOrder(int orderid);
         Task<Users> GetUser(string email,int orgid);
         Task<OrderStatus> GetOrderStatus(int orderid,int orgid);
+        Task<Organization> GetOrg(int? orgId);
+        Task<Messages> SendMessageVendor(Messages messages);
+        Task<List<Messages>> Get_Vendor_Message(string userName, int orgid);
+        Task<List<Messages>> GetUnReadCount(int orgid, string username);
     }
 }

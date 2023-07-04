@@ -61,9 +61,9 @@ namespace Shoppite.UI.Services
             await _BrandService.News_Letter_Submit(orgid, email);
         }
 
-        public async Task<List<ProductBasicModel>> SearchProduct(string searchKey,int OrgId)
+        public async Task<List<ProductBasicModel>> SearchProduct(string searchKey,int orgid)
         {
-            return await _BrandService.SearchProduct(searchKey,OrgId);
+            return await _BrandService.SearchProduct(searchKey,orgid);
         }
 
         public async Task<OrderModel> GetOrderDetails(int orderid,int orgid)
@@ -80,6 +80,21 @@ namespace Shoppite.UI.Services
         public async Task CancleOrder(int orderid)
         {
             await _BrandService.CancleOrder(orderid);
+        }
+
+        public async Task<MessagesModel> SendMessageVendor(MessagesModel messagesModel)
+        {
+            return await _BrandService.SendMessageVendor(messagesModel);
+        }
+
+        public async Task<List<MessagesModel>> Get_Vendor_Message(string userName, int orgid)
+        {
+            return await _BrandService.Get_Vendor_Message(userName, orgid);
+        }
+
+        public async Task<MessagesModel> GetUnReadCount(int orgid, string username)
+        {
+            return await _BrandService.GetUnReadCount(orgid, username);
         }
     }
 }

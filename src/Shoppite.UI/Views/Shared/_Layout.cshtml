@@ -10,6 +10,80 @@
  
     <partial name="_Styles" />
 
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+
+    <!-- Bootstrap CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+
+    <!-- owl.carousel CSS
+    ============================================ -->
+    <link rel="stylesheet" href="~/css/owl.carousel.css">
+
+    <!-- nivo slider CSS
+    ============================================ -->
+    <link rel="stylesheet" href="~/css/nivo-slider.css">
+
+    <!-- font-awesome.min CSS
+    ============================================ -->
+    @*<link rel="stylesheet" href="~/css/font-awesome.min.css">*@
+   @* <link href="~/plugins/fontawesome-free-6.2.1-web/css/fontawesome.min.css" rel="stylesheet" />*@
+   @* <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />*@
+    <link href="~/plugins/fontawesome-free-6.4.0-web/css/all.css" rel="stylesheet" />
+
+    <!-- jquery.fancybox CSS
+    ============================================ -->
+    <link rel="stylesheet" href="~/css/fancb/jquery.fancybox.css">
+
+    <!-- meanmenu.min CSS
+    ============================================ -->
+    <link rel="stylesheet" href="~/css/meanmenu.min.css">
+
+    <!-- animate CSS
+    ============================================ -->
+    <link rel="stylesheet" href="~/css/animate.css">
+
+    <!-- normalize CSS
+    ============================================ -->
+    <link rel="stylesheet" href="~/css/normalize.css">
+
+    <!-- main CSS
+    ============================================ -->
+    <link rel="stylesheet" href="~/css/main.css">
+
+    <!-- style CSS
+    ============================================ -->
+    <link rel="stylesheet" href="~/style.css">
+
+    <!-- responsive CSS
+    ============================================ -->
+    <link rel="stylesheet" href="~/css/responsive.css">
+
+    <script src="~/js/vendor/modernizr-2.8.3.min.js"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="~/plugins/select2/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/css/load.css" rel="stylesheet" />
+    <link href="~/css/ChatBot.css" rel="stylesheet" />
+    <style>
+        .BagImg {
+            max-width: 58px;
+            margin: 9px 0px 0px 0px;
+        }
+
+        .headHeart {
+            margin: 10px 11.5px;
+            font-size: 35px;
+            color: #fff;
+        }
+
+        .HeadUser {
+            margin: 10px 14px;
+            font-size: 35px;
+            color: #fff;
+        }
+    </style>
+
 </head>
 
 <body class="home">
@@ -216,17 +290,25 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="footer-copyright-area">
-                <div class="container">
-                    <div class="footer-copyright">
-                        <p>Copyright &copy; 2023 <a href="https://shooppy.in/" target="_blank">Shooppy</a>. All rights reserved.</p>
-                    </div>
+            </div>-->
+            <!--</div>
                 </div>
-                <div class="scroll-to-top pull-right">
-                    <a href="#" class="bstore-scrollertop"><i class="fa fa-arrow-up"></i></a>
+            </div>-->
+            <!-- End footer menu area -->
+            <!-- Start footer copyright area -->
+        <div class="footer-copyright-area">
+            <div class="container">
+                <div class="footer-copyright">
+                    <p>Copyright &copy; 2023 <a href="https://shooppy.in/" target="_blank">Shooppy</a>. All rights reserved.</p>
                 </div>
             </div>
+            <div class="scroll-to-top">@await Component.InvokeAsync("ChatBot")</div>
+            <div class="scroll-to-top-2 pull-right d-inline">
+                <a href="#" class="bstore-scrollertop mb-3">
+                 <i class="fa fa-arrow-up"></i>
+                </a>
+            </div>
+        </div>
             <!-- Start footer copyright area -->
         </footer>
         <!-- End footer area -->

@@ -61,6 +61,8 @@ namespace Shoppite.Application.Mapper
             CreateMap<UsersProfile,MainModel>().ReverseMap();
             CreateMap<f_order_master, f_order_masterModel>().ReverseMap();
             CreateMap<OrderStatus, OrderStatusModel>().ReverseMap();
+            CreateMap<Messages, MessagesModel>().ReverseMap();
+
             CreateMap<Reward_Point_Log, Reward_Point_LogModel>().ReverseMap();
 
 
