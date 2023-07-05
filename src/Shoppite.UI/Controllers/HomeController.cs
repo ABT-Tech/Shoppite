@@ -139,5 +139,13 @@ namespace Shoppite.UI.Controllers
             var SearchResult = await _BrandPageService.SearchProduct(SearchKey,orgid);
             return View(SearchResult);
         }
+        public  ActionResult TermsAndCondition()
+        {
+            return View();
+        }
+        public ActionResult PrivacyPolicy()
+        {
+            return View();
+        }
     }
 }
