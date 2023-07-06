@@ -93,7 +93,7 @@ namespace Shoppite.UI.Controllers
             brands.Product_specification = await _categoryPageService.GetAllProductByCategory(CategoryId,OrgId);
             if (User.Identity.Name != null)
             {
-              brands.Wishlists = await _wishlistPageService.GetWishList(User.Identity.Name, OrgId);
+              brands.Wishlists = await _wishlistPageService.GetWishList("jayshreesolanki199@gmail.com", OrgId);
             }
 
             brands.Attributes = await _categoryPageService.GetAllAttributes(OrgId);

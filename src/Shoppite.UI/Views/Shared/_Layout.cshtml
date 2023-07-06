@@ -1,505 +1,301 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"]</title>
-    <meta name="description" content="">
-    <!-- Favicon
-        ============================================ -->
-    @*await Html.PartialAsync("~/Views/Home/_Favicon.cshtml")*@
-    @*<link rel="shortcut icon" type="image/x-icon" href="~/img/favicon.ico">*@
-    <!-- Fonts  -->
-
-    <link href='https://fonts.googleapis.com/css?family=Raleway:400,500,600,700,300,800' rel='stylesheet' type='text/css'>
-
-    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-
-    <!-- Bootstrap CSS
-        ============================================ -->
-    <link rel="stylesheet" href="~/css/bootstrap.min.css">
-
-    <!-- owl.carousel CSS
-    ============================================ -->
-    <link rel="stylesheet" href="~/css/owl.carousel.css">
-
-    <!-- nivo slider CSS
-    ============================================ -->
-    <link rel="stylesheet" href="~/css/nivo-slider.css">
-
-    <!-- font-awesome.min CSS
-    ============================================ -->
-    @*<link rel="stylesheet" href="~/css/font-awesome.min.css">*@
-   @* <link href="~/plugins/fontawesome-free-6.2.1-web/css/fontawesome.min.css" rel="stylesheet" />*@
-   @* <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />*@
-    <link href="~/plugins/fontawesome-free-6.4.0-web/css/all.css" rel="stylesheet" />
-
-    <!-- jquery.fancybox CSS
-    ============================================ -->
-    <link rel="stylesheet" href="~/css/fancb/jquery.fancybox.css">
-
-    <!-- meanmenu.min CSS
-    ============================================ -->
-    <link rel="stylesheet" href="~/css/meanmenu.min.css">
-
-    <!-- animate CSS
-    ============================================ -->
-    <link rel="stylesheet" href="~/css/animate.css">
-
-    <!-- normalize CSS
-    ============================================ -->
-    <link rel="stylesheet" href="~/css/normalize.css">
-
-    <!-- main CSS
-    ============================================ -->
-    <link rel="stylesheet" href="~/css/main.css">
-
-    <!-- style CSS
-    ============================================ -->
-    <link rel="stylesheet" href="~/style.css">
-
-    <!-- responsive CSS
-    ============================================ -->
-    <link rel="stylesheet" href="~/css/responsive.css">
-
-    <script src="~/js/vendor/modernizr-2.8.3.min.js"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link href="~/plugins/select2/css/select2.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="~/css/site.css" />
-    <link href="~/css/load.css" rel="stylesheet" />
-    <link href="~/css/ChatBot.css" rel="stylesheet" />
-    <style>
-        .BagImg {
-            max-width: 58px;
-            margin: 9px 0px 0px 0px;
-        }
-
-        .headHeart {
-            margin: 10px 11.5px;
-            font-size: 35px;
-            color: #fff;
-        }
-
-        .HeadUser {
-            margin: 10px 14px;
-            font-size: 35px;
-            color: #fff;
-        }
-    </style>
-
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <partial name="_Styles">
 </head>
 
+<body>
+    <!--scrollup-start-->
+    <button class="round-3" onclick="topFunction()" id="myBtn" title="Go to top">
+        <i class="fa-solid fa-bounce fa-arrow-up"
+           style="font-size:24px; font-weight: 700;"></i>
+    </button>
+    <!--scrollup-end-->
+    <!--navbar-start-->
+    <!--navbar-menu-start-->
+    <header>
+        <nav class="navbar row">
+            <div class="hamburger-menu col-12 col-lg-3 col-md-6">
+                <img src="~/img/Shooppy.in11.webp" alt="sitelogo" width="150px" height="80px" style="margin: 0px 0px 0px 90px;" />
+                <input id="menu__toggle" type="checkbox" />
+                <label class="menu__btn" for="menu__toggle" style="font-weight:700;">
+                    <span></span>
+                </label>
+                <ul class="menu__box">
+                    <img src="~/img/Shooppy.in11.webp" alt="sitelogo" width="150px" height="80px"
+                         style="margin: 10px 0px 0px 70px;" />
 
-<body class="home">
-
-    <div class="containers text-center" style="z-index:10;">
-        <img src="~/img/cart_loder.gif" alt="" class="mx-auto d-block">
-    </div>
-    <!-- Start main area -->
-    <div class="main-area" style="pointer-events: none; filter: blur(20px); overflow: hidden; width: 100%; height: 100%; position: absolute; top: 0; left: 0;">
-        @*<div class="main-area">*@
-        <!-- Start header -->
-        <header>
-            <!-- Start top menu -->
-            <div class="top-menu" style="">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-5 col-12 pull-left">
-                            <nav>
-                                <ul>
-                                </ul>
-                            </nav>
+                    <div class="menulist">
+                    <li><a class="menu__item" href="#">Go to Home <i class="fa fa-home" aria-hidden="true"></i></a></li>
+            </div>
+            <div class="menulist">
+                <li><a class="menu__item" href="#">My Orders <i class="fa fa-box-open" aria-hidden="true"></i></a></li>
+            </div>
+            <div class="menulist">
+                <li><a class="menu__item" href="#">Trending <i class="fa fa-fire" aria-hidden="true"></i></a></li>
+            </div>
+            <div class="menulist">
+                <li>
+                    <a class="menu__item" href="#">
+                        Top Categories For You <i class="fa-solid fa fa-th-large"
+                                                  aria-hidden="true"></i>
+                    </a>
+                </li>
+            </div>
+            <div class="menulist">
+                <li>
+                    <a class="menu__item" href="#">programs & Features <i class="fa fa-vcard" aria-hidden="true"></i></a>
+                </li>
+            </div>
+            <div class="menulist">
+                <li><a class="menu__item" href="#">My Account <i class="fas fa-portrait" aria-hidden="true"></i></a></li>
+            </div>
+            <div class="menulist">
+                <li><a class="menu__item" href="#">Discount <i class="fa fa-percent" aria-hidden="true"></i></a></li>
+            </div>
+            <div class="menulist">
+                <li><a class="menu__item" href="#">Most Gifted <i class="fa fa-gift" aria-hidden="true"></i></a></li>
+            </div>
+            </ul>
+            </div>
+            <!--navbar-menu-end-->
+            <!--navbar-sreach-start-->
+            <div class="col-12 col-lg-4 col-md-6">
+                <div class="search-box">
+                    <input type="text" class="sreachtext" placeholder="Sreach Products" /><span></span>
+                </div><span class="sereachtags">Can you Sreach Any Products?</span>
+            </div>
+            <!--navbar-sreach-end-->
+            <!--navbar-appsection-start-->
+            <div class="col-12 col-lg-2 col-md-6">
+                <div class="parent parentapp">
+                    <button class="round-1" style=" margin: 10px 20px 0px 0px; width: 210px; color: #000000; font-weight: 700;">
+                        <a href="https://play.google.com/store/apps/details?id=com.ashokinfotech.shooppy">
+                            Also Try App Shooppy <img src="~/img/playstore.png" alt="playstoreimge" />
+                        </a>
+                    </button>
+                    <!-- <button class="round-1" style="margin: 10px 20px 0px 0px; width: 140px;"></button> -->
+                </div>
+            </div>
+            <!--navbar-appsection-end-->
+            <!--navbar-button-start-->
+            <div class="mobspace col-12 col-lg-3 col-md-6">
+                <div class="parent">
+                    <button data-toggle="tooltip" data-placement="top" title="Your Order" class="round-3"
+                            style="margin: 10px 20px 0px 0px;">
+                        <a href="orderpage.html"><img src="~/img/shopping-bag.png" alt="shoppingbagimge" /></a>
+                    </button>
+                    <button  data-toggle="tooltip" data-placement="top" title="Whishlist" class="round-3">
+                        <a  asp-action="Wishlist" asp-controller="Wishlist"><img src="~/img/heart.svg" alt="shoppingbagimge" width="30" height="30" /></a>
+                    </button>
+                    <div class="dropdown">
+                        <button data-toggle="tooltip" data-placement="top" title="My Account" class="round-3 dropbtn"
+                                onclick="myFunction()" style="margin: 10px 20px 0px 0px;">
+                            <img src="~/img/add-user.png"
+                                 alt="adduserimge" />
+                        </button>
+                        <div id="myDropdown" class="dropdown-content">
+                            <a href="#" class="droptext">Login</a>
+                            <a href="Myprofilepage.html" class="droptext">My Profile</a>
+                            <a href="#" class="droptext">Sign Up</a>
                         </div>
-                        <div class="col-md-7 col-12 pull-right">
-                            <div class="call-to-acction pull-right">
-                                <div>
-                                    <span><a href="https://shooppy.in/" class="btn  btn-sm btn-secondary">Join to Shooppy</a></span>
-                                </div>
+                    </div>
+                    <button data-toggle="tooltip" data-placement="top" title="My Bag" class="round-3">
+                        <a href="cartpage.html">
+                            <img src="~/img/cart (1).png" alt="cartimge" />
+                        </a>
+                    </button>
+                </div>
+            </div>
+            <!--navbar-button-end-->
+            @await Component.InvokeAsync("MegaMenu")
+        </nav>
+    </header>
+    @RenderBody()
+    <!--navbar-end-->
+    <!--footerSection-start-->
+    <footer class="footer-section">
+        <div class="container">
+            <div class="footer-cta pt-5 pb-5">
+                <div class="row">
+                    <div class="col-xl-4 col-md-4 mb-30 mt-4">
+                        <div class="single-cta d-flex">
+                            <i class="fas fa-map-marker-alt" style="font-size: 45px; color: #aed4f0;"></i>
+                            <div class="cta-text">
+                                <h4>Find us</h4>
+                                <span>1010 Avenue, sw 54, chandigarh</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-md-4 mb-30 mt-4">
+                        <div class="single-cta d-flex">
+                            <i class="fas fa-phone" style="font-size: 45px; color: #aed4f0;"></i>
+                            <div class="cta-text">
+                                <h4>Call us</h4>
+                                <span>9876543210 0</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-md-4 mb-30 mt-4">
+                        <div class="single-cta d-flex">
+                            <i class="far fa-envelope-open" style="font-size: 45px; color: #aed4f0;"></i>
+                            <div class="cta-text">
+                                <h4>Mail us</h4>
+                                <span>mail@info.com</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- End top menu -->
-            <!-- Start header meddle -->
-            <div class="header-meddil">
-                <div class="container">
-                    <div class="row headRow">
-                        <div style="padding-bottom: 10px; margin-top: -25px;" class="col-lg-3 col-md-2 col-4 MobLogoDiv">
-                            @* <div class="logo res">
-                                    <a href="index.html"><img src="img/logo.png" alt=""></a>
-                                </div>*@
-                            @await Component.InvokeAsync("VendorLogo")
+            <div class="footer-content pt-5 pb-5" style="z-index: 0;">
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 mb-50">
+                        <div class="footer-widget">
+                            <div class="footer-logo">
+                                <a href="index.html"><img src="~/img/Shooppy.in11.webp" class="img-fluid" alt="logo"></a>
+                            </div>
+                            <div class="footer-text">
+                                <p>
+                                    Lorem ipsum dolor sit amet, consec tetur adipisicing elit, sed do eiusmod tempor incididuntut consec
+                                    tetur adipisicing
+                                    elit,Lorem ipsum dolor sit amet.
+                                </p>
+                            </div>
+                            <div class="footer-social-icon">
+                                <span>Follow us</span>
+                                <a href="#">
+                                    <i class="fab fa-facebook-f facebook-bg" style="padding: 12px 14px 12px 14px;
+                  border-radius: 5px;"></i>
+                                </a>
+                                <a href="#">
+                                    <i class="fab fa-twitter twitter-bg" style="padding: 12px 12px 12px 12px;
+                  border-radius: 5px;"></i>
+                                </a>
+                                <a href="#">
+                                    <i class="fab fa-google-plus-g google-bg" style="padding: 12px 12px 12px 12px;
+                  border-radius: 5px;"></i>
+                                </a>
+                            </div>
                         </div>
-
-                        <div class="col-lg-9 col-md-10 col-8 mobIconDiv">
-                            <div class="meddil-services">
-
-                                @if (User.Identity.IsAuthenticated)
-                                {
-                                    <div class="service-icon-text service-text-icon-active col-lg-3 col-md-3 col-3">
-                                        <a asp-action="myAccount" asp-controller="MyAccount" class="d-flex">
-                                            <div class="service-icon floatleft">
-                                                <i class="fa fa-user HeadUser" style=""></i>
-                                            </div>
-                                            <div class="service-text floatright d-none d-sm-none d-md-block pl-2">
-                                                <h3>My Account</h3>
-                                                <p></p>
-                                            </div>
-                                        </a>
-                                        @*<div class="add-to-cart-product pull-right">
-                                                @if (User.Identity.IsAuthenticated)
-                                                 {
-                                               <div class="cart-price">
-                                             <div class="cart-product-line fast-line">
-                                                  <span>Hi @User.Identity.Name</span>
-                                               </div>
-                                             </div>
-                                             <div class="cart-checkout">
-                                              <a href="/Authentications/Login">Logout<i class="fa fa-chevron-right"></i></a>
-                                                   </div>
-                                                 }
-                                                 else
-                                                  {
-                                               <div class="cart-checkout">
-                                               <a href="/Authentications/Login">Login<i class="fa fa-chevron-right"></i></a>
-                                             </div>
-                                              }
-                                            </div>*@
-                                    </div>
-                                    <div class="service-icon-text service-text-icon-active col-lg-3 col-md-3 col-3">
-                                        <a asp-action="MyOrders" asp-controller="Orders" class="d-flex">
-                                            <div class="service-icon floatleft">
-                                                <img class="BagImg" src="~/img/shoppingbagWhite-fotor-bg-remover-orignal.png" style="">
-                                                @*<i class="fa fa-bag-shopping fa-shopping-bag"></i>*@
-                                            </div>
-                                            <div class="service-text floatright d-none d-sm-none d-md-block pl-2">
-                                                <h3>My Order</h3>
-                                                <p></p>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="service-icon-text service-text-icon-active col-lg-3 col-md-3 col-3">
-                                        <a asp-action="Wishlist" asp-controller="Wishlist" class="d-flex">
-                                            <div class="service-icon floatleft">
-                                                <i class="fa fa-heart headHeart" style=""></i>
-                                            </div>
-                                            <div class="service-text floatright d-none d-sm-none d-md-block pl-2">
-                                                <h3>My Wishlist</h3>
-                                                <p></p>
-                                            </div>
-                                        </a>
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div class="service-icon-text service-text-icon-active col-lg-3 col-md-3 col-3">
-                                        <a asp-action="Login" asp-controller="Authentications" class="d-flex">
-                                            <div class="service-icon floatleft">
-                                                <i class="fa fa-user HeadUser" style=""></i>
-                                            </div>
-                                            <div class="service-text floatright d-none d-sm-none d-md-block pl-2">
-                                                <h3>My Account</h3>
-                                                <p></p>
-                                            </div>
-                                        </a>
-                                    </div>
-
-                                    <div class="service-icon-text service-text-icon-active col-lg-3 col-md-3 col-3">
-                                        <a asp-action="Login" asp-controller="Authentications" class="d-flex">
-                                            <div class="service-icon floatleft">
-                                                <img class="BagImg" src="~/img/shoppingbagWhite-fotor-bg-remover-orignal.png" style="">
-                                                @*<i class="fa fa-bag-shopping fa-shopping-bag"></i>*@
-                                            </div>
-                                            <div class="service-text floatright d-none d-sm-none d-md-block pl-2">
-                                                <h3>My Order</h3>
-                                                <p></p>
-                                            </div>
-                                        </a>
-                                    </div>
-
-                                    <div class="service-icon-text service-text-icon-active col-lg-3 col-md-3 col-3 ">
-                                        <a asp-action="Login" asp-controller="Authentications" class="d-flex">
-                                            <div class="service-icon floatleft">
-                                                <i class="fa fa-heart headHeart" style=""></i>
-                                            </div>
-                                            <div class="service-text floatright d-none d-sm-none d-md-block pl-2">
-                                                <h3>My Wishlist</h3>
-                                                <p></p>
-                                            </div>
-                                        </a>
-                                    </div>
-                                }
-
-                                @await Component.InvokeAsync("Cart")
-
-                                @*<div class="service-icon-text service-text-icon-active">
-                                        <a href="cart.html" class="d-flex">
-                                            <div class="service-icon floatleft">
-                                                <i class="fa fa-shopping-cart"></i>
-                                            </div>
-                                            <div class="service-text floatright pl-2">
-                                                <h3>My Cart</h3>
-                                                <p>3 items £ 88.81</p>
-                                            </div>
-                                        </a>
-                                        <div class="add-to-cart-product pull-right">
-                                            <div class="cart-product product-item11">
-                                                <div class="cart-product-image">
-                                                    <a href="single-product.html"><img src="img/cart/faded-short-sleeves-tshirt.jpg" alt="Product"></a>
-                                                </div>
-                                                <div class="cart-product-info">
-                                                    <p><span>1</span>x<a href="single-product.html">Faded...</a></p>
-                                                    <a href="single-product.html">S, Orange</a>
-                                                    <span class="price">£ 19.81</span>
-                                                </div>
-                                                <div class="cart-product-remove">
-                                                    <i class="fa fa-times"></i>
-                                                </div>
-                                            </div>
-                                            <div class="cart-product">
-                                                <div class="cart-product-image">
-                                                    <a href="single-product.html"><img src="img/cart/blouse.jpg" alt="Product"></a>
-                                                </div>
-                                                <div class="cart-product-info">
-                                                    <p><span>1</span>x<a href="single-product.html">blouse</a></p>
-                                                    <a href="single-product.html">S, Black</a>
-                                                    <span class="price">£ 32.40</span>
-                                                </div>
-                                                <div class="cart-product-remove">
-                                                    <i class="fa fa-times"></i>
-                                                </div>
-                                            </div>
-                                            <div class="cart-product">
-                                                <div class="cart-product-image">
-                                                    <a href="single-product.html"><img src="img/cart/printed-summer-dress.jpg" alt="Product"></a>
-                                                </div>
-                                                <div class="cart-product-info">
-                                                    <p><span>1</span>x<a href="single-product.html">Printed...</a></p>
-                                                    <a href="single-product.html">S, Yellow</a>
-                                                    <span class="price">£ 36.60</span>
-                                                </div>
-                                                <div class="cart-product-remove">
-                                                    <i class="fa fa-times"></i>
-                                                </div>
-                                            </div>
-                                            <div class="cart-price">
-                                                <div class="cart-product-line fast-line">
-                                                    <span>Shipping</span>
-                                                    <span class="free-shiping">Free shipping!</span>
-                                                </div>
-                                                <div class="cart-product-line">
-                                                    <span>Total</span>
-                                                    <span class="total">£ 88.81</span>
-                                                </div>
-                                            </div>
-                                            <div class="cart-checkout">
-                                                <a href="checkout.html">Check out<i class="fa fa-chevron-right"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>*@
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-6 mb-30 mt-4">
+                        <div class="footer-widget">
+                            <div class="footer-widget-heading">
+                                <h3>Categories</h3>
+                            </div>
+                            <ul>
+                                <li><a href="#">Home decor</a></li>
+                                <li><a href="#">Electronic</a></li>
+                                <li><a href="#">Grocery</a></li>
+                                <li><a href="#">Appliances</a></li>
+                                <li><a href="#">Beauty & Toy</a></li>
+                                <li><a href="#">Clothing</a></li>
+                                <li><a href="#">Accesories</a></li>
+                                <li><a href="#">Footwear</a></li>
+                                <li><a href="category.html">More</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-6 mb-30 mt-4">
+                        <div class="footer-widget">
+                            <div class="footer-widget-heading">
+                                <h3>Subscribe</h3>
+                            </div>
+                            <div class="footer-text mb-25">
+                                <p>Don’t miss to subscribe to our new feeds, kindly fill the form below.</p>
+                            </div>
+                            <div class="subscribe-form">
+                                <form action="#">
+                                    <input type="text" placeholder="Email Address">
+                                    <button><i class="fab fa-telegram-plane"></i></button>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
-                @await Component.InvokeAsync("MegaMenu")
-            </div>
-            <!-- End header meddil -->
-        </header>
-        <!-- End header -->
-        @RenderBody()
-        <!-- Start footer area -->
-        <footer>
-            <!-- Start footer top area -->
-            <div class="footer-top-area">
-                <div class="container">
-                    <div class="footer-top">
-                        <div class="row">
-                            <div class="col-lg-4 col-md-4">
-                                <div class="footer-logo">
-                                    @await Component.InvokeAsync("VendorLogo")
-                                    @*<a href="index.html"><img src="img/footer-logo.png" alt="footer logo"></a>*@
-                                </div>
-                                <div class="footer-top-sociul">
-                                    @*<p>
-                                            <a href="#"><i class="fa fa-facebook"></i></a>
-                                            <a href="#"><i class="fa fa-twitter"></i></a>
-                                            <a href="#"><i class="fa fa-rss"></i></a>
-                                            <a href="#"><i class="fa fa-google-plus"></i></a>
-                                        </p>*@
-                                </div>
-                            </div>
-                            <div class="col-lg-8 col-md-8">
-                                <div class="footer-top-about-us">
-                                    <h4><span>ABOUT US</span></h4>
-                                    <p>shoppite is a provide of highly features android and ios app and also provide web. This platform through increase your business. </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- End footer top area -->
-            <!-- Start footer center area -->
-            <div class="footer-center-area">
-                <div class="container">
-                    <div class="footer-center">
-                        <div class="row">
-                            @await Component.InvokeAsync("FooterDetails")
-                            @*<div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-40">
-                                    <div class="footer-center-title">
-                                        <h4><span>Categories</span></h4>
-                                    </div>
-                                    <div class="footer-center-categoris">
-                                        <ul>
-                                            <li><a href="shop-grid.html">Electronic</a></li>
-                                            <li><a href="shop-grid.html">phones</a></li>
-                                            <li><a href="shop-grid.html">fashion</a></li>
-                                            <li><a href="shop-grid.html">Tablets</a></li>
-                                            <li><a href="shop-grid.html">Sport</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-40">
-                                    <div class="footer-center-title">
-                                        <h4><span>My account</span></h4>
-                                    </div>
-                                    <div class="footer-center-categoris">
-                                        <ul>
-                                            <li><a href="#">My orders</a></li>
-                                            <li><a href="#">My credit slips</a></li>
-                                            <li><a href="#">My addresses</a></li>
-                                            <li><a href="#">My personal</a></li>
-                                        </ul>
-                                    </div>
-                                </div>*@
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-40">
-                                <div class="footer-center-title">
-                                    <h4><span>Newsletter</span></h4>
-                                </div>
-                                <div class="newslettei-from">
-                                    <p>Subscribe to the ShopPite mail list to receive updates on new arrivals, special offers and other discount information.</p>
-                                    <form method="get" enctype="multipart/form-data">
-                                        <div class="form-group">
-                                            <input type="email" placeholder="Enter your e-mail" size="18" name="email" id="newsletter-input" class="inputNew form-control grey newsletter-input">
-                                            <button class="btn btn-default button button-small" asp-action="News_Letter_Submit" asp-controller="Home" name="submitNewsletter" type="submit"><i class="fa fa-chevron-right"></i></button>
-                                            <p style="margin-top: -20px; color: #fe5b5a;" class="font-weight-bold">@TempData["EmailError"]</p>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Start footer center area -->
-            <!-- Start footer menu area -->
-            <div class="footer-menu-area">
-                <div class="container">
-                    <div class="footer-menu-and-card">
-                        <div class="row">
-                            <div class="col-md-8 col-12 pull-left">
-                                <div class="footer-card pull-left">
-                                    <div class="footer-copyright">
-                                        <p>Copyright &copy; 2023 <a href="https://shooppy.in/" target="_blank">Shooppy</a>. All rights reserved.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-12 pull-right">
-                                <div class="footer-menu">
-                                    <nav>
-                                        <ul>
-                                            <li><a asp-controller="Home" asp-action="TermsAndCondition">Terms & Conditions</a></li>
-                                            <li><a asp-controller="Home" asp-action="PrivacyPolicy">Privacy Policy</a></li>
-                                        </ul>
-                                    </nav>
-                                </div>
-                            </div>
-
-                        </div>
-            </div>
-                </div>
-            </div>
-            <!-- End footer menu area -->
-            <!-- Start footer copyright area -->
-        <div class="footer-copyright-area">
-            <div class="container">
-                
-            </div>
-            <div class="scroll-to-top">@await Component.InvokeAsync("ChatBot")</div>
-            <div class="scroll-to-top-2 pull-right d-inline">
-                <a href="#" class="bstore-scrollertop mb-3">
-                 <i class="fa fa-arrow-up"></i>
-                </a>
             </div>
         </div>
-            <!-- Start footer copyright area -->
-        </footer>
-        <!-- End footer area -->
+        <div class="copyright-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 text-center text-lg-left">
+                        <div class="copyright-text">
+                            <p>
+                                Copyright &copy;
+                                <script>document.write(new Date().getFullYear());</script> All Right Reserved <a class="shooppylink"
+                                                                                                                 href="https://shooppy.in/">Shooppy</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 d-none d-lg-block text-right">
+                        <div class="footer-menu">
+                            <ul>
+                                <li><a href="mainpage.html">Home</a></li>
+                                <li><a href="#">Offers</a></li>
+                                <li><a href="whishlist.html">Whishlist</a></li>
+                                <li><a href="cartpage.html">My Bag</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--footerSection-end-->
+    <!--offercardSection-start-->
+    <div class="container mainpageoffercard">
+        <div class="card mainpageoffer">
+            <div class="form">
+                <div class="left-side">
+                    <span class="triangle "></span>
+                    <div class="flattext">
+                        <h2 class="cardtextheading">FLAT ₹400 OFF</h2>
+                    </div>
+                </div>
+                <div class="right-side">
+                    <div class="upper-content">
+                        <div class="flat">
+                            <p>AVAIL FLAT</p>
+                            <h3>₹400 OFF</h3>
+                            <h4>+ FREE DELIVERY</h4>
+                        </div>
+                        <img src="~/img/Shooppy.in11.webp" width="40px" height="40px">
+                    </div>
+                    <div class="middle-content">
+                        <div class="coupon">
+                            <h4>Coupon code : </h4>
+                            <h3>Shooppy ₹400</h3>
+                            <p>Applicable on your first order</p>
+                        </div>
+                        <button>Sign up now</button>
+                    </div>
+                    <hr>
+                    <div class="last">
+                        <div class="quality">
+                            <img src="https://imgur.com/a0TMZC7.jpg">
+                            <p>Genuine Products</p>
+                        </div>
+                        <div class="quality">
+                            <img src="https://imgur.com/8IZhLGS.jpg">
+                            <p>Try & Buy</p>
+                        </div>
+                        <div class="quality">
+                            <img src="https://imgur.com/TezkMX1.jpg">
+                            <p>Easy Exchanges</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <partial name="_ValidationScriptsPartial" />
+    <!--offercardSection-end-->
 
-    <!-- End main area -->
-    <!-- JS -->
-    <!-- jquery -->
-    <script src="~/js/vendor/jquery-3.5.1.min.js"></script>
-    <script src="~/js/vendor/jquery-migrate-3.3.0.min.js"></script>
-    <script src="~/plugins/select2/js/select2.min.js"></script>
-    <!-- bootstrap js
-    ============================================ -->
-    <script src="~/js/bootstrap.min.js"></script>
-
-    <!-- jquery.nivo.slider.pack.3.2 js
-    ============================================ -->
-    <script src="~/js/jquery.nivo.slider.pack.3.2.js"></script>
-
-    <!-- owl.carousel.min js
-    ============================================ -->
-    <script src="~/js/owl.carousel.min.js"></script>
-
-    <!-- jqueryui js
-    ============================================ -->
-    <script src="~/js/jquery.fancybox.js"></script>
-    <script src="~/js/jqueryui.js"></script>
-
-    <!-- jquery.meanmenu js
-    ============================================ -->
-    <script src="~/js/jquery.meanmenu.js"></script>
-
-    <!-- wow js
-    ============================================ -->
-    <script src="~/js/wow.js"></script>
-
-    <script src="~/plugins/select2/js/select2.min.js"></script>
-    <!-- plugins js
-    ============================================ -->
-    <script src="~/js/plugins.js"></script>
-
-    <!-- main js
-    ============================================ -->
-    <script src="~/js/main.js"></script>
-
-    <script src="https://sdk.cashfree.com/js/ui/2.0.0/cashfree.sandbox.js"></script>
-    @* <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>*@
-    <script>
-        //$(document).ready(function () {
-        //    //$('#loader').css('display', 'none');
-        //    //  $('#wrapper').css('display', 'block');
-        //    $(".main-area").attr("style", "display: none;");
-
-        //});
-
-        $(window).on('load', function () {
-            //  $(".slider-area").attr
-            $(".containers").fadeOut("slow");
-            // $(".container").remove.attr("style", "display:initial");
-            /* pointer - events: none;*/
-            $(".main-area").removeAttr("style", "filter: blur(20px)");
-        });
-    </script>
-    @await RenderSectionAsync("Scripts", required: false)
 </body>
+
+<partial name="_Scripts" />
 
 </html>

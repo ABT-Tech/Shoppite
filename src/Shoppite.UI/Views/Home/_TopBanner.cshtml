@@ -1,47 +1,116 @@
 ﻿@model Shoppite.Application.Models.MainModel
-@if (Model.TopBanner.Count == 0)
-{
-    @if (Model.BannersByCategory.Count == 0)
-    {
-        @if (Model.CategoryBanner != null)
-        {
-            @foreach (var image in Model.CategoryBanner)
+    <!--main slider-start-->
+<section class="section section-sm section-first bg-default">
+    <div class="container-fluid">
+        <div class="slideshow-container">
+            @if (Model.TopBanner.Count == 0)
             {
-                if (image.Banner != null)
+                @if (Model.BannersByCategory.Count == 0)
                 {
-                    <a asp-action="AllProducts" asp-route-CategoryId="@image.CategoryId"><img src="@image.Banner" alt="slider image" class="rounded-3" /></a>
+                    @if (Model.CategoryBanner != null)
+                    {
+                        @foreach (var image in Model.CategoryBanner)
+                        {
+                            if (image.Banner != null)
+                            {
+                                <div class="mySlides fade">
+                                    <div class="numbertext">1 / 3</div>
+                                    <a asp-action="AllProducts" asp-route-CategoryId="@image.CategoryId"><img src="@image.Banner" style="width:100%" /></a>
+
+                                    <!-- <div class="text">Caption Text</div> -->
+                                </div>
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    @if (Model.BannersByCategory != null)
+                    {
+                        @foreach (var image in Model.BannersByCategory)
+                        {
+                            if (image.Banner != null)
+                            {
+                                <div class="mySlides fade">
+                                    <div class="numbertext">1 / 3</div>
+                                    <a asp-action="AllProducts" asp-route-CategoryId="@image.CategoryId"><img src="@image.Banner" style="width:100%" /></a>
+                                </div>
+                            }
+                        }
+                    }
+
                 }
             }
+            else
+            {
+                @if (Model.TopBanner != null)
+                {
+                    @foreach (var image in Model.TopBanner)
+                    {
+                        if (image.Image != null)
+                        {
+                            <div class="mySlides fade">
+                                <div class="numbertext">1 / 3</div>
+                                <a asp-action="AllProducts" asp-route-CategoryId="@image.CategoryId"><img src="@image.Image" style="width:100%" /></a>
+                            </div>
+
+                        }
+                    }
+                }
+            }
+        </div>
+        <br>
+        <div style="text-align:center">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </div>
+</section>
+<!--main slider-end-->
+@*  @if (Model.TopBanner.Count == 0)
+    {
+        @if (Model.BannersByCategory.Count == 0)
+        {
+            @if (Model.CategoryBanner != null)
+            {
+                @foreach (var image in Model.CategoryBanner)
+                {
+                    if (image.Banner != null)
+                    {
+                        <a asp-action="AllProducts" asp-route-CategoryId="@image.CategoryId"><img src="@image.Banner" alt="slider image" class="rounded-3" /></a>
+                    }
+                }
+            }
+        }
+        else
+        {
+            @if (Model.BannersByCategory != null)
+            {
+                @foreach (var image in Model.BannersByCategory)
+                {
+                    if (image.Banner != null)
+                    {
+                        <a asp-action="AllProducts" asp-route-CategoryId="@image.CategoryId"><img src="@image.Banner" alt="slider image" class="rounded-3" /></a>
+                    }
+                }
+            }
+
         }
     }
     else
     {
-        @if (Model.BannersByCategory != null)
+        @if (Model.TopBanner != null)
         {
-            @foreach (var image in Model.BannersByCategory)
+            @foreach (var image in Model.TopBanner)
             {
-                if (image.Banner != null)
+                if (image.Image != null)
                 {
-                    <a asp-action="AllProducts" asp-route-CategoryId="@image.CategoryId"><img src="@image.Banner" alt="slider image" class="rounded-3" /></a>
+                    <a asp-action="AllProducts" asp-route-CategoryId="@image.CategoryId"><img src="@image.Image" alt="slider image" class="rounded-3" /></a>
                 }
             }
-        }
 
-    }
-}
-else
-{
-    @if (Model.TopBanner != null)
-    {
-        @foreach (var image in Model.TopBanner)
-        {
-            if (image.Image != null)
-            {
-                <a asp-action="AllProducts" asp-route-CategoryId="@image.CategoryId"><img src="@image.Image" alt="slider image" class="rounded-3" /></a>
-            }
         }
-
-    }
-}
+    }*@
 
 

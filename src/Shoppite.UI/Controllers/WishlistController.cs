@@ -38,24 +38,24 @@ namespace Shoppite.UI.Controllers
             string userName = User.Identity.Name;
             var brands = await _BrandPageService.GetBrands(OrgId);
             brands.CategoryMaster = await _categoryPageService.DisplayLogo(OrgId);
-            brands.Categories = await _categoryPageService.GetCategories(CategoryId,OrgId);
+            brands.Categories = await _categoryPageService.GetCategories(CategoryId, OrgId);
             brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
-            brands.Wishlists=await _productWishListService.GetWishList(userName, OrgId);
-            return View(brands);
+            brands.Wishlists = await _productWishListService.GetWishList("jayshreesolanki199@gmail.com", OrgId);
+            return View();
         }
          
         [HttpPost]
         public async Task<IActionResult> Wishlist(MainModel wishlist, int id)
         {
-            var ipadresss = _accessor.HttpContext.Connection.RemoteIpAddress.ToString();
+           /* var ipadresss = _accessor.HttpContext.Connection.RemoteIpAddress.ToString();
             int OrgId = _commonHelper.GetOrgID(HttpContext);
             string userName = User.Identity.Name;
             wishlist.OrgId = OrgId;
             wishlist.Ip = ipadresss;
             wishlist.UserName = userName;  
             await _productWishListService.AddWishList(wishlist, id);
-            wishlist.Wishlists = await _productWishListService.GetWishList(userName, OrgId);
-            return View(wishlist);
+            wishlist.Wishlists = await _productWishListService.GetWishList(userName, OrgId);*/
+            return View();
         }
     }
 }
