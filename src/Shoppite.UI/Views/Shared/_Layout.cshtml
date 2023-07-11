@@ -89,8 +89,8 @@
                             style="margin: 10px 20px 0px 0px;">
                         <a href="orderpage.html"><img src="~/img/shopping-bag.png" alt="shoppingbagimge" /></a>
                     </button>
-                    <button  data-toggle="tooltip" data-placement="top" title="Whishlist" class="round-3">
-                        <a  asp-action="Wishlist" asp-controller="Wishlist"><img src="~/img/heart.svg" alt="shoppingbagimge" width="30" height="30" /></a>
+                    <button data-toggle="tooltip" data-placement="top" title="Whishlist" class="round-3">
+                        <a asp-action="Wishlist" asp-controller="Wishlist"><img src="~/img/heart.svg" alt="shoppingbagimge" width="30" height="30" /></a>
                     </button>
                     <div class="dropdown">
                         <button data-toggle="tooltip" data-placement="top" title="My Account" class="round-3 dropbtn"
@@ -293,9 +293,10 @@
         </div>
     </div>
     <!--offercardSection-end-->
-
+    <partial name="_Scripts" />
+    <partial name="_ValidationScriptsPartial" />
 </body>
+@await RenderSectionAsync("Scripts", required: false)
 
-<partial name="_Scripts" />
 
 </html>

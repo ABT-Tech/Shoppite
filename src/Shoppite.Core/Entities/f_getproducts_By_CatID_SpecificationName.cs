@@ -6,12 +6,9 @@ namespace Shoppite.Core.Entities
 {
     public class f_getproducts_By_CatID_SpecificationName
     {
-
         public string image { get; set; }
         public int ProductId { get; set; }
         public int SpecificationId { get; set; }
-     //   public int AttributeId { get; set; }
-     //   public string AttributeName { get; set; }
         public Nullable<System.Guid> ProductGUID { get; set; }
         public string SpecificationName { get; set; }
         public string ProductName { get; set; }
@@ -33,19 +30,10 @@ namespace Shoppite.Core.Entities
         public Nullable<decimal> OldPrice { get; set; }
         public string maincaturlpath { get; set; }
         public Nullable<int> maincatid { get; set; }
-        //public int StatusId { get; set; }
-      //  public string deals { get; set; }
-      //  public string badgestatus { get; set; }
-      //  public string CurrencyName { get; set; }
-       // public string shopname { get; set; }
-      //  public string ShopURLPath { get; set; }
-     //   public string logo { get; set; }
         public string brands { get; set; }
         public string brandsurlpath { get; set; }
         public string UserName { get; set; }
         public int brandid { get; set; }
-       // public string status { get; set; }
-      //  public Nullable<int> totalpick { get; set; }
 
     }
 }

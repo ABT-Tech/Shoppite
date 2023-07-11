@@ -104,6 +104,7 @@ namespace Shoppite.Infrastructure.Data
         public virtual DbSet<f_getproduct_CartDetails_By_Orgid> F_Getproduct_CartDetails_By_Orgid { get; set; }
         public virtual DbSet<f_order_master> F_Order_Master { get; set; }
         public virtual DbSet<f_order_masterDetails> f_order_masterDetails { get; set; }
+        public virtual DbSet<SP_GetSimilarProducts> SP_GetSimilarProducts { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -1373,6 +1374,10 @@ namespace Shoppite.Infrastructure.Data
                 entity.HasNoKey();
             });
             modelBuilder.Entity<f_order_masterDetails>(entity =>
+            {
+                entity.HasNoKey();
+            });
+            modelBuilder.Entity<SP_GetSimilarProducts>(entity =>
             {
                 entity.HasNoKey();
             });

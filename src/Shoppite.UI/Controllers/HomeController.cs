@@ -44,7 +44,7 @@ namespace Shoppite.UI.Controllers
             brands.MiddelBanner = await _categoryPageService.GetMiddelBannerImage(OrgId);
             brands.TopBanner = await _categoryPageService.GetTopBannerImage(OrgId);
             brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
-            brands.Categories = await _categoryPageService.GetCategories(CategoryId,OrgId);
+            brands.Categories = await _categoryPageService.GetCategories(OrgId);
             brands.BottomBanner = await _categoryPageService.GetBottomBanner(OrgId);
             brands.BannersByCategory = await _categoryPageService.GetBannerByCategory(OrgId);
             brands.CategoryBanner = await _categoryPageService.GetCategoryBannerImage(OrgId);
@@ -59,7 +59,7 @@ namespace Shoppite.UI.Controllers
             brands.MiddelBanner = await _categoryPageService.GetMiddelBannerImage(OrgId);
             brands.TopBanner = await _categoryPageService.GetTopBannerImage(OrgId);
             brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
-            brands.Categories = await _categoryPageService.GetCategories(CategoryId, OrgId);
+            brands.Categories = await _categoryPageService.GetCategories(OrgId);
             brands.BottomBanner = await _categoryPageService.GetBottomBanner(OrgId);
             brands.BannersByCategory = await _categoryPageService.GetBannerByCategory(OrgId);
             brands.CategoryBanner = await _categoryPageService.GetCategoryBannerImage(OrgId);
@@ -83,17 +83,18 @@ namespace Shoppite.UI.Controllers
            var AA = await _BrandPageService.Get_Product_By_Cat(ID);
             return Json(AA.f_getproducts_By_CatIdModel);
         }
-        public async Task<IActionResult> AllProducts(int CategoryId)
+        public async Task<IActionResult> AllProducts(string CategoryId)
         {
             int OrgId = _commonHelper.GetOrgID(HttpContext);
             var brands = await _BrandPageService.GetBrands(OrgId);
             brands.CategoryMaster = await _categoryPageService.DisplayLogo(OrgId);
             brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
-            brands.Categories = await _categoryPageService.GetCategories(CategoryId, OrgId);
-            brands.Product_specification = await _categoryPageService.GetAllProductByCategory(CategoryId,OrgId);
+            brands.Categories = await _categoryPageService.GetCategories(OrgId);      
+           // brands.SP_GetSimilarProducts = await _categoryPageService.GetSimilarProducts(CategoryId, BrandId, OrgId);
+            brands.Product_specification = await _categoryPageService.GetAllProductByCategory(CategoryId, OrgId);
             if (User.Identity.Name != null)
             {
-              brands.Wishlists = await _wishlistPageService.GetWishList("jayshreesolanki199@gmail.com", OrgId);
+              brands.Wishlists = await _wishlistPageService.GetWishList("amithakkar991@gmail.com", OrgId);
             }
 
             brands.Attributes = await _categoryPageService.GetAllAttributes(OrgId);
@@ -101,8 +102,9 @@ namespace Shoppite.UI.Controllers
             return View(brands);
         }
         [HttpGet]
-        public async Task<IActionResult> _ProductsByAttribute(int CategoryId, string SpecificationName)
+        public async Task<IActionResult> _ProductsByAttribute(string CategoryId, string SpecificationName)
         {
+            //var catid=Convert.ToInt32(CategoryId);
             int OrgId = _commonHelper.GetOrgID(HttpContext);
             MainModel model = new MainModel();
             if(SpecificationName!=null)
@@ -111,7 +113,7 @@ namespace Shoppite.UI.Controllers
             }
             else
             {
-                model.Product_specification = await _categoryPageService.GetAllProductByCategory(CategoryId,OrgId);
+                model.Product_specification = await _categoryPageService.GetAllProductByCategory(CategoryId, OrgId);
             }
             return PartialView(model);
         }
@@ -146,6 +148,29 @@ namespace Shoppite.UI.Controllers
         public ActionResult PrivacyPolicy()
         {
             return View();
+        }
+        public async Task<IActionResult> PieChart()
+        {
+            var orgId = _commonHelper.GetOrgID(HttpContext);
+            var piechart = await _categoryPageService.GetProductList(orgId);
+            return Json(piechart);
+        }
+        public async Task<IActionResult> AddToWhishList(int ProductId, Guid id,int CategoryId)
+        {
+            int OrgId = _commonHelper.GetOrgID(HttpContext);
+            MainModel mainModel = new MainModel();
+            mainModel.ProductId = ProductId;
+            mainModel.OrgId = OrgId;
+
+            await _wishlistPageService.AddtowhishList(mainModel);
+            return RedirectToAction("AllProducts", new { CategoryId = CategoryId });
+        }
+        public async Task<IActionResult> _SimilarProduct(string CategoryId,int BrandId)
+        {
+            MainModel model = new MainModel();
+            int OrgId = _commonHelper.GetOrgID(HttpContext);
+            model.SP_GetSimilarProducts = await _categoryPageService.GetSimilarProducts(CategoryId, BrandId, OrgId);
+            return PartialView(model);
         }
     }
 }

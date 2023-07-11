@@ -233,23 +233,7 @@
     </div>
 </section>
 <!--toppicksSection-end-->
-<!--gifbannerSection-start-->
-<section class="section section-sm section-first bg-default text-center">
-    <div class="container-fluid">
-        <div class="row " style="padding: 30px 0px -50px 0px;">
-            <div class="col-12 col-lg-6 col-md-12 mt-4">
-                <img src="~/img/deal_2.png" alt="Addbanner" width="100%" style="border-radius: 10px;">
-            </div>
-            <div class="col-12 col-lg-6 col-md-12 mt-4">
-                <img src="~/img/deal_1630.gif" alt="Addbanner" width="100%" style="border-radius: 10px;">
-            </div>
-            <div class="col-12 col-lg-12 col-md-12 mt-4">
-                <img src="~/img/boy_try_1.png" alt="Addbanner" width="100%" style="border-radius: 10px;">
-            </div>
-        </div>
-    </div>
-</section>
-<!--gifbannerSection-end-->
+@await Html.PartialAsync("_MiddelBanner", Model)
 <!--featuredbrandSection-start-->
 <section class="section section-sm section-first bg-default text-center">
     <div class="container-fluid">
@@ -498,17 +482,7 @@
     </div>
 </section>
 <!--NEWCATEGORIESSection-end-->
-<!--gifbannerSection-start-->
-<section class="section section-sm section-first bg-default text-center">
-    <div class="container-fluid">
-        <div class="row " style="padding: 30px 0px -50px 0px;">
-            <div class="col-12 col-lg-12 col-md-12 mt-4">
-                <img src="~/img/boy_try_1.png" alt="Addbanner" width="100%" style="border-radius: 10px;">
-            </div>
-        </div>
-    </div>
-</section>
-<!--gifbannerSection-end-->
+@await Html.PartialAsync("_BottomBanner", Model)
 <!--brandslashedSection-start-->
 <section class="section section-sm section-first bg-default text-center">
     <div class="container-fluid">

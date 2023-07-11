@@ -4,7 +4,18 @@
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<!--gifbannerSection-start-->
+<section class="section section-sm section-first bg-default text-center">
+    <div class="container-fluid">
+        <div class="row " style="padding: 30px 0px -50px 0px;">
+            <div class="col-12 col-lg-12 col-md-12 mt-4">
+                <img class="offerbennertop" src="~/img/discount.gif" alt="Addbanner" width="100%"
+                     style="border-radius: 10px;">
+            </div>
+        </div>
+    </div>
+</section>
+<!--gifbannerSection-end-->
 <!--whishlistSection-start-->
 <section class="section section-sm section-first bg-default text-center">
     <div class="container-fluid">
@@ -24,8 +35,9 @@
                             <div class="col-12 col-md-6 col-lg-3  wishlistcardmob">
                                 <div class="whishlistcard" style="width: 16rem;">
                                     <span id="heart-third" class="whishlistcardheart">
-                                        <i onclick="wishList()"
-                                           class="fas fa-trash-alt text-center" style="margin-top: 10px;"></i>
+                                       <a onclick="wishList()" asp-action="Wishlist" class="removewish" asp-controller="Wishlist" data-product="@wishlist.ProductId">
+                                        <i  class="fas fa-trash-alt text-center" style="margin-top: 10px;color:black"></i>
+                                       </a> 
                                     </span>
                                     <img src="@wishlist.CoverImage" class="first-image whishlistcardheart-first-image">
                                     <div class="whishlistcard-body mb-3">
@@ -37,21 +49,19 @@
                                             @wishlist.ProductName
                                         </p>
                                         <p class="font-weight-bold m-0">
-                                            ₹@wishlist.Price <span class="text-decoration-line-through"
-                                                                   style="color: darkgrey;">₹@wishlist.OldPrice</span> <span class="ml-1 text-success">
-                                                                    40%
-                                                                    off
-                                                                </span>
-                                                            </p>
-                                                            <p class="m-0">Size: <span class="font-weight-bold">Medium</span></p>
-                                                            <p class="m-0">Color: <span class="font-weight-bold">Pink</span></p>
-                                                            <button type="button" class="buttonwishlistalignment" onclick="addCart()">
-                                                                <i class="fa-solid fa-cart-shopping fa-shake"></i> Move To Bag
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            }}
+                                            ₹@wishlist.Price
+                                            <span class="text-decoration-line-through" style="color: darkgrey;">₹@wishlist.OldPrice</span> <span class="ml-1 text-success">40%   off</span>
+                                        </p>
+                                        <p class="m-0">Size: <span class="font-weight-bold">Medium</span></p>
+                                        <p class="m-0">Color: <span class="font-weight-bold">Pink</span></p>
+                                        <button type="button" class="buttonwishlistalignment" onclick="addCart()">
+                                            <i class="fa-solid fa-cart-shopping fa-shake"></i> Move To Bag
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                         }
+                    }
                 </div>
 
             </div>
@@ -60,3 +70,24 @@
     </div>
 </section>
 <!--whishlistSection-end-->
+@section Scripts{ 
+    <script>
+     $('.removewish').click(function (e)
+    {
+        e.preventDefault();
+        var el = $(this),
+            icon = el.find('i'),
+            productId = el.data("product")
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("Wishlist", "Wishlist")',
+            data: {
+                "id": productId
+            },
+            success: function (data) {
+                window.location.reload();
+        }
+         });
+    });
+    </script>
+}

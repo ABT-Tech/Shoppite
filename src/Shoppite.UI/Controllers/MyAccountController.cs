@@ -39,7 +39,7 @@ namespace Shoppite.UI.Controllers
             int OrgId = _commonHelper.GetOrgID(HttpContext);
             int Profileid = await _myAccountPageService.GetProfileId(User.Identity.Name,OrgId);
             var brands = await _brandPageService.GetBrands(OrgId);
-            brands.Categories = await _categoryPageService.GetCategories(CategoryId, OrgId);
+            brands.Categories = await _categoryPageService.GetCategories(OrgId);
             brands.CategoryMaster = await _categoryPageService.DisplayLogo(OrgId);
             brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
             brands.Myaccount = await _myAccountPageService.GetMyAccountDetail(OrgId, Profileid);
@@ -52,7 +52,7 @@ namespace Shoppite.UI.Controllers
             int Profileid = await _myAccountPageService.GetProfileId(User.Identity.Name,OrgId);
             var brands=await _myAccountPageService.GetProfileByProfileId(Profileid);
             brands.CategoryMaster = await _categoryPageService.DisplayLogo(OrgId);
-            brands.Categories = await _categoryPageService.GetCategories(CategoryId, OrgId);
+            brands.Categories = await _categoryPageService.GetCategories(OrgId);
             brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
             brands.Myaccount = await _myAccountPageService.GetMyAccountDetail(OrgId, Profileid);
             return View(brands);
@@ -80,7 +80,7 @@ namespace Shoppite.UI.Controllers
             int Profileid = await _myAccountPageService.GetProfileId(User.Identity.Name,OrgId);
             var brands = await _myAccountPageService.GetProfileByProfileId(Profileid);
             brands.CategoryMaster = await _categoryPageService.DisplayLogo(OrgId);
-            brands.Categories = await _categoryPageService.GetCategories(CategoryId, OrgId);
+            brands.Categories = await _categoryPageService.GetCategories(OrgId);
             brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
             brands.Myaccount = await _myAccountPageService.GetMyAccountDetail(OrgId, Profileid);
             return View(brands);

@@ -1,0 +1,54 @@
+﻿@model Shoppite.Application.Models.MainModel
+    <!--productslist-single-products-list-similer products model-Section-start-->
+@foreach (var similarproduct in Model.SP_GetSimilarProducts)
+{
+    <div class="col-6 col-lg-4 col-md-4">
+        <div class="wrapper">
+            <div class="card products-listcard"
+                 style="border-radius: 10px; box-shadow: 0px 2px 0px 2px #aed4f0;">
+                <span class="off">-25% OFF</span>
+
+                <div class="text-center">
+                    <img id="main-image"
+                         src="@similarproduct.Image"
+                         class="prolistimagelarge" />
+                </div>
+                <span class="whislistpro mt-5">
+                    <a class="whislistprobutton"
+                       data-toggle="tooltip" data-placement="top" href="/Home/AddToWhishList?ProductId=@similarproduct.Id&id=@similarproduct.ProductGUID&CategoryId=@similarproduct.CategoryId"
+                       title="Move To Wishlist">
+                        <i class="fa fa-heart"
+                           style="width: 20px; height: 20px; color: #000000;"></i>
+                    </a>
+                </span>
+                <span class="cartpro mt-5">
+                    <button class="cartprobutton"
+                            data-toggle="tooltip" data-placement="bottom"
+                            title="Move To Bag">
+                        <i class="fa fa-shopping-cart"
+                           style="width: 20px; height: 20px; color: #000000;"></i>
+                    </button>
+                </span>
+                <div class="about text-center">
+                    <h6 class="prolistcardname mt-2">@similarproduct.Brand</h6>
+                    <h6 class="prolistcardname">
+                        <a href="Productdetailspage.html"
+                           class="productnamelink">
+                            @similarproduct.Title
+                        </a>
+                    </h6>
+                    <p class="font-weight-bold m-0 responsivestar"
+                       style="color: orangered;">
+                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                        <span style="color: darkgrey;">250</span>
+                    </p>
+                    <p class="font-weight-bold m-0 responsiveprice">
+                        ₹@similarproduct.Price <span class="text-decoration-line-through"
+                                                     style="color: darkgrey;">₹@similarproduct.OldPrice</span> <span class="ml-1 text-success">(37% off)</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+ }
+<!--productslist-single-products-list-similer products model-Section-end-->  

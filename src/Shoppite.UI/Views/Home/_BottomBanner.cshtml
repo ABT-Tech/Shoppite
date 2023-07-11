@@ -1,22 +1,15 @@
 ﻿@model Shoppite.Application.Models.MainModel
-<style>
-    #bottomimg {
-        margin-top: 22px;
-    }
-</style>
-@foreach (var image in Model.BottomBanner.TakeLast(1))
-{
-    <div class="static-blog-area">
-        <div class="container">
-            <div class="image-static">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="static-blog-image">
-                            <a asp-action="AllProducts" asp-route-CategoryId="@image.CategoryId" ><img id="bottomimg" src="@image.Image" alt=""></a>
-                        </div>
-                    </div>
+<!--gifbannerSection-start-->
+<section class="section section-sm section-first bg-default text-center">
+    <div class="container-fluid">
+        <div class="row " style="padding: 30px 0px -50px 0px;">
+            @foreach (var image in Model.BottomBanner.TakeLast(1))
+            {
+                <div class="col-12 col-lg-12 col-md-12 mt-4">
+                    <a asp-action="AllProducts" asp-route-CategoryId="@image.CategoryId"><img src="@image.Image" alt="Addbanner" width="100%" style="border-radius: 10px;"></a>
                 </div>
-            </div>
+            }
         </div>
     </div>
-}
+</section>
+<!--gifbannerSection-end-->

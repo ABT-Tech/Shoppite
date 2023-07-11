@@ -80,9 +80,9 @@ namespace Shoppite.Application.Services
             }
             return mainCategory;
         }
-        public async Task<List<CategoryMasterModel>> GetCategories(int CategoryId,int OrgId)
+        public async Task<List<CategoryMasterModel>> GetCategories(int OrgId)
         {
-            var categories = await _categoryRepository.GetCategories(CategoryId, OrgId);
+            var categories = await _categoryRepository.GetCategories(OrgId);
             var mapped = ObjectMapper.Mapper.Map<List<CategoryMasterModel>>(categories);
             return mapped;
         }
@@ -98,7 +98,7 @@ namespace Shoppite.Application.Services
             var mapped = ObjectMapper.Mapper.Map<List<CategoryMasterModel>>(image);
             return mapped;
         }
-        public async Task<List<f_getproducts_By_CatID_SpecificationNameModel>> GetAllProductByCategory(int CategoryId, int orgId)
+        public async Task<List<f_getproducts_By_CatID_SpecificationNameModel>> GetAllProductByCategory(string CategoryId, int orgId)
         {
             var products = await _categoryRepository.GetAllProductByCategory(CategoryId,orgId);
             var mapped = ObjectMapper.Mapper.Map<List<f_getproducts_By_CatID_SpecificationNameModel>>(products);
@@ -126,7 +126,7 @@ namespace Shoppite.Application.Services
             }
             return attribute;
         }
-        public async Task<List<f_getproducts_By_CatID_SpecificationNameModel>> GetAllProductByAttribute(int CategoryId, string SpecificationName)
+        public async Task<List<f_getproducts_By_CatID_SpecificationNameModel>> GetAllProductByAttribute(string CategoryId, string SpecificationName)
         {
             var attributes = await _categoryRepository.GetAllProductByAttribute(CategoryId, SpecificationName);
             var mapped = ObjectMapper.Mapper.Map<List<f_getproducts_By_CatID_SpecificationNameModel>>(attributes);
@@ -154,6 +154,12 @@ namespace Shoppite.Application.Services
         {
             var image = await _categoryRepository.GetLeftBanner(orgId);
             var mapped = ObjectMapper.Mapper.Map<List<CategoryMasterModel>>(image);
+            return mapped;
+        }
+        public async Task<List<SP_GetSimilarProductsModel>> GetSimilarProducts(string CategoryId,int BrandId,int orgId)
+        {
+            var similarProducts = await _categoryRepository.GetSimilarProducts(CategoryId,BrandId,orgId);
+            var mapped = ObjectMapper.Mapper.Map<List<SP_GetSimilarProductsModel>>(similarProducts);
             return mapped;
         }
     }

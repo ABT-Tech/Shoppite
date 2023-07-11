@@ -11,16 +11,17 @@
     <li><a href="#" class="navmenu">Clothing</a></li>
     <li><a href="#" class="navmenu">Accesories</a></li>
     <li><a href="#" class="navmenu">Footwear</a></li> -->
-        @foreach (var item in Model.ProductsDetails.Take(8))
+        @foreach (var item in Model.ProductsDetails)
         {
             <div class="navbarsubdropdown">
                 <button class="navbarsubdropbtn navmenu">@item.maincaturlpath</button>
-                @foreach (var subcat in item.SubcategoryDetails)
-                {
-                    <div class="navbarsubdropdown-content">
-                        <a href="productslistpage.html" class="navbarsubdroptext">@subcat.CategoryName</a>
+               
+                <div class="navbarsubdropdown-content">
+                    @foreach (var subcat in item.SubcategoryDetails)
+                    {
+                        <a asp-action="AllProducts" asp-controller="Home" asp-route-CategoryId="@subcat.CategoryId" class="navbarsubdroptext">@subcat.CategoryName</a>
+                    }
                     </div>
-                }
             </div>
 
         }

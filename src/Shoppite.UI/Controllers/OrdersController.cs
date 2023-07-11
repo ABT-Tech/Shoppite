@@ -40,9 +40,9 @@ namespace Shoppite.UI.Controllers
             var brands = await _BrandPageService.GetBrands(OrgId);
             int Profileid = await _myAccountPageService.GetProfileId(User.Identity.Name, OrgId);
             brands.CategoryMaster = await _categoryPageService.DisplayLogo(OrgId);
-            brands.Categories = await _categoryPageService.GetCategories(CategoryId,OrgId);
+            brands.Categories = await _categoryPageService.GetCategories(OrgId);
             brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
-            brands.Wishlists = await _productPageService.GetWishList(User.Identity.Name, OrgId);
+            brands.Wishlists = await _productPageService.GetWishList("", OrgId);
             brands.MyOrderDetails = await _productPageService.GetMyOrders(User.Identity.Name,OrgId);
            // brands.PendingOrders = await _productPageService.GetPendingOrders(OrgId, 1097);
             return View(brands);

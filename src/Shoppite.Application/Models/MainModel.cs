@@ -72,5 +72,6 @@ namespace Shoppite.Application.Models
         public List<f_getproducts_RecentlyviewedModel> f_Getproducts_RecentlyviewedModel { get; set; }
         public List<F_getproducts_By_CatIdModel> f_getproducts_By_CatIdModel { get; set; }
         public ProductBasicModel ProductBasicModel { get; set; }
+        public List<SP_GetSimilarProductsModel> SP_GetSimilarProducts { get; set; }
     }
 }

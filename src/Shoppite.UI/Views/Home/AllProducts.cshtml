@@ -1,393 +1,1843 @@
 ﻿@model Shoppite.Application.Models.MainModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-<div class="main-area">
-    @*<div class="megamenu-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-9">
-                    <div class="megamenu">
-                        <nav>
-                            <ul>
-                                <li>
-                                    <a class="home" asp-action="Index" asp-controller="Home">Home</a>
-                                    <div class="megamenudown-mini home-ve">
-                                        <div class="mega-top">
-                                            <div class="mega-item-menu">
-                                                <a class="title" href="#"><span>Home variyation</span></a>
-                                                <a href="index-2.html"><span>Home2</span></a>
-                                                <a href="index-3.html"><span>Home3</span></a>
-                                                <a href="index-4.html"><span>Home4</span></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
+@{
+    ViewData["Title"] = "ProductList Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 
-                                @await Html.PartialAsync("_Categories", Model)
-                                @await Html.PartialAsync("_MoreCategories", Model)
-
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="search-box">
-                        <form method="get" action="#" id="searchbox-eleyas">
-                            <p>
-                                <input type="text" value="" placeholder="You keyword..." name="search_query">
-                                <button class="button-search" name="submit_search" type="submit">
-                                    <span><i class="fa fa-search"></i></span>
-                                </button>
-                            </p>
-                        </form>
-                    </div>
-                </div>
+    int Categorycount = 0;
+}
+<!--gifbannerSection-start-->
+<section class="section section-sm section-first bg-default text-center">
+    <div class="container-fluid">
+        <div class="row " style="padding: 30px 0px -50px 0px;">
+            <div class="col-12 col-lg-12 col-md-12 mt-4">
+                <img class="offerbennertop" src="~/img/discount.gif" alt="Addbanner" width="100%"
+                     style="border-radius: 10px;">
             </div>
         </div>
-    </div>*@
-    <div class="product-categori-area">
-        <div class="container">
-            @*<div class="breadcrumb" style="color:#777;background-color:white !important">
-                <span><a title="Return to Home" href="index.html" class="home"></a>Home</span> 
-                @foreach (var catname in Model.Product_specification.Take(1))
-                {
-                    <span class="navigation-pipe"><i class="fa fa-angle-right"></i></span>
+    </div>
+</section>
+<!--gifbannerSection-end-->
+<section class="section section-sm section-first bg-default text-center">
+    <div class="container-fluid">
+        <!--productslist-heading-Section-start-->
+        <div class="col-12 headingframalignment ">
+            <div class="headingfram mt-4 mb-4">
+                <h1 class="sectionmainheading">Men's T Shirts</h1>
+                <p class="sectionsubheading">2835 Items</p>
+            </div>
+        </div>
+        <!--productslist-heading-Section-end-->
 
-                    @catname.category_name
-                }
-            </div>*@
-            <div class="product-categori">
-                <div class="row flex-row-reverse">
-                    <div class="col-lg-9 col-md-12">
-                        <div id="content" class="categori-content">
-                            @foreach (var catname in Model.Product_specification.Take(1))
-                            {
-                                <h1 class="page-heading product-listing">
-                                    <span class="cat-name">@catname.category_name</span>
-                                </h1>
-
-                                @*<div class="categori-baner">
-                                    <img style="width:870px;height:236px;" src="@catname.Banner" alt="">
-                                </div>*@
-                            }
-                            <div id="my-tab-content" class="tab-content jump">
-                                <div class="producresults">
-                                    @if (Model.Product_specification.Count > 0)
-                                    {
-                                        @await Html.PartialAsync("_ProductsByAttribute", Model)
-                                    }
-                                    else
-                                    {
-                                            <img src="~/img/NoProduct.png" />
-                                    }
-
+        <div class="row" style="padding: 30px 0px -50px 0px;">
+            <p class="m-4 font-weight-bold" style="text-align: left;">Home >Men's Clothing > T Shirts</p>
+            <!--productslist-filter-Section-start-->
+            <div class="col-12 col-lg-3 col-md-3 filterlargescreenprolist">
+                <div class="col-12 d-flex justify-content-between headingdiv">
+                    <h6 class="m-2 filterheading">Filters</h6>
+                    <button type="button" class="filterbuttonclear">
+                        clear all
+                    </button>
+                </div>
+                <!--productslist-filter-categories-Section-start-->
+                <div class="col-12 headingdiv">
+                    <div class="categoriesfilter">
+                        <h6 class="m-2 mt-2 filterheading text-left">CATEGORIES</h6>
+                    </div>
+                    <div class="categoriesfilter-checkbox">
+                        @foreach (var item in Model.Categories.Where(x => x.ParentCategoryId != 0))
+                        {
+                            <div class="d-flex justify-content-between categoriescount">
+                                <div class="form-check">
+                                    <input class="form-check-input border-black border-1 rounded category" type="checkbox" name="CategoryName[]"
+                                           value="@item.CategoryId" id="Ethnic Wear">
+                                    <label class="form-check-label subnamefilter" for="Ethnic Wear">
+                                        @item.CategoryName
+                                    </label>
                                 </div>
-                                <div id="list" class="tab-pane categori-list-view">
-                                    <div class="list-view-single-product">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="list-view-image">
-                                                    <a href="#"><img src="img/product/blouse1.jpg" alt=""></a>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <div class="list-view-details">
-                                                    <p>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                    </p>
-                                                    <h5><a href="#">Blouse</a></h5>
-                                                    <span class="list-product-price">£ 32.40</span>
-                                                    <p class="product-desc">Short-sleeved blouse with feminine draped sleeve detail.</p>
-                                                    <div class="product-social">
-                                                        <ul>
-                                                            <li><a href="#"><i class="fa fa-external-link"></i><span>Add to cart</span></a></li>
-                                                            <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-bar-chart"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="list-view-single-product">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="list-view-image">
-                                                    <a href="#"><img src="img/product/printed-dress1.jpg" alt=""></a>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <div class="list-view-details">
-                                                    <p>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                    </p>
-                                                    <h5><a href="#">Printed Dress</a></h5>
-                                                    <span class="list-product-price">£ 31.20</span>
-                                                    <p class="product-desc">100% cotton double printed dress. Black and white striped top and orange high waisted skater skirt bottom.</p>
-                                                    <span class="availability">In stock</span>
-                                                    <div class="product-social">
-                                                        <ul>
-                                                            <li><a href="#"><i class="fa fa-external-link"></i><span>Add to cart</span></a></li>
-                                                            <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-bar-chart"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="list-view-single-product">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="list-view-image">
-                                                    <a href="#"><img src="img/product/printed-summer-dress1.jpg" alt=""></a>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <div class="list-view-details">
-                                                    <p>Reduced price!</p>
-                                                    <p>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                    </p>
-                                                    <h5><a href="#">Printed Summer Dress</a></h5>
-                                                    <span class="list-product-price">£ 34.78 <del>£ 36.61</del></span>
-                                                    <p class="product-desc">Long printed dress with thin adjustable straps. V-neckline and wiring under the bust with ruffles at the bottom of the dress. </p>
+                                <span id="cat_@item.CategoryId" class="totalavailability">@Model.Product_specification.Count</span>
+                            </div>
+                        }
+                        <span id="dots"></span><span id="categorieshidefilter">
+                            <div class="d-flex justify-content-between">
+                                <div class="form-check">
+                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                           value="Swim & Beachwear" id="Swim & Beachwear">
+                                    <label class="form-check-label subnamefilter" for="Swim & Beachwear">
+                                        Swim &
+                                        Beachwear
+                                    </label>
+                                </div>
+                                <span class="totalavailability">5</span>
+                            </div>
+                        </span>
+                        <a class="d-flex justify-content-between filtermoreoption text-danger"
+                           onclick="categoriesFunction()" id="categoriesfilterbutton">+ (1) More</a>
+                    </div>
+                </div>
+                <!--productslist-filter-categories-Section-end-->
+                <!--productslist-filter-brand-Section-start-->
+                <div class="col-12 headingdiv">
+                    <div class="categoriesfilter">
+                        <h6 class="m-2 mt-2 filterheading text-left">BRAND</h6>
+                    </div>
+                    <div class="categoriesfilter-checkbox mt-3">
+                        <input class="ml-4 mb-2 d-flex justify-content-center" type="text" placeholder="Search.."
+                               id="myInput" style="border: 2px solid #000000;">
+                        @foreach (var brands in Model.BrandsModel)
+                        {
+                            <div class="d-flex justify-content-between brandcount">
+                                <div class="form-check">
+                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                           value="Indian Terrain" id="Indian Terrain">
+                                    <label class="form-check-label subnamefilter" for="Indian Terrain">
+                                        @brands.BrandName
+                                    </label>
+                                </div>
+                                <span class="totalavailability">6</span>
+                            </div>
 
-                                                    <span class="availability">In stock</span>
-                                                    <div class="product-social">
-                                                        <ul>
-                                                            <li><a href="#"><i class="fa fa-external-link"></i><span>Add to cart</span></a></li>
-                                                            <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-bar-chart"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                        }
+
+                        <span id="dots"></span><span id="brandfilter">                          
+                            <div class="d-flex justify-content-between">
+                                <div class="form-check">
+                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                           value="H&M" id="H&M">
+                                    <label class="form-check-label subnamefilter" for="H&M"> H&M </label>
+                                </div>
+                                <span class="totalavailability">8</span>
+                            </div>
+                        </span>
+                        <a class="d-flex justify-content-between filtermoreoption text-danger"
+                           onclick="brandFunction()" id="brandfilterbutton">+ (6) More</a>
+                    </div>
+                </div>
+                <!--productslist-filter-brand-Section-end-->
+                <!--productslist-filter-size-Section-start-->
+                <div class="col-12 headingdiv">
+                    <div class="categoriesfilter">
+                        <h6 class="m-2 mt-2 filterheading text-left">SIZE</h6>
+                    </div>
+                    <div class="categoriesfilter-checkbox mt-3">
+                        <div class="form-inline border rounded p-sm-2 my-2 d-flex justify-content-between">
+                            <div class="form-check">
+                                <input type="radio" name="type" id="boring">
+                                <label for="boring" class="pl-1 pt-sm-0 pt-1 ml-3 subnamefilter">S</label>
+                            </div>
+                            <span class="totalavailability">8</span>
+                        </div>
+                        <div class="form-inline border rounded p-sm-2 my-2 d-flex justify-content-between">
+                            <div class="form-check">
+                                <input type="radio" name="type" id="boring">
+                                <label for="boring" class="pl-1 pt-sm-0 pt-1 ml-3 subnamefilter">M</label>
+                            </div>
+                            <span class="totalavailability">10</span>
+                        </div>
+                        <div class="form-inline border rounded  p-sm-2 my-2 d-flex justify-content-between">
+                            <div class="form-check">
+                                <input type="radio" name="type" id="boring">
+                                <label for="boring" class="pl-1 pt-sm-0 pt-1 ml-3 subnamefilter">L</label>
+                            </div>
+                            <span class="totalavailability">12</span>
+                        </div>
+                        <div class="form-inline border rounded p-sm-2 my-2 d-flex justify-content-between">
+                            <div class="form-check">
+                                <input type="radio" name="type" id="boring">
+                                <label for="boring" class="pl-1 pt-sm-0 pt-1 ml-3 subnamefilter">Xl</label>
+                            </div>
+                            <span class="totalavailability">5</span>
+                        </div>
+                        <div class="form-inline border rounded p-sm-2 my-2 d-flex justify-content-between">
+                            <div class="form-check">
+                                <input type="radio" name="type" id="boring">
+                                <label for="boring" class="pl-1 pt-sm-0 pt-1 ml-3 subnamefilter">XXl</label>
+                            </div>
+                            <span class="totalavailability">1</span>
+                        </div>
+                        <span id="dots"></span><span id="sizehidefilter">
+                            <div class="form-inline border rounded p-sm-2 my-2 d-flex justify-content-between">
+                                <div class="form-check">
+                                    <input type="radio" name="type" id="boring">
+                                    <label for="boring" class="pl-1 pt-sm-0 pt-1 ml-3 subnamefilter">3XL</label>
+                                </div>
+                                <span class="totalavailability">15</span>
+                            </div>
+                            <div class="form-inline border rounded p-sm-2 my-2 d-flex justify-content-between">
+                                <div class="form-check">
+                                    <input type="radio" name="type" id="boring">
+                                    <label for="boring" class="pl-1 pt-sm-0 pt-1 ml-3 subnamefilter">4XL</label>
+                                </div>
+                                <span class="totalavailability">11</span>
+                            </div>
+                            <div class="form-inline border rounded p-sm-2 my-2 d-flex justify-content-between">
+                                <div class="form-check">
+                                    <input type="radio" name="type" id="boring">
+                                    <label for="boring" class="pl-1 pt-sm-0 pt-1 ml-3 subnamefilter">5Xl</label>
+                                </div>
+                                <span class="totalavailability">14</span>
+                            </div>
+                        </span>
+                        <a class="d-flex justify-content-between filtermoreoption text-danger"
+                           onclick="sizeFunction()" id="sizefilterbutton">+ (3) More</a>
+                    </div>
+                </div>
+                <!--productslist-filter-size-Section-end-->
+                <!--productslist-filter-colour-Section-start-->
+                <div class="col-12 headingdiv">
+                    <div class="categoriesfilter">
+                        <h6 class="m-2 mt-2 filterheading text-left">COLOUR</h6>
+                    </div>
+                    <div class="categoriesfilter-checkbox mt-3">
+                        <div class="d-flex justify-content-between">
+                            <div class="form-check d-flex">
+                                <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                       value="Aqua" id="Aqua">
+                                <div class="colorfilter-color-aqua ml-4"></div>
+                                <label class="form-check-label subnamefilter" for="Aqua"> Aqua </label>
+                            </div>
+                            <span class="totalavailability">10</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="form-check d-flex">
+                                <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                       value="Red" id="Red">
+                                <div class="colorfilter-color-red ml-4"></div>
+                                <label class="form-check-label subnamefilter" for="Red"> Red </label>
+                            </div>
+                            <span class="totalavailability">3</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="form-check d-flex">
+                                <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                       value="Black" id="Black">
+                                <div class="colorfilter-color-black ml-4"></div>
+                                <label class="form-check-label subnamefilter" for="Black"> Black </label>
+                            </div>
+                            <span class="totalavailability">8</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="form-check d-flex">
+                                <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                       value="White" id="White">
+                                <div class="colorfilter-color-white ml-4"></div>
+                                <label class="form-check-label subnamefilter" for="White"> White </label>
+                            </div>
+                            <span class="totalavailability">14</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="form-check d-flex">
+                                <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                       value="Green" id="Green">
+                                <div class="colorfilter-color-green ml-4"></div>
+                                <label class="form-check-label subnamefilter" for="Green"> Green </label>
+                            </div>
+                            <span class="totalavailability">1</span>
+                        </div>
+                        <span id="dots"></span><span id="colorhidefilter">
+                            <div class="d-flex justify-content-between">
+                                <div class="form-check d-flex">
+                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                           value="Yellow" id="Yellow">
+                                    <div class="colorfilter-color-yellow ml-4"></div>
+                                    <label class="form-check-label subnamefilter" for="Yellow"> Yellow </label>
+                                </div>
+                                <span class="totalavailability">12</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div class="form-check d-flex">
+                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                           value="Blue" id="Blue">
+                                    <div class="colorfilter-color-Blue ml-4"></div>
+                                    <label class="form-check-label subnamefilter" for="Blue"> Blue </label>
+                                </div>
+                                <span class="totalavailability">7</span>
+                            </div>
+                        </span>
+                        <a class="d-flex justify-content-between filtermoreoption text-danger"
+                           onclick="colorFunction()" id="colorfilterbutton">+ (2) More</a>
+                    </div>
+                </div>
+                <!--productslist-filter-colour-Section-end-->
+                <!--productslist-filter-price-Section-start-->
+                <div class="col-12 headingdiv">
+                    <div class="categoriesfilter">
+                        <h6 class="m-2 mt-2 filterheading text-left">PRICE</h6>
+                    </div>
+                    <div class="categoriesfilter-checkbox mt-3">
+                        <div class="d-flex justify-content-between">
+                            <div class="form-check">
+                                <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                       value="₹0-₹500" id="₹0-₹500">
+                                <label class="form-check-label subnamefilter" for="₹0-₹500"> ₹0-₹500 </label>
+                            </div>
+                            <span class="totalavailability">10</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="form-check">
+                                <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                       value="₹501-₹1,000" id="₹501-₹1,000">
+                                <label class="form-check-label subnamefilter" for="₹501-₹1,000">
+                                    ₹501-₹1,000
+                                </label>
+                            </div>
+                            <span class="totalavailability">15</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="form-check">
+                                <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                       value="₹1,001-₹1,500" id="₹1,001-₹1,500">
+                                <label class="form-check-label subnamefilter" for="₹1,001-₹1,500">
+                                    ₹1,001-₹1,500
+                                </label>
+                            </div>
+                            <span class="totalavailability">6</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="form-check">
+                                <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                       value="₹1,501-₹2,000" id="₹1,501-₹2,000">
+                                <label class="form-check-label subnamefilter" for="₹1,501-₹2,000">
+                                    ₹1,501-₹2,000
+                                </label>
+                            </div>
+                            <span class="totalavailability">2</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="form-check">
+                                <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                       value="₹2,001-₹2,500" id="₹2,001-₹2,500">
+                                <label class="form-check-label subnamefilter" for="₹2,001-₹2,500">
+                                    ₹2,001-₹2,500
+                                </label>
+                            </div>
+                            <span class="totalavailability">11</span>
+                        </div>
+                        <span id="dots"></span><span id="pricehidefilter">
+                            <div class="d-flex justify-content-between">
+                                <div class="form-check">
+                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                           value="₹2,501-₹3,000" id="₹2,501-₹3,000">
+                                    <label class="form-check-label subnamefilter" for="₹2,501-₹3,000">
+                                        ₹2,501-₹3,000
+                                    </label>
+                                </div>
+                                <span class="totalavailability">8</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div class="form-check">
+                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                           value="₹3,001 and Above" id="₹3,001 and Above">
+                                    <label class="form-check-label subnamefilter" for="₹3,001 and Above">
+                                        ₹3,001 and
+                                        Above
+                                    </label>
+                                </div>
+                                <span class="totalavailability">13</span>
+                            </div>
+                        </span>
+                        <a class="d-flex justify-content-between filtermoreoption text-danger"
+                           onclick="priceFunction()" id="pricefilterbutton">+ (2) More</a>
+                    </div>
+                </div>
+                <!--productslist-filter-price-Section-end-->
+                <!--productslist-filter-rating-Section-start-->
+                <div class="col-12 headingdiv">
+                    <div class="categoriesfilter">
+                        <h6 class="m-2 mt-2 filterheading text-left">CUSTOMER RATINGS</h6>
+                    </div>
+                    <div class="categoriesfilter-checkbox mt-3">
+                        <div class="d-flex justify-content-between">
+                            <div class="form-check">
+                                <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                       value="4&up" id="4&up">
+                                <label class="form-check-label subnamefilter" for="4&up">
+                                    <i class="fa fa-star"
+                                       style="color: orangered;"></i><i class="fa fa-star"
+                                                                        style="color: orangered;"></i><i class="fa fa-star"
+                                                                                                         style="color: orangered;"></i><i class="fa fa-star"
+                                                                                                                                          style="color: orangered;"></i> & Up
+                                </label>
+                            </div>
+                            <span class="totalavailability">11</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="form-check">
+                                <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                       value="3&up" id="3&up">
+                                <label class="form-check-label subnamefilter" for="3&up">
+                                    <i class="fa fa-star"
+                                       style="color: orangered;"></i><i class="fa fa-star"
+                                                                        style="color: orangered;"></i><i class="fa fa-star"
+                                                                                                         style="color: orangered;"></i>
+                                    & Up
+                                </label>
+                            </div>
+                            <span class="totalavailability">4</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="form-check">
+                                <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                       value="2&up" id="2&up">
+                                <label class="form-check-label subnamefilter" for="2&up">
+                                    <i class="fa fa-star"
+                                       style="color: orangered;"></i><i class="fa fa-star"
+                                                                        style="color: orangered;"></i> & Up
+                                </label>
+                            </div>
+                            <span class="totalavailability">20</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="form-check">
+                                <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                       value="1&up" id="1&up">
+                                <label class="form-check-label subnamefilter" for="1&up">
+                                    <i class="fa fa-star"
+                                       style="color: orangered;"></i>
+                                    & Up
+                                </label>
+                            </div>
+                            <span class="totalavailability">10</span>
+                        </div>
+                    </div>
+                </div>
+                <!--productslist-filter-rating-Section-end-->
+                <!--productslist-filter-discount-Section-start-->
+                <div class="col-12 headingdiv">
+                    <div class="categoriesfilter">
+                        <h6 class="m-2 mt-2 filterheading text-left">DISCOUNT RANGE</h6>
+                    </div>
+                    <div class="categoriesfilter-checkbox mt-3">
+                        <div class="d-flex justify-content-between">
+                            <div class="form-check">
+                                <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                       value="10% and above" id="10% and above">
+                                <label class="form-check-label subnamefilter" for="10% and above">
+                                    10% and above
+                                </label>
+                            </div>
+                            <span class="totalavailability">18</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="form-check">
+                                <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                       value="20% and above" id="20% and above">
+                                <label class="form-check-label subnamefilter" for="20% and above">
+                                    20% and above
+                                </label>
+                            </div>
+                            <span class="totalavailability">14</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="form-check">
+                                <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                       value="30% and above" id="30% and above">
+                                <label class="form-check-label subnamefilter" for="30% and above">
+                                    30% and above
+                                </label>
+                            </div>
+                            <span class="totalavailability">5</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="form-check">
+                                <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                       value="40% and above" id="40% and above">
+                                <label class="form-check-label subnamefilter" for="40% and above">
+                                    40% and
+                                    above
+                                </label>
+                            </div>
+                            <span class="totalavailability">7</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="form-check">
+                                <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                       value="50% and above" id="50% and above">
+                                <label class="form-check-label subnamefilter" for="50% and above">
+                                    50% and
+                                    above
+                                </label>
+                            </div>
+                            <span class="totalavailability">12</span>
+                        </div>
+                        <span id="dots"></span><span id="ragehidefilter">
+                            <div class="d-flex justify-content-between">
+                                <div class="form-check">
+                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                           value="60% and above" id="60% and above">
+                                    <label class="form-check-label subnamefilter" for="60% and above">
+                                        60% and
+                                        above
+                                    </label>
+                                </div>
+                                <span class="totalavailability">18</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div class="form-check">
+                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                           value="70% and above" id="70% and above">
+                                    <label class="form-check-label subnamefilter" for="70% and above">
+                                        70% and
+                                        above
+                                    </label>
+                                </div>
+                                <span class="totalavailability">2</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div class="form-check">
+                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                           value="80% and above" id="80% and above">
+                                    <label class="form-check-label subnamefilter" for="80% and above">
+                                        80% and
+                                        above
+                                    </label>
+                                </div>
+                                <span class="totalavailability">9</span>
+                            </div>
+                        </span>
+                        <a class="d-flex justify-content-between filtermoreoption text-danger"
+                           onclick="rageFunction()" id="ragefilterbutton">+ (3) More</a>
+                    </div>
+                </div>
+                <!--productslist-filter-discount-Section-end-->
+            </div>
+            <!--productslist-filter-Section-end-->
+
+            <div class="col-12 col-lg-9 col-md-12">
+                <!--productslist-filter-mobileviews-Section-start-->
+                <div class="col-12 mobilefilters">
+                    <!--productslist-filter-mobileviews-sortby-Section-start-->
+                    <div class="col-6" style="border-right: 2px solid #aed4f0;">
+
+                        <!--productslist-filter-mobileviews-sortby-button-start-->
+                        <button type="button" class="border-0 bg-white filterbuttonmobile" data-toggle="modal"
+                                data-target="#sortmodel">
+                            <i class="fas fa-sort-amount-down"></i> Sort By
+                        </button>
+                        <!--productslist-filter-mobileviews-sortby-button-end-->
+                        <!--productslist-filter-mobileviews-model-sortby-modelsection-start-->
+                        <div class="modal bd-example-modal-sm" id="sortmodel" tabindex="-1" role="dialog"
+                             aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-sm">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">SORT BY</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
                                     </div>
-                                    <div class="list-view-single-product">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="list-view-image">
-                                                    <a href="#"><img src="img/product/printed-summer-dress2.jpg" alt=""></a>
+                                    <div class="modal-body d-block">
+                                        <div class="mt-3">
+                                            <div class="border rounded">
+                                                <div class="sortoption ml-3 mr-3">
+                                                    <label for="boring" class=" subnamefilter">Recommended</label>
+                                                    <input type="radio" name="type" id="boring">
                                                 </div>
+
                                             </div>
-                                            <div class="col-md-8">
-                                                <div class="list-view-details">
-                                                    <p>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                    </p>
-                                                    <h5><a href="#">Printed Summer Dress</a></h5>
-                                                    <span class="list-product-price">£ 36.60</span>
-                                                    <p class="product-desc">Sleeveless knee-length chiffon dress. V-neckline with elastic under the bust lining.</p>
-                                                    <span class="availability">In stock</span>
-                                                    <div class="product-social">
-                                                        <ul>
-                                                            <li><a href="#"><i class="fa fa-external-link"></i><span>Add to cart</span></a></li>
-                                                            <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-bar-chart"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                                        </ul>
-                                                    </div>
+                                            <div class="border rounded">
+                                                <div class="sortoption  ml-3 mr-3">
+                                                    <label for="boring" class=" subnamefilter">What's New</label>
+                                                    <input type="radio" name="type" id="boring">
                                                 </div>
+
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="list-view-single-product">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="list-view-image">
-                                                    <a href="#"><img src="img/product/blouse.jpg" alt=""></a>
+                                            <div class="border rounded">
+                                                <div class="sortoption  ml-3 mr-3">
+                                                    <label for="boring" class=" subnamefilter">Popularity</label>
+                                                    <input type="radio" name="type" id="boring">
                                                 </div>
+
                                             </div>
-                                            <div class="col-md-8">
-                                                <div class="list-view-details">
-                                                    <p>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                    </p>
-                                                    <h5><a href="#">Blouse</a></h5>
-                                                    <span class="list-product-price">£ 32.40</span>
-                                                    <p class="product-desc">Short-sleeved blouse with feminine draped sleeve detail.</p>
-                                                    <span class="availability">In stock</span>
-                                                    <div class="product-social">
-                                                        <ul>
-                                                            <li><a href="#"><i class="fa fa-external-link"></i><span>Add to cart</span></a></li>
-                                                            <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-bar-chart"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                                        </ul>
-                                                    </div>
+                                            <div class="border rounded">
+                                                <div class="sortoption  ml-3 mr-3">
+                                                    <label for="boring" class=" subnamefilter">
+                                                        Better
+                                                        Discount
+                                                    </label>
+                                                    <input type="radio" name="type" id="boring">
                                                 </div>
+
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="list-view-single-product">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="list-view-image">
-                                                    <a href="#"><img src="img/product/printed-dress3.jpg" alt=""></a>
+                                            <div class=" border rounded">
+                                                <div class="sortoption  ml-3 mr-3">
+                                                    <label for="boring" class=" subnamefilter">
+                                                        Price: High to
+                                                        Low
+                                                    </label>
+                                                    <input type="radio" name="type" id="boring">
                                                 </div>
+
                                             </div>
-                                            <div class="col-md-8">
-                                                <div class="list-view-details">
-                                                    <p>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                    </p>
-                                                    <h5><a href="#">Printed Dress</a></h5>
-                                                    <span class="list-product-price">£ 31.20</span>
-                                                    <p class="product-desc">100% cotton double printed dress. Black and white striped top and orange high waisted skater skirt bottom.</p>
-                                                    <span class="availability">In stock</span>
-                                                    <div class="product-social">
-                                                        <ul>
-                                                            <li><a href="#"><i class="fa fa-external-link"></i><span>Add to cart</span></a></li>
-                                                            <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-bar-chart"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                                        </ul>
-                                                    </div>
+                                            <div class=" border rounded">
+                                                <div class="sortoption  ml-3 mr-3">
+                                                    <label for="boring" class=" subnamefilter">
+                                                        Price: Low to
+                                                        High
+                                                    </label>
+                                                    <input type="radio" name="type" id="boring">
                                                 </div>
+
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="list-view-single-product">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="list-view-image">
-                                                    <a href="#"><img src="img/product/printed-summer-dress3.jpg" alt=""></a>
+                                            <div class=" border rounded">
+                                                <div class="sortoption  ml-3 mr-3">
+                                                    <label for="boring" class=" subnamefilter">
+                                                        Customer
+                                                        Rating
+                                                    </label>
+                                                    <input type="radio" name="type" id="boring">
                                                 </div>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <div class="list-view-details">
-                                                    <p>Reduced price!</p>
-                                                    <p>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                    </p>
-                                                    <h5><a href="#">Printed Summer Dress</a></h5>
-                                                    <span class="list-product-price">£ 32.95 <del>£ 36.61</del></span>
-                                                    <p class="product-desc">Long printed dress with thin adjustable straps. V-neckline and wiring under the bust with ruffles at the bottom of the dress. </p>
-                                                    <span class="availability">In stock</span>
-                                                    <div class="product-social">
-                                                        <ul>
-                                                            <li><a href="#"><i class="fa fa-external-link"></i><span>Add to cart</span></a></li>
-                                                            <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-bar-chart"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="list-view-single-product">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="list-view-image">
-                                                    <a href="#"><img src="img/product/printed-summer-dress.jpg" alt=""></a>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <div class="list-view-details">
-                                                    <p>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                    </p>
-                                                    <h5><a href="#">Printed Summer Dress</a></h5>
-                                                    <span class="list-product-price">£ 36.60</span>
-                                                    <p class="product-desc">Sleeveless knee-length chiffon dress. V-neckline with elastic under the bust lining.</p>
-                                                    <span class="availability">In stock</span>
-                                                    <div class="product-social">
-                                                        <ul>
-                                                            <li><a href="#"><i class="fa fa-external-link"></i><span>Add to cart</span></a></li>
-                                                            <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-bar-chart"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <!--productslist-filter-mobileviews-model-sortby-modelsection-end-->
                     </div>
-                    <div class="col-lg-3 col-md-12">
-                        <div class="categori-sidebar">
-                            <h4>Catalog</h4>
-                            <div class="categoris categori-border">
-                                @foreach (var at in Model.Attributes)
-                                {
-                                    <span class="cat-title">@at.AttributeName</span>
-                                    <ul>
-                                            @for(int i=0;i< at.specifications.Count;i++)
-                                            {
-                                               <li>
-                                                  <span><input type="checkbox"   class="checkbox profileCheckbox" name="SpecificationName[]" value="@at.specifications[i].SpecificationName" id="chk_@i"  ></span>
-                                                  <label>
-                                                     <a asp-controller="Home" asp-route-SpecificationName="@at.specifications[i].SpecificationName"><span>@at.specifications[i].SpecificationName</span></a>
-                                                  </label>
-                                              </li>
-                                        }
-                                    </ul>
-                                }
-                            </div>                            
+                    <!--productslist-filter-mobileviews-sortby-Section-end-->
+                    <!--productslist-filter-mobileviews-filter-Section-start-->
+                    <div class="col-6">
+
+                        <!--productslist-filter-mobileviews-filter-button-start-->
+                        <button type="button" class="border-0 bg-white filterbuttonmobile" data-toggle="modal" data-target="#filtermodel">
+                            <i class="fas fa-sliders-h"></i> Filters
+                        </button>
+                        <!--productslist-filter-mobileviews-filter-button-end-->
+                        <!--productslist-filter-mobileviews-model-filter-modelsection-start-->
+                        <div class="modal bd-example-modal-lg" id="filtermodel" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">FILTERS</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <!--productslist-filter-mobileviews-model-filter name list-section-start-->
+                                            <div class="col-5">
+                                                <div class="list-group" id="list-tab" role="tablist">
+                                                    <a class="list-group-item list-group-item-action active d-flex justify-content-center filtermodalmobile" id="list-categories-list" data-toggle="list" href="#list-categories" role="tab" aria-controls="home">CATEGORIES</a>
+                                                    <a class="list-group-item list-group-item-action d-flex justify-content-center filtermodalmobile" id="list-brand-list" data-toggle="list" href="#list-brand" role="tab" aria-controls="profile">BRAND</a>
+                                                    <a class="list-group-item list-group-item-action d-flex justify-content-center filtermodalmobile" id="list-size-list" data-toggle="list" href="#list-size" role="tab" aria-controls="messages">SIZE</a>
+                                                    <a class="list-group-item list-group-item-action d-flex justify-content-center filtermodalmobile" id="list-colour-list" data-toggle="list" href="#list-colour" role="tab" aria-controls="settings">COLOUR</a>
+                                                    <a class="list-group-item list-group-item-action d-flex justify-content-center filtermodalmobile" id="list-price-list" data-toggle="list" href="#list-price" role="tab" aria-controls="settings">PRICE</a>
+                                                    <a class="list-group-item list-group-item-action d-flex justify-content-center filtermodalmobile" id="list-customerrating-list" data-toggle="list" href="#list-customerrating" role="tab" aria-controls="settings">CUSTOMER RATINGS</a>
+                                                    <a class="list-group-item list-group-item-action d-flex justify-content-center filtermodalmobile" id="list-discountrange-list" data-toggle="list" href="#list-discountrange" role="tab" aria-controls="settings">DISCOUNT RANGE</a>
+                                                </div>
+                                            </div>
+                                            <!--productslist-filter-mobileviews-model-filter name list-section-end-->
+
+
+                                            <div class="col-7 ">
+                                                <div class="tab-content" id="nav-tabContent">
+                                                    <!--productslist-filter-mobileviews-model-categoriesfilter-section-start-->
+                                                    <div class="tab-pane show active" id="list-categories" role="tabpanel" aria-labelledby="list-categories-list">
+                                                        <div class="categoriesfilter-checkbox">
+                                                            <div class="d-flex justify-content-between">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                                                           value="Ethnic Wear" id="Ethnic Wear">
+                                                                    <label class="form-check-label subnamemodelfilter" for="Ethnic Wear">
+                                                                        Ethnic Wear
+                                                                    </label>
+                                                                </div>
+                                                                <span class="totalavailability">10</span>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                                                           value="Inner & Nightwear" id="Inner & Nightwear">
+                                                                    <label class="form-check-label subnamemodelfilter" for="Inner & Nightwear">
+                                                                        Inner &
+                                                                        Nightwear
+                                                                    </label>
+                                                                </div>
+                                                                <span class="totalavailability">2</span>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                                                           value="Casual Wear" id="Casual Wear">
+                                                                    <label class="form-check-label subnamemodelfilter" for="Casual Wear">
+                                                                        Casual Wear
+                                                                    </label>
+                                                                </div>
+                                                                <span class="totalavailability">15</span>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                                                           value="Formal Wear" id="Formal Wear">
+                                                                    <label class="form-check-label subnamemodelfilter" for="Formal Wear">
+                                                                        Formal Wear
+                                                                    </label>
+                                                                </div>
+                                                                <span class="totalavailability">18</span>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                                                           value="Sports Wear" id="Sports Wear">
+                                                                    <label class="form-check-label subnamemodelfilter" for="Sports Wear">
+                                                                        Sports Wear
+                                                                    </label>
+                                                                </div>
+                                                                <span class="totalavailability">6</span>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                                                           value="Swim & Beachwear" id="Swim & Beachwear">
+                                                                    <label class="form-check-label subnamemodelfilter" for="Swim & Beachwear">
+                                                                        Swim &
+                                                                        Beachwear
+                                                                    </label>
+                                                                </div>
+                                                                <span class="totalavailability">5</span>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <!--productslist-filter-mobileviews-model-categoriesfilter-section-end-->
+                                                    <!--productslist-filter-mobileviews-model-brandfilter-section-start-->
+                                                    <div class="tab-pane" id="list-brand" role="tabpanel" aria-labelledby="list-brand-list">
+                                                        <div class="categoriesfilter-checkbox mt-3">
+                                                            <input class="p-0 m-0 d-flex justify-content-center" type="text" placeholder="Search.."
+                                                                   id="myInput" style="border: 2px solid #000000;">
+
+                                                            <div class="d-flex justify-content-between mt-2">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                                                           value="U.S. Polo Assn" id="U.S. Polo Assn">
+                                                                    <label class="form-check-label subnamemodelfilter" for="U.S. Polo Assn">
+                                                                        U.S. Polo Assn
+                                                                    </label>
+                                                                </div>
+                                                                <span class="totalavailability">10</span>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                                                           value="HIGHLANDER" id="HIGHLANDER">
+                                                                    <label class="form-check-label subnamemodelfilter" for="HIGHLANDER"> HIGHLANDER </label>
+                                                                </div>
+                                                                <span class="totalavailability">2</span>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                                                           value="Allen Solly" id="Allen Solly">
+                                                                    <label class="form-check-label subnamemodelfilter" for="Allen Solly">
+                                                                        Allen Solly
+                                                                    </label>
+                                                                </div>
+                                                                <span class="totalavailability">15</span>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                                                           value="Roadster" id="Roadster">
+                                                                    <label class="form-check-label subnamemodelfilter" for="Roadster"> Roadster </label>
+                                                                </div>
+                                                                <span class="totalavailability">18</span>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                                                           value="Indian Terrain" id="Indian Terrain">
+                                                                    <label class="form-check-label subnamemodelfilter" for="Indian Terrain">
+                                                                        Indian Terrain
+                                                                    </label>
+                                                                </div>
+                                                                <span class="totalavailability">6</span>
+                                                            </div>
+                                                            <span id="dots"></span><span id="brandfilter">
+                                                                <div class="d-flex justify-content-between">
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                                                               value="Louis Philippe Sport" id="Louis Philippe Sport">
+                                                                        <label class="form-check-label subnamemodelfilter" for="Louis Philippe Sport">
+                                                                            Louis
+                                                                            Philippe Sport
+                                                                        </label>
+                                                                    </div>
+                                                                    <span class="totalavailability">12</span>
+                                                                </div>
+                                                                <div class="d-flex justify-content-between">
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                                                               value="Arrow Sport" id="Arrow Sport">
+                                                                        <label class="form-check-label subnamemodelfilter" for="Arrow Sport">
+                                                                            Arrow Sport
+                                                                        </label>
+                                                                    </div>
+                                                                    <span class="totalavailability">14</span>
+                                                                </div>
+                                                                <div class="d-flex justify-content-between">
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                                                               value="Cantabil" id="Cantabil">
+                                                                        <label class="form-check-label subnamemodelfilter" for="Cantabil"> Cantabil </label>
+                                                                    </div>
+                                                                    <span class="totalavailability">20</span>
+                                                                </div>
+                                                                <div class="d-flex justify-content-between">
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                                                               value="Cantabil" id="Cantabil">
+                                                                        <label class="form-check-label subnamemodelfilter" for="Cantabil"> Cantabil </label>
+                                                                    </div>
+                                                                    <span class="totalavailability">18</span>
+                                                                </div>
+                                                                <div class="d-flex justify-content-between">
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                                                               value="Duke" id="Duke">
+                                                                        <label class="form-check-label subnamemodelfilter" for="Duke"> Duke </label>
+                                                                    </div>
+                                                                    <span class="totalavailability">9</span>
+                                                                </div>
+                                                                <div class="d-flex justify-content-between">
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                                                               value="H&M" id="H&M">
+                                                                        <label class="form-check-label subnamemodelfilter" for="H&M"> H&M </label>
+                                                                    </div>
+                                                                    <span class="totalavailability">8</span>
+                                                                </div>
+                                                            </span>
+                                                            <a class="d-flex justify-content-between filtermoreoption text-danger"
+                                                               onclick="brandFunction()" id="brandfilterbutton">+ (6) More</a>
+                                                        </div>
+
+                                                    </div>
+                                                    <!--productslist-filter-mobileviews-model-brandfilter-section-end-->
+                                                    <!--productslist-filter-mobileviews-model-sizefilter-section-start-->
+                                                    <div class="tab-pane" id="list-size" role="tabpanel" aria-labelledby="list-size-list">
+                                                        <div class=" mt-3">
+                                                            <div class=" border rounded pl-3 pr-3 d-flex justify-content-between">
+                                                                <div class="">
+                                                                    <input type="radio" name="type" id="boring">
+                                                                    <label for="boring" class="pl-1 pt-sm-0 pt-1 ml-3 subnamemodelfilter">S</label>
+                                                                </div>
+                                                                <span class="totalavailability">8</span>
+                                                            </div>
+                                                            <div class=" border rounded pl-3 pr-3 d-flex justify-content-between">
+                                                                <div class="">
+                                                                    <input type="radio" name="type" id="boring">
+                                                                    <label for="boring" class="pl-1 pt-sm-0 pt-1 ml-3 subnamemodelfilter">M</label>
+                                                                </div>
+                                                                <span class="totalavailability">10</span>
+                                                            </div>
+                                                            <div class=" border rounded  pl-3 pr-3 d-flex justify-content-between">
+                                                                <div class="">
+                                                                    <input type="radio" name="type" id="boring">
+                                                                    <label for="boring" class="pl-1 pt-sm-0 pt-1 ml-3 subnamemodelfilter">L</label>
+                                                                </div>
+                                                                <span class="totalavailability">12</span>
+                                                            </div>
+                                                            <div class=" border rounded pl-3 pr-3 d-flex justify-content-between">
+                                                                <div class="">
+                                                                    <input type="radio" name="type" id="boring">
+                                                                    <label for="boring" class="pl-1 pt-sm-0 pt-1 ml-3 subnamemodelfilter">Xl</label>
+                                                                </div>
+                                                                <span class="totalavailability">5</span>
+                                                            </div>
+                                                            <div class=" border rounded pl-3 pr-3 d-flex justify-content-between">
+                                                                <div class="">
+                                                                    <input type="radio" name="type" id="boring">
+                                                                    <label for="boring" class="pl-1 pt-sm-0 pt-1 ml-3 subnamemodelfilter">XXl</label>
+                                                                </div>
+                                                                <span class="totalavailability">1</span>
+                                                            </div>
+                                                            <span id="dots"></span><span id="sizehidefilter">
+                                                                <div class=" border rounded pl-3 pr-3 d-flex justify-content-between">
+                                                                    <div class="">
+                                                                        <input type="radio" name="type" id="boring">
+                                                                        <label for="boring" class="pl-1 pt-sm-0 pt-1 ml-3 subnamemodelfilter">3XL</label>
+                                                                    </div>
+                                                                    <span class="totalavailability">15</span>
+                                                                </div>
+                                                                <div class=" border rounded pl-3 pr-3 d-flex justify-content-between">
+                                                                    <div class="">
+                                                                        <input type="radio" name="type" id="boring">
+                                                                        <label for="boring" class="pl-1 pt-sm-0 pt-1 ml-3 subnamemodelfilter">4XL</label>
+                                                                    </div>
+                                                                    <span class="totalavailability">11</span>
+                                                                </div>
+                                                                <div class=" border rounded pl-3 pr-3 d-flex justify-content-between">
+                                                                    <div class="">
+                                                                        <input type="radio" name="type" id="boring">
+                                                                        <label for="boring" class="pl-1 pt-sm-0 pt-1 ml-3 subnamemodelfilter">5Xl</label>
+                                                                    </div>
+                                                                    <span class="totalavailability">14</span>
+                                                                </div>
+                                                            </span>
+                                                            <a class="d-flex justify-content-between filtermoreoption text-danger"
+                                                               onclick="sizeFunction()" id="sizefilterbutton">+ (3) More</a>
+                                                        </div>
+                                                    </div>
+                                                    <!--productslist-filter-mobileviews-model-sizefilter-section-end-->
+                                                    <!--productslist-filter-mobileviews-model-colourfilter-section-start-->
+                                                    <div class="tab-pane" id="list-colour" role="tabpanel" aria-labelledby="list-colour-list">
+                                                        <div class="categoriesfilter-checkbox mt-3">
+                                                            <div class="d-flex justify-content-between">
+                                                                <div class="form-check d-flex">
+                                                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                                                           value="Aqua" id="Aqua">
+                                                                    <div class="colorfilter-color-aqua ml-4"></div>
+                                                                    <label class="form-check-label subnamemodelfilter" for="Aqua"> Aqua </label>
+                                                                </div>
+                                                                <span class="totalavailability">10</span>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between">
+                                                                <div class="form-check d-flex">
+                                                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                                                           value="Red" id="Red">
+                                                                    <div class="colorfilter-color-red ml-4"></div>
+                                                                    <label class="form-check-label subnamemodelfilter" for="Red"> Red </label>
+                                                                </div>
+                                                                <span class="totalavailability">3</span>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between">
+                                                                <div class="form-check d-flex">
+                                                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                                                           value="Black" id="Black">
+                                                                    <div class="colorfilter-color-black ml-4"></div>
+                                                                    <label class="form-check-label subnamemodelfilter" for="Black"> Black </label>
+                                                                </div>
+                                                                <span class="totalavailability">8</span>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between">
+                                                                <div class="form-check d-flex">
+                                                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                                                           value="White" id="White">
+                                                                    <div class="colorfilter-color-white ml-4"></div>
+                                                                    <label class="form-check-label subnamemodelfilter" for="White"> White </label>
+                                                                </div>
+                                                                <span class="totalavailability">14</span>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between">
+                                                                <div class="form-check d-flex">
+                                                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                                                           value="Green" id="Green">
+                                                                    <div class="colorfilter-color-green ml-4"></div>
+                                                                    <label class="form-check-label subnamemodelfilter" for="Green"> Green </label>
+                                                                </div>
+                                                                <span class="totalavailability">1</span>
+                                                            </div>
+                                                            <span id="dots"></span><span id="colorhidefilter">
+                                                                <div class="d-flex justify-content-between">
+                                                                    <div class="form-check d-flex">
+                                                                        <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                                                               value="Yellow" id="Yellow">
+                                                                        <div class="colorfilter-color-yellow ml-4"></div>
+                                                                        <label class="form-check-label subnamemodelfilter" for="Yellow"> Yellow </label>
+                                                                    </div>
+                                                                    <span class="totalavailability">12</span>
+                                                                </div>
+                                                                <div class="d-flex justify-content-between">
+                                                                    <div class="form-check d-flex">
+                                                                        <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                                                               value="Blue" id="Blue">
+                                                                        <div class="colorfilter-color-Blue ml-4"></div>
+                                                                        <label class="form-check-label subnamemodelfilter" for="Blue"> Blue </label>
+                                                                    </div>
+                                                                    <span class="totalavailability">7</span>
+                                                                </div>
+                                                            </span>
+                                                            <a class="d-flex justify-content-between filtermoreoption text-danger"
+                                                               onclick="colorFunction()" id="colorfilterbutton">+ (2) More</a>
+                                                        </div>
+                                                    </div>
+                                                    <!--productslist-filter-mobileviews-model-colourfilter-section-end-->
+                                                    <!--productslist-filter-mobileviews-model-pricefilter-section-start-->
+                                                    <div class="tab-pane" id="list-price" role="tabpanel" aria-labelledby="list-price-list">
+                                                        <div class="categoriesfilter-checkbox mt-3">
+                                                            <div class="d-flex justify-content-between">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                                                           value="₹0-₹500" id="₹0-₹500">
+                                                                    <label class="form-check-label subnamemodelfilter" for="₹0-₹500"> ₹0-₹500 </label>
+                                                                </div>
+                                                                <span class="totalavailability">10</span>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                                                           value="₹501-₹1,000" id="₹501-₹1,000">
+                                                                    <label class="form-check-label subnamemodelfilter" for="₹501-₹1,000">
+                                                                        ₹501-₹1,000
+                                                                    </label>
+                                                                </div>
+                                                                <span class="totalavailability">15</span>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                                                           value="₹1,001-₹1,500" id="₹1,001-₹1,500">
+                                                                    <label class="form-check-label subnamemodelfilter" for="₹1,001-₹1,500">
+                                                                        ₹1,001-₹1,500
+                                                                    </label>
+                                                                </div>
+                                                                <span class="totalavailability">6</span>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                                                           value="₹1,501-₹2,000" id="₹1,501-₹2,000">
+                                                                    <label class="form-check-label subnamemodelfilter" for="₹1,501-₹2,000">
+                                                                        ₹1,501-₹2,000
+                                                                    </label>
+                                                                </div>
+                                                                <span class="totalavailability">2</span>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                                                           value="₹2,001-₹2,500" id="₹2,001-₹2,500">
+                                                                    <label class="form-check-label subnamemodelfilter" for="₹2,001-₹2,500">
+                                                                        ₹2,001-₹2,500
+                                                                    </label>
+                                                                </div>
+                                                                <span class="totalavailability">11</span>
+                                                            </div>
+                                                            <span id="dots"></span><span id="pricehidefilter">
+                                                                <div class="d-flex justify-content-between">
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                                                               value="₹2,501-₹3,000" id="₹2,501-₹3,000">
+                                                                        <label class="form-check-label subnamemodelfilter" for="₹2,501-₹3,000">
+                                                                            ₹2,501-₹3,000
+                                                                        </label>
+                                                                    </div>
+                                                                    <span class="totalavailability">8</span>
+                                                                </div>
+                                                                <div class="d-flex justify-content-between">
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                                                               value="₹3,001 and Above" id="₹3,001 and Above">
+                                                                        <label class="form-check-label subnamemodelfilter" for="₹3,001 and Above">
+                                                                            ₹3,001 and
+                                                                            Above
+                                                                        </label>
+                                                                    </div>
+                                                                    <span class="totalavailability">13</span>
+                                                                </div>
+                                                            </span>
+                                                            <a class="d-flex justify-content-between filtermoreoption text-danger"
+                                                               onclick="priceFunction()" id="pricefilterbutton">+ (2) More</a>
+                                                        </div>
+                                                    </div>
+                                                    <!--productslist-filter-mobileviews-model-pricefilter-section-end-->
+                                                    <!--productslist-filter-mobileviews-model-customerratingfilter-section-start-->
+                                                    <div class="tab-pane" id="list-customerrating" role="tabpanel" aria-labelledby="list-customerrating-list">
+                                                        <div class="categoriesfilter-checkbox mt-3">
+                                                            <div class="d-flex justify-content-between">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                                                           value="4&up" id="4&up">
+                                                                    <label class="form-check-label subnamemodelfilter" for="4&up">
+                                                                        <i class="fa fa-star"
+                                                                           style="color: orangered;"></i><i class="fa fa-star"
+                                                                                                            style="color: orangered;"></i><i class="fa fa-star"
+                                                                                                                                             style="color: orangered;"></i><i class="fa fa-star"
+                                                                                                                                                                              style="color: orangered;"></i> & Up
+                                                                    </label>
+                                                                </div>
+                                                                <span class="totalavailability">11</span>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                                                           value="3&up" id="3&up">
+                                                                    <label class="form-check-label subnamemodelfilter" for="3&up">
+                                                                        <i class="fa fa-star"
+                                                                           style="color: orangered;"></i><i class="fa fa-star"
+                                                                                                            style="color: orangered;"></i><i class="fa fa-star"
+                                                                                                                                             style="color: orangered;"></i>
+                                                                        & Up
+                                                                    </label>
+                                                                </div>
+                                                                <span class="totalavailability">4</span>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                                                           value="2&up" id="2&up">
+                                                                    <label class="form-check-label subnamemodelfilter" for="2&up">
+                                                                        <i class="fa fa-star"
+                                                                           style="color: orangered;"></i><i class="fa fa-star"
+                                                                                                            style="color: orangered;"></i> & Up
+                                                                    </label>
+                                                                </div>
+                                                                <span class="totalavailability">20</span>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                                                           value="1&up" id="1&up">
+                                                                    <label class="form-check-label subnamemodelfilter" for="1&up">
+                                                                        <i class="fa fa-star"
+                                                                           style="color: orangered;"></i>
+                                                                        & Up
+                                                                    </label>
+                                                                </div>
+                                                                <span class="totalavailability">10</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--productslist-filter-mobileviews-model-customerratingfilter-section-end-->
+                                                    <!--productslist-filter-mobileviews-model-discountrangefilter-section-start-->
+                                                    <div class="tab-pane" id="list-discountrange" role="tabpanel" aria-labelledby="list-discountrange-list">
+                                                        <div class="categoriesfilter-checkbox mt-3">
+                                                            <div class="d-flex justify-content-between">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                                                           value="10% and above" id="10% and above">
+                                                                    <label class="form-check-label subnamemodelfilter" for="10% and above">
+                                                                        10% and above
+                                                                    </label>
+                                                                </div>
+                                                                <span class="totalavailability">18</span>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                                                           value="20% and above" id="20% and above">
+                                                                    <label class="form-check-label subnamemodelfilter" for="20% and above">
+                                                                        20% and above
+                                                                    </label>
+                                                                </div>
+                                                                <span class="totalavailability">14</span>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                                                           value="30% and above" id="30% and above">
+                                                                    <label class="form-check-label subnamemodelfilter" for="30% and above">
+                                                                        30% and above
+                                                                    </label>
+                                                                </div>
+                                                                <span class="totalavailability">5</span>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                                                           value="40% and above" id="40% and above">
+                                                                    <label class="form-check-label subnamemodelfilter" for="40% and above">
+                                                                        40% and
+                                                                        above
+                                                                    </label>
+                                                                </div>
+                                                                <span class="totalavailability">7</span>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                                                           value="50% and above" id="50% and above">
+                                                                    <label class="form-check-label subnamemodelfilter" for="50% and above">
+                                                                        50% and
+                                                                        above
+                                                                    </label>
+                                                                </div>
+                                                                <span class="totalavailability">12</span>
+                                                            </div>
+                                                            <span id="dots"></span><span id="ragehidefilter">
+                                                                <div class="d-flex justify-content-between">
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                                                               value="60% and above" id="60% and above">
+                                                                        <label class="form-check-label subnamemodelfilter" for="60% and above">
+                                                                            60% and
+                                                                            above
+                                                                        </label>
+                                                                    </div>
+                                                                    <span class="totalavailability">18</span>
+                                                                </div>
+                                                                <div class="d-flex justify-content-between">
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                                                               value="70% and above" id="70% and above">
+                                                                        <label class="form-check-label subnamemodelfilter" for="70% and above">
+                                                                            70% and
+                                                                            above
+                                                                        </label>
+                                                                    </div>
+                                                                    <span class="totalavailability">2</span>
+                                                                </div>
+                                                                <div class="d-flex justify-content-between">
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input border-black border-1 rounded" type="checkbox"
+                                                                               value="80% and above" id="80% and above">
+                                                                        <label class="form-check-label subnamemodelfilter" for="80% and above">
+                                                                            80% and
+                                                                            above
+                                                                        </label>
+                                                                    </div>
+                                                                    <span class="totalavailability">9</span>
+                                                                </div>
+                                                            </span>
+                                                            <a class="d-flex justify-content-between filtermoreoption text-danger"
+                                                               onclick="rageFunction()" id="ragefilterbutton">+ (3) More</a>
+                                                        </div>
+                                                    </div>
+                                                    <!--productslist-filter-mobileviews-model-discountrangefilter-section-end-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--productslist-filter-mobileviews-model-apply and clear-button-start-->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn">CLEAR ALL</button>
+                                        <button type="button" class="btn btn-danger">APPLY</button>
+                                    </div>
+                                    <!--productslist-filter-mobileviews-model-apply and clear-button-end-->
+                                </div>
+                            </div>
+                        </div>
+                        <!--productslist-filter-mobileviews-model-filter-modelsection-end-->
+                    </div>
+                    <!--productslist-filter-mobileviews-filter-Section-end-->
+                </div>
+                <!--productslist-filter-mobileviews-Section-end-->
+                <!--productslist-filter-sortby-Section-start-->
+                <div class="col-12 sortbylargescreenprolist headingdiv uperfilter">
+                    <h6 class="mt-3 filterheading">Men T-shirts</h6>
+                    <div class="sortdropdown">
+                        <label for="sortvalue">Sort By:</label>
+                        <select class="sortvalue" name="sortvalue" id="sortvalue">
+                            <option value="Recommended">Recommended</option>
+                            <option value="What's New">What's New</option>
+                            <option value="Popularity">Popularity</option>
+                            <option value="Better Discount">Better Discount</option>
+                            <option value="Price: High to Low">Price: High to Low</option>
+                            <option value="Price: Low to High">Price: Low to High</option>
+                            <option value="Customer Rating">Customer Rating</option>
+                        </select>
+                    </div>
+                </div>
+                <!--productslist-filter-sortby-Section-end-->
+                <div class="row d-flex producresults">
+                    <!--gifbannerSection-start-->
+                    <section class="section section-sm section-first bg-default text-center">
+                        <div class="container-fluid">
+                            <div class="row " style="padding: 30px 0px -50px 0px;">
+                                <div class="col-12 col-lg-12 col-md-12 mt-4">
+                                    <img class="offerbennertop" src="~/img/productslistbannertop.png" alt="Addbanner"
+                                         width="100%" style="border-radius: 10px;">
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!--gifbannerSection-end-->                 
+                        @await Html.PartialAsync("_ProductsByAttribute", Model)                 
+                    <!--gifbannerSection-start-->
+                    <section class="section section-sm section-first bg-default text-center">
+                        <div class="container-fluid">
+                            <div class="row " style="padding: 30px 0px -50px 0px;">
+                                <div class="col-12 col-lg-6 col-md-12 mt-4">
+                                    <img src="~/img/categorypagegif2.gif" alt="Addbanner" width="100%"
+                                         style="border-radius: 10px;">
+                                </div>
+                                <div class="col-12 col-lg-6 col-md-12 mt-4">
+                                    <img src="~/img/productslistbanner2.gif" alt="Addbanner" width="100%"
+                                         style="border-radius: 10px;">
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!--gifbannerSection-end-->
+                    <div class="col-6 col-lg-3 col-md-4">
+                        <div class="wrapper">
+                            <div class="card products-listcard"
+                                 style="border-radius: 10px; box-shadow: 0px 2px 0px 2px #aed4f0;">
+                                <span class="off">-25% OFF</span>
+
+                                <div class="text-center">
+                                    <img id="main-image" class="prolistimagelarge"
+                                         src="~/img/productdetailsimage1.jpeg" />
+                                </div>
+                                <span class="similarpro mt-5">
+                                    <button class="similaprobutton" data-toggle="tooltip"
+                                            data-placement="top" title="Similar Products">
+                                        <img src="~/img/similarIcon.png"
+                                             width="25" height="25">
+                                    </button>
+                                </span>
+                                <span class="whislistpro mt-5">
+                                    <button class="whislistprobutton"
+                                            data-toggle="tooltip" data-placement="top" title="Move To Wishlist">
+                                        <i class="fa fa-heart"
+                                           style="width: 20px; height: 20px; color: #000000;"></i>
+                                    </button>
+                                </span>
+                                <span class="cartpro mt-5">
+                                    <button class="cartprobutton" data-toggle="tooltip"
+                                            data-placement="bottom" title="Move To Bag">
+                                        <i class="fa fa-shopping-cart"
+                                           style="width: 20px; height: 20px; color: #000000;"></i>
+                                    </button>
+                                </span>
+                                <div class="thumbnail text-center">
+                                    <img onclick="change_image(this)" src="~/img/productdetailsimage2.jpeg" width="30"
+                                         height="30">
+                                    <img onclick="change_image(this)" src="~/img/productdetailsimage3.jpeg" width="30"
+                                         height="30">
+                                    <img onclick="change_image(this)" src="~/img/productdetailsimage4.jpeg" width="30"
+                                         height="30">
+                                    <img onclick="change_image(this)" src="~/img/productdetailsimage5.jpeg" width="30"
+                                         height="30">
+                                </div>
+                                <div class="about text-center">
+                                    <h6 class="prolistcardname">Jack & Jones</h6>
+                                    <h6 class="prolistcardname">
+                                        Jack & Jones Navy Blue Cotton Slim Fit Polo T-Shirt
+                                    </h6>
+                                    <p class="font-weight-bold m-0 responsivestar" style="color: orangered;">
+                                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <span style="color: darkgrey;">250</span>
+                                    </p>
+                                    <p class="font-weight-bold m-0 responsiveprice">
+                                        ₹679 <span class="text-decoration-line-through"
+                                                   style="color: darkgrey;">₹1699</span> <span class="ml-1 text-success">(60% off)</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-6 col-lg-3 col-md-4">
+                        <div class="wrapper">
+                            <div class="card products-listcard"
+                                 style="border-radius: 10px; box-shadow: 0px 2px 0px 2px #aed4f0;">
+                                <span class="off">Top Sales</span>
+
+                                <div class="text-center">
+                                    <img id="main-imagetwo" class="prolistimagelarge"
+                                         src="~/img/productlistitem7.1.jpeg" />
+                                </div>
+                                <span class="similarpro mt-5">
+                                    <button class="similaprobutton" data-toggle="tooltip"
+                                            data-placement="top" title="Similar Products">
+                                        <img src="~/img/similarIcon.png"
+                                             width="25" height="25">
+                                    </button>
+                                </span>
+                                <span class="whislistpro mt-5">
+                                    <button class="whislistprobutton"
+                                            data-toggle="tooltip" data-placement="top" title="Move To Wishlist">
+                                        <i class="fa fa-heart"
+                                           style="width: 20px; height: 20px; color: #000000;"></i>
+                                    </button>
+                                </span>
+                                <span class="cartpro mt-5">
+                                    <button class="cartprobutton" data-toggle="tooltip"
+                                            data-placement="bottom" title="Move To Bag">
+                                        <i class="fa fa-shopping-cart"
+                                           style="width: 20px; height: 20px; color: #000000;"></i>
+                                    </button>
+                                </span>
+                                <div class="thumbnail text-center">
+                                    <img onclick="change_imagetwo(this)" src="~/img/productlistitem7.2.jpeg"
+                                         width="30" height="30">
+                                    <img onclick="change_imagetwo(this)" src="~/img/productlistitem7.3.jpeg"
+                                         width="30" height="30">
+                                    <img onclick="change_imagetwo(this)" src="~/img/productlistitem7.4.jpeg"
+                                         width="30" height="30">
+                                    <img onclick="change_imagetwo(this)" src="~/img/productlistitem7.5.jpeg"
+                                         width="30" height="30">
+                                </div>
+                                <div class="about text-center">
+                                    <h6 class="prolistcardname">Levi's</h6>
+                                    <h6 class="prolistcardname">
+                                        Levi's Camping Gear Green Pure Cotton Regular Fit
+                                        Logo Printed T-Shirts
+                                    </h6>
+                                    <p class="font-weight-bold m-0 responsivestar" style="color: orangered;">
+                                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <span style="color: darkgrey;">180</span>
+                                    </p>
+                                    <p class="font-weight-bold m-0 responsiveprice">
+                                        ₹767 <span class="text-decoration-line-through"
+                                                   style="color: darkgrey;">₹1199</span> <span class="ml-1 text-success">(36% off)</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--gifbannerSection-start-->
+                    <section class="section section-sm section-first bg-default text-center">
+                        <div class="container-fluid">
+                            <div class="row " style="padding: 30px 0px -50px 0px;">
+                                <div class="col-12 col-lg-6 col-md-12 mt-4">
+                                    <img src="~/img/productslistbanner.gif" alt="Addbanner" width="100%"
+                                         style="border-radius: 10px;">
+                                </div>
+                                <div class="col-12 col-lg-6 col-md-12 mt-4">
+                                    <img src="~/img/productslistbanner1.gif" alt="Addbanner" width="100%"
+                                         style="border-radius: 10px;">
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!--gifbannerSection-end-->
+
+                    <div class="col-6 col-lg-3 col-md-4">
+                        <div class="wrapper">
+                            <div class="card products-listcard"
+                                 style="border-radius: 10px; box-shadow: 0px 2px 0px 2px #aed4f0;">
+                                <span class="off">Best Deals</span>
+
+                                <div class="text-center">
+                                    <img id="main-imageone" class="prolistimagelarge"
+                                         src="~/img/productlistitem1.1.jpeg" />
+                                </div>
+                                <span class="similarpro mt-5">
+                                    <button class="similaprobutton" data-toggle="tooltip"
+                                            data-placement="top" title="Similar Products">
+                                        <img src="~/img/similarIcon.png"
+                                             width="25" height="25">
+                                    </button>
+                                </span>
+                                <span class="whislistpro mt-5">
+                                    <button class="whislistprobutton"
+                                            data-toggle="tooltip" data-placement="top" title="Move To Wishlist">
+                                        <i class="fa fa-heart"
+                                           style="width: 20px; height: 20px; color: #000000;"></i>
+                                    </button>
+                                </span>
+                                <span class="cartpro mt-5">
+                                    <button class="cartprobutton" data-toggle="tooltip"
+                                            data-placement="bottom" title="Move To Bag">
+                                        <i class="fa fa-shopping-cart"
+                                           style="width: 20px; height: 20px; color: #000000;"></i>
+                                    </button>
+                                </span>
+                                <div class="thumbnail text-center">
+                                    <img onclick="change_imageone(this)" src="~/img/productlistitem1.2.jpeg"
+                                         width="30" height="30">
+                                    <img onclick="change_imageone(this)" src="~/img/productlistitem1.3.jpeg"
+                                         width="30" height="30">
+                                    <img onclick="change_imageone(this)" src="~/img/productlistitem1.4.jpeg"
+                                         width="30" height="30">
+                                    <img onclick="change_imageone(this)" src="~/img/productlistitem1.5.jpeg"
+                                         width="30" height="30">
+                                </div>
+                                <div class="about text-center">
+                                    <h6 class="prolistcardname">U.S. Polo Assn.</h6>
+                                    <h6 class="prolistcardname">
+                                        U.S. Polo Assn. Ivory Cotton Regular Fit Polo
+                                        T-Shirt
+                                    </h6>
+                                    <p class="font-weight-bold m-0 responsivestar" style="color: orangered;">
+                                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <span style="color: darkgrey;">110</span>
+                                    </p>
+                                    <p class="font-weight-bold m-0 responsiveprice">
+                                        ₹1423 <span class="text-decoration-line-through"
+                                                    style="color: darkgrey;">₹1899</span> <span class="ml-1 text-success">(25% off)</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-lg-3 col-md-4">
+                        <div class="wrapper">
+                            <div class="card products-listcard"
+                                 style="border-radius: 10px; box-shadow: 0px 2px 0px 2px #aed4f0;">
+                                <span class="off">-25% OFF</span>
+
+                                <div class="text-center">
+                                    <img id="main-imagethree" class="prolistimagelarge"
+                                         src="~/img/productlistitem3.1.jpeg" />
+                                </div>
+                                <span class="similarpro mt-5">
+                                    <button class="similaprobutton" data-toggle="tooltip"
+                                            data-placement="top" title="Similar Products">
+                                        <img src="~/img/similarIcon.png"
+                                             width="25" height="25">
+                                    </button>
+                                </span>
+                                <span class="whislistpro mt-5">
+                                    <button class="whislistprobutton"
+                                            data-toggle="tooltip" data-placement="top" title="Move To Wishlist">
+                                        <i class="fa fa-heart"
+                                           style="width: 20px; height: 20px; color: #000000;"></i>
+                                    </button>
+                                </span>
+                                <span class="cartpro mt-5">
+                                    <button class="cartprobutton" data-toggle="tooltip"
+                                            data-placement="bottom" title="Move To Bag">
+                                        <i class="fa fa-shopping-cart"
+                                           style="width: 20px; height: 20px; color: #000000;"></i>
+                                    </button>
+                                </span>
+                                <div class="thumbnail text-center">
+                                    <img onclick="change_imagethree(this)" src="~/img/productlistitem3.2.jpeg"
+                                         width="30" height="30">
+                                    <img onclick="change_imagethree(this)" src="~/img/productlistitem3.3.jpeg"
+                                         width="30" height="30">
+                                    <img onclick="change_imagethree(this)" src="~/img/productlistitem3.4.jpeg"
+                                         width="30" height="30">
+                                    <img onclick="change_imagethree(this)" src="~/img/productlistitem3.5.jpeg"
+                                         width="30" height="30">
+                                </div>
+                                <div class="about text-center">
+                                    <h6 class="prolistcardname">United Colors of Benetton</h6>
+                                    <h6 class="prolistcardname">
+                                        United Colors of Benetton Maroon Polo T-Shirt
+                                    </h6>
+                                    <p class="font-weight-bold m-0 responsivestar" style="color: orangered;">
+                                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <span style="color: darkgrey;">199</span>
+                                    </p>
+                                    <p class="font-weight-bold m-0 responsiveprice">
+                                        ₹1149 <span class="text-decoration-line-through"
+                                                    style="color: darkgrey;">₹2299</span> <span class="ml-1 text-success">(50% off)</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3 col-md-4">
+                        <div class="wrapper">
+                            <div class="card products-listcard"
+                                 style="border-radius: 10px; box-shadow: 0px 2px 0px 2px #aed4f0;">
+                                <span class="off">-25% OFF</span>
+
+                                <div class="text-center">
+                                    <img id="main-imagefour" class="prolistimagelarge"
+                                         src="~/img/productlistitem4.1.jpeg" />
+                                </div>
+                                <span class="similarpro mt-5">
+                                    <button class="similaprobutton" data-toggle="tooltip"
+                                            data-placement="top" title="Similar Products">
+                                        <img src="~/img/similarIcon.png"
+                                             width="25" height="25">
+                                    </button>
+                                </span>
+                                <span class="whislistpro mt-5">
+                                    <button class="whislistprobutton"
+                                            data-toggle="tooltip" data-placement="top" title="Move To Wishlist">
+                                        <i class="fa fa-heart"
+                                           style="width: 20px; height: 20px; color: #000000;"></i>
+                                    </button>
+                                </span>
+                                <span class="cartpro mt-5">
+                                    <button class="cartprobutton" data-toggle="tooltip"
+                                            data-placement="bottom" title="Move To Bag">
+                                        <i class="fa fa-shopping-cart"
+                                           style="width: 20px; height: 20px; color: #000000;"></i>
+                                    </button>
+                                </span>
+                                <div class="thumbnail text-center">
+                                    <img onclick="change_imagefour(this)" src="~/img/productlistitem4.2.jpeg"
+                                         width="30" height="30">
+                                    <img onclick="change_imagefour(this)" src="~/img/productlistitem4.3.jpeg"
+                                         width="30" height="30">
+                                    <img onclick="change_imagefour(this)" src="~/img/productlistitem4.4.jpeg"
+                                         width="30" height="30">
+                                    <img onclick="change_imagefour(this)" src="~/img/productlistitem4.5.jpeg"
+                                         width="30" height="30">
+                                </div>
+                                <div class="about text-center">
+                                    <h6 class="prolistcardname">Pepe Jeans</h6>
+                                    <h6 class="prolistcardname">
+                                        Pepe Jeans Green Cotton Regular Fit Colour Block
+                                        Polo T-Shirt
+                                    </h6>
+                                    <p class="font-weight-bold m-0 responsivestar" style="color: orangered;">
+                                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <span style="color: darkgrey;">19</span>
+                                    </p>
+                                    <p class="font-weight-bold m-0 responsiveprice">
+                                        ₹989 <span class="text-decoration-line-through"
+                                                   style="color: darkgrey;">₹1799</span> <span class="ml-1 text-success">(45% off)</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-6 col-lg-3 col-md-4">
+                        <div class="wrapper">
+                            <div class="card products-listcard"
+                                 style="border-radius: 10px; box-shadow: 0px 2px 0px 2px #aed4f0;">
+                                <span class="off">Best Deals</span>
+
+                                <div class="text-center">
+                                    <img id="main-imageone" class="prolistimagelarge"
+                                         src="~/img/productlistitem1.1.jpeg" />
+                                </div>
+                                <span class="similarpro mt-5">
+                                    <button class="similaprobutton" data-toggle="tooltip"
+                                            data-placement="top" title="Similar Products">
+                                        <img src="~/img/similarIcon.png"
+                                             width="25" height="25">
+                                    </button>
+                                </span>
+                                <span class="whislistpro mt-5">
+                                    <button class="whislistprobutton"
+                                            data-toggle="tooltip" data-placement="top" title="Move To Wishlist">
+                                        <i class="fa fa-heart"
+                                           style="width: 20px; height: 20px; color: #000000;"></i>
+                                    </button>
+                                </span>
+                                <span class="cartpro mt-5">
+                                    <button class="cartprobutton" data-toggle="tooltip"
+                                            data-placement="bottom" title="Move To Bag">
+                                        <i class="fa fa-shopping-cart"
+                                           style="width: 20px; height: 20px; color: #000000;"></i>
+                                    </button>
+                                </span>
+                                <div class="thumbnail text-center">
+                                    <img onclick="change_imageone(this)" src="~/img/productlistitem1.2.jpeg"
+                                         width="30" height="30">
+                                    <img onclick="change_imageone(this)" src="~/img/productlistitem1.3.jpeg"
+                                         width="30" height="30">
+                                    <img onclick="change_imageone(this)" src="~/img/productlistitem1.4.jpeg"
+                                         width="30" height="30">
+                                    <img onclick="change_imageone(this)" src="~/img/productlistitem1.5.jpeg"
+                                         width="30" height="30">
+                                </div>
+                                <div class="about text-center">
+                                    <h6 class="prolistcardname">U.S. Polo Assn.</h6>
+                                    <h6 class="prolistcardname">
+                                        U.S. Polo Assn. Ivory Cotton Regular Fit Polo
+                                        T-Shirt
+                                    </h6>
+                                    <p class="font-weight-bold m-0 responsivestar" style="color: orangered;">
+                                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <span style="color: darkgrey;">110</span>
+                                    </p>
+                                    <p class="font-weight-bold m-0 responsiveprice">
+                                        ₹1423 <span class="text-decoration-line-through"
+                                                    style="color: darkgrey;">₹1899</span> <span class="ml-1 text-success">(25% off)</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3 col-md-4">
+                        <div class="wrapper">
+                            <div class="card products-listcard"
+                                 style="border-radius: 10px; box-shadow: 0px 2px 0px 2px #aed4f0;">
+                                <span class="off">Top Sales</span>
+
+                                <div class="text-center">
+                                    <img id="main-imagetwo" class="prolistimagelarge"
+                                         src="~/img/productlistitem2.1.jpeg" />
+                                </div>
+                                <span class="similarpro mt-5">
+                                    <button class="similaprobutton" data-toggle="tooltip"
+                                            data-placement="top" title="Similar Products">
+                                        <img src="~/img/similarIcon.png"
+                                             width="25" height="25">
+                                    </button>
+                                </span>
+                                <span class="whislistpro mt-5">
+                                    <button class="whislistprobutton"
+                                            data-toggle="tooltip" data-placement="top" title="Move To Wishlist">
+                                        <i class="fa fa-heart"
+                                           style="width: 20px; height: 20px; color: #000000;"></i>
+                                    </button>
+                                </span>
+                                <span class="cartpro mt-5">
+                                    <button class="cartprobutton" data-toggle="tooltip"
+                                            data-placement="bottom" title="Move To Bag">
+                                        <i class="fa fa-shopping-cart"
+                                           style="width: 20px; height: 20px; color: #000000;"></i>
+                                    </button>
+                                </span>
+                                <div class="thumbnail text-center">
+                                    <img onclick="change_imagetwo(this)" src="~/img/productlistitem2.2.jpeg"
+                                         width="30" height="30">
+                                    <img onclick="change_imagetwo(this)" src="~/img/productlistitem2.3.jpeg"
+                                         width="30" height="30">
+                                    <img onclick="change_imagetwo(this)" src="~/img/productlistitem2.4.jpeg"
+                                         width="30" height="30">
+                                    <img onclick="change_imagetwo(this)" src="~/img/productlistitem2.5.jpeg"
+                                         width="30" height="30">
+                                </div>
+                                <div class="about text-center">
+                                    <h6 class="prolistcardname">Louis Philippe</h6>
+                                    <h6 class="prolistcardname">
+                                        Louis Philippe Green Cotton Slim Fit T-Shirt
+                                    </h6>
+                                    <p class="font-weight-bold m-0 responsivestar" style="color: orangered;">
+                                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <span style="color: darkgrey;">25</span>
+                                    </p>
+                                    <p class="font-weight-bold m-0 responsiveprice">
+                                        ₹618 <span class="text-decoration-line-through"
+                                                   style="color: darkgrey;">₹1049</span> <span class="ml-1 text-success">(41% off)</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3 col-md-4">
+                        <div class="wrapper">
+                            <div class="card products-listcard"
+                                 style="border-radius: 10px; box-shadow: 0px 2px 0px 2px #aed4f0;">
+                                <span class="off">-25% OFF</span>
+
+                                <div class="text-center">
+                                    <img id="main-imagethree" class="prolistimagelarge"
+                                         src="~/img/productlistitem3.1.jpeg" />
+                                </div>
+                                <span class="similarpro mt-5">
+                                    <button class="similaprobutton" data-toggle="tooltip"
+                                            data-placement="top" title="Similar Products">
+                                        <img src="~/img/similarIcon.png"
+                                             width="25" height="25">
+                                    </button>
+                                </span>
+                                <span class="whislistpro mt-5">
+                                    <button class="whislistprobutton"
+                                            data-toggle="tooltip" data-placement="top" title="Move To Wishlist">
+                                        <i class="fa fa-heart"
+                                           style="width: 20px; height: 20px; color: #000000;"></i>
+                                    </button>
+                                </span>
+                                <span class="cartpro mt-5">
+                                    <button class="cartprobutton" data-toggle="tooltip"
+                                            data-placement="bottom" title="Move To Bag">
+                                        <i class="fa fa-shopping-cart"
+                                           style="width: 20px; height: 20px; color: #000000;"></i>
+                                    </button>
+                                </span>
+                                <div class="thumbnail text-center">
+                                    <img onclick="change_imagethree(this)" src="~/img/productlistitem3.2.jpeg"
+                                         width="30" height="30">
+                                    <img onclick="change_imagethree(this)" src="~/img/productlistitem3.3.jpeg"
+                                         width="30" height="30">
+                                    <img onclick="change_imagethree(this)" src="~/img/productlistitem3.4.jpeg"
+                                         width="30" height="30">
+                                    <img onclick="change_imagethree(this)" src="~/img/productlistitem3.5.jpeg"
+                                         width="30" height="30">
+                                </div>
+                                <div class="about text-center">
+                                    <h6 class="prolistcardname">United Colors of Benetton</h6>
+                                    <h6 class="prolistcardname">
+                                        United Colors of Benetton Maroon Polo T-Shirt
+                                    </h6>
+                                    <p class="font-weight-bold m-0 responsivestar" style="color: orangered;">
+                                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <span style="color: darkgrey;">199</span>
+                                    </p>
+                                    <p class="font-weight-bold m-0 responsiveprice">
+                                        ₹1149 <span class="text-decoration-line-through"
+                                                    style="color: darkgrey;">₹2299</span> <span class="ml-1 text-success">(50% off)</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--productslist-single-products-Section-end-->
+                    <!--productslist-products-pagenation-Section-start-->
+                    <div class="col-12 col-lg-12 col-md-12 productlistpagenumber">
+                        <div class="pagenumber">
+                            <p class="mt-2 totalpagination">Page 1 of 469</p>
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item disabled">
+                                        <a class="page-link paginationfont" href="#" tabindex="-1">Previous</a>
+                                    </li>
+                                    <li class="page-item paginationfont active" style="z-index: 0;">
+                                        <a class="page-link" href="#">1</a>
+                                    </li>
+                                    <li class="page-item paginationfont"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item paginationfont"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item paginationfont">
+                                        <a class="page-link" href="#">Next</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <!--productslist-products-pagenation-Section-end-->
+                </div>
+            </div>
+            <!--gifbannerSection-start-->
+            <section class="section section-sm section-first bg-default text-center">
+                <div class="container-fluid">
+                    <div class="row " style="padding: 30px 0px -50px 0px;">
+                        <div class="col-12 col-lg-12 col-md-12"
+                             style="display: flex; justify-content: center; margin: 20px 0px 30px 0px;">
+                            <img src="~/img/productdetailspagebanner.png" alt="Addbanner" width="100%"
+                                 style="border-radius: 10px;">
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
+            <!--gifbannerSection-end-->
         </div>
     </div>
-    @await Html.PartialAsync("_BrandZone", Model)
-</div>   
-<script>
-    $(".profileCheckbox").click(function () {
-        var data = getCategoryID();
+</section>
+<!--productslistSection-end-->
+@section scripts{ 
+    <script type="text/javascript">
+
+        $('.similaprobutton').click(function () {
+            var href = $(this).attr('href');
+                @* var url = '@Url.Action("AllProducts", "Home")';*@
+                $.ajax({
+                    url: href,
+                    type: 'GET',
+                   // data: { "para": $("#Text1").val()},
+                    success: function (data) {
+                        $('.prolistsimilarlayout').html(data);
+                    }
+                });
+            })
+    //$(document).ready(function () {
+    //Pie chart for Number of Products Category Wise
+    $.ajax({
+        type: "GET",
+        url: "@Url.Action("PieChart", "Home")",
+        data: {},
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            successFunc(response);
+        },
+    });
+
+        function successFunc(jsondata) {
+            var data = {};
+            const greaterArr = [];
+
+            var numOfProducts = [];
+            jsondata.forEach(function (e) {
+                var i = 0;
+                var subcategorylength = e.subcategoryDetails.length
+                for (i = 0; i < subcategorylength; i++) {
+                    greaterArr.push(e.subcategoryDetails[i].categoryName)
+                    numOfProducts.push(e.subcategoryDetails[i].productsDetails.length)
+                    data[e.subcategoryDetails[i].categoryName] = e.subcategoryDetails[i].productsDetails.length;
+                }
+            })
+
+            console.log(numOfProducts);
+        }
+
+     $(".category").click(function () {
+      var data = getCategoryID();
         var seasoning = '', tempArray = [];
 
-        $('input[name="SpecificationName[]"]:checked').each(function () {
+        $('input[name="CategoryName[]"]:checked').each(function () {
             tempArray.push($(this).val());
         })
         if (tempArray.length !== 0) {
-            seasoning += 'SpecificationName=' + tempArray.toString();
+            seasoning += ',' + tempArray.toString();
             tempArray = [];
         }
-        window.history.replaceState(null, null, "?" + data + '&' + seasoning);
+        window.history.replaceState(null, null, "?" + data + '' + seasoning);
         if (seasoning != '') {
             $.ajax({
-                url: '@Url.Action("_ProductsByAttribute", "Home")' + '?' + data + '&' + seasoning,
+                url: '@Url.Action("_ProductsByAttribute", "Home")' + '?' + data +seasoning,
                 type: "GET",
                 success: function (data) {
                     $(".producresults").html(data);
@@ -414,4 +1864,7 @@
                 return key +'='+ value
             }
         }
-</script>
+
+
+    </script>
+}

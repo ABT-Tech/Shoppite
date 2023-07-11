@@ -254,7 +254,9 @@ var myLink = document.querySelector('a[href="#"]');
     });
 
 // /* <!--productslistpage-start--> */
-    function brandFunction() {
+function brandFunction() {
+    var numItems = $('.brandcount').length;
+    console.log(numItems);
       var dots = document.getElementById("dots");
       var moreText = document.getElementById("brandfilter");
       var btnText = document.getElementById("brandfilterbutton");
@@ -273,7 +275,9 @@ var myLink = document.querySelector('a[href="#"]');
 
 
   function categoriesFunction() {
-    var dots = document.getElementById("dots");
+      var dots = document.getElementById("dots");
+      var numofCategories = $('.categoriescount').length;
+      console.log(numofCategories)
     var moreText = document.getElementById("categorieshidefilter");
     var btnText = document.getElementById("categoriesfilterbutton");
 

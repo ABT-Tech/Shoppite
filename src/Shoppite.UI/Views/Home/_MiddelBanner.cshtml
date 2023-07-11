@@ -1,23 +1,24 @@
 ﻿@model Shoppite.Application.Models.MainModel
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-    .responsive {
-        height: auto;
-    }
-</style>
-@if (Model.MiddelBanner != null)
-{
-    @foreach (var image in Model.MiddelBanner.TakeLast(2))
-    {
-        if (Model.MiddelBanner.Count == 2)
-        {
-            <div class="col-md-6">
-                <div class="shrink image">
-                    <a  asp-action="AllProducts" asp-route-CategoryId="@image.CategoryId"><img src="@image.Image" class="rounded-2 mt-2 responsive img-fluid" alt="slider image" /></a>
-                </div>
+<!--gifbannerSection-start-->
+<section class="section section-sm section-first bg-default text-center">
+    <div class="container-fluid">
+        <div class="row " style="padding: 30px 0px -50px 0px;">
+            @if (Model.MiddelBanner != null)
+            {
+                @foreach (var image in Model.MiddelBanner.TakeLast(2))
+                {
+                    if (Model.MiddelBanner.Count == 2)
+                    {
+                        <div class="col-12 col-lg-6 col-md-12 mt-4">
+                            <a asp-action="AllProducts" asp-route-CategoryId="@image.CategoryId"><img src="@image.Image" alt="Addbanner" width="100%" style="border-radius: 10px;" /></a>
+                        </div>
+                    }
+                }
+            }
+            <div class="col-12 col-lg-12 col-md-12 mt-4">
+                <img src="~/img/boy_try_1.png" alt="Addbanner" width="100%" style="border-radius: 10px;">
             </div>
-        }
-    }
-}
-
+        </div>
+    </div>
+</section>
+<!--gifbannerSection-end-->

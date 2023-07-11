@@ -65,7 +65,8 @@ namespace Shoppite.Application.Services
         {
             CustomerWishlist wishlist = new CustomerWishlist();
             wishlist.ProductId = mainModel.ProductId;
-            wishlist.UserName = _accessor.HttpContext.User.Identity.Name;
+            wishlist.UserName = "amithakkar991@gmail.com";
+            //wishlist.UserName = _accessor.HttpContext.User.Identity.Name;
             wishlist.InsertDate = DateTime.Now;
             wishlist.Ip = _accessor.HttpContext.Connection.RemoteIpAddress.ToString();
             wishlist.OrgId = mainModel.OrgId;

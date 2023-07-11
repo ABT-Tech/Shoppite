@@ -34,9 +34,9 @@ namespace Shoppite.Web.Services
             var productList = await _categoryService.GetProductList(orgId);
             return productList;
         }
-        public async Task<List<CategoryMasterModel>> GetCategories(int CategoryId,int OrgId)
+        public async Task<List<CategoryMasterModel>> GetCategories(int OrgId)
         {
-            var categories= await _categoryService.GetCategories(CategoryId,OrgId);
+            var categories= await _categoryService.GetCategories(OrgId);
             return categories;
         }
         public async Task<CategoryMasterModel> DisplayLogo(int orgId)
@@ -50,7 +50,7 @@ namespace Shoppite.Web.Services
             var mapped = _mapper.Map<List<CategoryMasterModel>>(image);
             return mapped;
         }
-        public async Task<List<f_getproducts_By_CatID_SpecificationNameModel>> GetAllProductByCategory(int CategoryId,int OrgId)
+        public async Task<List<f_getproducts_By_CatID_SpecificationNameModel>> GetAllProductByCategory(string CategoryId,int OrgId)
         {
             var productList = await _categoryService.GetAllProductByCategory(CategoryId,OrgId);
             return productList;
@@ -60,7 +60,7 @@ namespace Shoppite.Web.Services
             var attribute = await _categoryService.GetAllAttributes(orgId);
             return attribute;
         }
-        public async Task<List<f_getproducts_By_CatID_SpecificationNameModel>> GetAllProductByAttribute(int CategoryId, string SpecificationName)
+        public async Task<List<f_getproducts_By_CatID_SpecificationNameModel>> GetAllProductByAttribute(string CategoryId, string SpecificationName)
         {
             var attribute = await _categoryService.GetAllProductByAttribute(CategoryId, SpecificationName);
             return attribute;
@@ -87,6 +87,12 @@ namespace Shoppite.Web.Services
         {
             var image = await _categoryService.GetLeftBanner(orgId);
             var mapped = _mapper.Map<List<CategoryMasterModel>>(image);
+            return mapped;
+        }
+        public async Task<List<SP_GetSimilarProductsModel>> GetSimilarProducts(string CategoryID,int BrandId,int orgId)
+        {
+            var similarProducts = await _categoryService.GetSimilarProducts(CategoryID, BrandId,orgId);
+            var mapped = _mapper.Map<List<SP_GetSimilarProductsModel>>(similarProducts);
             return mapped;
         }
     }

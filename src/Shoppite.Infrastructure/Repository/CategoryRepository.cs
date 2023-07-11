@@ -48,7 +48,7 @@ namespace Shoppite.Infrastructure.Repository
              return await _dbContext.Set<f_getproducts_By_CategoryID_Result>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
             //return f_getproducts_By_CategoryID_ResultList;
         }
-        public async Task<List<CategoryMaster>> GetCategories(int CategoryId,int orgId)
+        public async Task<List<CategoryMaster>> GetCategories(int orgId)
         {
             return await _dbContext.CategoryMaster.Where(x=>x.OrgId== orgId).ToListAsync();
         }
@@ -65,9 +65,10 @@ namespace Shoppite.Infrastructure.Repository
                      select ad_detail).ToList().TakeLast(1); 
             return q.ToList();
         }
-        public async Task<List<F_getproducts_By_CatId>> GetAllProductByCategory(int CategoryId,int Orgid)
+        public async Task<List<F_getproducts_By_CatId>> GetAllProductByCategory(string CategoryId,int Orgid)
         {
-            string sql = "select * from f_getproducts_By_CatID(@ID)";
+     
+            string sql = "select * from f_getproducts_By_CatID_ProductList(@ID)";
             List<SqlParameter> parms = new List<SqlParameter>
             {
                 new SqlParameter { ParameterName = "@ID", Value = CategoryId }
@@ -85,7 +86,7 @@ namespace Shoppite.Infrastructure.Repository
             };
             return await _dbContext.Set<SP_GetSpecificationData_AttributName>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
         }
-        public async Task<List<f_getproducts_By_CatID_SpecificationName>> GetAllProductByAttribute(int CategoryId, string SpecificationName)
+        public async Task<List<f_getproducts_By_CatID_SpecificationName>> GetAllProductByAttribute(string CategoryId, string SpecificationName)
         {
             string sql = "select * from f_getproducts_By_CatID_SpecificationName(@ID,@Name)";
             List<SqlParameter> parms = new List<SqlParameter>
@@ -142,6 +143,27 @@ namespace Shoppite.Infrastructure.Repository
                      where ad_pagename.PageName.Contains("Home") && ad_place.PlacementName == "Left Side" && ad_detail.OrgId == orgId
                      select ad_detail).ToList().TakeLast(1);
             return q.ToList();
+        }
+        public async Task<List<SP_GetSimilarProducts>> GetSimilarProducts(string CategoryId,int BrandId, int Orgid)
+        {
+            string sql = "exec SP_GetSimilarProducts_ProductList @OrgId,@CategoryId,@BrandId";
+            List<SqlParameter> parms = new List<SqlParameter>
+            { 
+                // Create parameters    
+                new SqlParameter { ParameterName = "@OrgId", Value = Orgid },
+                new SqlParameter { ParameterName = "@CategoryId", Value = CategoryId },
+                new SqlParameter { ParameterName = "@BrandId", Value = BrandId }
+            };
+            return await _dbContext.Set<SP_GetSimilarProducts>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
+        }
+        public async Task<List<F_getproducts_By_CatId>> GetProductsByCategoryInProductList(int CategoryId, int Orgid)
+        {
+            string sql = "select * from f_getproducts_By_CatID(@ID)";
+            List<SqlParameter> parms = new List<SqlParameter>
+            {
+                new SqlParameter { ParameterName = "@ID", Value = CategoryId }
+            };
+            return await _dbContext.Set<F_getproducts_By_CatId>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
         }
     }   
 }

@@ -12,8 +12,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace Shoppite.UI.Controllers
-{
-    [Authorize]
+{ 
     public class WishlistController : Controller
     {
         private readonly ICommonHelper _commonHelper;
@@ -38,24 +37,25 @@ namespace Shoppite.UI.Controllers
             string userName = User.Identity.Name;
             var brands = await _BrandPageService.GetBrands(OrgId);
             brands.CategoryMaster = await _categoryPageService.DisplayLogo(OrgId);
-            brands.Categories = await _categoryPageService.GetCategories(CategoryId, OrgId);
+            brands.Categories = await _categoryPageService.GetCategories(OrgId);
             brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
-            brands.Wishlists = await _productWishListService.GetWishList("jayshreesolanki199@gmail.com", OrgId);
-            return View();
+            brands.Wishlists = await _productWishListService.GetWishList("amithakkar991@gmail.com", OrgId);
+            return View(brands);
         }
          
         [HttpPost]
         public async Task<IActionResult> Wishlist(MainModel wishlist, int id)
         {
-           /* var ipadresss = _accessor.HttpContext.Connection.RemoteIpAddress.ToString();
+            var ipadresss = _accessor.HttpContext.Connection.RemoteIpAddress.ToString();
             int OrgId = _commonHelper.GetOrgID(HttpContext);
-            string userName = User.Identity.Name;
+            string userName = "amithakkar991@gmail.com";
+            //string userName = User.Identity.Name;
             wishlist.OrgId = OrgId;
             wishlist.Ip = ipadresss;
-            wishlist.UserName = userName;  
+            wishlist.UserName = userName;
             await _productWishListService.AddWishList(wishlist, id);
-            wishlist.Wishlists = await _productWishListService.GetWishList(userName, OrgId);*/
-            return View();
+            wishlist.Wishlists = await _productWishListService.GetWishList(userName, OrgId);
+            return View(wishlist);
         }
     }
 }
