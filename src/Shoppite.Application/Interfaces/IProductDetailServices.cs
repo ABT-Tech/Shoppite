@@ -21,6 +21,6 @@ namespace Shoppite.Application.Interfaces
         Task AddToCart(ProductDetailModel productDetailModel);
         Task AddOrderMaster(ProductDetailModel productDetailModel);
         Task<ProductDetailModel> BuyNow(ProductDetailModel mapped);
-        Task<List<f_getproduct_varient_By_GuidModel>> GetProductVarients(Guid guid, int orgid, string userName);
+        Task<List<SP_GetProductDetailsModel>> GetProductVarient(Guid guid, int orgid, int SpecId);
     }
 }

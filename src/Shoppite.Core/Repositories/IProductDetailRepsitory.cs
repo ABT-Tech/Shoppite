@@ -24,6 +24,7 @@ namespace Shoppite.Core.Repositories
         Task<OrderBasic> check(OrderBasic productDetailModel);
         Task<OrderBasic> updateCart();
         Task<List<ProductVariant>> GetProductVarient(int orgid, Guid id, string username);
-        Task <List<f_getproduct_varient_By_Guid>>GetProductVarients(Guid guid, int orgid);
+        Task<List<SP_GetProductDetails>>GetProductVarient(Guid guid, int orgid,int SpecId);
+        Task<List<SP_GetProductSpecifications>> SP_GetProductSpecifications(Guid id, int orgid);
     }
 }

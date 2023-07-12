@@ -258,15 +258,28 @@
             return await _dbContext.ProductVariant.Where(x => x.OrgId == orgid && x.ProductGuid == id).ToListAsync();
         }
 
-        public async Task<List<f_getproduct_varient_By_Guid>> GetProductVarients(Guid guid, int orgid)
+        public async Task<List<SP_GetProductDetails>> GetProductVarient(Guid guid, int orgid,int SpecId)
         {
-            string sql = "select * from f_getproduct_varient_By_Guid(@ProductGUID,@Orgid)";
+            string sql = "EXEC SP_GetProductDetails @OrgId, @ProductGUID, @SpecificationId";
             List<SqlParameter> sqlParameters = new List<SqlParameter>
             {
+                new SqlParameter{ParameterName = "@OrgId",Value = orgid},
                 new SqlParameter{ParameterName = "@ProductGUID",Value = guid},
-                new SqlParameter{ParameterName = "@Orgid",Value = orgid}
+                new SqlParameter{ParameterName = "@SpecificationId",Value = SpecId}
             };
-            return await _dbContext.Set<f_getproduct_varient_By_Guid>().FromSqlRaw(sql, sqlParameters.ToArray()).ToListAsync();
+            return await _dbContext.Set<SP_GetProductDetails>().FromSqlRaw(sql, sqlParameters.ToArray()).ToListAsync();
+        }
+
+        public async Task<List<SP_GetProductSpecifications>> SP_GetProductSpecifications(Guid id, int orgid)
+        {
+            string Sql = "EXEC SP_GetProductSpecifications @OrgId,@ProductGUID";
+
+            List<SqlParameter> sqlParameters = new List<SqlParameter>
+            {
+                new SqlParameter{ParameterName = "@OrgId",Value = orgid},
+                new SqlParameter{ParameterName = "@ProductGUID",Value = id}
+            };
+            return await _dbContext.Set<SP_GetProductSpecifications>().FromSqlRaw(Sql, sqlParameters.ToArray()).ToListAsync();
         }
     }
 }

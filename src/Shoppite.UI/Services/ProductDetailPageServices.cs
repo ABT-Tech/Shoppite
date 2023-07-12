@@ -48,9 +48,9 @@ namespace Shoppite.UI.Services
             return await _ProductDetailServices.GetProductPrice(id);
         }
 
-        public async Task<List<f_getproduct_varient_By_GuidModel>> GetProductVarients(Guid guid, int orgid, string userName)
+        public async Task<List<SP_GetProductDetailsModel>> GetProductVarient(Guid guid, int orgid, int SpecId)
         {
-            return await _ProductDetailServices.GetProductVarients(guid, orgid, userName);
+            return await _ProductDetailServices.GetProductVarient(guid, orgid, SpecId);
         }
 
         public async Task<ProductDetailModel> Get_Brand_Name(Guid guid, int id)

@@ -56,29 +56,29 @@ namespace Shoppite.UI.Controllers
         public async Task<ActionResult> Product_Spcification_Details([FromBody]GetSpecModel get )
         {
             Guid guid = Guid.Parse(get.Guid);
-            string userName = User.Identity.Name;
-            int orgid = _commonHelper.GetOrgID(HttpContext);
+            int orgid = Convert.ToInt32(get.Orgid);
+            int SpecId = Convert.ToInt32(get.SpecId);
+
             decimal price = 0;
-            string Subname = "";
-            var Product_Varients = await _ProductDetailPageService.GetProductVarients(guid, orgid, userName);
+            var Product_Varients = await _ProductDetailPageService.GetProductVarient(guid, orgid,SpecId);
             try
             {
-                foreach (var GET in Product_Varients.Where(x => x.SpecificationName == get.Name && x.SubSpecificationName == get.SubName))
-                {
-                    price = GET.Price;
-                    Subname = GET.SubSpecificationName;
-                }
+               foreach(var Spec in Product_Varients)
+               {
+                   get.Image = Spec.SpecificationImage;
+                   get.name = Spec.SpecificationNames;
+                   price = Spec.Price;
+               }
             }
-            catch (Exception e)
+            catch (Exception e) 
             {
 
                 throw e;
             }    
 
             get.Price = price;
-            get.SubName = Subname;
 
-            if(price == 0 || Subname == "")
+            if(price == 0)
             {
                 return Json("nothing");
             }

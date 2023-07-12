@@ -81,6 +81,9 @@
             var Product_By_Cat = await _ProductDetailRepsitory.F_Getproducts_By_CategoryID(x);
             productDetailModel.f_Getproducts_By_CategoryIDModels = ObjectMapper.Mapper.Map<List<f_getproducts_By_CategoryIDModel>>(Product_By_Cat);
 
+            var SP_GetProductSpecifications = await _ProductDetailRepsitory.SP_GetProductSpecifications(id, orgid);
+            productDetailModel.Sp_GetProductSpecificationsModels = ObjectMapper.Mapper.Map<List<SP_GetProductSpecificationsModel>>(SP_GetProductSpecifications);
+
             var productAttribute = await _ProductDetailRepsitory.ProductAttribute(orgid);
             productDetailModel.AttributesSetupModel = ObjectMapper.Mapper.Map<List<AttributesSetupModel>>(productAttribute);
 
@@ -417,16 +420,15 @@
 
         }
 
-        public async Task<List<f_getproduct_varient_By_GuidModel>> GetProductVarients(Guid guid, int orgid, string userName)
+        public async Task<List<SP_GetProductDetailsModel>> GetProductVarient(Guid guid, int orgid, int SpecId)
         {
             try
             {
-                var GetProductVarients = await _ProductDetailRepsitory.GetProductVarients(guid, orgid);
-                return ObjectMapper.Mapper.Map<List<f_getproduct_varient_By_GuidModel>>(GetProductVarients);
+                var GetProductVarients = await _ProductDetailRepsitory.GetProductVarient(guid, orgid, SpecId);
+                return ObjectMapper.Mapper.Map<List<SP_GetProductDetailsModel>>(GetProductVarients);
             }
             catch (Exception e)
             {
-
                 throw e;
             }
             

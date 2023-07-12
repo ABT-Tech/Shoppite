@@ -63,8 +63,8 @@ namespace Shoppite.Application.Mapper
             CreateMap<OrderStatus, OrderStatusModel>().ReverseMap();
             CreateMap<Messages, MessagesModel>().ReverseMap();
             CreateMap<ProductVariant, ProductVariantModel>().ReverseMap();
-
-
+            CreateMap<SP_GetProductDetails, SP_GetProductDetailsModel>().ReverseMap();
+            CreateMap<SP_GetProductSpecifications, SP_GetProductSpecificationsModel>().ReverseMap();
 
             CreateMap<CategoryMasterModel, CategoryMaster>().ReverseMap();
             CreateMap<CategoryMasterModel, AdsDetail>().ReverseMap();

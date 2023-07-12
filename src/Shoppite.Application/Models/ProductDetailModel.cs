@@ -22,6 +22,7 @@ namespace Shoppite.Application.Models
         public OrderBasicModel OrderBasicModel { get; set; }
         public OrderMasterModel OrderMasterModel { get; set; }
         public List<ProductVariantModel> productVariantModel  { get; set; }
+        public List<SP_GetProductSpecificationsModel> Sp_GetProductSpecificationsModels { get; set; }
 
     }
 }
