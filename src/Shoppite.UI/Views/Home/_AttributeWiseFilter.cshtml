@@ -1,0 +1,52 @@
+﻿@model Shoppite.Application.Models.MainModel
+@foreach (var at in Model.Attributes)
+{
+    <div class="col-12 headingdiv">
+        <div class="categoriesfilter">
+            <h6 class="m-2 mt-2 filterheading text-left">@at.AttributeName</h6>
+        </div>
+        <div class="categoriesfilter-checkbox mt-3">
+            @for (int i = 0; i < at.specifications.Count; i++)
+            {
+                if (at.AttributeName == "Color")
+                {
+                    <div class="d-flex justify-content-between">
+                        <div class="form-check d-flex">
+                            <input class="form-check-input border-black border-1 rounded AttributeCheckbox" type="checkbox" name="SpecificationName[]"
+                                   value="@at.specifications[i].SpecificationName" id="@at.specifications[i].SpecificationName">
+                            <div class="colorfilter-color-@at.specifications[i].SpecificationName ml-4"></div>
+                            <label class="form-check-label subnamefilter" for="@at.specifications[i].SpecificationName"> @at.specifications[i].SpecificationName </label>
+                        </div>
+                        <span class="totalavailability">8</span>
+                    </div>
+
+                }
+                else if (at.AttributeName == "Size")
+                {
+                    <div class="form-inline border rounded p-sm-2 my-2 d-flex justify-content-between">
+                        <div class="form-check">
+                            <input type="radio" name="SpecificationName[]" value="@at.specifications[i].SpecificationName" id="@at.specifications[i].SpecificationName">
+                            <label for="boring" class="pl-1 pt-sm-0 pt-1 ml-3 subnamefilter">@at.specifications[i].SpecificationName </label>
+                        </div>
+                        <span class="totalavailability">8</span>
+                    </div>
+                }
+                else
+                {
+                    <div class="d-flex justify-content-between">
+                        <div class="form-check">
+                            <input class="form-check-input border-black border-1 rounded AttributeCheckbox" type="checkbox" name="SpecificationName[]"
+                                   value="@at.specifications[i].SpecificationName" id="chk_@i">
+                            <label class="form-check-label subnamefilter" for="₹0-₹500"> @at.specifications[i].SpecificationName </label>
+                        </div>
+                        <span class="totalavailability">10</span>
+                    </div>}
+
+            }
+            <span id="dots"></span><span id="pricehidefilter">
+            </span>
+            <a class="d-flex justify-content-between filtermoreoption text-danger"
+               onclick="priceFunction()" id="pricefilterbutton">+ (2) More</a>
+        </div>
+    </div>
+}

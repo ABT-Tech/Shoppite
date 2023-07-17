@@ -107,7 +107,7 @@ namespace Shoppite.UI.Controllers
             //var catid=Convert.ToInt32(CategoryId);
             int OrgId = _commonHelper.GetOrgID(HttpContext);
             MainModel model = new MainModel();
-            if(SpecificationName!=null)
+            if(SpecificationName!=null & SpecificationName!="null")
             {
                 model.Product_specification = await _categoryPageService.GetAllProductByAttribute(CategoryId, SpecificationName);
             }
@@ -115,6 +115,15 @@ namespace Shoppite.UI.Controllers
             {
                 model.Product_specification = await _categoryPageService.GetAllProductByCategory(CategoryId, OrgId);
             }
+            return PartialView(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> _ProductsByAttribute(string CategoryId)
+        {
+            int OrgId = _commonHelper.GetOrgID(HttpContext);
+            MainModel model = new MainModel();
+            model.Product_specification = await _categoryPageService.GetAllProductByCategory(CategoryId, OrgId);
+        
             return PartialView(model);
         }
 
@@ -170,6 +179,22 @@ namespace Shoppite.UI.Controllers
             MainModel model = new MainModel();
             int OrgId = _commonHelper.GetOrgID(HttpContext);
             model.SP_GetSimilarProducts = await _categoryPageService.GetSimilarProducts(CategoryId, BrandId, OrgId);
+            return PartialView(model);
+        }
+
+        public async Task<IActionResult> _RecentlyAddredProducts(string CategoryId, string SpecificationName)
+        {
+            //var catid=Convert.ToInt32(CategoryId);
+            int OrgId = _commonHelper.GetOrgID(HttpContext);
+            MainModel model = new MainModel();
+            if (SpecificationName != null & SpecificationName != "null")
+            {
+                model.Product_specification = await _categoryPageService.GetAllProductByAttribute(CategoryId, SpecificationName);
+            }
+            else
+            {
+                model.Product_specification = await _categoryPageService.GetAllProductByCategory(CategoryId, OrgId);
+            }
             return PartialView(model);
         }
     }

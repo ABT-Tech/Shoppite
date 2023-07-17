@@ -35,7 +35,7 @@
             <div class="col-12 col-lg-3 col-md-3 filterlargescreenprolist">
                 <div class="col-12 d-flex justify-content-between headingdiv">
                     <h6 class="m-2 filterheading">Filters</h6>
-                    <button type="button" class="filterbuttonclear">
+                    <button type="button" class="filterbuttonclear" onclick="RemoveFilter(this)">
                         clear all
                     </button>
                 </div>
@@ -45,7 +45,7 @@
                         <h6 class="m-2 mt-2 filterheading text-left">CATEGORIES</h6>
                     </div>
                     <div class="categoriesfilter-checkbox">
-                        @foreach (var item in Model.Categories.Where(x => x.ParentCategoryId != 0))
+                        @foreach (var item in Model.Categories.Where(x => x.ParentCategoryId != 0 & x.IsPublished==true))
                         {
                             <div class="d-flex justify-content-between categoriescount">
                                 <div class="form-check">
@@ -55,7 +55,11 @@
                                         @item.CategoryName
                                     </label>
                                 </div>
-                                <span id="cat_@item.CategoryId" class="totalavailability">@Model.Product_specification.Count</span>
+                                <span id="cat_@item.CategoryId" class="totalavailability">
+
+                                    @foreach (var catid in Model.Product_specification) {
+                                    }
+                                </span>
                             </div>
                         }
                         <span id="dots"></span><span id="categorieshidefilter">
@@ -99,7 +103,7 @@
 
                         }
 
-                        <span id="dots"></span><span id="brandfilter">                          
+                        <span id="dots"></span><span id="brandfilter">
                             <div class="d-flex justify-content-between">
                                 <div class="form-check">
                                     <input class="form-check-input border-black border-1 rounded" type="checkbox"
@@ -114,233 +118,7 @@
                     </div>
                 </div>
                 <!--productslist-filter-brand-Section-end-->
-                <!--productslist-filter-size-Section-start-->
-                <div class="col-12 headingdiv">
-                    <div class="categoriesfilter">
-                        <h6 class="m-2 mt-2 filterheading text-left">SIZE</h6>
-                    </div>
-                    <div class="categoriesfilter-checkbox mt-3">
-                        <div class="form-inline border rounded p-sm-2 my-2 d-flex justify-content-between">
-                            <div class="form-check">
-                                <input type="radio" name="type" id="boring">
-                                <label for="boring" class="pl-1 pt-sm-0 pt-1 ml-3 subnamefilter">S</label>
-                            </div>
-                            <span class="totalavailability">8</span>
-                        </div>
-                        <div class="form-inline border rounded p-sm-2 my-2 d-flex justify-content-between">
-                            <div class="form-check">
-                                <input type="radio" name="type" id="boring">
-                                <label for="boring" class="pl-1 pt-sm-0 pt-1 ml-3 subnamefilter">M</label>
-                            </div>
-                            <span class="totalavailability">10</span>
-                        </div>
-                        <div class="form-inline border rounded  p-sm-2 my-2 d-flex justify-content-between">
-                            <div class="form-check">
-                                <input type="radio" name="type" id="boring">
-                                <label for="boring" class="pl-1 pt-sm-0 pt-1 ml-3 subnamefilter">L</label>
-                            </div>
-                            <span class="totalavailability">12</span>
-                        </div>
-                        <div class="form-inline border rounded p-sm-2 my-2 d-flex justify-content-between">
-                            <div class="form-check">
-                                <input type="radio" name="type" id="boring">
-                                <label for="boring" class="pl-1 pt-sm-0 pt-1 ml-3 subnamefilter">Xl</label>
-                            </div>
-                            <span class="totalavailability">5</span>
-                        </div>
-                        <div class="form-inline border rounded p-sm-2 my-2 d-flex justify-content-between">
-                            <div class="form-check">
-                                <input type="radio" name="type" id="boring">
-                                <label for="boring" class="pl-1 pt-sm-0 pt-1 ml-3 subnamefilter">XXl</label>
-                            </div>
-                            <span class="totalavailability">1</span>
-                        </div>
-                        <span id="dots"></span><span id="sizehidefilter">
-                            <div class="form-inline border rounded p-sm-2 my-2 d-flex justify-content-between">
-                                <div class="form-check">
-                                    <input type="radio" name="type" id="boring">
-                                    <label for="boring" class="pl-1 pt-sm-0 pt-1 ml-3 subnamefilter">3XL</label>
-                                </div>
-                                <span class="totalavailability">15</span>
-                            </div>
-                            <div class="form-inline border rounded p-sm-2 my-2 d-flex justify-content-between">
-                                <div class="form-check">
-                                    <input type="radio" name="type" id="boring">
-                                    <label for="boring" class="pl-1 pt-sm-0 pt-1 ml-3 subnamefilter">4XL</label>
-                                </div>
-                                <span class="totalavailability">11</span>
-                            </div>
-                            <div class="form-inline border rounded p-sm-2 my-2 d-flex justify-content-between">
-                                <div class="form-check">
-                                    <input type="radio" name="type" id="boring">
-                                    <label for="boring" class="pl-1 pt-sm-0 pt-1 ml-3 subnamefilter">5Xl</label>
-                                </div>
-                                <span class="totalavailability">14</span>
-                            </div>
-                        </span>
-                        <a class="d-flex justify-content-between filtermoreoption text-danger"
-                           onclick="sizeFunction()" id="sizefilterbutton">+ (3) More</a>
-                    </div>
-                </div>
-                <!--productslist-filter-size-Section-end-->
-                <!--productslist-filter-colour-Section-start-->
-                <div class="col-12 headingdiv">
-                    <div class="categoriesfilter">
-                        <h6 class="m-2 mt-2 filterheading text-left">COLOUR</h6>
-                    </div>
-                    <div class="categoriesfilter-checkbox mt-3">
-                        <div class="d-flex justify-content-between">
-                            <div class="form-check d-flex">
-                                <input class="form-check-input border-black border-1 rounded" type="checkbox"
-                                       value="Aqua" id="Aqua">
-                                <div class="colorfilter-color-aqua ml-4"></div>
-                                <label class="form-check-label subnamefilter" for="Aqua"> Aqua </label>
-                            </div>
-                            <span class="totalavailability">10</span>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <div class="form-check d-flex">
-                                <input class="form-check-input border-black border-1 rounded" type="checkbox"
-                                       value="Red" id="Red">
-                                <div class="colorfilter-color-red ml-4"></div>
-                                <label class="form-check-label subnamefilter" for="Red"> Red </label>
-                            </div>
-                            <span class="totalavailability">3</span>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <div class="form-check d-flex">
-                                <input class="form-check-input border-black border-1 rounded" type="checkbox"
-                                       value="Black" id="Black">
-                                <div class="colorfilter-color-black ml-4"></div>
-                                <label class="form-check-label subnamefilter" for="Black"> Black </label>
-                            </div>
-                            <span class="totalavailability">8</span>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <div class="form-check d-flex">
-                                <input class="form-check-input border-black border-1 rounded" type="checkbox"
-                                       value="White" id="White">
-                                <div class="colorfilter-color-white ml-4"></div>
-                                <label class="form-check-label subnamefilter" for="White"> White </label>
-                            </div>
-                            <span class="totalavailability">14</span>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <div class="form-check d-flex">
-                                <input class="form-check-input border-black border-1 rounded" type="checkbox"
-                                       value="Green" id="Green">
-                                <div class="colorfilter-color-green ml-4"></div>
-                                <label class="form-check-label subnamefilter" for="Green"> Green </label>
-                            </div>
-                            <span class="totalavailability">1</span>
-                        </div>
-                        <span id="dots"></span><span id="colorhidefilter">
-                            <div class="d-flex justify-content-between">
-                                <div class="form-check d-flex">
-                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
-                                           value="Yellow" id="Yellow">
-                                    <div class="colorfilter-color-yellow ml-4"></div>
-                                    <label class="form-check-label subnamefilter" for="Yellow"> Yellow </label>
-                                </div>
-                                <span class="totalavailability">12</span>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <div class="form-check d-flex">
-                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
-                                           value="Blue" id="Blue">
-                                    <div class="colorfilter-color-Blue ml-4"></div>
-                                    <label class="form-check-label subnamefilter" for="Blue"> Blue </label>
-                                </div>
-                                <span class="totalavailability">7</span>
-                            </div>
-                        </span>
-                        <a class="d-flex justify-content-between filtermoreoption text-danger"
-                           onclick="colorFunction()" id="colorfilterbutton">+ (2) More</a>
-                    </div>
-                </div>
-                <!--productslist-filter-colour-Section-end-->
-                <!--productslist-filter-price-Section-start-->
-                <div class="col-12 headingdiv">
-                    <div class="categoriesfilter">
-                        <h6 class="m-2 mt-2 filterheading text-left">PRICE</h6>
-                    </div>
-                    <div class="categoriesfilter-checkbox mt-3">
-                        <div class="d-flex justify-content-between">
-                            <div class="form-check">
-                                <input class="form-check-input border-black border-1 rounded" type="checkbox"
-                                       value="₹0-₹500" id="₹0-₹500">
-                                <label class="form-check-label subnamefilter" for="₹0-₹500"> ₹0-₹500 </label>
-                            </div>
-                            <span class="totalavailability">10</span>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <div class="form-check">
-                                <input class="form-check-input border-black border-1 rounded" type="checkbox"
-                                       value="₹501-₹1,000" id="₹501-₹1,000">
-                                <label class="form-check-label subnamefilter" for="₹501-₹1,000">
-                                    ₹501-₹1,000
-                                </label>
-                            </div>
-                            <span class="totalavailability">15</span>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <div class="form-check">
-                                <input class="form-check-input border-black border-1 rounded" type="checkbox"
-                                       value="₹1,001-₹1,500" id="₹1,001-₹1,500">
-                                <label class="form-check-label subnamefilter" for="₹1,001-₹1,500">
-                                    ₹1,001-₹1,500
-                                </label>
-                            </div>
-                            <span class="totalavailability">6</span>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <div class="form-check">
-                                <input class="form-check-input border-black border-1 rounded" type="checkbox"
-                                       value="₹1,501-₹2,000" id="₹1,501-₹2,000">
-                                <label class="form-check-label subnamefilter" for="₹1,501-₹2,000">
-                                    ₹1,501-₹2,000
-                                </label>
-                            </div>
-                            <span class="totalavailability">2</span>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <div class="form-check">
-                                <input class="form-check-input border-black border-1 rounded" type="checkbox"
-                                       value="₹2,001-₹2,500" id="₹2,001-₹2,500">
-                                <label class="form-check-label subnamefilter" for="₹2,001-₹2,500">
-                                    ₹2,001-₹2,500
-                                </label>
-                            </div>
-                            <span class="totalavailability">11</span>
-                        </div>
-                        <span id="dots"></span><span id="pricehidefilter">
-                            <div class="d-flex justify-content-between">
-                                <div class="form-check">
-                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
-                                           value="₹2,501-₹3,000" id="₹2,501-₹3,000">
-                                    <label class="form-check-label subnamefilter" for="₹2,501-₹3,000">
-                                        ₹2,501-₹3,000
-                                    </label>
-                                </div>
-                                <span class="totalavailability">8</span>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <div class="form-check">
-                                    <input class="form-check-input border-black border-1 rounded" type="checkbox"
-                                           value="₹3,001 and Above" id="₹3,001 and Above">
-                                    <label class="form-check-label subnamefilter" for="₹3,001 and Above">
-                                        ₹3,001 and
-                                        Above
-                                    </label>
-                                </div>
-                                <span class="totalavailability">13</span>
-                            </div>
-                        </span>
-                        <a class="d-flex justify-content-between filtermoreoption text-danger"
-                           onclick="priceFunction()" id="pricefilterbutton">+ (2) More</a>
-                    </div>
-                </div>
-                <!--productslist-filter-price-Section-end-->
+                @await Html.PartialAsync("_AttributeWiseFilter", Model)
                 <!--productslist-filter-rating-Section-start-->
                 <div class="col-12 headingdiv">
                     <div class="categoriesfilter">
@@ -1212,7 +990,7 @@
                         <label for="sortvalue">Sort By:</label>
                         <select class="sortvalue" name="sortvalue" id="sortvalue">
                             <option value="Recommended">Recommended</option>
-                            <option value="What's New">What's New</option>
+                            <option value="WhatsNew">What's New</option>
                             <option value="Popularity">Popularity</option>
                             <option value="Better Discount">Better Discount</option>
                             <option value="Price: High to Low">Price: High to Low</option>
@@ -1234,8 +1012,9 @@
                             </div>
                         </div>
                     </section>
-                    <!--gifbannerSection-end-->                 
-                        @await Html.PartialAsync("_ProductsByAttribute", Model)                 
+                    <!--gifbannerSection-end-->
+                    @await Html.PartialAsync("_ProductsByAttribute", Model)
+                   @* @await Html.PartialAsync("_RecentlyAddedProducts", Model)*@
                     <!--gifbannerSection-start-->
                     <section class="section section-sm section-first bg-default text-center">
                         <div class="container-fluid">
@@ -1777,22 +1556,30 @@
     </div>
 </section>
 <!--productslistSection-end-->
-@section scripts{ 
+@section scripts{
     <script type="text/javascript">
+        //For Getting CategoryId from Url
+        function getCategoryID() {
+            const urlParams = new URLSearchParams(location.search);
+            for (const [key, value] of urlParams) {
+                console.log(key);
+                console.log(value);
+                return key + '=' + value
+            }
+        }
 
+        //TO Get similar Products
         $('.similaprobutton').click(function () {
-            var href = $(this).attr('href');
-                @* var url = '@Url.Action("AllProducts", "Home")';*@
+            var href = $(this).attr('href'); //get action value form URL
                 $.ajax({
                     url: href,
                     type: 'GET',
-                   // data: { "para": $("#Text1").val()},
                     success: function (data) {
                         $('.prolistsimilarlayout').html(data);
                     }
                 });
             })
-    //$(document).ready(function () {
+
     //Pie chart for Number of Products Category Wise
     $.ajax({
         type: "GET",
@@ -1819,11 +1606,127 @@
                     data[e.subcategoryDetails[i].categoryName] = e.subcategoryDetails[i].productsDetails.length;
                 }
             })
-
+            console.log(greaterArr);
             console.log(numOfProducts);
         }
 
-     $(".category").click(function () {
+        //Remove All Filter
+        function RemoveFilter(ele){
+            var checkboxes = document.getElementsByTagName('input');
+            if (ele.checked) {
+            } else {
+                for (var i = 0; i < checkboxes.length; i++) {
+                    console.log(i)
+                    if (checkboxes[i].type == 'checkbox') {
+                        checkboxes[i].checked = false; //unselecting checkboxes
+                    }
+                }
+            }
+            var data = getCategoryID();
+            window.history.replaceState(null, null, "?" + data);
+             $.ajax({
+                    url: '@Url.Action("_ProductsByAttribute", "Home")' + '?' + data,
+                    type: "GET",
+                    success: function (data) {
+                        $(".producresults").html(data);
+                    }
+                });
+        }
+ $(".AttributeCheckbox").click(function () {
+        var data = getCategoryID();
+        var seasoning = '', tempArray = [];
+
+        $('input[name="SpecificationName[]"]:checked').each(function () {
+            tempArray.push($(this).val());
+        })
+        if (tempArray.length !== 0) {
+            seasoning += 'SpecificationName=' + tempArray.toString();
+            tempArray = [];
+        }
+        window.history.replaceState(null, null, "?" + data + '&' + seasoning);
+        if (seasoning != '') {
+            $.ajax({
+                url: '@Url.Action("_ProductsByAttribute", "Home")' + '?' + data + '&' + seasoning,
+                type: "GET",
+                success: function (data) {
+                    $(".producresults").html(data);
+                }
+            });
+        }
+        else {
+             window.history.replaceState(null, null, "?" + data);
+                $.ajax({
+                    url: '@Url.Action("_ProductsByAttribute", "Home")' + '?' + data,
+                    type: "GET",
+                    success: function (data) {
+                        $(".producresults").html(data);
+                    }
+                });
+        }
+ });
+
+        $("select").change(function () {
+            url = location.href;
+          var sortingvalue=  $('#sortvalue').val();
+           @* if ($("#sortvalue").val() != 'Select')
+                url += '&sort=' + encodeURIComponent($("#sortvalue").val());*@
+            var data = getCategoryID();
+            window.history.replaceState(null, null, "?" + data + '&sort=' + sortingvalue);
+
+           @* if (sortingvalue == "WhatsNew") {
+            var url='@Url.Action("_RecentlyAddredProducts", "Home")';
+                $(".producresults").load(url, { data });
+            }*@
+        });
+
+        $('input[type="checkbox"][name="CategoryName[]"]').on("change", function () {
+            if (this.checked) {
+                var selectedCategories = $('input[type="checkbox"][name="CategoryName[]"]:checked').map(function () {
+                    return $(this).val();
+                    console.log(typeof (selectedCategories));
+                }).get();
+                $.ajax({
+                    url: '@Url.Action("_ProductsByAttribute", "Home")',
+                    type: "Post",
+                    data: { CategoryId: selectedCategories },
+                    success: function (data) {
+                        $(".producresults").html(data);
+                    }
+                });
+            }
+            else {
+                var data = getCategoryID();
+                url = location.href;
+                const splitbyquestionmark = url.split("?");
+                console.log(splitbyquestionmark);
+
+                const params = new URLSearchParams('?' + splitbyquestionmark);
+
+                console.log(params.get('SpecificationName'));
+                var specification = params.get('SpecificationName')
+                var name = 'SpecificationName=' + specification;
+                console.log(data);
+                if (name != '') {
+                    $.ajax({
+                        url: '@Url.Action("_ProductsByAttribute", "Home")' + '?' + data + '&' + name,
+                        type: "GET",
+                        success: function (data) {
+                            $(".producresults").html(data);
+                        }
+                    });
+                } else {
+                    $.ajax({
+                    url: '@Url.Action("_ProductsByAttribute", "Home")' + '?' + data,
+                    type: "GET",
+                    success: function (data) {
+                        $(".producresults").html(data);
+                    }
+                });
+                }
+            }
+
+        });
+    @* $(".category").click(function () {
       var data = getCategoryID();
         var seasoning = '', tempArray = [];
 
@@ -1854,17 +1757,6 @@
                     }
                 });
         }
-    });
-        function getCategoryID()
-        {
-            const urlParams = new URLSearchParams(location.search);
-            for (const [key, value] of urlParams) {
-                console.log(key);
-                console.log(value);
-                return key +'='+ value
-            }
-        }
-
-
+    });*@
     </script>
 }

@@ -2941,6 +2941,13 @@ a.buy-btn{
   border: 1px solid #76777E;
   border-radius: 50%;
 }
+.colorfilter-color-Red {
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    border: 1px solid #76777E;
+    border-radius: 50%;
+}
 .colorfilter-color-black{
   width: 20px;
   height: 20px;
