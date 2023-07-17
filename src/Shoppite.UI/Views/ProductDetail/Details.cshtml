@@ -575,10 +575,10 @@
                     document.getElementById("SpecId").value = SpecId;
 
                     if ($('.exclusive')[0].name == 'AttToCart') {
-                        document.getElementsByClassName("AttToCart")[0].setAttribute("formaction", "/ProductDetail/Add_Specification_ToCart");
+                        document.getElementsByName("AttToCart")[0].setAttribute("formaction", "/ProductDetail/Add_Specification_ToCart");
                     }
                     if ($('.exclusive')[1].name == 'BuyNow') {
-                        document.getElementsByClassName("BuyNow")[0].setAttribute("formaction", "/ProductDetail/Add_Specification_BuyNow");
+                        document.getElementsByName("BuyNow")[0].setAttribute("formaction", "/ProductDetail/Add_Specification_BuyNow");
                     }
                    
 
