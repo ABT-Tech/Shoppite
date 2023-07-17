@@ -70,7 +70,7 @@
     /*    .single-mori-info #Des ul{
         position:fixed;
     }*/
-    #Set_Price, #Set_Name {
+    #Set_Price, #Set_Name, #Set_Qty, #SpecId {
         opacity: 0;
     }
 
@@ -112,7 +112,7 @@
             }
 </style>
 
-<form enctype="multipart/form-data" method="get" class="">
+<form enctype="multipart/form-data" method="" class="">
     <input type="hidden" asp-for="AttributesSetupModel" />
     <input type="hidden" id="OrgId" asp-for="ProductBasicModel.OrgId" />
     <input type="hidden" asp-for="ProductBasicModel.ProductName" />
@@ -181,7 +181,7 @@
                                 </h2>
                                 <p>@Model.ProductBasicModel.ShortDescription</p>
                                 <p class="sin-item">
-                                    <span class="sin-item-text"> @Model.ProductBasicModel.Qty Items </span>
+                                    <span class="sin-item-text" id="Change_Qty"> @Model.ProductBasicModel.Qty Items </span>
                                     @if (@Model.ProductBasicModel.Qty != 0)
                                     {
                                         <span class="sin-item-btn">In stock</span>
@@ -223,7 +223,7 @@
                                 {
                                     <div class="hungry d-inline-flex">
                                         <div class="selection m-1">
-                                            @if (pro.IsSpecificationExist == 1)
+                                           @if (pro.IsSpecificationExist == 1)
                                             {
                                                 @*<input id="@pro.SpecificationNames" class="" onclick="Match('@pro.SpecificationIds')"  type="radio">*@
                                                 <button id="@pro.SpecificationNames" type="button" class="btn mr-md-2 mb-md-0 mb-2 btn-outline-primary @pro.SpecificationNames" name="dropspec" onclick="Match('@pro.SpecificationIds')">@pro.SpecificationNames</button>
@@ -248,14 +248,14 @@
                                     <div class="row">
                                         <div class="col-sm-6 Add_Car_Btn">
                                             <p class="buttons_bottom_block no-print disabled" id="add_to_cart">
-                                                <button class="exclusive disabled" name="Submit" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" disabled>
+                                                <button class="exclusive disabled" name="DSubmit" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" disabled>
                                                     <span class="">Add to cart</span>
                                                 </button>
-                                            </p>
+                                            </p>                                              
                                         </div>
                                         <div class="col-sm-6 Buy_Now_Btn">
                                             <p class="buttons_bottom_block no-print disabled" id="add_to_cart">
-                                                <button class="exclusive disabled" name="Submit" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" disabled>
+                                                <button class="exclusive disabled" name="DSubmit" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" disabled>
                                                     <span class="">Buy Now</span>
                                                 </button>
                                             </p>
@@ -300,13 +300,13 @@
                                             {
                                                 <div class="row">
                                                     <div class="col-sm-6 Add_Car_Btn">
-                                                        <button class="exclusive" name="Submit" asp-action="AddProductToCart" asp-controller="ProductDetail" type="submit">
+                                                        <button class="exclusive" name="AttToCart" asp-action="AddProductToCart" asp-controller="ProductDetail" type="submit">
                                                             <span>Add to cart</span>
                                                         </button>
                                                     </div>
 
                                                     <div class="col-sm-6 Buy_Now_Btn">
-                                                        <button class="exclusive" name="Submit" asp-action="BuyNow" asp-controller="ProductDetail" type="submit">
+                                                        <button class="exclusive" name="BuyNow" asp-action="BuyNow" asp-controller="ProductDetail" type="submit">
                                                             <span>Buy Now</span>
                                                         </button>
                                                     </div>
@@ -329,13 +329,13 @@
                                             {
                                                 <div class="row">
                                                     <div class="col-sm-6 Add_Car_Btn">
-                                                        <button class="exclusive" name="Submit" asp-action="Login" asp-controller="Authentications" type="submit">
+                                                        <button class="exclusive" name="Login" asp-action="Login" asp-controller="Authentications" type="submit">
                                                             <span>Add to cart</span>
                                                         </button>
                                                     </div>
 
                                                     <div class="col-sm-6 Buy_Now_Btn">
-                                                        <button class="exclusive" name="Submit" asp-action="Login" asp-controller="Authentications" type="submit">
+                                                        <button class="exclusive" name="Login" asp-action="Login" asp-controller="Authentications" type="submit">
                                                             <span>Buy Now</span>
                                                         </button>
                                                     </div>
@@ -443,6 +443,8 @@
         </div>
     </div>
     <input id="Set_Price" asp-for="ProductPriceModel.Price" />
+    <input id="Set_Qty" asp-for="ProductBasicModel.Qty" />
+    <input id="SpecId" asp-for="SpecId" />
 </form>
 <!-- End main area -->
 <script src="~/plugins/select2/js/select2.min.js"></script>
@@ -563,10 +565,23 @@
                     location.reload();
                 } else {
                   $('#Product_Price').text('₹' + data.price);
+                    $('#Change_Qty').text(data.qty +' Items');
                     $('#Prod_Spec').text(data.name);
                     $('#MainIMGH').attr('href', data.image);
                     $('#MainImg').attr('src', data.image);
-                  document.getElementById("Set_Price").value = data.price;
+                    document.getElementById("Set_Price").value = data.price;
+                    document.getElementById("Set_Qty").value = data.qty;
+                    var SpecId = parseInt(data.specId);
+                    document.getElementById("SpecId").value = SpecId;
+
+                    if ($('.exclusive')[0].name == 'AttToCart') {
+                        document.getElementsByClassName("AttToCart")[0].setAttribute("formaction", "/ProductDetail/Add_Specification_ToCart");
+                    }
+                    if ($('.exclusive')[1].name == 'BuyNow') {
+                        document.getElementsByClassName("BuyNow")[0].setAttribute("formaction", "/ProductDetail/Add_Specification_BuyNow");
+                    }
+                   
+
                 }
                // $('#' + data.subName).click();
 

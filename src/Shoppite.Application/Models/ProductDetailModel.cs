@@ -6,6 +6,7 @@ namespace Shoppite.Application.Models
 {
     public class ProductDetailModel
     {
+        public int SpecId { get; set; }
         public ProductBasicModel ProductBasicModel { get; set; }
         public List<Customer_WishlistModel> Wishlists { get; set; }
         public List<ProductImagesModel> ProductImagesModel { get; set; }

@@ -61,5 +61,13 @@ namespace Shoppite.UI.Services
         {
             return await _ProductDetailServices.ProductAttribute(AtId);
         }
+        public async Task Addto_Spec_Product(ProductDetailModel productDetailModel)
+        {
+            await _ProductDetailServices.Addto_Spec_Product(productDetailModel);
+        }
+        public async Task<ProductDetailModel> BuyNow_Spec_Product(ProductDetailModel productDetailModel)
+        {
+            return await _ProductDetailServices.BuyNow_Spec_Product(productDetailModel);
+        }
     }
 }

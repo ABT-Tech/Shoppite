@@ -433,5 +433,132 @@
             }
             
         }
+
+        public async Task Addto_Spec_Product(ProductDetailModel productDetailModel)
+        {
+            if (productDetailModel.SpecId != 0)
+            {
+                var CartCheck = await _CartRepository.CheckProdInCart((int)productDetailModel.ProductBasicModel.OrgId, productDetailModel.ProductBasicModel.ProductName, _accessor.HttpContext.User.Identity.Name);
+
+                if (CartCheck != null)
+                {
+                    OrderBasic orderBasic1 = new OrderBasic
+                    {
+                        UserName = CartCheck.UserName,
+                        OrderGuid = CartCheck.OrderGuid,
+                        ProductId = CartCheck.ProductId,
+                        Qty = CartCheck.Qty + productDetailModel.OrderBasicModel.Qty
+                    };
+                    await _ProductDetailRepsitory.AddToCart(orderBasic1);
+                }
+                else
+                {
+                    OrderBasic orderBasic = new OrderBasic();
+                    orderBasic.ProductId = productDetailModel.ProductBasicModel.ProductId;
+                    orderBasic.OrderGuid = Guid.Empty;
+                    orderBasic.Price = productDetailModel.ProductPriceModel.Price;
+                    orderBasic.DeliveryFees = productDetailModel.ProductPriceModel.DeliveryFees;
+                    orderBasic.InsertDate = DateTime.Now;
+                    orderBasic.OrderStatus = "Cart";
+                    orderBasic.Currencyid = productDetailModel.ProductPriceModel.CurrencyId;
+                    orderBasic.OrgId = productDetailModel.ProductBasicModel.OrgId;
+                    orderBasic.Qty = productDetailModel.OrderBasicModel.Qty;
+                    orderBasic.UserName = _accessor.HttpContext.User.Identity.Name;
+
+                    var find = await _ProductDetailRepsitory.check(orderBasic);
+
+                    productDetailModel.OrderBasicModel = ObjectMapper.Mapper.Map<OrderBasicModel>(find);
+
+                    if (find != null)
+                    {
+                        orderBasic.OrderGuid = find.OrderGuid;
+                    }
+                    else
+                    {
+                        Guid Orderguid = Guid.NewGuid();
+
+                        OrderMaster orderMaster = new OrderMaster
+                        {
+                            OrderGuid = Orderguid,
+                            OrderKeyStatus = "Active",
+                            InsertDate = DateTime.Now,
+                            OrgId = productDetailModel.ProductBasicModel.OrgId
+                        };
+                        await _ProductDetailRepsitory.AddOrderMaster(orderMaster);
+                        orderBasic.OrderGuid = Orderguid;
+                    }
+
+                    var get_Product_SpecId = await _ProductDetailRepsitory.get_Product_SpecId(productDetailModel.ProductBasicModel.ProductGuid,productDetailModel.ProductBasicModel.OrgId,productDetailModel.SpecId);
+
+                    if(get_Product_SpecId != null)
+                    {
+                        OrderVariation orderVariation = new OrderVariation()
+                        {
+                            OrderGuid = orderBasic.OrderGuid,
+                            ProductSpecificationId = get_Product_SpecId.ProductSpecificationId,
+                            OrgId = orderBasic.OrgId
+                        };
+                        await _ProductDetailRepsitory.Add_Order_Varient(orderVariation);
+                    }
+
+                    await _ProductDetailRepsitory.AddToCart(orderBasic);
+                }
+            }
+            else
+            {
+                await AddToCart(productDetailModel);
+            }
+        }
+        public async Task<ProductDetailModel> BuyNow_Spec_Product(ProductDetailModel productDetailModel)
+        {
+            if (productDetailModel.SpecId == 0)
+            {
+                await BuyNow(productDetailModel);
+            }
+            else
+            {
+                Guid Orderguid = Guid.NewGuid();
+                OrderMaster orderMaster = new OrderMaster
+                {
+                    OrderGuid = Orderguid,
+                    OrderKeyStatus = "Active",
+                    InsertDate = DateTime.Now,
+                    OrgId = productDetailModel.ProductBasicModel.OrgId
+                };
+                await _ProductDetailRepsitory.AddOrderMaster(orderMaster);
+
+                OrderBasic orderBasic = new OrderBasic();
+                orderBasic.ProductId = productDetailModel.ProductBasicModel.ProductId;
+                orderBasic.OrderGuid = Orderguid;
+                orderBasic.Price = productDetailModel.ProductPriceModel.Price;
+                orderBasic.DeliveryFees = productDetailModel.ProductPriceModel.DeliveryFees;
+                orderBasic.InsertDate = DateTime.Now;
+                orderBasic.OrderStatus = "Cart";
+                orderBasic.Currencyid = productDetailModel.ProductPriceModel.CurrencyId;
+                orderBasic.OrgId = productDetailModel.ProductBasicModel.OrgId;
+                orderBasic.Qty = productDetailModel.OrderBasicModel.Qty;
+                orderBasic.UserName = _accessor.HttpContext.User.Identity.Name;
+
+                var get_Product_SpecId = await _ProductDetailRepsitory.get_Product_SpecId(productDetailModel.ProductBasicModel.ProductGuid, productDetailModel.ProductBasicModel.OrgId, productDetailModel.SpecId);
+
+                if (get_Product_SpecId != null)
+                {
+                    OrderVariation orderVariation = new OrderVariation()
+                    {
+                        OrderGuid = orderBasic.OrderGuid,
+                        ProductSpecificationId = get_Product_SpecId.ProductSpecificationId,
+                        OrgId = orderBasic.OrgId
+                    };
+                    await _ProductDetailRepsitory.Add_Order_Varient(orderVariation);
+                }
+
+                await _ProductDetailRepsitory.AddToCart(orderBasic);
+
+                productDetailModel.OrderBasicModel = ObjectMapper.Mapper.Map<OrderBasicModel>(orderBasic);
+
+                return productDetailModel;
+            }
+            return productDetailModel;
+        }
     }
 }

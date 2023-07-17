@@ -52,6 +52,7 @@ namespace Shoppite.UI.Controllers
             }
             return View(Product_Details);
         }
+
         [HttpPost]
         public async Task<ActionResult> Product_Spcification_Details([FromBody]GetSpecModel get )
         {
@@ -60,6 +61,7 @@ namespace Shoppite.UI.Controllers
             int SpecId = Convert.ToInt32(get.SpecId);
 
             decimal price = 0;
+            int Qty = 0;
             var Product_Varients = await _ProductDetailPageService.GetProductVarient(guid, orgid,SpecId);
             try
             {
@@ -68,15 +70,16 @@ namespace Shoppite.UI.Controllers
                    get.Image = Spec.SpecificationImage;
                    get.name = Spec.SpecificationNames;
                    price = Spec.Price;
+                    Qty = Spec.Quantity;
                }
             }
             catch (Exception e) 
             {
-
                 throw e;
             }    
 
             get.Price = price;
+            get.Qty = Qty;
 
             if(price == 0)
             {
@@ -94,7 +97,7 @@ namespace Shoppite.UI.Controllers
 
             await _productWishListService.AddtowhishList(mainModel);
             return RedirectToAction("Details",new {id=id});
-        }
+        } 
 
         [HttpGet]
         public async Task<IActionResult> AddProductToCart(ProductDetailModel productDetailModel)
@@ -108,6 +111,19 @@ namespace Shoppite.UI.Controllers
            var Buy =  await _ProductDetailPageService.BuyNow(productDetailModel);
             return RedirectToAction("CheckOut", "Cart", new { orderid = Buy.OrderBasicModel.OrderGuid});
         }
+         
+        public async Task<IActionResult>Add_Specification_ToCart(ProductDetailModel productDetailModel)
+        {
+            await _ProductDetailPageService.Addto_Spec_Product(productDetailModel);
 
+            return RedirectToAction("Details", new { id = productDetailModel.ProductBasicModel.ProductGuid });
+        }
+
+        public async Task<IActionResult> Add_Specification_BuyNow(ProductDetailModel productDetailModel)
+        {
+            var Buy_Now = await _ProductDetailPageService.BuyNow_Spec_Product(productDetailModel);
+
+            return RedirectToAction("CheckOut","Cart", new { orderid = Buy_Now.ProductBasicModel.ProductGuid });
+        }
     }
 }

@@ -281,5 +281,21 @@
             };
             return await _dbContext.Set<SP_GetProductSpecifications>().FromSqlRaw(Sql, sqlParameters.ToArray()).ToListAsync();
         }
+
+        public async Task<ProductSpecification> get_Product_SpecId(Guid? productGuid, int? orgId, int specId)
+        {
+            var get_Product_SpecId = await _dbContext.ProductSpecification.Where(X => X.ProductGuid == productGuid && X.SpecificationId == specId && X.OrgId == orgId).FirstOrDefaultAsync();
+            return get_Product_SpecId;
+        }
+
+        public async Task Add_Order_Varient(OrderVariation orderVariation)
+        {
+            var check = await _dbContext.OrderVariation.Where(x => x.OrderGuid == orderVariation.OrderGuid && x.ProductSpecificationId == orderVariation.ProductSpecificationId && x.OrgId == orderVariation.OrgId).FirstOrDefaultAsync();
+            if(check == null)
+            {
+               await _dbContext.OrderVariation.AddAsync(orderVariation);
+            }
+            await _dbContext.SaveChangesAsync();
+        }
     }
 }
