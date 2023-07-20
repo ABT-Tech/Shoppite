@@ -1,15 +1,132 @@
 ﻿@model Shoppite.Application.Models.UsersProfileModal
+<footer class="footer-section">
+    <div class="container">
+        <div class="footer-cta pt-5 pb-5">
+            <div class="row">
+                @if (Model != null)
+                {
+                    <div class="col-xl-4 col-md-4 mb-30 mt-4">
+                        <div class="single-cta d-flex">
+                            <i class="fas fa-map-marker-alt" style="font-size: 45px; color: #aed4f0;"></i>
+                            <div class="cta-text">
+                                <h4>Find us</h4>
+                                <span>@Model.ShopName,@Model.Address</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-md-4 mb-30 mt-4">
+                        <div class="single-cta d-flex">
+                            <i class="fas fa-phone" style="font-size: 45px; color: #aed4f0;"></i>
+                            <div class="cta-text">
+                                <h4>Call us</h4>
+                                <span>@Model.ContactNumber</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-md-4 mb-30 mt-4">
+                        <div class="single-cta d-flex">
+                            <i class="far fa-envelope-open" style="font-size: 45px; color: #aed4f0;"></i>
+                            <div class="cta-text">
+                                <h4>Mail us</h4>
+                                <span><a href="mailto: @Model.UserName" style="text-decoration:none">@Model.UserName</a></span>
+                            </div>
+                        </div>
+                    </div>
 
-<div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-40">
-    <div class="footer-center-title">
-        <h4><span>Store Information</span></h4>
+                }
+            </div>
+        </div>
+        <div class="footer-content pt-5 pb-5" style="z-index: 0;">
+            <div class="row">
+                <div class="col-xl-4 col-lg-4 mb-50">
+                    <div class="footer-widget">
+                        <div class="footer-logo">
+                            <a href="index.html"> @await Component.InvokeAsync("VendorLogo")</a>
+                        </div>
+                        <div class="footer-text">
+                            <p>
+                                Lorem ipsum dolor sit amet, consec tetur adipisicing elit, sed do eiusmod tempor incididuntut consec
+                                tetur adipisicing
+                                elit,Lorem ipsum dolor sit amet.
+                            </p>
+                        </div>
+                        <div class="footer-social-icon">
+                            <span>Follow us</span>
+                            <a href="#">
+                                <i class="fab fa-facebook-f facebook-bg" style="padding: 12px 14px 12px 14px;
+                  border-radius: 5px;"></i>
+                            </a>
+                            <a href="#">
+                                <i class="fab fa-twitter twitter-bg" style="padding: 12px 12px 12px 12px;
+                  border-radius: 5px;"></i>
+                            </a>
+                            <a href="#">
+                                <i class="fab fa-google-plus-g google-bg" style="padding: 12px 12px 12px 12px;
+                  border-radius: 5px;"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-6 mb-30 mt-4">
+                    <div class="footer-widget">
+                        <div class="footer-widget-heading">
+                            <h3>Categories</h3>
+                        </div>
+                        <ul>
+                            <li><a href="#">Home decor</a></li>
+                            <li><a href="#">Electronic</a></li>
+                            <li><a href="#">Grocery</a></li>
+                            <li><a href="#">Appliances</a></li>
+                            <li><a href="#">Beauty & Toy</a></li>
+                            <li><a href="#">Clothing</a></li>
+                            <li><a href="#">Accesories</a></li>
+                            <li><a href="#">Footwear</a></li>
+                            <li><a href="category.html">More</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-6 mb-30 mt-4">
+                    <div class="footer-widget">
+                        <div class="footer-widget-heading">
+                            <h3>Subscribe</h3>
+                        </div>
+                        <div class="footer-text mb-25">
+                            <p>Don’t miss to subscribe to our new feeds, kindly fill the form below.</p>
+                        </div>
+                        <div class="subscribe-form">
+                            <form action="#">
+                                <input type="text" placeholder="Email Address">
+                                <button><i class="fab fa-telegram-plane"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    @if (Model != null)
-    {
-        <p><i class="fa fa-map-marker"></i> <span>@Model.ShopName, @Model.City ,@Model.State, @Model.Address , @Model.Zip</span></p>
-        <p><i class="fa fa-phone"></i> <span class="call">Call us now: @Model.ContactNumber .</span></p>
-        <p><i class="fa fa-envelope"></i> <span class="call">Email: <a href="mailto:@Model.UserName">@Model.UserName</a></span></p>
-
-    }
-
-</div>
+    <div class="copyright-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 text-center text-lg-left">
+                    <div class="copyright-text">
+                        <p>
+                            Copyright &copy;
+                            <script>document.write(new Date().getFullYear());</script> All Right Reserved <a class="shooppylink"
+                                                                                                             href="https://shooppy.in/">Shooppy</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 d-none d-lg-block text-right">
+                    <div class="footer-menu">
+                        <ul>
+                            <li><a href="mainpage.html">Home</a></li>
+                            <li><a href="#">Offers</a></li>
+                            <li><a href="whishlist.html">Whishlist</a></li>
+                            <li><a href="cartpage.html">My Bag</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

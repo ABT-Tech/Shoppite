@@ -13,8 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace Shoppite.UI.Controllers
-{
-    [Authorize]
+{  
     public class MyAccountController : Controller
     {
         private EncryptionHelper eh = new EncryptionHelper();

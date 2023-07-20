@@ -1685,10 +1685,13 @@
                     return $(this).val();
                     console.log(typeof (selectedCategories));
                 }).get();
+                var data = getCategoryID();
+
+                var categories = data + ',' + selectedCategories;
+                window.history.replaceState(null, null, "?" +categories);
                 $.ajax({
-                    url: '@Url.Action("_ProductsByAttribute", "Home")',
-                    type: "Post",
-                    data: { CategoryId: selectedCategories },
+                    url: '@Url.Action("_ProductsByAttribute", "Home")' + '?' + data + ',' + selectedCategories,
+                    type: "GET",                  
                     success: function (data) {
                         $(".producresults").html(data);
                     }

@@ -20,7 +20,7 @@
     <header>
         <nav class="navbar row">
             <div class="hamburger-menu col-12 col-lg-3 col-md-6">
-                <img src="~/img/Shooppy.in11.webp" alt="sitelogo" width="150px" height="80px" style="margin: 0px 0px 0px 90px;" />
+                @await Component.InvokeAsync("VendorLogo")
                 <input id="menu__toggle" type="checkbox" />
                 <label class="menu__btn" for="menu__toggle" style="font-weight:700;">
                     <span></span>
@@ -83,34 +83,69 @@
             </div>
             <!--navbar-appsection-end-->
             <!--navbar-button-start-->
-            <div class="mobspace col-12 col-lg-3 col-md-6">
-                <div class="parent">
-                    <button data-toggle="tooltip" data-placement="top" title="Your Order" class="round-3"
-                            style="margin: 10px 20px 0px 0px;">
-                        <a href="orderpage.html"><img src="~/img/shopping-bag.png" alt="shoppingbagimge" /></a>
-                    </button>
-                    <button data-toggle="tooltip" data-placement="top" title="Whishlist" class="round-3">
-                        <a asp-action="Wishlist" asp-controller="Wishlist"><img src="~/img/heart.svg" alt="shoppingbagimge" width="30" height="30" /></a>
-                    </button>
-                    <div class="dropdown">
-                        <button data-toggle="tooltip" data-placement="top" title="My Account" class="round-3 dropbtn"
-                                onclick="myFunction()" style="margin: 10px 20px 0px 0px;">
-                            <img src="~/img/add-user.png"
-                                 alt="adduserimge" />
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="mobspace col-12 col-lg-3 col-md-6">
+                    <div class="parent">
+                        <button data-toggle="tooltip" data-placement="top" title="Your Order" class="round-3"
+                                style="margin: 10px 20px 0px 0px;">
+                            <a href="orderpage.html"><img src="~/img/shopping-bag.png" alt="shoppingbagimge" /></a>
                         </button>
-                        <div id="myDropdown" class="dropdown-content">
-                            <a href="#" class="droptext">Login</a>
-                            <a href="Myprofilepage.html" class="droptext">My Profile</a>
-                            <a href="#" class="droptext">Sign Up</a>
+                        <button data-toggle="tooltip" data-placement="top" title="Whishlist" class="round-3">
+                            <a asp-action="Wishlist" asp-controller="Wishlist"><img src="~/img/heart.svg" alt="shoppingbagimge" width="30" height="30" /></a>
+                        </button>
+                        <div class="dropdown">
+                            <button data-toggle="tooltip" data-placement="top" title="My Account" class="round-3 dropbtn"
+                                    onclick="myFunction()" style="margin: 10px 20px 0px 0px;">
+                                <img src="~/img/add-user.png"
+                                     alt="adduserimge" />
+                            </button>
+                            <div id="myDropdown" class="dropdown-content">
+                                <a asp-action="Register" asp-controller="Authentications">Login</a>
+                                <a href="Myprofilepage.html" class="droptext">My Profile</a>
+                                <a asp-action="Register" asp-controller="Authentications">Sign Up</a>
+                            </div>
                         </div>
+                        <button data-toggle="tooltip" data-placement="top" title="My Bag" class="round-3">
+                            <a href="cartpage.html">
+                                <img src="~/img/cart (1).png" alt="cartimge" />
+                            </a>
+                        </button>
                     </div>
-                    <button data-toggle="tooltip" data-placement="top" title="My Bag" class="round-3">
-                        <a href="cartpage.html">
-                            <img src="~/img/cart (1).png" alt="cartimge" />
-                        </a>
-                    </button>
                 </div>
-            </div>
+            }
+            else
+            {
+                <div class="mobspace col-12 col-lg-3 col-md-6">
+                    <div class="parent">
+                        <button data-toggle="tooltip" data-placement="top" title="Your Order" class="round-3"
+                                style="margin: 10px 20px 0px 0px;">
+                            <a asp-action="Register" asp-controller="Authentications"><img src="~/img/shopping-bag.png" alt="shoppingbagimge" /></a>
+                        </button>
+                        <button data-toggle="tooltip" data-placement="top" title="Whishlist" class="round-3">
+                            <a asp-action="Register" asp-controller="Authentications"><img src="~/img/heart.svg" alt="shoppingbagimge" width="30" height="30" /></a>
+                        </button>
+                        <div class="dropdown">
+                            <button data-toggle="tooltip" data-placement="top" title="My Account" class="round-3 dropbtn"
+                                    onclick="myFunction()" style="margin: 10px 20px 0px 0px;">
+                                <img src="~/img/add-user.png"
+                                     alt="adduserimge" />
+                            </button>
+                            <div id="myDropdown" class="dropdown-content">
+                                <a asp-action="Register" asp-controller="Authentications" class="droptext">Login</a>
+                                <a asp-action="Register" asp-controller="Authentications" class="droptext">My Profile</a>
+                                <a href="#" class="droptext">Sign Up</a>
+                            </div>
+                        </div>
+                        <button data-toggle="tooltip" data-placement="top" title="My Bag" class="round-3">
+                            <a asp-action="Register" asp-controller="Authentications">
+                                <img src="~/img/cart (1).png" alt="cartimge" />
+                            </a>
+                        </button>
+                    </div>
+                </div>
+
+            }
             <!--navbar-button-end-->
             @await Component.InvokeAsync("MegaMenu")
         </nav>
@@ -118,133 +153,7 @@
     @RenderBody()
     <!--navbar-end-->
     <!--footerSection-start-->
-    <footer class="footer-section">
-        <div class="container">
-            <div class="footer-cta pt-5 pb-5">
-                <div class="row">
-                    <div class="col-xl-4 col-md-4 mb-30 mt-4">
-                        <div class="single-cta d-flex">
-                            <i class="fas fa-map-marker-alt" style="font-size: 45px; color: #aed4f0;"></i>
-                            <div class="cta-text">
-                                <h4>Find us</h4>
-                                <span>1010 Avenue, sw 54, chandigarh</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-md-4 mb-30 mt-4">
-                        <div class="single-cta d-flex">
-                            <i class="fas fa-phone" style="font-size: 45px; color: #aed4f0;"></i>
-                            <div class="cta-text">
-                                <h4>Call us</h4>
-                                <span>9876543210 0</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-md-4 mb-30 mt-4">
-                        <div class="single-cta d-flex">
-                            <i class="far fa-envelope-open" style="font-size: 45px; color: #aed4f0;"></i>
-                            <div class="cta-text">
-                                <h4>Mail us</h4>
-                                <span>mail@info.com</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-content pt-5 pb-5" style="z-index: 0;">
-                <div class="row">
-                    <div class="col-xl-4 col-lg-4 mb-50">
-                        <div class="footer-widget">
-                            <div class="footer-logo">
-                                <a href="index.html"><img src="~/img/Shooppy.in11.webp" class="img-fluid" alt="logo"></a>
-                            </div>
-                            <div class="footer-text">
-                                <p>
-                                    Lorem ipsum dolor sit amet, consec tetur adipisicing elit, sed do eiusmod tempor incididuntut consec
-                                    tetur adipisicing
-                                    elit,Lorem ipsum dolor sit amet.
-                                </p>
-                            </div>
-                            <div class="footer-social-icon">
-                                <span>Follow us</span>
-                                <a href="#">
-                                    <i class="fab fa-facebook-f facebook-bg" style="padding: 12px 14px 12px 14px;
-                  border-radius: 5px;"></i>
-                                </a>
-                                <a href="#">
-                                    <i class="fab fa-twitter twitter-bg" style="padding: 12px 12px 12px 12px;
-                  border-radius: 5px;"></i>
-                                </a>
-                                <a href="#">
-                                    <i class="fab fa-google-plus-g google-bg" style="padding: 12px 12px 12px 12px;
-                  border-radius: 5px;"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6 mb-30 mt-4">
-                        <div class="footer-widget">
-                            <div class="footer-widget-heading">
-                                <h3>Categories</h3>
-                            </div>
-                            <ul>
-                                <li><a href="#">Home decor</a></li>
-                                <li><a href="#">Electronic</a></li>
-                                <li><a href="#">Grocery</a></li>
-                                <li><a href="#">Appliances</a></li>
-                                <li><a href="#">Beauty & Toy</a></li>
-                                <li><a href="#">Clothing</a></li>
-                                <li><a href="#">Accesories</a></li>
-                                <li><a href="#">Footwear</a></li>
-                                <li><a href="category.html">More</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6 mb-30 mt-4">
-                        <div class="footer-widget">
-                            <div class="footer-widget-heading">
-                                <h3>Subscribe</h3>
-                            </div>
-                            <div class="footer-text mb-25">
-                                <p>Don’t miss to subscribe to our new feeds, kindly fill the form below.</p>
-                            </div>
-                            <div class="subscribe-form">
-                                <form action="#">
-                                    <input type="text" placeholder="Email Address">
-                                    <button><i class="fab fa-telegram-plane"></i></button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="copyright-area">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-6 col-lg-6 text-center text-lg-left">
-                        <div class="copyright-text">
-                            <p>
-                                Copyright &copy;
-                                <script>document.write(new Date().getFullYear());</script> All Right Reserved <a class="shooppylink"
-                                                                                                                 href="https://shooppy.in/">Shooppy</a>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-xl-6 col-lg-6 d-none d-lg-block text-right">
-                        <div class="footer-menu">
-                            <ul>
-                                <li><a href="mainpage.html">Home</a></li>
-                                <li><a href="#">Offers</a></li>
-                                <li><a href="whishlist.html">Whishlist</a></li>
-                                <li><a href="cartpage.html">My Bag</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+    @await Component.InvokeAsync("FooterDetails")
     <!--footerSection-end-->
     <!--offercardSection-start-->
     <div class="container mainpageoffercard">

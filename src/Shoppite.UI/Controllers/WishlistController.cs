@@ -12,7 +12,8 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace Shoppite.UI.Controllers
-{ 
+{
+    [Authorize]
     public class WishlistController : Controller
     {
         private readonly ICommonHelper _commonHelper;

@@ -89,7 +89,7 @@ namespace Shoppite.UI.Controllers
             int OrgId = _commonHelper.GetOrgID(HttpContext);
           var Register = await _AuthenticationPageService.RegisterDetail(usersModal.Username,usersModal.Password,usersModal.Email,OrgId);
             if (Register == null)
-                return RedirectToAction("Login");
+                return RedirectToAction("Register");
             else
                 TempData["SignValidError"] = "Email is already exsist";
             //return RedirectToAction("Index","Home", new { area = "" });
@@ -114,7 +114,7 @@ namespace Shoppite.UI.Controllers
                 if (ForgotPass == null)
                     TempData["EmailValidError"] = "Email not found";
                 else
-                    return RedirectToAction("Login");
+                    return RedirectToAction("Register");
             }
             else
             {
