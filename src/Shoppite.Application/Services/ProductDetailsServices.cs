@@ -277,7 +277,7 @@
         /// <returns>The <see cref="Task"/>.</returns>
         public async Task AddToCart(ProductDetailModel productDetailModel)
         {
-            var CartCheck = await _CartRepository.CheckProdInCart((int)productDetailModel.ProductBasicModel.OrgId,productDetailModel.ProductBasicModel.ProductName, _accessor.HttpContext.User.Identity.Name);
+            var CartCheck = await _CartRepository.CheckProdInCart((int)productDetailModel.ProductBasicModel.OrgId,productDetailModel.ProductBasicModel.ProductName, _accessor.HttpContext.User.Identity.Name, productDetailModel.SpecId);
 
             if (CartCheck != null)
             {
@@ -288,7 +288,7 @@
                     ProductId = CartCheck.ProductId,
                     Qty = CartCheck.Qty + productDetailModel.OrderBasicModel.Qty
                 };
-                await _ProductDetailRepsitory.AddToCart(orderBasic1);
+                await _ProductDetailRepsitory.UpdateAddToCart(orderBasic1);
             }
             else
             {
@@ -438,18 +438,85 @@
         {
             if (productDetailModel.SpecId != 0)
             {
-                var CartCheck = await _CartRepository.CheckProdInCart((int)productDetailModel.ProductBasicModel.OrgId, productDetailModel.ProductBasicModel.ProductName, _accessor.HttpContext.User.Identity.Name);
+                var get_Product_SpecId = await _ProductDetailRepsitory.get_Product_SpecId(productDetailModel.ProductBasicModel.ProductGuid, productDetailModel.ProductBasicModel.OrgId, productDetailModel.SpecId);
+
+                var CartCheck = await _CartRepository.CheckProdInCart((int)productDetailModel.ProductBasicModel.OrgId, productDetailModel.ProductBasicModel.ProductName, _accessor.HttpContext.User.Identity.Name, productDetailModel.SpecId);          
 
                 if (CartCheck != null)
                 {
-                    OrderBasic orderBasic1 = new OrderBasic
+                    if (get_Product_SpecId.ProductSpecificationId == CartCheck.ProductSpecificationId)
                     {
-                        UserName = CartCheck.UserName,
-                        OrderGuid = CartCheck.OrderGuid,
-                        ProductId = CartCheck.ProductId,
-                        Qty = CartCheck.Qty + productDetailModel.OrderBasicModel.Qty
-                    };
-                    await _ProductDetailRepsitory.AddToCart(orderBasic1);
+                        OrderBasic orderBasic1 = new OrderBasic
+                        {
+                            UserName = CartCheck.UserName,
+                            OrderGuid = CartCheck.OrderGuid,
+                            ProductId = CartCheck.ProductId,
+                            Qty = CartCheck.Qty + productDetailModel.OrderBasicModel.Qty
+                        };
+
+                        OrderVariation orderVariation = new OrderVariation()
+                        {
+                            OrderGuid = CartCheck.OrderGuid,
+                            ProductSpecificationId = get_Product_SpecId.ProductSpecificationId,
+                            OrgId = productDetailModel.ProductBasicModel.OrgId
+                        };
+                        var OrderVeriant = await _ProductDetailRepsitory.Get_Order_Varient(orderVariation);
+                        orderBasic1.OrderVariationId = OrderVeriant.OrderVariationId;
+
+                        await _ProductDetailRepsitory.UpdateAddToCart(orderBasic1);
+                    }
+                    else
+                    {
+                        OrderBasic orderBasic = new OrderBasic();
+                        orderBasic.ProductId = productDetailModel.ProductBasicModel.ProductId;
+                        orderBasic.OrderGuid = Guid.Empty;
+                        orderBasic.Price = productDetailModel.ProductPriceModel.Price;
+                        orderBasic.DeliveryFees = productDetailModel.ProductPriceModel.DeliveryFees;
+                        orderBasic.InsertDate = DateTime.Now;
+                        orderBasic.OrderStatus = "Cart";
+                        orderBasic.Currencyid = productDetailModel.ProductPriceModel.CurrencyId;
+                        orderBasic.OrgId = productDetailModel.ProductBasicModel.OrgId;
+                        orderBasic.Qty = productDetailModel.OrderBasicModel.Qty;
+                        orderBasic.UserName = _accessor.HttpContext.User.Identity.Name;
+
+                        var find = await _ProductDetailRepsitory.check(orderBasic);
+
+                        productDetailModel.OrderBasicModel = ObjectMapper.Mapper.Map<OrderBasicModel>(find);
+
+                        if (find != null)
+                        {
+                            orderBasic.OrderGuid = find.OrderGuid;
+                        }
+                        else
+                        {
+                            Guid Orderguid = Guid.NewGuid();
+
+                            OrderMaster orderMaster = new OrderMaster
+                            {
+                                OrderGuid = Orderguid,
+                                OrderKeyStatus = "Active",
+                                InsertDate = DateTime.Now,
+                                OrgId = productDetailModel.ProductBasicModel.OrgId
+                            };
+                            await _ProductDetailRepsitory.AddOrderMaster(orderMaster);
+                            orderBasic.OrderGuid = Orderguid;
+                        }
+
+
+                        if (get_Product_SpecId != null)
+                        {
+                            OrderVariation orderVariation = new OrderVariation()
+                            {
+                                OrderGuid = orderBasic.OrderGuid,
+                                ProductSpecificationId = get_Product_SpecId.ProductSpecificationId,
+                                OrgId = orderBasic.OrgId
+                            };
+                           var ProductVarient = await _ProductDetailRepsitory.Add_Order_Varient(orderVariation);
+                            orderBasic.OrderVariationId = ProductVarient.OrderVariationId;
+                        }
+
+                        await _ProductDetailRepsitory.AddToCart(orderBasic);
+                    }                 
                 }
                 else
                 {
@@ -488,7 +555,6 @@
                         orderBasic.OrderGuid = Orderguid;
                     }
 
-                    var get_Product_SpecId = await _ProductDetailRepsitory.get_Product_SpecId(productDetailModel.ProductBasicModel.ProductGuid,productDetailModel.ProductBasicModel.OrgId,productDetailModel.SpecId);
 
                     if(get_Product_SpecId != null)
                     {
@@ -498,7 +564,8 @@
                             ProductSpecificationId = get_Product_SpecId.ProductSpecificationId,
                             OrgId = orderBasic.OrgId
                         };
-                        await _ProductDetailRepsitory.Add_Order_Varient(orderVariation);
+                      var OrderVeriant =  await _ProductDetailRepsitory.Add_Order_Varient(orderVariation);
+                        orderBasic.OrderVariationId = orderVariation.OrderVariationId;
                     }
 
                     await _ProductDetailRepsitory.AddToCart(orderBasic);
@@ -549,7 +616,8 @@
                         ProductSpecificationId = get_Product_SpecId.ProductSpecificationId,
                         OrgId = orderBasic.OrgId
                     };
-                    await _ProductDetailRepsitory.Add_Order_Varient(orderVariation);
+                    var Varient = await _ProductDetailRepsitory.Add_Order_Varient(orderVariation);
+                    orderBasic.OrderVariationId = Varient.OrderVariationId;
                 }
 
                 await _ProductDetailRepsitory.AddToCart(orderBasic);

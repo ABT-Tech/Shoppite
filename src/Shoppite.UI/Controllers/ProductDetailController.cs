@@ -67,7 +67,7 @@ namespace Shoppite.UI.Controllers
             {
                foreach(var Spec in Product_Varients)
                {
-                   get.Image = Spec.SpecificationImage;
+                   get.Image = Spec.Image;
                    get.name = Spec.SpecificationNames;
                    price = Spec.Price;
                     Qty = Spec.Quantity;

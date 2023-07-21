@@ -20,6 +20,7 @@ namespace Shoppite.Core.Repositories
         Task<IEnumerable<f_getproduct_specification_By_Guid>> specificationSetups(Guid SpecGuid);
         Task<IEnumerable<AttributesSetup>> ProductAttribute(int OrgId);
         Task AddToCart(OrderBasic productDetailModel);
+        Task UpdateAddToCart(OrderBasic productDetailModel);
         Task AddOrderMaster(OrderMaster orderMaster);
         Task<OrderBasic> check(OrderBasic productDetailModel);
         Task<OrderBasic> updateCart();
@@ -27,6 +28,7 @@ namespace Shoppite.Core.Repositories
         Task<List<SP_GetProductDetails>>GetProductVarient(Guid guid, int orgid,int SpecId);
         Task<List<SP_GetProductSpecifications>> SP_GetProductSpecifications(Guid id, int orgid);
         Task<ProductSpecification> get_Product_SpecId(Guid? productGuid, int? orgId, int specId);
-        Task Add_Order_Varient(OrderVariation orderVariation);
+        Task<OrderVariation> Add_Order_Varient(OrderVariation orderVariation);
+        Task<OrderVariation> Get_Order_Varient(OrderVariation orderVariation);
     }
 }

@@ -18,7 +18,7 @@ namespace Shoppite.Application.Models
         public string CategoryName { get; set; }
         public int SpecificationIds { get; set; }
         public string SpecificationNames { get; set; }
-        public string SpecificationImage { get; set; }
+        //public string SpecificationImage { get; set; }
         public string Attribute { get; set; }
         public string ProductList { get; set; }
         public int OrgId { get; set; } 

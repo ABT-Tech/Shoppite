@@ -26,6 +26,7 @@ namespace Shoppite.Application.Models
         public string ReferenceId { get; set; }
         public decimal? Commission { get; set; }
         public decimal? Donation { get; set; }
+        public int? OrderVariationId { get; set; }
         public string OrderVariation { get; set; }
         public int? Currencyid { get; set; }
         public string LastOrderStatus { get; set; }
