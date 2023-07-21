@@ -7,13 +7,15 @@ using System.Collections.Generic;
 
 namespace Shoppite.Core.Entities
 {
-    public partial class f_getproduct_specification_By_Guid
+    public partial class f_getproduct_varient_By_Guid
     {
 
+        public string ProductName { get; set; }
+        public string CoverImage { get; set; }
         public decimal Price { get; set; }
         public string SpecificationName { get; set; }
-        public string SubSpecificationName { get; set;  }
         public int? AttributeId { get; set; }
+        public string SubSpecificationName { get; set;  }
         public int? SubAttributeId { get; set; }
 
     }

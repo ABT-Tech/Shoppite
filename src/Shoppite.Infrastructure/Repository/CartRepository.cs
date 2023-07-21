@@ -32,7 +32,7 @@ namespace Shoppite.Infrastructure.Repository
         }
         public async Task<OrderBasic> DeleteAsync(int id)
         {
-            var product = _dbContext.OrderBasic.FirstOrDefault(x => x.ProductId == id && x.OrderStatus == "Cart");
+            var product = _dbContext.OrderBasic.FirstOrDefault(x => x.OrderId == id && x.OrderStatus == "Cart");
             if (product != null)
             {
                 _dbContext.OrderBasic.Remove(product);
@@ -152,7 +152,7 @@ namespace Shoppite.Infrastructure.Repository
             return find;
         }
 
-        public async Task<f_getproduct_CartDetails_By_Orgid> CheckProdInCart(int orgId, string ProductName, string Username)
+        public async Task<f_getproduct_CartDetails_By_Orgid> CheckProdInCart(int orgId, string ProductName, string Username,int SpecId)
         {
             string sql = "select * from f_getproduct_CartDetails_By_Orgid(@Orgid)";
 
@@ -161,7 +161,7 @@ namespace Shoppite.Infrastructure.Repository
                 // Create parameters    
                 new SqlParameter { ParameterName = "@Orgid", Value = orgId }
             };
-            var Filter =  await _dbContext.Set<f_getproduct_CartDetails_By_Orgid>().FromSqlRaw(sql, parms.ToArray()).Where(x=>x.UserName == Username && x.ProductName == ProductName).FirstOrDefaultAsync();
+            var Filter =  await _dbContext.Set<f_getproduct_CartDetails_By_Orgid>().FromSqlRaw(sql, parms.ToArray()).Where(x=>x.UserName == Username && x.ProductName == ProductName && x.SpecificationId == SpecId).FirstOrDefaultAsync();
             return Filter;
         }
     }

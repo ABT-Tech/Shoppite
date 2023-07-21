@@ -6,6 +6,7 @@ namespace Shoppite.Application.Models
 {
     public class ProductDetailModel
     {
+        public int SpecId { get; set; }
         public ProductBasicModel ProductBasicModel { get; set; }
         public List<Customer_WishlistModel> Wishlists { get; set; }
         public List<ProductImagesModel> ProductImagesModel { get; set; }
@@ -21,7 +22,8 @@ namespace Shoppite.Application.Models
         public List<AttributesSetupModel> AttributesSetupModel { get; set; }
         public OrderBasicModel OrderBasicModel { get; set; }
         public OrderMasterModel OrderMasterModel { get; set; }
-
+        public List<ProductVariantModel> productVariantModel  { get; set; }
+        public List<SP_GetProductSpecificationsModel> Sp_GetProductSpecificationsModels { get; set; }
 
     }
 }
