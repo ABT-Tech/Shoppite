@@ -14,5 +14,6 @@ namespace Shoppite.UI.Models
         public string Orgid { get; set; }
         public string Image { get; set; }
         public string name { get; set; }
+        public bool? Is_In_WishList { get; set; }
     }
 }
