@@ -140,6 +140,27 @@
                         <div class="col-lg-4 col-md-6">
                             <div class="single-product-image">
                                 <div id="content-eleyas">
+                                    <div class="">
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                                            <p class="sin-adto-cart-bottom d-flex justify-content-end">
+                                                @if (@Model.ProductBasicModel.WishlistedProduct == true)
+                                                {
+                                                    <abbr title="WishList"><a id="AddtoWish" href="/ProductDetail/AddToWhishList?ProductId=@Model.ProductBasicModel.ProductId&id=@Model.ProductBasicModel.ProductGuid"><i id="Wish_Logo" style="color: black; font-size: 20px;" class="fa-regular fa-heart"></i></a></abbr>
+                                                }
+                                                else
+                                                {
+                                                    <abbr title="WishList"><a id="AddtoWish" href="/ProductDetail/AddToWhishList?ProductId=@Model.ProductBasicModel.ProductId&id=@Model.ProductBasicModel.ProductGuid "><i id="Wish_Logo" style="color: black; font-size: 20px;" class="fa-regular fa-heart"></i></a></abbr>
+                                                }
+                                            </p>
+                                        }
+                                        else
+                                        {
+                                            <p class="sin-adto-cart-bottom d-flex justify-content-end">
+                                                <abbr title="WishList"><a href="/Authentications/Login"><i style="color: black; font-size: 20px;" class="fa-regular fa-heart"></i></a></abbr>
+                                            </p>
+                                        }
+                                    </div>
                                     <div id="my-tab-content" class="product-details-large tab-content jump">
                                         <div class="tab-pane active" id="view1">
                                             <a class="fancybox" id="MainIMGH" href="@Model.ProductBasicModel.CoverImage" data-fancybox-group="gallery" title=""><img id="MainImg" src="@Model.ProductBasicModel.CoverImage" alt="">@*<span>View larger<i class="fa fa-search-plus"></i></span>*@</a>
@@ -214,12 +235,13 @@
                                     </div>
                                 </div>
 
-                                @foreach (var Attribute in Model.AttributesSetupModel)
+                               @foreach (var Attribute in Model.AttributesSetupModel)
                                 {
                                     <h6>@Attribute.AttributeName</h6>
                                 }
 
-                                @foreach (var pro in Model.Sp_GetProductSpecificationsModels)
+                            <div id="SpecBtn">
+                               @foreach (var pro in Model.Sp_GetProductSpecificationsModels)
                                 {
                                     <div class="hungry d-inline-flex">
                                         <div class="selection m-1">
@@ -235,11 +257,12 @@
                                                 <button id="@pro.SpecificationNames" type="button" class="btn mr-md-2 mb-md-0 mb-2 btn-outline-dark @pro.SpecificationNames" name="dropspec" disabled>@pro.SpecificationNames</button>
 
                                                 @*<input id="@pro.SpecificationNames" class="@pro.SpecificationNames" name="dropspec" type="radio" disabled>
-                                                <label for="@pro.SpecificationNames" class="OutStock">@pro.SpecificationNames</label>*@
+                                                  <label for="@pro.SpecificationNames" class="OutStock">@pro.SpecificationNames</label>*@
                                             }
                                         </div>
                                     </div>
                                 }
+                            </div>
 
                                 @*</form>*@
 
@@ -344,26 +367,7 @@
                                         }
                                     </p>
                                 }
-                                @if (User.Identity.IsAuthenticated)
-                                {
-                                    <p class="sin-adto-cart-bottom">
-                                        @if (@Model.ProductBasicModel.WishlistedProduct == true)
-                                        {
-                                            <abbr title="WishList"><a href="/ProductDetail/AddToWhishList?ProductId=@Model.ProductBasicModel.ProductId&id=@Model.ProductBasicModel.ProductGuid"><i style="color:red" class="fa fa-heart"></i></a></abbr>
-                                        }
-                                        else
-                                        {
-                                            <abbr title="WishList"><a href="/ProductDetail/AddToWhishList?ProductId=@Model.ProductBasicModel.ProductId&id=@Model.ProductBasicModel.ProductGuid"><i class="fa fa-heart"></i></a></abbr>
-                                        }
-                                    </p>
-                                }
-                                else
-                                {
-                                    <p class="sin-adto-cart-bottom">
-                                        <abbr title="WishList"><a href="/Authentications/Login"><i class="fa fa-heart"></i></a></abbr>
-                                    </p>
 
-                                }
                             </div>
                         </div>
                         @*End single product details*@
@@ -543,6 +547,18 @@
     });
 
 
+    window.onload = function () {
+        var SpecBtn = $('#SpecBtn');
+
+        for (var i = 0; SpecBtn[0].children.length > i; i++){
+            if (SpecBtn[0].children[i].firstElementChild.firstElementChild.disabled == false) {
+                SpecBtn[0].children[i].firstElementChild.firstElementChild.click();
+                break;
+            }
+        }
+    };
+
+
     function Match(id) {
 
         var PName = $('#Prod_Name').val();
@@ -580,6 +596,24 @@
                     if ($('.exclusive')[1].name == 'BuyNow') {
                         document.getElementsByName("BuyNow")[0].setAttribute("formaction", "/ProductDetail/Add_Specification_BuyNow");
                     }
+
+                    if (data.is_In_WishList == true) {
+                        $('#Wish_Logo').removeClass('fa-regular');
+                        $('#Wish_Logo').addClass('fa');
+                        $('#Wish_Logo').removeAttr('style');
+                        $('#Wish_Logo').css('color','red');
+                        $('#Wish_Logo').css('font-size','20px');
+                    } else if (data.is_In_WishList == false) {
+                        $('#Wish_Logo').removeClass('fa');
+                        $('#Wish_Logo').addClass('fa-regular');
+                        $('#Wish_Logo').removeAttr('style');
+                        $('#Wish_Logo').css('color','black');
+                        $('#Wish_Logo').css('font-size','20px');
+                    }                                                   
+
+                    var WishLink = document.getElementById("AddtoWish").href;
+                    WishLink += '&Specid=' + SpecId;
+                    $('#AddtoWish').attr('href', WishLink);
                    
 
                 }

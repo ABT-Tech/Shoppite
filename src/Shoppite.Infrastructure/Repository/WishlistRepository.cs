@@ -31,7 +31,7 @@ namespace Shoppite.Infrastructure.Repository
         }
         public async Task AddWishList(CustomerWishlist wishlist, int ProductId)
         {
-            CustomerWishlist cuswishlist = _dbContext.CustomerWishlist.FirstOrDefault(u => u.ProductId == ProductId && u.UserName == wishlist.UserName);
+            CustomerWishlist cuswishlist = _dbContext.CustomerWishlist.FirstOrDefault(u => u.WishlistId == ProductId && u.UserName == wishlist.UserName && u.OrgId == wishlist.OrgId);
 
             if (cuswishlist != null)
             {
@@ -97,7 +97,7 @@ namespace Shoppite.Infrastructure.Repository
 
         public async Task AddtoWishList(CustomerWishlist wishlist)
         {
-            var check = await _dbContext.CustomerWishlist.Where(x =>x.ProductId == wishlist.ProductId&&x.OrgId==wishlist.OrgId&&x.UserName==wishlist.UserName).FirstOrDefaultAsync();
+            var check = await _dbContext.CustomerWishlist.Where(x =>x.ProductId == wishlist.ProductId&&x.OrgId==wishlist.OrgId&&x.UserName==wishlist.UserName && x.ProductSpecificationId == wishlist.ProductSpecificationId).FirstOrDefaultAsync();
            
             if(check == null)
             {
@@ -105,12 +105,17 @@ namespace Shoppite.Infrastructure.Repository
             }
             else
             {
-                CustomerWishlist cuswishlist = _dbContext.CustomerWishlist.FirstOrDefault(u => u.ProductId == wishlist.ProductId && u.UserName == wishlist.UserName);             
+                CustomerWishlist cuswishlist = _dbContext.CustomerWishlist.FirstOrDefault(u => u.ProductId == wishlist.ProductId && u.UserName == wishlist.UserName && u.ProductSpecificationId == wishlist.ProductSpecificationId);             
                     _dbContext.CustomerWishlist.Remove(cuswishlist);
                     _dbContext.SaveChanges();               
             }
 
            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<ProductSpecification> FindProductSpec(Guid? productGuid, int specId, int? orgId)
+        {
+            return await _dbContext.ProductSpecification.Where(x => x.ProductGuid == productGuid && x.SpecificationId == specId && x.OrgId == orgId).FirstOrDefaultAsync();
         }
     }
 }

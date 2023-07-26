@@ -59,10 +59,24 @@ namespace Shoppite.UI.Controllers
             Guid guid = Guid.Parse(get.Guid);
             int orgid = Convert.ToInt32(get.Orgid);
             int SpecId = Convert.ToInt32(get.SpecId);
-
+            get.Is_In_WishList = false;
+            string userName = User.Identity.Name;
             decimal price = 0;
             int Qty = 0;
-            var Product_Varients = await _ProductDetailPageService.GetProductVarient(guid, orgid,SpecId);
+            var CheckWishlist = new List<Customer_WishlistModel>();
+            var Product_Varients = await _ProductDetailPageService.GetProductVarient(guid,orgid,SpecId);
+            if (userName != null)
+            {
+               CheckWishlist = await _productWishListService.GetWishList(userName, orgid);
+                if(CheckWishlist != null)
+                {
+                    foreach(var WishList in CheckWishlist.Where(x=>x.SpecificationId == SpecId))
+                    {
+                        get.Is_In_WishList = true;
+                    }
+                }
+            }
+
             try
             {
                foreach(var Spec in Product_Varients)
@@ -88,12 +102,14 @@ namespace Shoppite.UI.Controllers
 
             return Json(get);
         }
-        public async Task<IActionResult> AddToWhishList(int ProductId,Guid id)
+        public async Task<IActionResult> AddToWhishList(int ProductId,Guid id,int Specid)
         {
             int OrgId = _commonHelper.GetOrgID(HttpContext);
             MainModel mainModel = new MainModel();
             mainModel.ProductId = ProductId;
             mainModel.OrgId = OrgId;
+            mainModel.SpecId = Specid;
+            mainModel.guid = id;
 
             await _productWishListService.AddtowhishList(mainModel);
             return RedirectToAction("Details",new {id=id});
