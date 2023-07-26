@@ -61,8 +61,10 @@ namespace Shoppite.Application.Mapper
             CreateMap<UsersProfile,MainModel>().ReverseMap();
             CreateMap<f_order_master, f_order_masterModel>().ReverseMap();
             CreateMap<OrderStatus, OrderStatusModel>().ReverseMap();
-
-
+            CreateMap<Messages, MessagesModel>().ReverseMap();
+            CreateMap<ProductVariant, ProductVariantModel>().ReverseMap();
+            CreateMap<SP_GetProductDetails, SP_GetProductDetailsModel>().ReverseMap();
+            CreateMap<SP_GetProductSpecifications, SP_GetProductSpecificationsModel>().ReverseMap();
 
             CreateMap<CategoryMasterModel, CategoryMaster>().ReverseMap();
             CreateMap<CategoryMasterModel, AdsDetail>().ReverseMap();
@@ -86,6 +88,7 @@ namespace Shoppite.Application.Mapper
             CreateMap<F_getproducts_By_CatId, f_getproducts_By_CatID_SpecificationNameModel>().ReverseMap();
             CreateMap<F_getproducts_By_BrandId, F_getproducts_By_BrandIdModel>().ReverseMap();
             CreateMap<f_order_masterDetails, f_order_masterDetailsModel>().ReverseMap();
+            CreateMap<f_getproduct_varient_By_Guid, f_getproduct_varient_By_GuidModel>().ReverseMap();
 
 
 

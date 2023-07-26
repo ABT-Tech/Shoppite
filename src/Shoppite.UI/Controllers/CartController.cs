@@ -1,10 +1,16 @@
 ﻿namespace Shoppite.UI.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Configuration;
+    using Newtonsoft.Json;
     using Shoppite.Application.Models;
     using Shoppite.UI.Extensions;
+    using Shoppite.UI.Helpers;
     using Shoppite.UI.Interfaces;
     using System;
+    using System.Dynamic;
+    using System.Net.Http;
+    using System.Text;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -24,14 +30,20 @@
         private readonly ICommonHelper _commonHelper;
 
         /// <summary>
+        /// Defines the _commonHelper.
+        /// </summary>
+        private readonly IConfiguration _configuration;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="CartController"/> class.
         /// </summary>
         /// <param name="cartPageServices">The cartPageServices<see cref="ICartPageServices"/>.</param>
         /// <param name="commonHelper">The commonHelper<see cref="ICommonHelper"/>.</param>
-        public CartController(ICartPageServices cartPageServices, ICommonHelper commonHelper)
+        public CartController(ICartPageServices cartPageServices, ICommonHelper commonHelper, IConfiguration configuration)
         {
             _cartPageService = cartPageServices ?? throw new ArgumentNullException(nameof(cartPageServices));
             _commonHelper = commonHelper;
+            _configuration = configuration;
         }
 
         /// <summary>
@@ -115,6 +127,56 @@
             await _cartPageService.UpdateOrder((Guid)Model.OrderBasicModel.OrderGuid);
 
             return RedirectToAction("OrderSuccess");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> MakePaymentRequest(CartModel Model)
+        {
+            if (Model.IsPaytm)
+            {
+                var order = await _cartPageService.CheckOrder((Guid)Model.OrderBasicModel.OrderGuid);
+                using (HttpClient client = new HttpClient())
+                {
+                    CashfreeRequest cashfreeRequest = new CashfreeRequest();
+                    var orderId = Guid.NewGuid();
+                    cashfreeRequest.customer_details = new CustomerDetails();
+                    cashfreeRequest.customer_details.customer_email = Model.OrderShippingModel.Email;
+                    cashfreeRequest.customer_details.customer_id = Model.OrderShippingModel.ShippingId.ToString();
+                    cashfreeRequest.customer_details.customer_phone = "+918200408816";//Model.OrderShippingModel.Phone;
+                    cashfreeRequest.order_amount = (decimal)order.OrderBasicModel.Price;
+                    cashfreeRequest.order_currency = "INR";
+                    cashfreeRequest.order_id = orderId.ToString();
+                    StringContent content = new StringContent(JsonConvert.SerializeObject(cashfreeRequest), Encoding.UTF8, "application/json");
+                    client.DefaultRequestHeaders.Add("x-api-version", _configuration.GetSection("CashFreeSettings")["x-api-version"]);
+                    client.DefaultRequestHeaders.Add("x-client-id", _configuration.GetSection("CashFreeSettings")["x-client-id"]);
+                    client.DefaultRequestHeaders.Add("x-client-secret", _configuration.GetSection("CashFreeSettings")["x-client-secret"]);
+                    string endpoint = _configuration.GetSection("CashFreeSettings")["URL"];
+                    using (var Response = await client.PostAsync(endpoint, content))
+                    {
+                        var payment_session = string.Empty;
+                        var stream = await Response.Content.ReadAsStringAsync();
+                        var dynamicObject = JsonConvert.DeserializeObject<ExpandoObject>(stream) as dynamic;
+                        if (_commonHelper.DoesPropertyExist(dynamicObject, "payment_session_id")){
+                            payment_session = dynamicObject.payment_session_id;
+                        }
+                        ViewBag.PaymentSession = payment_session;
+                    }
+                }
+                int orgid = _commonHelper.GetOrgID(HttpContext);
+                Model.OrderShippingModel.OrgId = orgid;
+                await _cartPageService.SaveAddress(Model);
+                await _cartPageService.UpdateOrder((Guid)Model.OrderBasicModel.OrderGuid);
+                return View();
+            }
+            else
+            {
+                int orgid = _commonHelper.GetOrgID(HttpContext);
+                Model.OrderShippingModel.OrgId = orgid;
+                await _cartPageService.SaveAddress(Model);
+                await _cartPageService.UpdateOrder((Guid)Model.OrderBasicModel.OrderGuid);
+                return RedirectToAction("OrderSuccess");
+            }
+            
         }
     }
 }

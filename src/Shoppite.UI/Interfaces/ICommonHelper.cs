@@ -10,5 +10,6 @@ namespace Shoppite.UI.Interfaces
    public interface ICommonHelper
     {
         int GetOrgID(HttpContext httpContext);
+        bool DoesPropertyExist(dynamic settings, string name);
     }
 }

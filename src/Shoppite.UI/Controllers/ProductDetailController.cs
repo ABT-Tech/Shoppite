@@ -52,32 +52,40 @@ namespace Shoppite.UI.Controllers
             }
             return View(Product_Details);
         }
+
         [HttpPost]
         public async Task<ActionResult> Product_Spcification_Details([FromBody]GetSpecModel get )
         {
             Guid guid = Guid.Parse(get.Guid);
-            string userName = User.Identity.Name;
-            int orgid = _commonHelper.GetOrgID(HttpContext);
-            decimal price = 0;
-            var Product_Detals = await _ProductDetailPageService.GetProductDetails(guid, orgid, userName);
-            if (get.Name.Contains("select"))
-            {
-                price = (decimal)Product_Detals.ProductPriceModel.Price;
-                get.Name = string.Empty;
-            }
-            else
-            {
+            int orgid = Convert.ToInt32(get.Orgid);
+            int SpecId = Convert.ToInt32(get.SpecId);
 
-                foreach (var GET in Product_Detals.AttributesSetupModel)
-                {
-                    foreach (var SET in GET.GetF_Getproduct_Specification_By_GuidModel.Where(x => x.SpecificationName == get.Name))
-                    {
-                        price = SET.Price;
-                    }
-                }
-               
+            decimal price = 0;
+            int Qty = 0;
+            var Product_Varients = await _ProductDetailPageService.GetProductVarient(guid, orgid,SpecId);
+            try
+            {
+               foreach(var Spec in Product_Varients)
+               {
+                   get.Image = Spec.Image;
+                   get.name = Spec.SpecificationNames;
+                   price = Spec.Price;
+                    Qty = Spec.Quantity;
+               }
             }
+            catch (Exception e) 
+            {
+                throw e;
+            }    
+
             get.Price = price;
+            get.Qty = Qty;
+
+            if(price == 0)
+            {
+                return Json("nothing");
+            }
+
             return Json(get);
         }
         public async Task<IActionResult> AddToWhishList(int ProductId,Guid id)
@@ -89,7 +97,7 @@ namespace Shoppite.UI.Controllers
 
             await _productWishListService.AddtowhishList(mainModel);
             return RedirectToAction("Details",new {id=id});
-        }
+        } 
 
         [HttpGet]
         public async Task<IActionResult> AddProductToCart(ProductDetailModel productDetailModel)
@@ -103,6 +111,19 @@ namespace Shoppite.UI.Controllers
            var Buy =  await _ProductDetailPageService.BuyNow(productDetailModel);
             return RedirectToAction("CheckOut", "Cart", new { orderid = Buy.OrderBasicModel.OrderGuid});
         }
+         
+        public async Task<IActionResult>Add_Specification_ToCart(ProductDetailModel productDetailModel)
+        {
+            await _ProductDetailPageService.Addto_Spec_Product(productDetailModel);
 
+            return RedirectToAction("Details", new { id = productDetailModel.ProductBasicModel.ProductGuid });
+        }
+
+        public async Task<IActionResult> Add_Specification_BuyNow(ProductDetailModel productDetailModel)
+        {
+            var Buy_Now = await _ProductDetailPageService.BuyNow_Spec_Product(productDetailModel);
+
+            return RedirectToAction("CheckOut","Cart", new { orderid = Buy_Now.ProductBasicModel.ProductGuid });
+        }
     }
 }

@@ -4,6 +4,7 @@ using Shoppite.Infrastructure.Data;
 using Shoppite.UI.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -56,7 +57,7 @@ namespace Shoppite.UI.Helpers
             int orgid = 1;
             var subdomain = GetSubDomain(httpContext);
             if (subdomain.Contains("localhost"))
-                orgid = 1;
+                orgid = 19;
             else
             {
                 LogError(subdomain);
@@ -86,6 +87,14 @@ namespace Shoppite.UI.Helpers
                 writer.Close();
             }
         }
-      
+
+        public bool DoesPropertyExist(dynamic settings, string name)
+        {
+            if (settings is ExpandoObject)
+                return ((IDictionary<string, object>)settings).ContainsKey(name);
+
+            return settings.GetType().GetProperty(name) != null;
+        }
+
     }
 }

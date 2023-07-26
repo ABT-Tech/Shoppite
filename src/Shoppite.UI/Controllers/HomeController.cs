@@ -17,7 +17,6 @@ namespace Shoppite.UI.Controllers
     public class HomeController : Controller
     {
         private IHttpContextAccessor _accessor;
-
         private readonly ILogger<HomeController> _logger;
         private readonly IBrandPageServices _BrandPageService;
         private readonly IWishlistPageService _wishlistPageService;
@@ -46,9 +45,10 @@ namespace Shoppite.UI.Controllers
             brands.TopBanner = await _categoryPageService.GetTopBannerImage(OrgId);
             brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
             brands.Categories = await _categoryPageService.GetCategories(CategoryId,OrgId);
-            brands.HorizontalBanner = await _categoryPageService.GetHorizontalBanner(OrgId);
+            brands.BottomBanner = await _categoryPageService.GetBottomBanner(OrgId);
             brands.BannersByCategory = await _categoryPageService.GetBannerByCategory(OrgId);
             brands.CategoryBanner = await _categoryPageService.GetCategoryBannerImage(OrgId);
+            brands.LeftBanner = await _categoryPageService.GetLeftBanner(OrgId);
             return View(brands);
         }
         public async Task<IActionResult> ProductsByBrand(int CategoryId,int BrandId)
@@ -60,9 +60,10 @@ namespace Shoppite.UI.Controllers
             brands.TopBanner = await _categoryPageService.GetTopBannerImage(OrgId);
             brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
             brands.Categories = await _categoryPageService.GetCategories(CategoryId, OrgId);
-            brands.HorizontalBanner = await _categoryPageService.GetHorizontalBanner(OrgId);
+            brands.BottomBanner = await _categoryPageService.GetBottomBanner(OrgId);
             brands.BannersByCategory = await _categoryPageService.GetBannerByCategory(OrgId);
             brands.CategoryBanner = await _categoryPageService.GetCategoryBannerImage(OrgId);
+            brands.LeftBanner = await _categoryPageService.GetLeftBanner(OrgId);
             brands.ProductdByBrand = await _BrandPageService.GetProductsByBrand(OrgId, BrandId);
             return View(brands);
         }
@@ -92,13 +93,12 @@ namespace Shoppite.UI.Controllers
             brands.Product_specification = await _categoryPageService.GetAllProductByCategory(CategoryId,OrgId);
             if (User.Identity.Name != null)
             {
-            brands.Wishlists = await _wishlistPageService.GetWishList(User.Identity.Name, OrgId);
+              brands.Wishlists = await _wishlistPageService.GetWishList(User.Identity.Name, OrgId);
             }
 
             brands.Attributes = await _categoryPageService.GetAllAttributes(OrgId);
             brands.AllCategories = await _categoryPageService.GetAllCategories(OrgId);
             return View(brands);
-
         }
         [HttpGet]
         public async Task<IActionResult> _ProductsByAttribute(int CategoryId, string SpecificationName)
@@ -134,8 +134,18 @@ namespace Shoppite.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> SearchProduct(string SearchKey)
         {
-            var SearchResult = await _BrandPageService.SearchProduct(SearchKey);
+            int orgid = _commonHelper.GetOrgID(HttpContext);
+
+            var SearchResult = await _BrandPageService.SearchProduct(SearchKey,orgid);
             return View(SearchResult);
+        }
+        public  ActionResult TermsAndCondition()
+        {
+            return View();
+        }
+        public ActionResult PrivacyPolicy()
+        {
+            return View();
         }
     }
 }

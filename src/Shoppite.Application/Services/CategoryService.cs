@@ -92,9 +92,9 @@ namespace Shoppite.Application.Services
             var mapped = ObjectMapper.Mapper.Map< CategoryMasterModel > (logo);
             return mapped;
         }
-        public async Task<List<CategoryMasterModel>> GetHorizontalBanner(int orgId)
+        public async Task<List<CategoryMasterModel>> GetBottomBanner(int orgId)
         {
-            var image = await _categoryRepository.GetHorizontalBanner(orgId);
+            var image = await _categoryRepository.GetBottomBanner(orgId);
             var mapped = ObjectMapper.Mapper.Map<List<CategoryMasterModel>>(image);
             return mapped;
         }
@@ -147,6 +147,12 @@ namespace Shoppite.Application.Services
         public async Task<List<CategoryMasterModel>> GetCategoryBannerImage(int orgId)
         {
             var image = await _categoryRepository.GetCategoryBannerImage(orgId);
+            var mapped = ObjectMapper.Mapper.Map<List<CategoryMasterModel>>(image);
+            return mapped;
+        }
+        public async Task<List<CategoryMasterModel>> GetLeftBanner(int orgId)
+        {
+            var image = await _categoryRepository.GetLeftBanner(orgId);
             var mapped = ObjectMapper.Mapper.Map<List<CategoryMasterModel>>(image);
             return mapped;
         }

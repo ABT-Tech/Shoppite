@@ -25,35 +25,37 @@
                                                         <img style="height:244px;width:250px" src="@product.CoverImage" alt="Product image">
                                                     </a>
                                                     @*<div class="top-cocial">
-                                                        <p>
-                                                            <i class="fa fa-star-o"></i>
-                                                            <i class="fa fa-star-o"></i>
-                                                            <i class="fa fa-star-o"></i>
-                                                            <i class="fa fa-star-o"></i>
-                                                            <i class="fa fa-star-o"></i>
-                                                        </p>
-                                                    </div>*@
+                                                            <p>
+                                                                <i class="fa fa-star-o"></i>
+                                                                <i class="fa fa-star-o"></i>
+                                                                <i class="fa fa-star-o"></i>
+                                                                <i class="fa fa-star-o"></i>
+                                                                <i class="fa fa-star-o"></i>
+                                                            </p>
+                                                        </div>*@
                                                 </div>
                                                 <div class="bottom-item">
                                                     <div class="product-info">
                                                         <h5><a href="@Url.Action("Details","ProductDetail" , new { id = product.ProductGuid })" class="product_name_Over">@product.ProductName</a></h5>
-                                                        <span>₹@product.Price &nbsp;&nbsp; <del>₹@product.OldPrice</del></span>
+
+                                                        <span>₹@product.Price &nbsp;&nbsp;  @if (product.OldPrice != null)
+                                                        {<del>₹@product.OldPrice</del>}</span>
                                                         <p>
-                                                          @*<i class="fa fa-star-o"></i>
-                                                            <i class="fa fa-star-o"></i>
-                                                            <i class="fa fa-star-o"></i>
-                                                            <i class="fa fa-star-o"></i>
-                                                            <i class="fa fa-star-o"></i>*@
+                                                            @*<i class="fa fa-star-o"></i>
+                                                                <i class="fa fa-star-o"></i>
+                                                                <i class="fa fa-star-o"></i>
+                                                                <i class="fa fa-star-o"></i>
+                                                                <i class="fa fa-star-o"></i>*@
                                                         </p>
                                                     </div>
                                                     @*<div class="product-social">
-                                                        <ul>
-                                                            <li><a href="#"><i class="fa fa-external-link"></i></a></li>
-                                                            <li><a class="addWish" data-product="@product.ProductId"><i class="fa fa-heart" id="addtowishlist"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-bar-chart"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                                        </ul>
-                                                    </div>*@
+                                                            <ul>
+                                                                <li><a href="#"><i class="fa fa-external-link"></i></a></li>
+                                                                <li><a class="addWish" data-product="@product.ProductId"><i class="fa fa-heart" id="addtowishlist"></i></a></li>
+                                                                <li><a href="#"><i class="fa fa-bar-chart"></i></a></li>
+                                                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                                            </ul>
+                                                        </div>*@
                                                 </div>
                                             </div>
                                         </div>
