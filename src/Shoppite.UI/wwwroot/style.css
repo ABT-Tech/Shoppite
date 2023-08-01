@@ -762,7 +762,7 @@ body {
     margin: -6px 0 0;
     position: absolute;
     text-align: left;
-    width: 460px;
+    width: 800px;
     z-index: -9;
     transition: all 0.5s ease 0s;
     opacity: 0;
@@ -831,7 +831,7 @@ body {
 
     .mega-item-menu a {
         display: block;
-        line-height: 2 !important;
+        line-height: 1.5 !important;
         padding: 3px !important;
     }
 
@@ -844,11 +844,19 @@ body {
             text-shadow: 0 0 0;
             text-transform: none;
             transition: all 0.3s ease 0s;
+            line-height: 18px;
+            display: inline-block;
+            width: 170px;
+            white-space: nowrap;
+            overflow: hidden !important;
+            text-overflow: ellipsis;
+            overflow: hidden;
         }
 
             .mega-item-menu a span:hover {
                 color: #F15B5A;
-                font-size: 15px;
+                font-size: 14px;
+                text-decoration: underline;
             }
 
 .mega-bottom {
@@ -1302,6 +1310,8 @@ body {
         line-height: 23px;
         margin-bottom: 0;
         transition: 0.3s;
+        padding-left: 2px;
+        padding-right: 2px;
        /* white-space: normal;
         word-wrap: break-word;*/
     }
@@ -1940,8 +1950,8 @@ footer {
 14.3 Footer menu 
 --------------------------------*/
 .footer-menu-area {
-    border-bottom: 1px solid #4f4f4f;
-    border-top: 1px solid #4f4f4f;
+    border-bottom: 2px solid #4f4f4f;
+    border-top: 2px solid #4f4f4f;
     overflow: hidden;
     padding: 15px 0;
 }
@@ -1963,7 +1973,7 @@ footer {
 
             .footer-menu ul li a {
                 color: #fff;
-                font-size: 13px;
+                font-size: 14px;
                 text-transform: uppercase;
                 transition: all 0.3s ease 0s;
             }
@@ -1991,7 +2001,7 @@ footer {
     .footer-copyright p {
         color: #fff;
         font-family: arial;
-        font-size: 14px;
+        font-size: 16px;
         margin: 0;
 
     }
