@@ -103,7 +103,7 @@
         <header>
             <!-- Start top menu -->
             <div class="top-menu" style="">
-                <div class="container">
+                <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-5 col-12 pull-left">
                             <nav>
@@ -124,7 +124,7 @@
             <!-- End top menu -->
             <!-- Start header meddle -->
             <div class="header-meddil">
-                <div class="container">
+                <div class="container-fluid">
                     <div class="row headRow">
                         <div style="padding-bottom: 10px; margin-top: -25px;" class="col-lg-3 col-md-2 col-4 MobLogoDiv">
                             @* <div class="logo res">
@@ -313,7 +313,7 @@
         <footer>
             <!-- Start footer top area -->
             <div class="footer-top-area">
-                <div class="container">
+                <div class="container-fluid">
                     <div class="footer-top">
                         <div class="row">
                             <div class="col-lg-4 col-md-4">
@@ -343,7 +343,7 @@
             <!-- End footer top area -->
             <!-- Start footer center area -->
             <div class="footer-center-area">
-                <div class="container">
+                <div class="container-fluid">
                     <div class="footer-center">
                         <div class="row">
                             @await Component.InvokeAsync("FooterDetails")
@@ -423,17 +423,15 @@
             </div>
             <!-- End footer menu area -->
             <!-- Start footer copyright area -->
-        <div class="footer-copyright-area">
-            <div class="container">
-                
+            <div class="footer-copyright-area">
+                <div class="container-fluid">
+                    <div class="footer-copyright">                
+                    </div>
+                </div>
+                <div class="scroll-to-top pull-right">
+                    <a href="#" class="bstore-scrollertop"><i class="fa fa-arrow-up"></i></a>
+                </div>
             </div>
-            <div class="scroll-to-top">@await Component.InvokeAsync("ChatBot")</div>
-            <div class="scroll-to-top-2 pull-right d-inline">
-                <a href="#" class="bstore-scrollertop mb-3">
-                 <i class="fa fa-arrow-up"></i>
-                </a>
-            </div>
-        </div>
             <!-- Start footer copyright area -->
         </footer>
         <!-- End footer area -->

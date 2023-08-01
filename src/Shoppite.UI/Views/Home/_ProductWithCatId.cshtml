@@ -32,7 +32,7 @@
 </style>
 <!-- Start tab and carosel area -->
 <div id="content" class="tabandcarosel-area">
-    <div class="container">
+    <div class="container-fluid">
         <div class="tab-product-wrap">
             <div class="col-lg-4 col-md-4 resswiper justify-content-center" style="margin:0px 0px -20px 0px;height:100px;">
                 <div class="swiper mySwiper" style="margin:0px 0px 25px 0px ">
@@ -76,9 +76,9 @@
                 <!-- Start category product content area -->
                 <div class="col-lg-6 col-md-7">
                     <div class="new-product-area">
-                        <div class="container">
-                            @* @await Html.PartialAsync("_BottomBanner.cshtml", Model)*@
-
+                        <div class="container-fluid">
+                           @* @await Html.PartialAsync("_HorizontalBanner", Model)*@
+                          
                             <div class="pt-3 overflow-hidden">
                                 <div class="swiper mySwiper">
                                     <div class="swiper-wrapper d-flex d-flex-inline ml-2" id="prodtabdata">
@@ -214,7 +214,7 @@
     window.onload = function () {
         document.getElementsByName("CatName")[0].click();
     };
-
+      
     var links = document.querySelectorAll('.toplist ul li a');
     links.forEach(function (element) {
         element.addEventListener('click', function (e) {
