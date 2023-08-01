@@ -12,7 +12,9 @@ namespace Shoppite.Core.Entities
 
         public decimal Price { get; set; }
         public string SpecificationName { get; set; }
+        public string SubSpecificationName { get; set;  }
         public int? AttributeId { get; set; }
+        public int? SubAttributeId { get; set; }
 
     }
 }

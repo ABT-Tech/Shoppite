@@ -17,5 +17,8 @@ namespace Shoppite.Core.Entities
         public DateTime? InsertDate { get; set; }
         public string Ip { get; set; }
         public int? OrgId { get; set; }
+        public string Image { get; set; }
+        public string SpecificationName { get; set; }
+        public int? SpecificationId { get; set; }
     }
 }

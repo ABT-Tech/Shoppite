@@ -69,7 +69,6 @@
 
 
     }*/
-
     .SaveBtn {
         background: #ff5b5a;
         color: #fff;
@@ -102,7 +101,7 @@
 
     <!-- Start checkout page area -->
     <div class="checkout-page-area">
-        <div class="container">
+        <div class="container-fluid">
             <div class="breadcrumb">
                 <a title="Return to Home" href="/" class="home">Home</a>
                 <span class="navigation-pipe"><i class="fa fa-angle-right"></i></span>
@@ -121,8 +120,8 @@
                                     <div class="panel sauget-accordion">
                                         <div id="headingOne" role="tab" class="panel-heading">
                                             <h4 class="panel-title">
-                                                <a aria-controls="checkoutMethod" aria-expanded="true" href="#checkoutMethod" data-bs-toggle="collapse" class="">
-                                                    <span>1</span>  Billing Information
+                                                <a aria-controls="checkoutMethod" aria-expanded="true" href="#checkoutMethod" data-bs-toggle="collapse" class="collapse" style="display:flex;width:75%;">
+                                                    <span style=" width: 29px; padding: 6px 17px 0px 11px; font-size: 15px; margin-right: 25px; }">1</span>  Billing Information
                                                 </a>
                                             </h4>
                                         </div>
@@ -240,17 +239,17 @@
                                     <div class="panel sauget-accordion">
                                         <div id="headingFour" role="tab" class="panel-heading">
                                             <h4 class="panel-title">
-                                                <a aria-controls="paymentInformation" aria-expanded="false" id="Target" href="#paymentInformation" data-bs-toggle="collapse" class="collapsed">
-                                                    <span>2</span> Payment Information
+                                                <a aria-controls="paymentInformation" aria-expanded="false" id="Target" href="#paymentInformation" data-bs-toggle="collapse" class="collapsed" style="display:flex;width:75%;">
+                                                    <span style=" width: 29px; padding: 6px 17px 0px 11px; font-size: 15px; margin-right: 25px; }" >2</span> Payment Information
                                                 </a>
                                             </h4>
                                         </div>
                                         <div aria-labelledby="headingFour" data-bs-parent="#accordion" role="tabpanel" class="panel-collapse collapse" id="paymentInformation" aria-expanded="false">
 
-                                            <div class="content-info" style="padding-left: 54px;">
+                                            <div class="content-info" style="padding-left: 20px;">
 
                                                 <div aria-multiselectable="true" role="tablist" id="accordion1" class="panel-group">
-                                                    <div class="panel sauget-accordion SubPanel pt-2 d-none">
+                                                    @*<div class="panel sauget-accordion SubPanel pt-2 d-none">
                                                         <div id="headingFive1" role="tab" class="panel-heading">
                                                             <h4 class="panel-title">
                                                                 <a aria-controls="orderReview1" aria-expanded="false" href="#orderReview1" data-bs-toggle="collapse" class="makeover collapsed">
@@ -340,13 +339,13 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div>*@
 
                                                     <div class="panel sauget-accordion SubPanel">
-                                                        <div id="headingFive2" role="tab" class="panel-heading">
+                                                        <div id="headingFive2" role="tab" class="panel-heading" style="margin-top:25px;">
                                                             <h4 class="panel-title">
-                                                                <a aria-controls="orderReview2" aria-expanded="false" href="#orderReview2" data-bs-toggle="collapse" class="makeover collapsed">
-                                                                    <img style="height: 21px; width: 35px;" src="~/img/UPI_logo_PNG_lyp5s5.png" /> Pay With PAYTM
+                                                                <a aria-controls="orderReview2" aria-expanded="false" href="#orderReview2" data-bs-toggle="collapse" class="makeover collapsed" style="display:initial;">
+                                                                    <img style="height: 21px; width: 35px;" src="~/img/UPI_logo_PNG_lyp5s5.png" /> Pay With UPI
                                                                 </a>
                                                             </h4>
                                                         </div>
@@ -357,7 +356,7 @@
                                                                         <div class="col-sm-7">
                                                                             <div class="form-group">
                                                                                 <div class="block-area-button">
-                                                                                    <button style="width:auto;" id="paytm-btn-click" class="SaveBtn">Paytm</button>
+                                                                                    <button style="width:auto;margin:15px;" id="paytm-btn-click" class="SaveBtn">UPI</button>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -368,9 +367,9 @@
                                                     </div>
 
                                                     <div class="panel sauget-accordion SubPanel">
-                                                        <div id="headingFive3" role="tab" class="panel-heading">
+                                                        <div id="headingFive3" role="tab" class="panel-heading" style="margin-top:25px;">
                                                             <h4 class="panel-title">
-                                                                <a aria-controls="orderReview3" aria-expanded="false" href="#orderReview3" data-bs-toggle="collapse" class="makeover collapsed">
+                                                                <a aria-controls="orderReview3" aria-expanded="false" href="#orderReview3" data-bs-toggle="collapse" class="makeover collapsed" style="display:initial;">
                                                                     <img style="height: 30px; width:auto;" src="~/img/icons8-cash-on-delivery-96.png" /> Cash On Delivery
                                                                 </a>
                                                             </h4>
@@ -378,7 +377,7 @@
                                                         <div aria-labelledby="headingFive3" data-bs-parent="#accordion1" role="tabpanel" class="panel-collapse collapse" id="orderReview3" aria-expanded="false">
                                                             <div class="content-info">
                                                                 @*<a href="/Cart/OrderSuccess?orderid=@Model.OrderBasicModel.OrderGuid" class=" mt-2 btn SaveBtn" style="width: 160px;">Cash on Delivery</a>*@
-                                                                <button style="width:auto;" type="submit" class="SaveBtn">Cash on Delivery</button>
+                                                                <button style="width:auto;margin:15px;" type="submit" class="SaveBtn">Cash on Delivery</button>
                                                             </div>
                                                         </div>
                                                     </div>

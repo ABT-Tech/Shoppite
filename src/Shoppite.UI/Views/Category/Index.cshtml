@@ -1,12 +1,12 @@
 ﻿
 @model Shoppite.Application.Models.CategoryMasterModel
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Shooppy - Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <!-- Start mega menu area -->
 <div class="megamenu-area">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-8">
                 <div class="megamenu">
@@ -17,7 +17,7 @@
                                 <div class="megamenudown-mini home-ve">
                                     <div class="mega-top">
                                         <div class="mega-item-menu">
-                                            <a class="title" href="#"><span>Home variyation</span></a>
+                                            <a class="title" href="#"><span>Home variation</span></a>
                                             <a href="index-2.html"><span>Home2</span></a>
                                             <a href="index-3.html"><span>Home3</span></a>
                                             <a href="index-4.html"><span>Home4</span></a>
@@ -42,9 +42,9 @@
                 <div class="search-box">
                     <form method="get" action="#" id="searchbox-eleyas">
                         <p>
-                            <input type="text" value="" placeholder="You keyword..." name="search_query">
+                            <input type="text" value="" placeholder="Your Keyword..." name="search_query">
                             <button class="button-search" name="submit_search" type="submit">
-                                <span><i class="fa fa-search"></i></span>
+                                <span><i class="fa fa-search"></i></span> 
                             </button>
                         </p>
                     </form>
@@ -101,7 +101,7 @@
 <!-- End mega menu area -->
 <!-- Start mobile menu -->
 <div class="mobile-menu-area">
-    <div class="container">
+    <div class="container-fluid">
         <div class="mobile-menu clearfix">
             <nav id="dropdown">
                 <ul class="nav">
@@ -271,7 +271,7 @@
                 <div class="mobile-search-box">
                     <form method="get" action="#" id="searchbox">
                         <p>
-                            <input type="text" value="" placeholder="You keyword..." name="search_query">
+                            <input type="text" value="" placeholder="Your keyword..." name="search_query">
                             <button class="button-search" name="submit_search" type="submit">
                                 <span><i class="fa fa-search"></i></span>
                             </button>
@@ -285,7 +285,7 @@
 <!-- End mobile menu -->
 <!-- Start slider area -->
 <div class="slider-area">
-    <div class="container">
+    <div class="container-fluid">
         <div class="slider">
             <div id="container">
                 <!-- Nivo slider Demo 35 -->
@@ -303,7 +303,7 @@
 <!-- End slider area -->
 <!-- Start baner area -->
 <div class="baner-area">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">      
                 @await Html.PartialAsync("_BottomBanner", Model)
         </div>
@@ -312,7 +312,7 @@
 <!-- End baner area -->
 <!-- Start tab and carosel area -->
 <div id="content" class="tabandcarosel-area">
-    <div class="container">
+    <div class="container-fluid">
         <div class="tab-product-wrap">
             <div class="row">
                 <!-- Start tab menu area -->
@@ -361,7 +361,7 @@
                 <!-- Start tab content area -->
                 <div class="col-lg-9 col-md-8">
                     <div class="tab-contant-aera">
-                        @await Html.PartialAsync("_HorizontalBanner", Model)
+                       @* @await Html.PartialAsync("_HorizontalBanner", Model)*@
                         <div id="my-tab-content" class="tab-content jump">
                             <!-- Start tab 1 -->
                             <div class="tab-pane active" id="tab1">
@@ -657,7 +657,7 @@
                                                     <li><a href="#"><i class="fa fa-external-link"></i></a></li>
                                                     <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
                                                     <li><a href="#"><i class="fa fa-bar-chart"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>  
                                                 </ul>
                                             </div>
                                         </div>
@@ -814,6 +814,7 @@
                                         <div class="top-item">
                                             <a href="single-product.html">
                                                 <img src="img/product/printed-summer-dress.jpg" alt="Product image">
+                                          
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -2994,7 +2995,7 @@
 <!-- End tab and carosel area -->
 <!-- Start new product area -->
 <div class="new-product-area">
-    <div class="container">
+    <div class="container-fluid">
         <!-- Start product title -->
         <div class="new-product-title">
             <h4><span>New products</span></h4>
@@ -3529,7 +3530,7 @@
 <!-- End new product area -->
 <!-- Start top selar area -->
 <div class="top-selar-area">
-    <div class="container">
+    <div class="container-fluid">
         <!-- Start product title -->
         <div class="new-product-title">
             <h4><span>Top sellers</span></h4>
@@ -3808,7 +3809,7 @@
 <!-- End top selar area -->
 <!-- Start static bolg area -->
 <div class="static-blog-area">
-    <div class="container">
+    <div class="container-fluid">
         <div class="image-static">
             <div class="row">
                 <div class="col-md-4">
@@ -3839,7 +3840,7 @@
 <!-- End static bolg area -->
 <!-- Start theme fetured area -->
 <div class="theme-fetured-area">
-    <div class="container">
+    <div class="container-fluid">
         <div class="theme-fetured-title">
             <h4>template features</h4>
         </div>
@@ -3880,7 +3881,7 @@
 <!-- End theme fetured area -->
 <!-- Start brand logo area -->
 <div class="brand-logo-area">
-    <div class="container">
+    <div class="container-fluid">
         <div class="brand-logo">
             <div class="producttabcarosel pos-logo-slide owl-carousel">
                 <div class="carosel-lo">

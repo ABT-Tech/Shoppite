@@ -15,5 +15,8 @@ namespace Shoppite.UI.Interfaces
         Task<ProductDetailModel> ProductAttribute(int AtId);
         Task AddToCart(ProductDetailModel productDetail);
         Task<ProductDetailModel> BuyNow(ProductDetailModel productDetailModel);
+        Task<List<SP_GetProductDetailsModel>> GetProductVarient(Guid guid, int orgid, int  userName);
+        Task Addto_Spec_Product(ProductDetailModel productDetailModel);
+        Task<ProductDetailModel> BuyNow_Spec_Product(ProductDetailModel productDetailModel);
     }
 }

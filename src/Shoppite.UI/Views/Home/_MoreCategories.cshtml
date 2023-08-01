@@ -9,7 +9,7 @@
                     @foreach (var item in Model.Categories.Where(x=>x.ParentCategoryId!=0))
                     {
                         <a asp-action="AllProducts" asp-route-CategoryId="@item.CategoryId" asp-controller="Home"><span>@item.CategoryName</span></a>
-                    }
+                    }  
                 </div>
             </div>
         </div>
