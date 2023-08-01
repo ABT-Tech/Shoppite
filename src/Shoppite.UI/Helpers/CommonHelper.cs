@@ -95,6 +95,7 @@ namespace Shoppite.UI.Helpers
 
             return settings.GetType().GetProperty(name) != null;
         }
+ 
 
     }
 }
