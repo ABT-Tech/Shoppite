@@ -91,7 +91,6 @@ namespace Shoppite.Application.Mapper
             CreateMap<f_getproduct_varient_By_Guid, f_getproduct_varient_By_GuidModel>().ReverseMap();
 
 
-
         }
     }
 }

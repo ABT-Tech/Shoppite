@@ -8,8 +8,10 @@
     using Shoppite.UI.Helpers;
     using Shoppite.UI.Interfaces;
     using System;
+    using System.Collections.Generic;
     using System.Dynamic;
     using System.Net.Http;
+    using System.Security.Cryptography;
     using System.Text;
     using System.Threading.Tasks;
 
@@ -98,7 +100,12 @@
         public async Task<ActionResult> CheckOut(Guid orderid)
         {
             var order = await _cartPageService.CheckOrder(orderid);
-            //  var orderId = Request.Query
+            var merchantDetails = _commonHelper.GetMerchantDetails(HttpContext);
+            order.IsPaytm = false;
+            if (merchantDetails != null)
+            {
+                order.IsPaytm = true;
+            }
             return View(order);
         }
 
@@ -135,32 +142,43 @@
             if (Model.IsPaytm)
             {
                 var order = await _cartPageService.CheckOrder((Guid)Model.OrderBasicModel.OrderGuid);
+                var merchantDetails = _commonHelper.GetMerchantDetails(HttpContext);
+                var strProductMapping = string.Empty;
+                decimal? TotalOrderCharge = 0;
+                decimal? TotalProductCharges = 0;
+                var IsTestEnable = _configuration.GetSection("OnePeSettings")["IsTest"].ToString();
+                ViewBag.AggregatorRedirectionLink = _configuration.GetSection("OnePeSettings")["URL"];
+                foreach (var orderDetails in order.OrderBasicModels)
+                {
+                    TotalProductCharges = orderDetails.Price + orderDetails.DeliveryFees;
+                    if (string.IsNullOrEmpty(strProductMapping))
+                        strProductMapping += orderDetails.ProductId + "~" + TotalProductCharges;
+                    else
+                        strProductMapping += "|"+orderDetails.ProductId + "~" + TotalProductCharges;
+                    TotalOrderCharge = TotalOrderCharge + TotalProductCharges;
+                }
                 using (HttpClient client = new HttpClient())
                 {
-                    CashfreeRequest cashfreeRequest = new CashfreeRequest();
-                    var orderId = Guid.NewGuid();
-                    cashfreeRequest.customer_details = new CustomerDetails();
-                    cashfreeRequest.customer_details.customer_email = Model.OrderShippingModel.Email;
-                    cashfreeRequest.customer_details.customer_id = Model.OrderShippingModel.ShippingId.ToString();
-                    cashfreeRequest.customer_details.customer_phone = "+918200408816";//Model.OrderShippingModel.Phone;
-                    cashfreeRequest.order_amount = (decimal)order.OrderBasicModel.Price;
-                    cashfreeRequest.order_currency = "INR";
-                    cashfreeRequest.order_id = orderId.ToString();
-                    StringContent content = new StringContent(JsonConvert.SerializeObject(cashfreeRequest), Encoding.UTF8, "application/json");
-                    client.DefaultRequestHeaders.Add("x-api-version", _configuration.GetSection("CashFreeSettings")["x-api-version"]);
-                    client.DefaultRequestHeaders.Add("x-client-id", _configuration.GetSection("CashFreeSettings")["x-client-id"]);
-                    client.DefaultRequestHeaders.Add("x-client-secret", _configuration.GetSection("CashFreeSettings")["x-client-secret"]);
-                    string endpoint = _configuration.GetSection("CashFreeSettings")["URL"];
-                    using (var Response = await client.PostAsync(endpoint, content))
-                    {
-                        var payment_session = string.Empty;
-                        var stream = await Response.Content.ReadAsStringAsync();
-                        var dynamicObject = JsonConvert.DeserializeObject<ExpandoObject>(stream) as dynamic;
-                        if (_commonHelper.DoesPropertyExist(dynamicObject, "payment_session_id")){
-                            payment_session = dynamicObject.payment_session_id;
-                        }
-                        ViewBag.PaymentSession = payment_session;
-                    }
+                    MerchantParams merchantParams = new MerchantParams();
+                    merchantParams.merchantId = merchantDetails.AggregatorMerchantId;
+                    merchantParams.apiKey = merchantDetails.AggregatorMerchantApiKey;
+                    merchantParams.txnId = order.OrderBasicModel.OrderGuid.ToString();
+                    merchantParams.amount = IsTestEnable == "1"?"10.00": TotalOrderCharge.ToString();
+                    merchantParams.dateTime = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+                    merchantParams.custMail = Model.OrderShippingModel.Email;
+                    merchantParams.custMobile = Model.OrderShippingModel.Phone;
+                    merchantParams.udf1 = Model.OrderShippingModel.Address;
+                    merchantParams.udf2 = Model.OrderShippingModel.Address;
+                    merchantParams.returnURL = merchantDetails.AggregatorCallbackURL+ "/Cart/OrderSuccess";
+                    merchantParams.isMultiSettlement =  "0";
+                    merchantParams.productId = "DEFAULT";
+                    merchantParams.channelId = "0";
+                    merchantParams.txnType = "DIRECT";
+                    merchantParams.Rid = merchantDetails.AggregatorRID.ToString();
+                    var objMerchantParams = JsonConvert.SerializeObject(merchantParams);
+                    string encryptedParams = EncryptPaymentRequest(merchantDetails.AggregatorMerchantId, merchantDetails.AggregatorMerchantApiKey, objMerchantParams);
+                    ViewBag.merchantId = merchantDetails.AggregatorMerchantId;
+                    ViewBag.reqData = encryptedParams;
                 }
                 int orgid = _commonHelper.GetOrgID(HttpContext);
                 Model.OrderShippingModel.OrgId = orgid;
@@ -178,5 +196,23 @@
             }
             
         }
+
+        public string EncryptPaymentRequest(string merchantId,string key,string merchantParamsJson)
+        {
+            String encryptedText = string.Empty;
+            try
+            {
+                string original = merchantParamsJson; 
+                string merchantEncryptionKey = key.Substring(0, 16);
+                encryptedText = _commonHelper.EncryptAES256_V3(merchantParamsJson, key, merchantEncryptionKey);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: {0}", e.Message);
+            }
+
+            return encryptedText;
+        }
+        
     }
 }
