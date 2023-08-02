@@ -1,16 +1,16 @@
 ﻿<!DOCTYPE html>
 <html>
 <body>
-    <form method="post" id="paymentForm" action="https://pa-preprod.1pay.in/payment/payprocessorV2">
-        <input name="merchantId" id="merchantId" value="">
-        <input name="reqData" id="reqData"
-               value="">
-        <input type="submit" value="Pay Now">
+    <form method="post" id="paymentForm" action="@ViewBag.AggregatorRedirectionLink">
+        <input name="merchantId" id="merchantId" type="hidden" value="@ViewBag.merchantId">
+        <input name="reqData" id="reqData"  type="hidden"
+               value="@ViewBag.reqData">
     </form>
     <script>
-        $(document).ready(function () {
-            $("form#paymentForm").submit();
-        })
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById('paymentForm').submit();
+        });
+        
     </script>
 </body>
 

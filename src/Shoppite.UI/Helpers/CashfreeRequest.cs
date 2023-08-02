@@ -50,12 +50,12 @@ namespace Shoppite.UI.Helpers
         public string channelId { get; set; }
 
         public string txnType { get; set; }
-        public string udf3 { get; set; }
-        public string udf4 { get; set; }
-        public string udf5 { get; set; }
-        public string instrumentId { get; set; }
-        public string cardDetails { get; set; }
-        public string cardType { get; set; }
+        public string udf3 { get; set; } = "NA";
+        public string udf4 { get; set; } = "NA";
+        public string udf5 { get; set; } = "NA";
+        public string instrumentId { get; set; } = "NA";
+        public string cardDetails { get; set; } = "NA";
+        public string cardType { get; set; } = "NA";
         public string ResellerTxnId { get; set; } = "NA";
         public string Rid { get; set; } = "R0000259";
     }

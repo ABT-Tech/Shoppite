@@ -70,6 +70,12 @@ namespace Shoppite.Infrastructure.Repository
             return check;
         }
 
+        public async Task<List<OrderBasic>> GetProductListBYOrder(OrderBasic orderBasic)
+        {
+            var check = await _dbContext.OrderBasic.Where(x => x.OrderGuid == orderBasic.OrderGuid && x.OrderStatus == "Cart" && x.UserName == orderBasic.UserName).ToListAsync();
+            return check;
+        }
+
         public async Task UpdateOrder(OrderBasic orderBasic)
         {
             var check = await _dbContext.OrderBasic.Where(x => x.OrderGuid == orderBasic.OrderGuid && x.OrderStatus == "Cart" && x.UserName == orderBasic.UserName).ToListAsync();

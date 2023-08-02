@@ -248,7 +248,7 @@
                                            @if (pro.IsSpecificationExist == 1)
                                             {
                                                 @*<input id="@pro.SpecificationNames" class="" onclick="Match('@pro.SpecificationIds')"  type="radio">*@
-                                                <button id="@pro.SpecificationNames" type="button" class="btn mr-md-2 mb-md-0 mb-2 btn-outline-primary @pro.SpecificationNames" name="dropspec" onclick="Match('@pro.SpecificationIds')">@pro.SpecificationNames</button>
+                                                <button id="@pro.SpecificationNames" type="button" class="btn mr-md-2 mb-md-0 mb-2 btn-outline-primary @pro.SpecificationNames" name="dropspec" data-name="Specification" data-id="@pro.SpecificationIds">@pro.SpecificationNames</button>
 
                                                 @*<label for="@pro.SpecificationNames" class="InStock">@pro.SpecificationNames</label>*@
                                             }
@@ -558,6 +558,10 @@
         }
     };
 
+    $('button[data-name="Specification"]').click(function () {
+        var specId = $(this).attr("data-id");
+        Match(specId);
+    });
 
     function Match(id) {
 
