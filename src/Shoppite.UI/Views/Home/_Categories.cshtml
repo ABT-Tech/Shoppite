@@ -11,13 +11,13 @@
     {
         <li>
            <a href="">@item.maincaturlpath</a>
-           <div class="megamenudown">
-               <div class="mega-top">
+           <div class="megamenudown" style="">
+               <div class="mega-top d-flex">
                     @foreach (var subcat in item.SubcategoryDetails.Where(x=>x.IsPublished == true && x.IsIncludeMenu == true).Take(3)) 
                     {
-                        <section class="mega-item-menu w-auto border-1" style="padding: 0px 20px 0px 0px; ">
+                        <section class="mega-item-menu w-auto border-1">
                             <a class="title" asp-controller="Home" asp-route-CategoryId="@subcat.CategoryId" asp-action="AllProducts"><span>@subcat.CategoryName</span></a>
-                            @foreach (var categories in subcat.ProductsDetails)
+                            @foreach (var categories in subcat.ProductsDetails.Take(5))
                             {
                                 <a href="/ProductDetail/Details/@categories.ProductGuid" class="product_name_Over"><span>@categories.ProductName</span></a>
                             }

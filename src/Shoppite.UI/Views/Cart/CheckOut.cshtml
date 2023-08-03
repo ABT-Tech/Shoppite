@@ -112,7 +112,7 @@
                 <h4 class="cart-title">CHECKOUT</h4>
                 <div class="checkout-content">
                     <div class="row">
-                        <div class="col-md-9 mb-5">
+                        <div class="col-lg-9 col-md-12 mb-5">
                             <form asp-action="MakePaymentRequest" asp-controller="Cart" enctype="multipart/form-data" method="post" class=" pt-2 text-capitalize">
                                 <input type="hidden" asp-for="OrderBasicModel.OrderGuid" />
 
@@ -129,7 +129,7 @@
                                             <div class="content-info">
                                                 <div class="row ">
 
-                                                    <div class="col-md-4 offset-md-10 mb-0">
+                                                    <div class="col-md-4 offset-md-9 mb-0">
                                                         <button type="button" class="btn btn-default add-tag-btn SaveBtn mb-0" onclick="toggleEnable('IpF1','IpF2','IpF3','IpF4','IpF5','IpF6','IpF7','IpF8')">
                                                             Edit
                                                         </button>
@@ -236,7 +236,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="panel sauget-accordion">
+                                    <div class="panel sauget-accordion mb-5">
                                         <div id="headingFour" role="tab" class="panel-heading">
                                             <h4 class="panel-title">
                                                 <a aria-controls="paymentInformation" aria-expanded="false" id="Target" href="#paymentInformation" data-bs-toggle="collapse" class="collapsed" style="display:flex;width:75%;">
@@ -394,7 +394,7 @@
 
                             </form>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-lg-3 col-md-12">
                             <div class="checkout-sidebar">
                                 <h4>CHECKOUT PROGRESS</h4>
                                 <ul>
