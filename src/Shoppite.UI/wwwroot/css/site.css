@@ -80,7 +80,7 @@ body {
 @media screen and (max-width: 390px) {
     .product_name_Over {
         display: inline-block;
-        width: 150px;
+        width: 142px;
         white-space: nowrap;
         overflow: hidden !important;
         text-overflow: ellipsis;
@@ -90,7 +90,7 @@ body {
 @media screen and (min-width: 390px) and (max-width: 500px) {
     .product_name_Over {
         display: inline-block;
-        width: 165px;
+        width: 158px;
         white-space: nowrap;
         overflow: hidden !important;
         text-overflow: ellipsis;

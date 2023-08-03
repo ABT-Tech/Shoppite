@@ -764,7 +764,7 @@ body {
     margin: -6px 0 0;
     position: absolute;
     text-align: left;
-    width: 800px;
+    max-width: 730px;
     z-index: -9;
     transition: all 0.5s ease 0s;
     opacity: 0;
@@ -811,7 +811,7 @@ body {
 
 .mega-item-menu {
     float: left;
-    margin-right: 25px;
+    margin-right: -13px;
     width: 160px;
 }
 
@@ -6315,12 +6315,74 @@ textarea.form-control {
     width: 25%;
     transition: 0.3s;
 }
-
-    .btn.btnpwd:hover {
-        background: #FE5B5A;
-        color: white;
+@media screen and (max-width: 390px){
+    .btn.btnimg {
+        background: #333 none repeat scroll 0 0;
+        border-bottom: medium none;
+        border-image: none;
+        border-left: medium none;
+        border-radius: 10px;
+        border-top: medium none;
+        color: #fff;
         font-size: 13px;
+        height: auto;
+        text-transform: uppercase;
+        width: 35%;
+        transition: 0.3s;
     }
+    .btn.btnpwd {
+        background: #333 none repeat scroll 0 0;
+        border-bottom: medium none;
+        border-image: none;
+        border-left: medium none;
+        border-radius: 10px;
+        border-top: medium none;
+        color: #fff;
+        font-size: 13px;
+        height: auto;
+        text-transform: uppercase;
+        width: 45%;
+        transition: 0.3s;
+    }
+
+}
+@media screen and (min-width: 390px) and (max-width: 500px) {
+    .btn.btnimg {
+        background: #333 none repeat scroll 0 0;
+        border-bottom: medium none;
+        border-image: none;
+        border-left: medium none;
+        border-radius: 10px;
+        border-top: medium none;
+        color: #fff;
+        font-size: 13px;
+        height: auto;
+        text-transform: uppercase;
+        width: 35%;
+        transition: 0.3s;
+    }
+    .btn.btnpwd {
+        background: #333 none repeat scroll 0 0;
+        border-bottom: medium none;
+        border-image: none;
+        border-left: medium none;
+        border-radius: 10px;
+        border-top: medium none;
+        color: #fff;
+        font-size: 13px;
+        height: auto;
+        text-transform: uppercase;
+        width: 40%;
+        transition: 0.3s;
+    }
+}
+
+
+.btn.btnpwd:hover {
+    background: #FE5B5A;
+    color: white;
+    font-size: 13px;
+}
 /*-------------------------------
 23. about us page
 --------------------------------*/
@@ -7545,5 +7607,35 @@ textarea:focus-visible {
 @media(max-width:1000px){
     .Middle_Banner{
         display:none;
+    }
+}
+.whishlisthorizontalline {
+    margin: 0px;
+    width: 180px;
+    align-self: center;
+    border-top: 0.1px solid black;
+}
+
+@media screen and (max-width: 390px) {
+    .whishlisthorizontalline {
+        margin: 0px;
+        width: 149px;
+        align-self: center;
+        border-top: 0.1px solid black;
+    }
+    .whishlisttrasebtn {
+        font-size: 11px;
+    }
+}
+
+@media screen and (min-width: 390px) and (max-width: 500px) {
+    .whishlisthorizontalline {
+        margin: 0px;
+        width: 164px;
+        align-self: center;
+        border-top: 0.1px solid black;
+    }
+    .whishlisttrasebtn {
+        font-size: 12px;
     }
 }

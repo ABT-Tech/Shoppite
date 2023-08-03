@@ -222,13 +222,13 @@
 
                                     <div class="input-group">
                                         <span class="">
-                                            <button type="button" class="minus btn btn-default btn-number min" disabled="disabled" data-type="minus" data-field="OrderBasicModel.Qty">
+                                            <button type="button" class="minus btn btn-default btn-number min" disabled="disabled" data-type="minus" data-field="OrderBasicModel.Qty" style="z-index:0;">
                                                 <span class="fa fa-minus"></span>
                                             </button>
                                         </span>
                                         <input type="number" class="input-number count" asp-for="OrderBasicModel.Qty" name="OrderBasicModel.Qty" value="1" min="1" max="@Model.ProductBasicModel.Qty">
                                         <span class="">
-                                            <button type="button" class="plus btn btn-default btn-number max" data-type="plus" data-field="OrderBasicModel.Qty">
+                                            <button type="button" class="plus btn btn-default btn-number max" data-type="plus" data-field="OrderBasicModel.Qty" style="z-index:0;">
                                                 <span class="fa fa-plus"></span>
                                             </button>
                                         </span>
@@ -269,16 +269,16 @@
                                 @if (Model.ProductBasicModel.Qty == 0)
                                 {
                                     <div class="row">
-                                        <div class="col-sm-6 Add_Car_Btn">
+                                        <div class="col-sm-6 Add_Car_Btn ">
                                             <p class="buttons_bottom_block no-print disabled" id="add_to_cart">
-                                                <button class="exclusive disabled" name="DSubmit" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" disabled>
+                                                <button class="exclusive disabled mt-3" name="DSubmit" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" disabled>
                                                     <span class="">Add to cart</span>
                                                 </button>
                                             </p>                                              
                                         </div>
                                         <div class="col-sm-6 Buy_Now_Btn">
                                             <p class="buttons_bottom_block no-print disabled" id="add_to_cart">
-                                                <button class="exclusive disabled" name="DSubmit" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" disabled>
+                                                <button class="exclusive disabled mt-3" name="DSubmit" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" disabled>
                                                     <span class="">Buy Now</span>
                                                 </button>
                                             </p>
@@ -323,13 +323,13 @@
                                             {
                                                 <div class="row">
                                                     <div class="col-sm-6 Add_Car_Btn">
-                                                        <button class="exclusive" name="AttToCart" asp-action="AddProductToCart" asp-controller="ProductDetail" type="submit">
+                                                        <button class="exclusive mt-3" name="AttToCart" asp-action="AddProductToCart" asp-controller="ProductDetail" type="submit">
                                                             <span>Add to cart</span>
                                                         </button>
                                                     </div>
 
-                                                    <div class="col-sm-6 Buy_Now_Btn">
-                                                        <button class="exclusive" name="BuyNow" asp-action="BuyNow" asp-controller="ProductDetail" type="submit">
+                                                    <div class="col-sm-6 Buy_Now_Btn ">
+                                                        <button class="exclusive mt-3" name="BuyNow" asp-action="BuyNow" asp-controller="ProductDetail" type="submit">
                                                             <span>Buy Now</span>
                                                         </button>
                                                     </div>
@@ -352,13 +352,13 @@
                                             {
                                                 <div class="row">
                                                     <div class="col-sm-6 Add_Car_Btn">
-                                                        <button class="exclusive" name="Login" asp-action="Login" asp-controller="Authentications" type="submit">
+                                                        <button class="exclusive mt-3" name="Login" asp-action="Login" asp-controller="Authentications" type="submit">
                                                             <span>Add to cart</span>
                                                         </button>
                                                     </div>
 
                                                     <div class="col-sm-6 Buy_Now_Btn">
-                                                        <button class="exclusive" name="Login" asp-action="Login" asp-controller="Authentications" type="submit">
+                                                        <button class="exclusive mt-3" name="Login" asp-action="Login" asp-controller="Authentications" type="submit">
                                                             <span>Buy Now</span>
                                                         </button>
                                                     </div>
