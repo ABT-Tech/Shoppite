@@ -208,5 +208,13 @@ namespace Shoppite.UI.Helpers
             return cipherText;
         }
 
+        public string OrganizationName(HttpContext httpContext)
+        {
+            int orgID = GetOrgID(httpContext);
+            var orgname = string.Empty;
+            var orgObject = _dbContext.Organization.Where(x => x.Id == orgID).FirstOrDefault();
+            return orgObject.OrgDescription;
+        }
+
     }
 }

@@ -147,5 +147,20 @@ namespace Shoppite.UI.Controllers
         {
             return View();
         }
+        public ActionResult MerchantTermsAndCondition()
+        {
+            ViewBag.OrganizationName = _commonHelper.OrganizationName(HttpContext);
+            return View();
+        }
+        public ActionResult MerchantPrivacyPolicy()
+        {
+            ViewBag.OrganizationName = _commonHelper.OrganizationName(HttpContext);
+            return View();
+        }
+        public ActionResult MerchantRefundPolicy()
+        {
+            ViewBag.OrganizationName = _commonHelper.OrganizationName(HttpContext);
+            return View();
+        }
     }
 }
