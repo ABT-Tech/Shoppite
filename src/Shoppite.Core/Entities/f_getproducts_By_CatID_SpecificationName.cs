@@ -34,6 +34,7 @@ namespace Shoppite.Core.Entities
         public string brandsurlpath { get; set; }
         public string UserName { get; set; }
         public int brandid { get; set; }
+        public string ProductList { get; set; }
 
     }
 }

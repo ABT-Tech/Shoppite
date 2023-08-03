@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Shoppite.Core.Entities;
 using Shoppite.Core.Repositories;
@@ -15,9 +16,11 @@ namespace Shoppite.Infrastructure.Repository
     {
         protected readonly Shoppite_masterContext _dbContext;
         private EncryptionHelper EncryptPass = new EncryptionHelper();
+        protected readonly IHttpContextAccessor _httpContext;
 
-        public MyAccountRepository(Shoppite_masterContext dbContext)
+        public MyAccountRepository(Shoppite_masterContext dbContext, IHttpContextAccessor httpContext)
         {
+            _httpContext = httpContext;
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
         public async Task<f_Get_MyAccount_Data> GetMyAccountDetail(int orgId,int profileid)
@@ -76,6 +79,89 @@ namespace Shoppite.Infrastructure.Repository
             var findUser = await _dbContext.Users.FirstOrDefaultAsync(x => x.Email == username && x.OrgId == orgid);
             var ProfileFind = await _dbContext.UsersProfile.FirstOrDefaultAsync(x => x.UserName == findUser.Email && x.OrgId == orgid);
             return ProfileFind.ProfileId;
+        }
+        public async Task AddAddressDetails(MyAccountDetails myaccount)
+        {
+            if (myaccount.Id == 0)
+            {
+                var UserName = _httpContext.HttpContext.User.Identity.Name;
+                var UserId = _dbContext.Users.FirstOrDefault(u => u.Email == UserName && u.OrgId == myaccount.OrgId);
+                MyAccountDetails accountDetails = new MyAccountDetails();
+                accountDetails.FirstName = myaccount.FirstName;
+                accountDetails.LastName = myaccount.LastName;
+                accountDetails.Landmark = myaccount.Landmark;
+                accountDetails.Address = myaccount.Address;
+                accountDetails.Address1 = myaccount.Address1;
+                accountDetails.Mobile = myaccount.Mobile;
+                accountDetails.State = myaccount.State;
+                accountDetails.AltMobile = myaccount.AltMobile;
+                accountDetails.City = myaccount.City;
+                accountDetails.Email = myaccount.Email;
+                accountDetails.AddressType = myaccount.AddressType;
+                accountDetails.IsDefault = myaccount.IsDefault;
+                accountDetails.Pincode = myaccount.Pincode;
+                accountDetails.OrgId = myaccount.OrgId;
+                accountDetails.UserId = UserId.UserId;
+
+                _dbContext.MyAccountDetails.Add(accountDetails);
+            }
+            else
+            {
+                MyAccountDetails details = await _dbContext.MyAccountDetails.FindAsync(myaccount.Id);
+                details.FirstName = myaccount.FirstName;
+                details.LastName = myaccount.LastName;
+                details.Landmark = myaccount.Landmark;
+                details.Address = myaccount.Address;
+                details.Address1 = myaccount.Address1;
+                details.Mobile = myaccount.Mobile;
+                details.State = myaccount.State;
+                details.AltMobile = myaccount.AltMobile;
+                details.City = myaccount.City;
+                details.Email = myaccount.Email;
+                details.AddressType = myaccount.AddressType;
+                details.IsDefault = myaccount.IsDefault;
+                details.Pincode = myaccount.Pincode;
+
+                if (myaccount != null)
+                {
+
+                    _dbContext.Entry(details).State = EntityState.Detached;
+                }
+                _dbContext.Entry(details).State = EntityState.Modified;
+            }
+            await  _dbContext.SaveChangesAsync();
+        }
+        public async Task<List<MyAccountDetails>> GetAddressDetail(int orgId)
+        {
+            var UserName = _httpContext.HttpContext.User.Identity.Name;
+            var Id = _dbContext.Users.FirstOrDefault(u => u.Email == UserName&&u.OrgId==orgId);
+            var q = (from myaccount in _dbContext.MyAccountDetails
+                     join userdetail in _dbContext.Users on myaccount.UserId equals userdetail.UserId                    
+                     where myaccount.OrgId == orgId && myaccount.UserId==Id.UserId
+                     select myaccount).ToList();
+            return q;
+
+        }
+
+        public async Task<MyAccountDetails> GetAddressdetailBYId(int orgId, int Id)
+        {
+            var UserName = _httpContext.HttpContext.User.Identity.Name;
+            var GetUserId = _dbContext.Users.FirstOrDefault(u => u.Email == UserName && u.OrgId == orgId);
+            var q = (from myaccount in _dbContext.MyAccountDetails
+                     join userdetail in _dbContext.Users on myaccount.UserId equals userdetail.UserId
+                     where myaccount.OrgId == orgId && myaccount.UserId == GetUserId.UserId && myaccount.Id==Id
+                     select myaccount).FirstOrDefault();
+            return q;
+        }
+        public async Task DeleteAddressDetail(int orgId, int Id)
+        {
+            var deltecategory = await _dbContext.MyAccountDetails.FindAsync(Id);
+
+            if (deltecategory != null)
+            {
+                _dbContext.MyAccountDetails.Remove(deltecategory);
+                await _dbContext.SaveChangesAsync();
+            }
         }
     }
 }

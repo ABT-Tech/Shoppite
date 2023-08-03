@@ -1,63 +1,1071 @@
 ﻿@model Shoppite.Application.Models.MainModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<link href="~/css/MyAcLogButton.css" rel="stylesheet" />
-<div class="main-area">
-    <div class="contact-page-area">
-        <div class="container">
-            <div class="contact-from-atea">
-                <div class="form-and-info">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="contactDetails contactHead">
-                                <h3>CONTACT Info</h3>
-                            <p>
-                                <span class="iconContact"><i class="fa fa-map-marker"></i></span>
-                                @Model.Myaccount.Address
-                            </p>
-                            <p>
-                                <span class="iconContact"><i class="fa fa-phone"></i></span>
-                                @Model.Myaccount.ContactNumber
-                            </p>
-                            <p>
-                                <span class="iconContact"><i class="fa fa-envelope"></i></span>
-                                Email:@Model.Myaccount.Email
-                            </p>                              
+<!--myprofile-section-start-->
+<div class="container-fluid rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-12 col-lg-3 col-md-5 border-right">
+            <!--my-profile-image-section-section-start-->
+            <div class="d-flex align-items-center text-center p-3"
+                 style="border: 2px solid #aed4f0; border-radius: 10px;">
+                <div>
+                    <img class="rounded-circle" width="70px" height="70px"
+                         src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                </div>
+                <div class=" d-flex flex-column ml-3">
+                    <span class="font-weight-bold">@Model.Myaccount.UserName </span>
+                    <span class="text-black-50 emailprofiledisplay">@Model.Myaccount.Email</span><span> </span>
+                </div>
+            </div>
+            <!--my-profile-image-section-section-end-->
+            <!--my-profile-list-section-section-start-->
+            <div class="d-flex justify-content-center p-3 mt-3"
+                 style="border: 2px solid #aed4f0; border-radius: 10px;">
+                <div class="list-group z-0 " id="list-tab" role="tablist">
+                    <a class="list-group-item list-group-item-action profileaccsettingname border-0"
+                       href="orderpage.html" role="tab" aria-controls="home">
+                        <i class="fa fa-file-import mr-3 provfileaccsettingicon"></i>MY ORDERS
+                    </a>
+                    <p class="list-group-item list-group-item-action profileaccsettingname border-0">
+                        <i class="fa fa-user mr-3 provfileaccsettingicon"></i>ACCOUNT SETTINGS
+                    </p>
+                    <a class="list-group-item list-group-item-action profileaccsettingsubname border-0 pl-5 active"
+                       id="list-profileinfo-list" data-toggle="list" href="#list-profileinfo" role="tab"
+                       aria-controls="messages">Profile Information</a>
+                    <a class="list-group-item list-group-item-action profileaccsettingsubname border-0 pl-5 "
+                       id="list-manageaddres-list" data-toggle="list" href="#list-manageaddres" role="tab"
+                       aria-controls="settings">Manage Addresses</a>
+                    <p class="list-group-item list-group-item-action profileaccsettingname border-0">
+                        <i class="fa fa-folder-open mr-3 provfileaccsettingicon"></i>MY STUFF
+                    </p>
+                    <a class="list-group-item list-group-item-action profileaccsettingsubname border-0 pl-5 "
+                       id="list-coupons-list" data-toggle="list" href="#list-coupons" role="tab"
+                       aria-controls="messages">My Coupons</a>
+                    <a class="list-group-item list-group-item-action profileaccsettingsubname border-0 pl-5 "
+                       id="list-reviewsrating-list" data-toggle="list" href="#list-reviewsrating" role="tab"
+                       aria-controls="settings">My Reviews & Ratings</a>
+                    <a class="list-group-item list-group-item-action profileaccsettingsubname border-0 pl-5 "
+                      asp-action="Wishlist" asp-controller="Wishlist" aria-controls="settings">My Wishlist</a>
+                </div>
+            </div>
+            <!--my-profile-list-section-section-end-->
+        </div>
+        <div class="col-12 col-lg-6 col-md-7 border-right">
+            <div class="tab-content" id="nav-tabContent">
+                                
+                    <!--my-profile section-section-start-->
+                    <div class="tab-pane show active" id="list-profileinfo" role="tabpanel"
+                         aria-labelledby="list-profileinfo-list">
+                        <form asp-action="MyAccount" asp-controller="MyAccount">
+                            <input type="hidden" asp-for="ProfileId" />
+                            <input type="hidden" asp-for="CoverImage" />
+                            <input type="hidden" asp-for="OrgId" />
+                            <div class="p-3 py-5">
+                                <div class="d-flex justify-content-between align-items-center mb-4">
+                                    <h4 class="text-right font-weight-bold">Personal Information</h4>
+                                </div>
+                                <h6 class="text-left font-weight-bold">Login Details</h6>
+                                <div class="row mt-2 pt-3 pb-3" style="border: 2px solid #aed4f0; border-radius: 10px;">
+                                    <div class="col-md-6">
+                                        <label class="labels font-weight-bold">Email ID</label><input type="email" class="form-control" value="" asp-for="@Model.Myaccount.Email" placeholder="Enter Your Email Id">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="labels font-weight-bold">Password</label><input type="password" class="form-control" value="" placeholder="Enter Your Password">
+                                    </div>
+                                </div>
+                                <h6 class="text-left font-weight-bold mt-3">Basic Details</h6>
+                                <div class="row mt-2 pt-3 pb-3" style="border: 2px solid #aed4f0; border-radius: 10px;">
+                                    <div class="col-md-6">
+                                        <label class="labels font-weight-bold">First Name</label><input type="text" class="form-control" placeholder="First Name" value="">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="labels font-weight-bold">Last Name</label><input type="text" class="form-control" value="" placeholder="Last Name">
+                                    </div>
+                                    <div class="col-md-6 mt-2">
+                                        <label class="labels font-weight-bold">
+                                            Date of
+                                            Birth
+                                        </label><input type="date" class="form-control" value="">
+                                    </div>
+                                </div>
+                                <h6 class="text-left font-weight-bold mt-3">Contact Details</h6>
+                                <div class="row pt-3 pb-3" style="border: 2px solid #aed4f0; border-radius: 10px;">
+                                    <div class="col-md-6">
+                                        <label class="labels font-weight-bold">Mobile Number</label><input type="text" asp-for="@Model.Myaccount.ContactNumber"  class="form-control" placeholder="Enter Your Mobile Number"
+                                                                                                           >
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="labels font-weight-bold">
+                                            Alternate
+                                            Mobile
+                                        </label><input type="text" class="form-control"
+                                                       placeholder="Enter Your Alternate Mobile" value="">
+                                    </div>
+                                    <div class="col-md-6 mt-2">
+                                        <label class="labels font-weight-bold">Email ID</label><input type="email" asp-for="@Model.Myaccount.Email" class="form-control"  placeholder="Enter Your Email Id">
+                                    </div>
+                                </div>
+                                <h6 class="text-left font-weight-bold mt-3">Personal Details</h6>
+                                <div class="row pt-3 pb-3" style="border: 2px solid #aed4f0; border-radius: 10px;">
+                                    <div class="col-md-12">
+                                        <label class="labels font-weight-bold">Gender</label><br>
+                                        <input type="radio" id="MALE" name="fav_language" value="MALE">
+                                        <label for="MALE" class="font-weight-bold mr-2">MALE</label>
+                                        <input type="radio" id="FEMALE" name="fav_language" value="FEMALE">
+                                        <label for="FEMALE" class="font-weight-bold mr-2">FEMALE</label>
+                                        <input type="radio" id="OTHER" name="fav_language" value="OTHER">
+                                        <label for="OTHER" class="font-weight-bold mr-2">OTHER</label>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-center">
+                                    <div class="mt-4 mr-4 ">
+                                        <button class="profilesaveeditbutton p-2" type="submit">
+                                            Edit
+                                            Profile
+                                        </button>
+                                    </div>
+                                    <div class="mt-4">
+                                        <button class="profilesaveeditbutton p-2" type="submit">
+                                            Save
+                                            Profile
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+          
+                <!--my-profile section-section-end-->
+                <!--address-section-start-->
+                <div class="tab-pane" id="list-manageaddres" role="tabpanel"
+                     aria-labelledby="list-manageaddres-list">
+
+                    <div class="p-3 py-5">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h4 class="text-right font-weight-bold">Manage Addresses</h4>
+                        </div>
+                        <!--address-add address-section-start-->
+                        <h6 class="text-left font-weight-bold">Add Address </h6>
+                        <div class="row mt-2 pt-3 pb-3" style="border: 2px solid #aed4f0; border-radius: 10px;">
+                            <div class="container bg-white">
+                                <div class="panel-group " id="accordion" role="tablist" aria-multiselectable="true">
+                                    <div class="panel panel-default ">
+                                        <div class="" role="tab" id="headingOne">
+                                            <h4 class="panel-title">
+                                                <a class="addaddresstitle text-danger" role="button"
+                                                   data-toggle="collapse" data-parent="#accordion"
+                                                   href="#collapseOne" aria-expanded="true"
+                                                   aria-controls="collapseOne">
+                                                    + Add a new address
+                                                </a>
+                                            </h4>
+                                        </div>
+                                    <form asp-action="MyAccount" asp-controller="MyAccount" method="post">
+                                        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
+                                             aria-labelledby="headingOne">
+                                            <div class="panel-body">
+                                                <div class="row pt-3 pb-3">
+                                                    <div class="col-md-6">
+                                                        <label class="labels font-weight-bold">First Name</label><input type="text" class="form-control" asp-for="@Model.myAccountDetails.FirstName"
+                                                                                                                        placeholder="First Name" value="">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class="labels font-weight-bold">Last Name</label><input type="text" class="form-control" asp-for="@Model.myAccountDetails.LastName" value=""
+                                                                                                                       placeholder="Last Name">
+                                                    </div>
+                                                    <div class="col-md-12 mt-2">
+                                                        <label class="labels font-weight-bold">
+                                                            Flat, House no.,
+                                                            Building, Company, Apartment
+                                                        </label><input type="text" asp-for="@Model.myAccountDetails.Address"
+                                                                       class="form-control" placeholder="Enter Your Address"
+                                                                       value="">
+                                                    </div>
+                                                    <div class="col-md-12 mt-2">
+                                                        <label class="labels font-weight-bold">
+                                                            Area, Street, Sector,
+                                                            Village
+                                                        </label><input type="text" class="form-control" asp-for="@Model.myAccountDetails.Address1"
+                                                                       placeholder="Enter Your Address" value="">
+                                                    </div>
+                                                    <div class="col-md-12 mt-2">
+                                                        <label class="labels font-weight-bold">Landmark</label><input type="text" class="form-control" asp-for="@Model.myAccountDetails.Landmark"
+                                                                                                                      placeholder="E.g near Apollo Hospital" value="">
+                                                    </div>
+                                                    <div class="col-md-6 mt-2">
+                                                        <label class="labels font-weight-bold">Town/City</label><input type="text" class="form-control" asp-for="@Model.myAccountDetails.City"
+                                                                                                                       placeholder="Enter Your Town/City" value="">
+                                                    </div>
+                                                    <div class="col-md-6 mt-2">
+                                                        <label class="labels font-weight-bold">State</label><input type="" class="form-control" asp-for="@Model.myAccountDetails.State"
+                                                                                                                   placeholder="Enter Your State" value="">
+                                                    </div>
+                                                    <div class="col-md-6 mt-2">
+                                                        <label class="labels font-weight-bold">Pincode</label><input type="text" class="form-control" asp-for="@Model.myAccountDetails.Pincode"
+                                                                                                                     placeholder="Enter Your Area Pincode" value="">
+                                                    </div>
+                                                    <div class="col-md-6 mt-2">
+                                                        <label class="labels font-weight-bold">Email ID</label><input type="email" class="form-control" value="" asp-for="@Model.myAccountDetails.Email"
+                                                                                                                      placeholder="Enter Your Email Id">
+                                                    </div>
+                                                    <div class="col-md-6 mt-2">
+                                                        <label class="labels font-weight-bold">
+                                                            Mobile
+                                                            Number
+                                                        </label><input type="text" class="form-control" asp-for="@Model.myAccountDetails.Mobile"
+                                                                       placeholder="Enter Your Mobile Number" value="">
+                                                    </div>
+                                                    <div class="col-md-6 mt-2">
+                                                        <label class="labels font-weight-bold">
+                                                            Alternate
+                                                            Mobile
+                                                        </label><input type="text" class="form-control"asp-for=" @Model.myAccountDetails.AltMobile"
+                                                                       placeholder="Enter Your Alternate Mobile" value="">
+                                                    </div>
+                                                    <div class="col-md-6 mt-2">
+                                                        <label class="labels font-weight-bold">
+                                                            Type of Address
+                                                        </label><br>
+                                                        <input type="radio" asp-for="@Model.myAccountDetails.AddressType"  
+                                                               value="Home">
+                                                        <label for="Home" class="font-weight-bold mr-2">Home</label>
+                                                        <input type="radio"  asp-for="@Model.myAccountDetails.AddressType"  
+                                                               value="Office">
+                                                        <label for="Office"
+                                                               class="font-weight-bold mr-2">Office</label>
+                                                    </div>
+                                                    <p class="mt-3">Is your office open on weekends?</p>
+                                                    <div class="col-md-6">
+                                                        <input type="checkbox" id="weekends1" name="vehicle1"
+                                                               value="Bike">
+                                                        <label class="font-weight-bold" for="weekends1">
+                                                            Open on
+                                                            Saturday
+                                                        </label><br>
+                                                        <input type="checkbox" id="weekends" name="vehicle2"
+                                                               value="Car">
+                                                        <label class="font-weight-bold" for="weekends">
+                                                            Open on
+                                                            Sunday
+                                                        </label><br>
+                                                    </div>
+                                                    <div class="col-md-12 mt-3">
+                                                        @Html.CheckBoxFor(m => m.myAccountDetails.IsDefault)
+                                                        <label class="font-weight-bold" for="defaddress">
+                                                            Make this
+                                                            as my default address
+                                                        </label><br>
+                                                    </div>
+                                                    <div class="col-md-12 text-center mt-2">
+                                                        <div class="mt-4">
+                                                            <button class="profilesaveeditbutton p-2"
+                                                                    type="submit">
+                                                                Save
+                                                                Address
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-8">
-                            <div class="contactfrom">
-                                @*@foreach (var myaccount in Model.Myaccount.Take(1))
-                                    {*@
-                                <h1>My Profile</h1>
-                                <img src="@Model.Myaccount.CoverImage" style="margin-right: 55px;max-height:100px; float: right;" />
+                        <!--address-add address-section-end-->
+                        <!--address-save address-section-start-->
+                        <h6 class="text-left font-weight-bold mt-3">Saved Addresses</h6>
+                        <div class="row  pb-3">
 
-                                <form action="#">
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <input type="text" asp-for="@Model.Myaccount.UserName" readonly id="UserName" class="form-control">
+                            <div class="d-flex justify-content-between">
+
+
+                                <!-- Modal -->
+
+
+                            </div>
+                            @foreach (var accuntDetail in Model.addressDetail)
+                            {
+                                <div class="col-md-12 mt-2 pt-3"
+                                     style="border: 2px solid #aed4f0; border-radius: 10px;">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <p class="addstatushomeoffice">
+                                                @if (accuntDetail.AddressType == "Home")
+                                                {<i class="fa fa-home"></i>}
+                                                else
+                                                {<i class="fa fa-chair"></i>} @accuntDetail.AddressType
+                                            </p>
+                                        </div>
+                                        <div class="d-flex">
+                                            <div class="">
+                                                <button class="border-0 bg-white" type="button" 
+                                                   data-toggle="modal" data-target="#@accuntDetail.Id"
+                                                   title="Edit Address">
+                                                    <i class="fa fa-edit"></i>
+                                                </button>
+                                            </div>
+                                            <div class="">
+                                                <a class="border-0 bg-white" asp-action="Address_delete" asp-controller="MyAccount"  asp-route-Id="@accuntDetail.Id"
+                                                        data-toggle="tooltip" data-placement="Bottom"
+                                                        title="Delete Address">
+                                                    <i class="fa fa-trash" style="color:black"></i>
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-lg-6 contactemail">
-                                            <input type="email" asp-for="@Model.Myaccount.Email" readonly id="Email" class="form-control">
+                                    <h6 class="font-weight-bold"><i class="fa fa-user mr-3"></i>@accuntDetail.FirstName @accuntDetail.LastName</h6>
+                                    <p>
+                                        <i class="fa fa-location mr-2"></i> @accuntDetail.Address, @accuntDetail.Address1 ,@accuntDetail.Landmark @accuntDetail.City- @accuntDetail.Pincode, @accuntDetail.State
+                                    </p>
+                                    <p>
+                                        <i class="fa fa-mobile mr-2"></i> <span class="font-weight-bold">
+                                            Mobile
+                                            Number:-
+                                        </span> @accuntDetail.Mobile
+                                    </p>
+                                </div>
+                                <!--Model-->
+                                <div class="modal" id="@accuntDetail.Id" tabindex="-1"
+                                     role="dialog" aria-labelledby="exampleModalLabel"
+                                     aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title font-weight-bold" id="exampleModalLabel">
+                                                    <i class="fa fa-edit mr-2"></i> Change
+                                                    Your Address
+                                                </h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form  asp-action="MyAccount" asp-controller="MyAccount">
+                                                    <input type="hidden" name="Id" asp-for="@accuntDetail.Id" />
+                                                    <div aria-labelledby="headingOne">
+                                                        <div class="panel-body">
+                                                            <div class="row pt-3 pb-3">
+                                                                <div class="col-md-6">
+                                                                    <label class="labels font-weight-bold">
+                                                                        First
+                                                                        Name
+                                                                    </label><input type="text"
+                                                                                   class="form-control"
+                                                                                   placeholder="First Name" asp-for="@accuntDetail.FirstName" name="FirstName" >
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <label class="labels font-weight-bold">
+                                                                        Last
+                                                                        Name
+                                                                    </label><input type="text" asp-for="@accuntDetail.LastName"
+                                                                                   class="form-control" name="LastName"
+                                                                                   placeholder="Last Name">
+                                                                </div>
+                                                                <div class="col-md-12 mt-2">
+                                                                    <label class="labels font-weight-bold">
+                                                                        Flat,
+                                                                        House no.,
+                                                                        Building, Company,
+                                                                        Apartment
+                                                                    </label><input type="text"
+                                                                                   class="form-control" asp-for="@accuntDetail.Address"
+                                                                                   placeholder="Enter Your Address" name="Address"
+                                                                                   >
+                                                                </div>
+                                                                <div class="col-md-12 mt-2">
+                                                                    <label class="labels font-weight-bold">
+                                                                        Area,
+                                                                        Street,
+                                                                        Sector,
+                                                                        Village
+                                                                    </label><input type="text"
+                                                                                   class="form-control" asp-for="@accuntDetail.Address1"
+                                                                                   placeholder="Enter Your Address" name="Address1"
+                                                                                   >
+                                                                </div>
+                                                                <div class="col-md-12 mt-2">
+                                                                    <label class="labels font-weight-bold">Landmark</label><input type="text" class="form-control" asp-for="@accuntDetail.Landmark"
+                                                                                                                                  placeholder="E.g near Apollo Hospital" name="Landmark"
+                                                                                                                                  >
+                                                                </div>
+                                                                <div class="col-md-6 mt-2">
+                                                                    <label class="labels font-weight-bold">Town/City</label><input type="text" class="form-control" asp-for="@accuntDetail.City"
+                                                                                                                                   placeholder="Enter Your Town/City" name="City"
+                                                                                                                                   >
+                                                                </div>
+                                                                <div class="col-md-6 mt-2">
+                                                                    <label class="labels font-weight-bold">State</label><input type="text" class="form-control" asp-for="@accuntDetail.State"
+                                                                                                                               placeholder="Enter Your State" name="State"
+                                                                                                                               >
+                                                                </div>
+                                                                <div class="col-md-6 mt-2">
+                                                                    <label class="labels font-weight-bold">Pincode</label><input type="text" class="form-control" asp-for="@accuntDetail.Pincode"
+                                                                                                                                 placeholder="Enter Your Area Pincode" name="Pincode"
+                                                                                                                                 >
+                                                                </div>
+                                                                <div class="col-md-6 mt-2">
+                                                                    <label class="labels font-weight-bold">
+                                                                        Email
+                                                                        ID
+                                                                    </label><input type="email" asp-for="@accuntDetail.Email" name="Email"
+                                                                                   class="form-control"
+                                                                                   placeholder="Enter Your Email Id">
+                                                                </div>
+                                                                <div class="col-md-6 mt-2">
+                                                                    <label class="labels font-weight-bold">
+                                                                        Mobile
+                                                                        Number
+                                                                    </label><input type="text" asp-for="@accuntDetail.Mobile"
+                                                                                   class="form-control"
+                                                                                   placeholder="Enter Your Mobile Number" name="Mobile"
+                                                                                   >
+                                                                </div>
+                                                                <div class="col-md-6 mt-2">
+                                                                    <label class="labels font-weight-bold">
+                                                                        Alternate
+                                                                        Mobile
+                                                                    </label><input type="text" asp-for="@accuntDetail.AltMobile" name="AltMobile"
+                                                                                   class="form-control"
+                                                                                   placeholder="Enter Your Alternate Mobile"
+                                                                                   >
+                                                                </div>
+                                                                <div class="col-md-6 mt-2">
+                                                                    <label class="labels font-weight-bold">
+                                                                        Type
+                                                                        of Address
+                                                                    </label><br>
+                                                                    <input type="radio" id="Home"
+                                                                           asp-for="@accuntDetail.AddressType" name="AddressType" value="Home">
+                                                                    <label for="Home"
+                                                                           class="font-weight-bold mr-2">Home</label>
+                                                                    <input type="radio" id="Office"
+                                                                           asp-for="@accuntDetail.AddressType" name="AddressType" value="Office">
+                                                                    <label for="Office"
+                                                                           class="font-weight-bold mr-2">Office</label>
+                                                                </div>
+                                                                <p class="mt-3">
+                                                                    Is your office open on
+                                                                    weekends?
+                                                                </p>
+                                                                <div class="col-md-6">
+                                                                    <input type="checkbox" id="weekends1"
+                                                                           name="vehicle1" value="Bike">
+                                                                    <label class="font-weight-bold"
+                                                                           for="weekends1">
+                                                                        Open on
+                                                                        Saturday
+                                                                    </label><br>
+                                                                    <input type="checkbox" id="weekends"
+                                                                           name="vehicle2" value="Car">
+                                                                    <label class="font-weight-bold"
+                                                                           for="weekends">
+                                                                        Open on
+                                                                        Sunday
+                                                                    </label><br>
+                                                                </div>
+                                                                <div class="col-md-12 mt-3">
+                                                                  @*  @Html.CheckBoxFor(accuntDetail.IsDefault)*@
+                                                                    <label class="font-weight-bold"
+                                                                           for="defaddress"
+                                                                           style="font-size: 13px;">
+                                                                        Make this
+                                                                        as my default address
+                                                                    </label><br>
+                                                                </div>
+                                                                <div class="col-md-12 text-center mt-2">
+                                                                    <div class="mt-4">
+                                                                        <button class="profilesaveeditbutton p-2"
+                                                                                type="submit">
+                                                                            Save
+                                                                            Address
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-6 cart-checkout">
-                                            <a class="text-decoration-none" asp-controller="MyAccount" asp-action="EditProfile">Edit Profile &nbsp;<i class="fa fa-pen"></i></a>
-                                        </div>
-                                        <div class="col-6 cart-checkout" id="fadeshow1">
-                                            <a class="text-decoration-none" asp-action="Logout" asp-controller="Authentications">Logout<i class="fa fa-sign-out-alt"></i></a>
-                                        </div>
+                                </div>
+
+                            }
+
+                        </div>
+                        <!--address-save address-section-end-->
+                    </div>
+                </div>
+
+
+                <!--coupons-section-start-->
+                <div class="tab-pane" id="list-coupons" role="tabpanel" aria-labelledby="list-coupons-list">
+                    <div class="p-3 py-5">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h4 class="text-right font-weight-bold">Available Coupons</h4>
+                        </div>
+                        <div class="row mt-2 pt-3 pb-3" style="border: 2px solid #aed4f0; border-radius: 10px;">
+                            <div class="couponsfull">
+                                <div class="d-flex" style="border-bottom: 1px solid #aed4f0;">
+                                    <div class="pt-4 pl-3 couponsamount">
+                                        <p class="text-success pr-5">100 OFF</p>
                                     </div>
-                                </form>
+                                    <div class="ml-3 mt-2 couponsdetails">
+                                        <p>On minimum purchase of <span class="font-weight-bold">Rs. 499</span></p>
+                                        <p>Code: <span class="font-weight-bold">VHCOMFORT100</span></p>
+                                    </div>
+                                </div>
+                                <div class="couponsdetails mt-2">
+                                    <p class="m-0 ml-2">
+                                        Expiry: <span class="font-weight-bold">JUN 30 2023</span>
+                                        11:59:00 P.M
+                                    </p>
+                                    <p class="m-0 ml-2">
+                                        <i class="fa fa-arrow-right font-weight-bold mr-1"></i>Rs.
+                                        100 off on minimum purchase of Rs. 499
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-2 pt-3 pb-3" style="border: 2px solid #aed4f0; border-radius: 10px;">
+                            <div class="couponsfull">
+                                <div class="d-flex" style="border-bottom: 1px solid #aed4f0;">
+                                    <div class="pt-4 pl-3 couponsamount">
+                                        <p class="text-success pr-5">30% OFF</p>
+                                    </div>
+                                    <div class="ml-3 mt-2 couponsdetails">
+                                        <p>On minimum purchase of <span class="font-weight-bold">Rs. 0</span></p>
+                                        <p>Code: <span class="font-weight-bold">COLLECTIVE30</span></p>
+                                    </div>
+                                </div>
+                                <div class="couponsdetails mt-2">
+                                    <p class="m-0 ml-2">
+                                        Expiry: <span class="font-weight-bold">JUL 04 2023</span>
+                                        11:59:00 P.M
+                                    </p>
+                                    <!-- <p class="m-0 ml-2"><i class="fa fa-arrow-right font-weight-bold mr-1"></i>Rs. 100 off on minimum purchase of Rs. 499</p> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-2 pt-3 pb-3" style="border: 2px solid #aed4f0; border-radius: 10px;">
+                            <div class="couponsfull">
+                                <div class="d-flex" style="border-bottom: 1px solid #aed4f0;">
+                                    <div class="pt-4 pl-3 couponsamount">
+                                        <p class="text-success pr-5">25% OFF</p>
+                                    </div>
+                                    <div class="ml-3 mt-2 couponsdetails">
+                                        <p>On minimum purchase of <span class="font-weight-bold">Rs. 499</span></p>
+                                        <p>Code: <span class="font-weight-bold">EXTRA25OFF</span></p>
+                                    </div>
+                                </div>
+                                <div class="couponsdetails mt-2">
+                                    <p class="m-0 ml-2">
+                                        Expiry: <span class="font-weight-bold">SEP 30 2023</span>
+                                        11:59:00 P.M
+                                    </p>
+                                    <!-- <p class="m-0 ml-2"><i class="fa fa-arrow-right font-weight-bold mr-1"></i>Rs. 100 off on minimum purchase of Rs. 499</p> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-2 pt-3 pb-3" style="border: 2px solid #aed4f0; border-radius: 10px;">
+                            <div class="couponsfull">
+                                <div class="d-flex" style="border-bottom: 1px solid #aed4f0;">
+                                    <div class="pt-4 pl-3 couponsamount">
+                                        <p class="text-success pr-5">20% OFF</p>
+                                    </div>
+                                    <div class="ml-3 mt-2 couponsdetails">
+                                        <p>On minimum purchase of <span class="font-weight-bold">Rs. 0</span></p>
+                                        <p>Code: <span class="font-weight-bold">WEARABLES20</span></p>
+                                    </div>
+                                </div>
+                                <div class="couponsdetails mt-2">
+                                    <p class="m-0 ml-2">
+                                        Expiry: <span class="font-weight-bold">JUN 30 2023</span>
+                                        11:59:00 P.M
+                                    </p>
+                                    <!-- <p class="m-0 ml-2"><i class="fa fa-arrow-right font-weight-bold mr-1"></i>Rs. 100 off on minimum purchase of Rs. 499</p> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-2 pt-3 pb-3" style="border: 2px solid #aed4f0; border-radius: 10px;">
+                            <div class="couponsfull">
+                                <div class="d-flex" style="border-bottom: 1px solid #aed4f0;">
+                                    <div class="pt-4 pl-3 couponsamount">
+                                        <p class="text-success pr-5">20% OFF</p>
+                                    </div>
+                                    <div class="ml-3 mt-2 couponsdetails">
+                                        <p>On minimum purchase of <span class="font-weight-bold">Rs. 499</span></p>
+                                        <p>Code: <span class="font-weight-bold">INSIDER20OFF</span></p>
+                                    </div>
+                                </div>
+                                <div class="couponsdetails mt-2">
+                                    <p class="m-0 ml-2">
+                                        Expiry: <span class="font-weight-bold">JUL 31 2023</span>
+                                        11:59:00 P.M
+                                    </p>
+                                    <p class="m-0 ml-2">
+                                        <i class="fa fa-arrow-right font-weight-bold mr-1"></i>20%
+                                        OFF on minimum purchase of Rs. 499
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-2 pt-3 pb-3" style="border: 2px solid #aed4f0; border-radius: 10px;">
+                            <div class="couponsfull">
+                                <div class="d-flex" style="border-bottom: 1px solid #aed4f0;">
+                                    <div class="pt-4 pl-3 couponsamount">
+                                        <p class="text-success pr-5">20% OFF</p>
+                                    </div>
+                                    <div class="ml-3 mt-2 couponsdetails">
+                                        <p>
+                                            On minimum purchase of <span class="font-weight-bold">Rs. 1,499</span>
+                                        </p>
+                                        <p>Code: <span class="font-weight-bold">ARV20</span></p>
+                                    </div>
+                                </div>
+                                <div class="couponsdetails mt-2">
+                                    <p class="m-0 ml-2">
+                                        Expiry: <span class="font-weight-bold">JUN 30 2023</span>
+                                        11:59:00 P.M
+                                    </p>
+                                    <p class="m-0 ml-2">
+                                        <i class="fa fa-arrow-right font-weight-bold mr-1"></i>20%
+                                        OFF on minimum purchase of Rs. 1,499
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-2 pt-3 pb-3" style="border: 2px solid #aed4f0; border-radius: 10px;">
+                            <div class="couponsfull">
+                                <div class="d-flex" style="border-bottom: 1px solid #aed4f0;">
+                                    <div class="pt-4 pl-3 couponsamount">
+                                        <p class="text-success pr-5">20% OFF</p>
+                                    </div>
+                                    <div class="ml-3 mt-2 couponsdetails">
+                                        <p>
+                                            On minimum purchase of <span class="font-weight-bold">Rs. 1,000</span>
+                                        </p>
+                                        <p>Code: <span class="font-weight-bold">C9AIRWEAR20</span></p>
+                                    </div>
+                                </div>
+                                <div class="couponsdetails mt-2">
+                                    <p class="m-0 ml-2">
+                                        Expiry: <span class="font-weight-bold">AUG 31 2023</span>
+                                        11:59:00 P.M
+                                    </p>
+                                    <p class="m-0 ml-2">
+                                        <i class="fa fa-arrow-right font-weight-bold mr-1"></i>20%
+                                        OFF on minimum purchase of Rs. 1,000
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-2 pt-3 pb-3" style="border: 2px solid #aed4f0; border-radius: 10px;">
+                            <div class="couponsfull">
+                                <div class="d-flex" style="border-bottom: 1px solid #aed4f0;">
+                                    <div class="pt-4 pl-3 couponsamount">
+                                        <p class="text-success pr-5">100 OFF</p>
+                                    </div>
+                                    <div class="ml-3 mt-2 couponsdetails">
+                                        <p>On minimum purchase of <span class="font-weight-bold">Rs. 499</span></p>
+                                        <p>Code: <span class="font-weight-bold">VHCOMFORT100</span></p>
+                                    </div>
+                                </div>
+                                <div class="couponsdetails mt-2">
+                                    <p class="m-0 ml-2">
+                                        Expiry: <span class="font-weight-bold">JUN 30 2023</span>
+                                        11:59:00 P.M
+                                    </p>
+                                    <p class="m-0 ml-2">
+                                        <i class="fa fa-arrow-right font-weight-bold mr-1"></i>Rs.
+                                        100 off on minimum purchase of Rs. 499
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!--coupons-section-end-->
+                <!--rating-review-section-start-->
+                <div class="tab-pane" id="list-reviewsrating" role="tabpanel"
+                     aria-labelledby="list-reviewsrating-list">
+                    <div class="p-3 py-5">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h4 class="text-right font-weight-bold">My Reviews</h4>
+                        </div>
+
+                        <div class="row mt-2 pt-3 pb-3">
+                            <div class="reviewsfullprofile pb-2"
+                                 style="border: 2px solid #aed4f0; border-radius: 10px;">
+                                <div class="d-flex">
+                                    <div class="reviewimgprofile mt-3">
+                                        <img src="img/productdetailsimage1.jpeg" width="100px" height="100px">
+                                    </div>
+                                    <div class="ml-3 mt-2 reviewdetailsprofile">
+                                        <p>Jack & Jones Navy Blue Cotton Slim Fit Polo T-Shirt</p>
+                                        <div class="d-flex">
+                                            <p class="ratingprofile">4.2 <i class="fa fa-star"></i></p>
+                                            <p class="ml-2 font-weight-bold">Rating Title</p>
+                                        </div>
+                                        <div class="m-0">
+                                            <p class="m-0 mb-1 font-weight-bold">Description Title</p>
+                                            <p class="m-0 mt-0 reviewwernameprofile">
+                                                Lukman Mansuri | 28 Jun 2023
+                                            </p>
+                                        </div>
+                                        <div class="d-flex mt-2">
+                                            <div>
+                                                <button class="border-0 bg-white" type="button" data-toggle="modal"
+                                                        data-target="#ratereviewprofile">
+                                                    <i class="fa fa-edit"></i>
+                                                    Edit
+                                                </button>
+                                            </div>
+
+                                            <div>
+                                                <button class="border-0 bg-white" type="button">
+                                                    <i class="fa fa-trash"></i> Delete
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--edit-review-model-section-start-->
+                            <div class="modal bd-example-modal-lg" id="ratereviewprofile" tabindex="-1"
+                                 role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                <div class="modal-dialog model-lg modal-dialog-centered modal-dialog-scrollable"
+                                     role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLongTitle">
+                                                Ratings & Reviews
+                                            </h5>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h4 style="font-family: Times New Roman; font-weight: 800; letter-spacing: 2px;">
+                                                Ratings & Reviews
+                                            </h4>
+                                            <form>
+                                                <h5 style="border-bottom: 1px solid  #000000; line-height: 45px; font-weight: 700;">
+                                                    Rate This Product
+                                                </h5>
+                                                <div class="d-flex justify-content-center mt-3"
+                                                     id="full-stars-example">
+                                                    <div class="rating-group">
+                                                        <input class="rating__input rating__input--none"
+                                                               name="rating" id="rating-none" value="0" type="radio">
+                                                        <label aria-label="No rating" class="rating__label"
+                                                               for="rating-none">
+                                                            <i class="rating__icon rating__icon--none fa fa-ban"></i>
+                                                        </label>
+                                                        <label aria-label="1 star" class="rating__label"
+                                                               for="rating-1">
+                                                            <i class="rating__icon rating__icon--star fa fa-star"></i>
+                                                        </label>
+                                                        <input class="rating__input" name="rating" id="rating-1"
+                                                               value="1" type="radio">
+                                                        <label aria-label="2 stars" class="rating__label"
+                                                               for="rating-2">
+                                                            <i class="rating__icon rating__icon--star fa fa-star"></i>
+                                                        </label>
+                                                        <input class="rating__input" name="rating" id="rating-2"
+                                                               value="2" type="radio">
+                                                        <label aria-label="3 stars" class="rating__label"
+                                                               for="rating-3">
+                                                            <i class="rating__icon rating__icon--star fa fa-star"></i>
+                                                        </label>
+                                                        <input class="rating__input" name="rating" id="rating-3"
+                                                               value="3" type="radio" checked>
+                                                        <label aria-label="4 stars" class="rating__label"
+                                                               for="rating-4">
+                                                            <i class="rating__icon rating__icon--star fa fa-star"></i>
+                                                        </label>
+                                                        <input class="rating__input" name="rating" id="rating-4"
+                                                               value="4" type="radio">
+                                                        <label aria-label="5 stars" class="rating__label"
+                                                               for="rating-5">
+                                                            <i class="rating__icon rating__icon--star fa fa-star"></i>
+                                                        </label>
+                                                        <input class="rating__input" name="rating" id="rating-5"
+                                                               value="5" type="radio">
+                                                    </div>
+                                                </div>
+                                                <h5 style="border-bottom: 1px solid  #000000; line-height: 45px; font-weight: 700;">
+                                                    Review this product
+                                                </h5>
+                                                <div class="form-group">
+                                                    <label for="recipient-name" class="col-form-label tex"
+                                                           style="font-weight: 700;">Title:</label>
+                                                    <input type="text" class="form-control" id="recipient-name">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="message-text" class="col-form-label"
+                                                           style="font-weight: 700;">Description:</label>
+                                                    <textarea class="form-control" id="message-text"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="recipient-name" class="col-form-label"
+                                                           style="font-weight: 700;">
+                                                        Sender
+                                                        Name:
+                                                    </label>
+                                                    <input type="text" class="form-control" id="recipient-name">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="recipient-name" class="col-form-label"
+                                                           style="font-weight: 700;">Upload Image:</label>
+                                                    <input type="file" id="avatar" name="avatar"
+                                                           accept="image/png, image/jpeg">
+                                                </div>
+                                                <div class="form-group"
+                                                     style="display: flex; justify-content: center;">
+                                                    <button type="button" class="buttonapplyalignment">
+                                                        Submit Your
+                                                        Review
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--edit-review-model-section-end-->
+                            <div class="reviewsfullprofile pb-2 mt-3"
+                                 style="border: 2px solid #aed4f0; border-radius: 10px;">
+                                <div class="d-flex">
+                                    <div class="reviewimgprofile mt-3">
+                                        <img src="img/productdetailsimage1.jpeg" width="100px" height="100px">
+                                    </div>
+                                    <div class="ml-3 mt-2 reviewdetailsprofile">
+                                        <p>Jack & Jones Navy Blue Cotton Slim Fit Polo T-Shirt</p>
+                                        <div class="d-flex">
+                                            <p class="ratingprofile">4.2 <i class="fa fa-star"></i></p>
+                                            <p class="ml-2 font-weight-bold">Rating Title</p>
+                                        </div>
+                                        <div class="m-0">
+                                            <p class="m-0 mb-1 font-weight-bold">Description Title</p>
+                                            <p class="m-0 mt-0 reviewwernameprofile">
+                                                Lukman Mansuri | 28 Jun 2023
+                                            </p>
+                                        </div>
+                                        <div class="d-flex mt-2">
+                                            <div>
+                                                <button class="border-0 bg-white" type="button" data-toggle="modal"
+                                                        data-target="#ratereviewprofile">
+                                                    <i class="fa fa-edit"></i>
+                                                    Edit
+                                                </button>
+                                            </div>
+
+                                            <div>
+                                                <button class="border-0 bg-white" type="button">
+                                                    <i class="fa fa-trash"></i> Delete
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="reviewsfullprofile pb-2 mt-3"
+                                 style="border: 2px solid #aed4f0; border-radius: 10px;">
+                                <div class="d-flex">
+                                    <div class="reviewimgprofile mt-3">
+                                        <img src="img/productdetailsimage1.jpeg" width="100px" height="100px">
+                                    </div>
+                                    <div class="ml-3 mt-2 reviewdetailsprofile">
+                                        <p>Jack & Jones Navy Blue Cotton Slim Fit Polo T-Shirt</p>
+                                        <div class="d-flex">
+                                            <p class="ratingprofile">4.2 <i class="fa fa-star"></i></p>
+                                            <p class="ml-2 font-weight-bold">Rating Title</p>
+                                        </div>
+                                        <div class="m-0">
+                                            <p class="m-0 mb-1 font-weight-bold">Description Title</p>
+                                            <p class="m-0 mt-0 reviewwernameprofile">
+                                                Lukman Mansuri | 28 Jun 2023
+                                            </p>
+                                        </div>
+                                        <div class="d-flex mt-2">
+                                            <div>
+                                                <button class="border-0 bg-white" type="button" data-toggle="modal"
+                                                        data-target="#ratereviewprofile">
+                                                    <i class="fa fa-edit"></i>
+                                                    Edit
+                                                </button>
+                                            </div>
+
+                                            <div>
+                                                <button class="border-0 bg-white" type="button">
+                                                    <i class="fa fa-trash"></i> Delete
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="reviewsfullprofile pb-2 mt-3"
+                                 style="border: 2px solid #aed4f0; border-radius: 10px;">
+                                <div class="d-flex">
+                                    <div class="reviewimgprofile mt-3">
+                                        <img src="img/productdetailsimage1.jpeg" width="100px" height="100px">
+                                    </div>
+                                    <div class="ml-3 mt-2 reviewdetailsprofile">
+                                        <p>Jack & Jones Navy Blue Cotton Slim Fit Polo T-Shirt</p>
+                                        <div class="d-flex">
+                                            <p class="ratingprofile">4.2 <i class="fa fa-star"></i></p>
+                                            <p class="ml-2 font-weight-bold">Rating Title</p>
+                                        </div>
+                                        <div class="m-0">
+                                            <p class="m-0 mb-1 font-weight-bold">Description Title</p>
+                                            <p class="m-0 mt-0 reviewwernameprofile">
+                                                Lukman Mansuri | 28 Jun 2023
+                                            </p>
+                                        </div>
+                                        <div class="d-flex mt-2">
+                                            <div>
+                                                <button class="border-0 bg-white" type="button" data-toggle="modal"
+                                                        data-target="#ratereviewprofile">
+                                                    <i class="fa fa-edit"></i>
+                                                    Edit
+                                                </button>
+                                            </div>
+
+                                            <div>
+                                                <button class="border-0 bg-white" type="button">
+                                                    <i class="fa fa-trash"></i> Delete
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="reviewsfullprofile pb-2 mt-3"
+                                 style="border: 2px solid #aed4f0; border-radius: 10px;">
+                                <div class="d-flex">
+                                    <div class="reviewimgprofile mt-3">
+                                        <img src="img/productdetailsimage1.jpeg" width="100px" height="100px">
+                                    </div>
+                                    <div class="ml-3 mt-2 reviewdetailsprofile">
+                                        <p>Jack & Jones Navy Blue Cotton Slim Fit Polo T-Shirt</p>
+                                        <div class="d-flex">
+                                            <p class="ratingprofile">4.2 <i class="fa fa-star"></i></p>
+                                            <p class="ml-2 font-weight-bold">Rating Title</p>
+                                        </div>
+                                        <div class="m-0">
+                                            <p class="m-0 mb-1 font-weight-bold">Description Title</p>
+                                            <p class="m-0 mt-0 reviewwernameprofile">
+                                                Lukman Mansuri | 28 Jun 2023
+                                            </p>
+                                        </div>
+                                        <div class="d-flex mt-2">
+                                            <div>
+                                                <button class="border-0 bg-white" type="button" data-toggle="modal"
+                                                        data-target="#ratereviewprofile">
+                                                    <i class="fa fa-edit"></i>
+                                                    Edit
+                                                </button>
+                                            </div>
+
+                                            <div>
+                                                <button class="border-0 bg-white" type="button">
+                                                    <i class="fa fa-trash"></i> Delete
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="reviewsfullprofile pb-2 mt-3"
+                                 style="border: 2px solid #aed4f0; border-radius: 10px;">
+                                <div class="d-flex">
+                                    <div class="reviewimgprofile mt-3">
+                                        <img src="img/productdetailsimage1.jpeg" width="100px" height="100px">
+                                    </div>
+                                    <div class="ml-3 mt-2 reviewdetailsprofile">
+                                        <p>Jack & Jones Navy Blue Cotton Slim Fit Polo T-Shirt</p>
+                                        <div class="d-flex">
+                                            <p class="ratingprofile">4.2 <i class="fa fa-star"></i></p>
+                                            <p class="ml-2 font-weight-bold">Rating Title</p>
+                                        </div>
+                                        <div class="m-0">
+                                            <p class="m-0 mb-1 font-weight-bold">Description Title</p>
+                                            <p class="m-0 mt-0 reviewwernameprofile">
+                                                Lukman Mansuri | 28 Jun 2023
+                                            </p>
+                                        </div>
+                                        <div class="d-flex mt-2">
+                                            <div>
+                                                <button class="border-0 bg-white" type="button" data-toggle="modal"
+                                                        data-target="#ratereviewprofile">
+                                                    <i class="fa fa-edit"></i>
+                                                    Edit
+                                                </button>
+                                            </div>
+
+                                            <div>
+                                                <button class="border-0 bg-white" type="button">
+                                                    <i class="fa fa-trash"></i> Delete
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--rating-review-section-end-->
             </div>
+        </div>
+        <div class="col-12 col-lg-3 col-md-12">
+            <!--userprofileimage-section-start-->
+            <div class="tab-pane pb-5" id="list-profileinfo" role="tabpanel" aria-labelledby="list-profileinfo-list"
+                 style="border-bottom: 1px solid #aed4f0;">
+                <div class="d-flex flex-column align-items-center text-center ">
+                    <img class="rounded-circle" width="150px"
+                         src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                    <span class="font-weight-bold">@Model.Myaccount.UserName</span>
+                    <span class="font-weight-bold">Shooppy Supercoins: 50 </span>
+                    <span class="text-black-50">@Model.Myaccount.Email</span>
+                </div>
+                <div class="mt-3" style="border: 2px solid #aed4f0; border-radius: 10px;">
+                    <div class="mt-2 ml-3 mr-2 ">
+                        <label class="labels font-weight-bold">Update Profile</label>
+                        <input type="file" class="form-control" id="avatar" name="avatar"
+                               accept="image/png, image/jpeg">
+                    </div>
+                    <div class="mt-2 mb-3 text-center">
+                        <div class="mt-4">
+                            <button class="profilesaveeditbutton p-2" type="button">
+                                Update Profile
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--userprofileimage-section-end-->
+            <!--usefullinks-section-start-->
+            <div class="d-flex justify-content-between align-items-center mt-3 mb-4">
+                <h5 class="text-right font-weight-bold">Useful Links <i class="fa fa-link"></i></h5>
+            </div>
+            <div class="d-flex justify-content-between" style="border-bottom: 1px solid #aed4f0;">
+                <p class="font-weight-bold ml-2"><a class="tcppallpagelink" href="privacypolicy.html">Privacy Policy</a></p>
+                <p class="font-weight-bold mr-3"><i class="fa fa-chevron-right"></i></p>
+            </div>
+            <div class="d-flex justify-content-between mt-3" style="border-bottom: 1px solid #aed4f0;">
+                <p class="font-weight-bold ml-2"><a class="tcppallpagelink" href="termsconditions.html">Terms & Conditions</a></p>
+                <p class="font-weight-bold mr-3"><i class="fa fa-chevron-right"></i></p>
+            </div>
+            <!--usefullinks-section-end-->
         </div>
     </div>
 </div>
 
+
+<!--myprofile-section-end-->

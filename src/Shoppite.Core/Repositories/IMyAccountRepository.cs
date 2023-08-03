@@ -13,5 +13,9 @@ namespace Shoppite.Core.Repositories
         Task<UsersProfile> GetProfileByProfileId(int ProfileId);
         Task ChangePassword(Users user);
         Task<int> GetProfileId(string username,int orgid);
+        Task AddAddressDetails(MyAccountDetails myaccount);
+        Task<List<MyAccountDetails>> GetAddressDetail(int orgId);
+        Task<MyAccountDetails> GetAddressdetailBYId(int orgId,int Id);
+        Task DeleteAddressDetail(int orgId, int Id);
     }
 }

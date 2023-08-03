@@ -2962,6 +2962,41 @@ a.buy-btn{
   border: 1px solid #76777E;
   border-radius: 50%;
 }
+.colorfilter-color-Black {
+    width: 20px;
+    height: 20px;
+    background-color: black;
+    border: 1px solid #76777E;
+    border-radius: 50%;
+}
+.colorfilter-color-Metaverse{
+    width: 20px;
+    height: 20px;
+    background-color: #99EDC3;
+    border: 1px solid #76777E;
+    border-radius: 50%;
+}
+.colorfilter-color-Marine {
+    width: 20px;
+    height: 20px;
+    background-color: #9bddff;
+    border: 1px solid #76777E;
+    border-radius: 50%;
+}
+.colorfilter-color-Starlit {
+    width: 20px;
+    height: 20px;
+    background-color: #5D8AA8;
+    border: 1px solid #76777E;
+    border-radius: 50%;
+}
+.colorfilter-color-Dawn {
+    width: 20px;
+    height: 20px;
+    background-color: #EEE8AA;
+    border: 1px solid #76777E;
+    border-radius: 50%;
+}
 .colorfilter-color-white{
   width: 20px;
   height: 20px;

@@ -95,5 +95,11 @@ namespace Shoppite.Web.Services
             var mapped = _mapper.Map<List<SP_GetSimilarProductsModel>>(similarProducts);
             return mapped;
         }
+        public async Task<List<SP_GetCategoryWiseProductCount_Model>> GetProductCount(int orgId)
+        {
+            var count = await _categoryService.GetProductCount(orgId);
+            var mapped = _mapper.Map<List<SP_GetCategoryWiseProductCount_Model>>(count);
+            return mapped;
+        }
     }
 }

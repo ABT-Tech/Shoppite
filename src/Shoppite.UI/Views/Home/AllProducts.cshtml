@@ -5,7 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     int Categorycount = 0;
+    Categorycount= Model.Product_specification.Count;
 }
+
 <!--gifbannerSection-start-->
 <section class="section section-sm section-first bg-default text-center">
     <div class="container-fluid">
@@ -56,8 +58,12 @@
                                     </label>
                                 </div>
                                 <span id="cat_@item.CategoryId" class="totalavailability">
-
-                                    @foreach (var catid in Model.Product_specification) {
+                                    @foreach (var count in Model.ProductCount)
+                                    {
+                                        if (item.CategoryId == count.Category_Id)
+                                        {
+                                            @count.ProductCount
+                                        }                                     
                                     }
                                 </span>
                             </div>
@@ -1014,141 +1020,29 @@
                     </section>
                     <!--gifbannerSection-end-->
                     @await Html.PartialAsync("_ProductsByAttribute", Model)
-                   @* @await Html.PartialAsync("_RecentlyAddedProducts", Model)*@
+                    @* @await Html.PartialAsync("_RecentlyAddedProducts", Model)*@
                     <!--gifbannerSection-start-->
                     <section class="section section-sm section-first bg-default text-center">
                         <div class="container-fluid">
                             <div class="row " style="padding: 30px 0px -50px 0px;">
-                                <div class="col-12 col-lg-6 col-md-12 mt-4">
-                                    <img src="~/img/categorypagegif2.gif" alt="Addbanner" width="100%"
-                                         style="border-radius: 10px;">
-                                </div>
-                                <div class="col-12 col-lg-6 col-md-12 mt-4">
-                                    <img src="~/img/productslistbanner2.gif" alt="Addbanner" width="100%"
-                                         style="border-radius: 10px;">
-                                </div>
+                                @if (Model.MiddelBanner != null)
+                                {
+                                    @foreach (var image in Model.MiddelBanner.Take(2))
+                                    {
+                                        <div class="col-12 col-lg-6 col-md-12 mt-4">
+                                            <a asp-action="AllProducts" asp-route-CategoryId="@image.CategoryId">
+                                                <img src="@image.Image" alt="Addbanner" width="100%" style="border-radius: 10px;">
+                                            </a>
+                                        </div>
+                                    }
+
+                                }
+
                             </div>
                         </div>
                     </section>
                     <!--gifbannerSection-end-->
-                    <div class="col-6 col-lg-3 col-md-4">
-                        <div class="wrapper">
-                            <div class="card products-listcard"
-                                 style="border-radius: 10px; box-shadow: 0px 2px 0px 2px #aed4f0;">
-                                <span class="off">-25% OFF</span>
-
-                                <div class="text-center">
-                                    <img id="main-image" class="prolistimagelarge"
-                                         src="~/img/productdetailsimage1.jpeg" />
-                                </div>
-                                <span class="similarpro mt-5">
-                                    <button class="similaprobutton" data-toggle="tooltip"
-                                            data-placement="top" title="Similar Products">
-                                        <img src="~/img/similarIcon.png"
-                                             width="25" height="25">
-                                    </button>
-                                </span>
-                                <span class="whislistpro mt-5">
-                                    <button class="whislistprobutton"
-                                            data-toggle="tooltip" data-placement="top" title="Move To Wishlist">
-                                        <i class="fa fa-heart"
-                                           style="width: 20px; height: 20px; color: #000000;"></i>
-                                    </button>
-                                </span>
-                                <span class="cartpro mt-5">
-                                    <button class="cartprobutton" data-toggle="tooltip"
-                                            data-placement="bottom" title="Move To Bag">
-                                        <i class="fa fa-shopping-cart"
-                                           style="width: 20px; height: 20px; color: #000000;"></i>
-                                    </button>
-                                </span>
-                                <div class="thumbnail text-center">
-                                    <img onclick="change_image(this)" src="~/img/productdetailsimage2.jpeg" width="30"
-                                         height="30">
-                                    <img onclick="change_image(this)" src="~/img/productdetailsimage3.jpeg" width="30"
-                                         height="30">
-                                    <img onclick="change_image(this)" src="~/img/productdetailsimage4.jpeg" width="30"
-                                         height="30">
-                                    <img onclick="change_image(this)" src="~/img/productdetailsimage5.jpeg" width="30"
-                                         height="30">
-                                </div>
-                                <div class="about text-center">
-                                    <h6 class="prolistcardname">Jack & Jones</h6>
-                                    <h6 class="prolistcardname">
-                                        Jack & Jones Navy Blue Cotton Slim Fit Polo T-Shirt
-                                    </h6>
-                                    <p class="font-weight-bold m-0 responsivestar" style="color: orangered;">
-                                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <span style="color: darkgrey;">250</span>
-                                    </p>
-                                    <p class="font-weight-bold m-0 responsiveprice">
-                                        ₹679 <span class="text-decoration-line-through"
-                                                   style="color: darkgrey;">₹1699</span> <span class="ml-1 text-success">(60% off)</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                    <div class="col-6 col-lg-3 col-md-4">
-                        <div class="wrapper">
-                            <div class="card products-listcard"
-                                 style="border-radius: 10px; box-shadow: 0px 2px 0px 2px #aed4f0;">
-                                <span class="off">Top Sales</span>
-
-                                <div class="text-center">
-                                    <img id="main-imagetwo" class="prolistimagelarge"
-                                         src="~/img/productlistitem7.1.jpeg" />
-                                </div>
-                                <span class="similarpro mt-5">
-                                    <button class="similaprobutton" data-toggle="tooltip"
-                                            data-placement="top" title="Similar Products">
-                                        <img src="~/img/similarIcon.png"
-                                             width="25" height="25">
-                                    </button>
-                                </span>
-                                <span class="whislistpro mt-5">
-                                    <button class="whislistprobutton"
-                                            data-toggle="tooltip" data-placement="top" title="Move To Wishlist">
-                                        <i class="fa fa-heart"
-                                           style="width: 20px; height: 20px; color: #000000;"></i>
-                                    </button>
-                                </span>
-                                <span class="cartpro mt-5">
-                                    <button class="cartprobutton" data-toggle="tooltip"
-                                            data-placement="bottom" title="Move To Bag">
-                                        <i class="fa fa-shopping-cart"
-                                           style="width: 20px; height: 20px; color: #000000;"></i>
-                                    </button>
-                                </span>
-                                <div class="thumbnail text-center">
-                                    <img onclick="change_imagetwo(this)" src="~/img/productlistitem7.2.jpeg"
-                                         width="30" height="30">
-                                    <img onclick="change_imagetwo(this)" src="~/img/productlistitem7.3.jpeg"
-                                         width="30" height="30">
-                                    <img onclick="change_imagetwo(this)" src="~/img/productlistitem7.4.jpeg"
-                                         width="30" height="30">
-                                    <img onclick="change_imagetwo(this)" src="~/img/productlistitem7.5.jpeg"
-                                         width="30" height="30">
-                                </div>
-                                <div class="about text-center">
-                                    <h6 class="prolistcardname">Levi's</h6>
-                                    <h6 class="prolistcardname">
-                                        Levi's Camping Gear Green Pure Cotton Regular Fit
-                                        Logo Printed T-Shirts
-                                    </h6>
-                                    <p class="font-weight-bold m-0 responsivestar" style="color: orangered;">
-                                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <span style="color: darkgrey;">180</span>
-                                    </p>
-                                    <p class="font-weight-bold m-0 responsiveprice">
-                                        ₹767 <span class="text-decoration-line-through"
-                                                   style="color: darkgrey;">₹1199</span> <span class="ml-1 text-success">(36% off)</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @await Html.PartialAsync("_ProductsByAttributes", Model)                                  
                     <!--gifbannerSection-start-->
                     <section class="section section-sm section-first bg-default text-center">
                         <div class="container-fluid">
@@ -1225,238 +1119,8 @@
                         </div>
                     </div>
 
-                    <div class="col-6 col-lg-3 col-md-4">
-                        <div class="wrapper">
-                            <div class="card products-listcard"
-                                 style="border-radius: 10px; box-shadow: 0px 2px 0px 2px #aed4f0;">
-                                <span class="off">-25% OFF</span>
-
-                                <div class="text-center">
-                                    <img id="main-imagethree" class="prolistimagelarge"
-                                         src="~/img/productlistitem3.1.jpeg" />
-                                </div>
-                                <span class="similarpro mt-5">
-                                    <button class="similaprobutton" data-toggle="tooltip"
-                                            data-placement="top" title="Similar Products">
-                                        <img src="~/img/similarIcon.png"
-                                             width="25" height="25">
-                                    </button>
-                                </span>
-                                <span class="whislistpro mt-5">
-                                    <button class="whislistprobutton"
-                                            data-toggle="tooltip" data-placement="top" title="Move To Wishlist">
-                                        <i class="fa fa-heart"
-                                           style="width: 20px; height: 20px; color: #000000;"></i>
-                                    </button>
-                                </span>
-                                <span class="cartpro mt-5">
-                                    <button class="cartprobutton" data-toggle="tooltip"
-                                            data-placement="bottom" title="Move To Bag">
-                                        <i class="fa fa-shopping-cart"
-                                           style="width: 20px; height: 20px; color: #000000;"></i>
-                                    </button>
-                                </span>
-                                <div class="thumbnail text-center">
-                                    <img onclick="change_imagethree(this)" src="~/img/productlistitem3.2.jpeg"
-                                         width="30" height="30">
-                                    <img onclick="change_imagethree(this)" src="~/img/productlistitem3.3.jpeg"
-                                         width="30" height="30">
-                                    <img onclick="change_imagethree(this)" src="~/img/productlistitem3.4.jpeg"
-                                         width="30" height="30">
-                                    <img onclick="change_imagethree(this)" src="~/img/productlistitem3.5.jpeg"
-                                         width="30" height="30">
-                                </div>
-                                <div class="about text-center">
-                                    <h6 class="prolistcardname">United Colors of Benetton</h6>
-                                    <h6 class="prolistcardname">
-                                        United Colors of Benetton Maroon Polo T-Shirt
-                                    </h6>
-                                    <p class="font-weight-bold m-0 responsivestar" style="color: orangered;">
-                                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <span style="color: darkgrey;">199</span>
-                                    </p>
-                                    <p class="font-weight-bold m-0 responsiveprice">
-                                        ₹1149 <span class="text-decoration-line-through"
-                                                    style="color: darkgrey;">₹2299</span> <span class="ml-1 text-success">(50% off)</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-lg-3 col-md-4">
-                        <div class="wrapper">
-                            <div class="card products-listcard"
-                                 style="border-radius: 10px; box-shadow: 0px 2px 0px 2px #aed4f0;">
-                                <span class="off">-25% OFF</span>
-
-                                <div class="text-center">
-                                    <img id="main-imagefour" class="prolistimagelarge"
-                                         src="~/img/productlistitem4.1.jpeg" />
-                                </div>
-                                <span class="similarpro mt-5">
-                                    <button class="similaprobutton" data-toggle="tooltip"
-                                            data-placement="top" title="Similar Products">
-                                        <img src="~/img/similarIcon.png"
-                                             width="25" height="25">
-                                    </button>
-                                </span>
-                                <span class="whislistpro mt-5">
-                                    <button class="whislistprobutton"
-                                            data-toggle="tooltip" data-placement="top" title="Move To Wishlist">
-                                        <i class="fa fa-heart"
-                                           style="width: 20px; height: 20px; color: #000000;"></i>
-                                    </button>
-                                </span>
-                                <span class="cartpro mt-5">
-                                    <button class="cartprobutton" data-toggle="tooltip"
-                                            data-placement="bottom" title="Move To Bag">
-                                        <i class="fa fa-shopping-cart"
-                                           style="width: 20px; height: 20px; color: #000000;"></i>
-                                    </button>
-                                </span>
-                                <div class="thumbnail text-center">
-                                    <img onclick="change_imagefour(this)" src="~/img/productlistitem4.2.jpeg"
-                                         width="30" height="30">
-                                    <img onclick="change_imagefour(this)" src="~/img/productlistitem4.3.jpeg"
-                                         width="30" height="30">
-                                    <img onclick="change_imagefour(this)" src="~/img/productlistitem4.4.jpeg"
-                                         width="30" height="30">
-                                    <img onclick="change_imagefour(this)" src="~/img/productlistitem4.5.jpeg"
-                                         width="30" height="30">
-                                </div>
-                                <div class="about text-center">
-                                    <h6 class="prolistcardname">Pepe Jeans</h6>
-                                    <h6 class="prolistcardname">
-                                        Pepe Jeans Green Cotton Regular Fit Colour Block
-                                        Polo T-Shirt
-                                    </h6>
-                                    <p class="font-weight-bold m-0 responsivestar" style="color: orangered;">
-                                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <span style="color: darkgrey;">19</span>
-                                    </p>
-                                    <p class="font-weight-bold m-0 responsiveprice">
-                                        ₹989 <span class="text-decoration-line-through"
-                                                   style="color: darkgrey;">₹1799</span> <span class="ml-1 text-success">(45% off)</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="col-6 col-lg-3 col-md-4">
-                        <div class="wrapper">
-                            <div class="card products-listcard"
-                                 style="border-radius: 10px; box-shadow: 0px 2px 0px 2px #aed4f0;">
-                                <span class="off">Best Deals</span>
-
-                                <div class="text-center">
-                                    <img id="main-imageone" class="prolistimagelarge"
-                                         src="~/img/productlistitem1.1.jpeg" />
-                                </div>
-                                <span class="similarpro mt-5">
-                                    <button class="similaprobutton" data-toggle="tooltip"
-                                            data-placement="top" title="Similar Products">
-                                        <img src="~/img/similarIcon.png"
-                                             width="25" height="25">
-                                    </button>
-                                </span>
-                                <span class="whislistpro mt-5">
-                                    <button class="whislistprobutton"
-                                            data-toggle="tooltip" data-placement="top" title="Move To Wishlist">
-                                        <i class="fa fa-heart"
-                                           style="width: 20px; height: 20px; color: #000000;"></i>
-                                    </button>
-                                </span>
-                                <span class="cartpro mt-5">
-                                    <button class="cartprobutton" data-toggle="tooltip"
-                                            data-placement="bottom" title="Move To Bag">
-                                        <i class="fa fa-shopping-cart"
-                                           style="width: 20px; height: 20px; color: #000000;"></i>
-                                    </button>
-                                </span>
-                                <div class="thumbnail text-center">
-                                    <img onclick="change_imageone(this)" src="~/img/productlistitem1.2.jpeg"
-                                         width="30" height="30">
-                                    <img onclick="change_imageone(this)" src="~/img/productlistitem1.3.jpeg"
-                                         width="30" height="30">
-                                    <img onclick="change_imageone(this)" src="~/img/productlistitem1.4.jpeg"
-                                         width="30" height="30">
-                                    <img onclick="change_imageone(this)" src="~/img/productlistitem1.5.jpeg"
-                                         width="30" height="30">
-                                </div>
-                                <div class="about text-center">
-                                    <h6 class="prolistcardname">U.S. Polo Assn.</h6>
-                                    <h6 class="prolistcardname">
-                                        U.S. Polo Assn. Ivory Cotton Regular Fit Polo
-                                        T-Shirt
-                                    </h6>
-                                    <p class="font-weight-bold m-0 responsivestar" style="color: orangered;">
-                                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <span style="color: darkgrey;">110</span>
-                                    </p>
-                                    <p class="font-weight-bold m-0 responsiveprice">
-                                        ₹1423 <span class="text-decoration-line-through"
-                                                    style="color: darkgrey;">₹1899</span> <span class="ml-1 text-success">(25% off)</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-lg-3 col-md-4">
-                        <div class="wrapper">
-                            <div class="card products-listcard"
-                                 style="border-radius: 10px; box-shadow: 0px 2px 0px 2px #aed4f0;">
-                                <span class="off">Top Sales</span>
-
-                                <div class="text-center">
-                                    <img id="main-imagetwo" class="prolistimagelarge"
-                                         src="~/img/productlistitem2.1.jpeg" />
-                                </div>
-                                <span class="similarpro mt-5">
-                                    <button class="similaprobutton" data-toggle="tooltip"
-                                            data-placement="top" title="Similar Products">
-                                        <img src="~/img/similarIcon.png"
-                                             width="25" height="25">
-                                    </button>
-                                </span>
-                                <span class="whislistpro mt-5">
-                                    <button class="whislistprobutton"
-                                            data-toggle="tooltip" data-placement="top" title="Move To Wishlist">
-                                        <i class="fa fa-heart"
-                                           style="width: 20px; height: 20px; color: #000000;"></i>
-                                    </button>
-                                </span>
-                                <span class="cartpro mt-5">
-                                    <button class="cartprobutton" data-toggle="tooltip"
-                                            data-placement="bottom" title="Move To Bag">
-                                        <i class="fa fa-shopping-cart"
-                                           style="width: 20px; height: 20px; color: #000000;"></i>
-                                    </button>
-                                </span>
-                                <div class="thumbnail text-center">
-                                    <img onclick="change_imagetwo(this)" src="~/img/productlistitem2.2.jpeg"
-                                         width="30" height="30">
-                                    <img onclick="change_imagetwo(this)" src="~/img/productlistitem2.3.jpeg"
-                                         width="30" height="30">
-                                    <img onclick="change_imagetwo(this)" src="~/img/productlistitem2.4.jpeg"
-                                         width="30" height="30">
-                                    <img onclick="change_imagetwo(this)" src="~/img/productlistitem2.5.jpeg"
-                                         width="30" height="30">
-                                </div>
-                                <div class="about text-center">
-                                    <h6 class="prolistcardname">Louis Philippe</h6>
-                                    <h6 class="prolistcardname">
-                                        Louis Philippe Green Cotton Slim Fit T-Shirt
-                                    </h6>
-                                    <p class="font-weight-bold m-0 responsivestar" style="color: orangered;">
-                                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <span style="color: darkgrey;">25</span>
-                                    </p>
-                                    <p class="font-weight-bold m-0 responsiveprice">
-                                        ₹618 <span class="text-decoration-line-through"
-                                                   style="color: darkgrey;">₹1049</span> <span class="ml-1 text-success">(41% off)</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                   
+                   
                     <div class="col-6 col-lg-3 col-md-4">
                         <div class="wrapper">
                             <div class="card products-listcard"

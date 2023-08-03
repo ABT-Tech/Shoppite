@@ -25,5 +25,7 @@ namespace Shoppite.Core.Repositories
         Task<List<AdsDetail>> GetLeftBanner(int orgId);
         Task<List<SP_GetSimilarProducts>> GetSimilarProducts(string CategoryId, int BrandId, int OrgId);
         Task<List<F_getproducts_By_CatId>> GetProductsByCategoryInProductList(int CategoryId,int Orgid);
+        Task<List<SP_GetCategoryWiseProductCount>> GetProductCount(int OrgId);
+
     }
 }

@@ -15,6 +15,7 @@ namespace Shoppite.Application.Models
         public string SpecificationName { get; set; }
         public string ProductName { get; set; }
         public string URLPath { get; set; }
+        public string ProductList { get; set; }
         public string ShortDescription { get; set; }
         public string Description { get; set; }
         public string Banner { get; set; }

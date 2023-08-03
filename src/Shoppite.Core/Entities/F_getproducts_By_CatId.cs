@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Shoppite.Core.Entities
@@ -32,5 +33,6 @@ namespace Shoppite.Core.Entities
         public string maincaturlpath { get; set; }
         public Nullable<int> maincatid { get; set; }
         public string CurrencyName { get; set; }
+        public string ProductList { get; set; }
     }
 }

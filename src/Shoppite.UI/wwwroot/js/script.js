@@ -361,25 +361,6 @@ function change_image(image){
 image_container.src = image.src;
 }
 
-function change_imageone(image){
-  var image_container = document.getElementById("main-imageone");
-image_container.src = image.src;
-}
-
-function change_imagetwo(image){
-  var image_container = document.getElementById("main-imagetwo");
-image_container.src = image.src;
-}
-
-function change_imagethree(image){
-  var image_container = document.getElementById("main-imagethree");
-image_container.src = image.src;
-}
-
-function change_imagefour(image){
-  var image_container = document.getElementById("main-imagefour");
-image_container.src = image.src;
-}
 // /* <!--productslistpage-end--> */
 
 function paymentwall() {

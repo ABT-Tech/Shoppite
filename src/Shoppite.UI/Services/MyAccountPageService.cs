@@ -39,5 +39,23 @@ namespace Shoppite.UI.Services
         {
             return await _myAccountService.GetProfileId(username, orgid);
         }
+        public async Task AddAddressDetails(MyAccountDetailsModel myaccount)
+        {
+            await _myAccountService.AddAddressDetails(myaccount);
+        }
+        public async Task<List<MyAccountDetailsModel>> GetAddressDetail(int orgId)
+        {
+            var myaccount = await _myAccountService.GetAddressDetail(orgId);
+            return myaccount;
+        }
+        public async Task<MyAccountDetailsModel> GetAddressdetailBYId(int orgId,int Id)
+        {
+            var addressdetail = await _myAccountService.GetAddressdetailBYId(orgId,Id);
+            return addressdetail;
+        }
+        public async Task DeleteAddressDetail(int orgId, int Id)
+        {
+            await _myAccountService.DeleteAddressDetail(orgId, Id);
+        }
     }
 }

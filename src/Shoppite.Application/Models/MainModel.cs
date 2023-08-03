@@ -10,25 +10,26 @@ namespace Shoppite.Application.Models
     {
         public int ProfileId { get; set; }
         public int UserId { get; set; }
-        [RegularExpression("^([0-9]{10})$", ErrorMessage = "Invalid Mobile Number.")]
+        /*[RegularExpression("^([0-9]{10})$", ErrorMessage = "Invalid Mobile Number.")]*/
         public string ContactNumber { get; set; }
         public string Country { get; set; }
         public string City { get; set; }
         public string Zip { get; set; }
         public string State { get; set; }
-        [Required]
+        //[Required]
         [StringLength(15, MinimumLength = 8, ErrorMessage = "Password must be between 8 and 15 char")]
         [DataType(DataType.Password)]
         [RegularExpression("^((?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])|(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^a-zA-Z0-9])|(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])|(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])).{8,}$", ErrorMessage = "Passwords must be  between 8 to 15 characters and contain One UpperCase,One LowerCase and One number")]
         public string Password { get; set; }
         [Compare("Password", ErrorMessage = "Password and Confirm Password should match")]
-        [Required]
+        //[Required]
         public string CPassword { get; set; }
         public string Address { get; set; }
         public string OrderStatus { get; set; }
         public int WishlistId { get; set; }
         public int ProductId { get; set; }
         public string ProductName { get; set; }
+        public int ProductSpecificationId { get; set; }
         public IFormFile ProfileImage { get; set; }
         public string CoverImage { get; set; }
         public string UserName { get; set; }
@@ -72,6 +73,9 @@ namespace Shoppite.Application.Models
         public List<f_getproducts_RecentlyviewedModel> f_Getproducts_RecentlyviewedModel { get; set; }
         public List<F_getproducts_By_CatIdModel> f_getproducts_By_CatIdModel { get; set; }
         public ProductBasicModel ProductBasicModel { get; set; }
+        public List<SP_GetCategoryWiseProductCount_Model> ProductCount { get; set; }
         public List<SP_GetSimilarProductsModel> SP_GetSimilarProducts { get; set; }
+        public MyAccountDetailsModel myAccountDetails { get; set; }
+        public List<MyAccountDetailsModel> addressDetail { get; set; }
     }
 }

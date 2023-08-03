@@ -33,7 +33,7 @@ namespace Shoppite.UI.Controllers
             _config = config;
         }
         [HttpGet]
-        public async Task<IActionResult> myAccount(int profileId,int CategoryId)
+        public async Task<IActionResult> myAccount(int profileId,int CategoryId,int Id)
         {
             int OrgId = _commonHelper.GetOrgID(HttpContext);
             int Profileid = await _myAccountPageService.GetProfileId(User.Identity.Name,OrgId);
@@ -42,8 +42,40 @@ namespace Shoppite.UI.Controllers
             brands.CategoryMaster = await _categoryPageService.DisplayLogo(OrgId);
             brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
             brands.Myaccount = await _myAccountPageService.GetMyAccountDetail(OrgId, Profileid);
+            brands.addressDetail = await _myAccountPageService.GetAddressDetail(OrgId);
+            brands.myAccountDetails = await _myAccountPageService.GetAddressdetailBYId(OrgId, Id);
             return View(brands);
         }
+        [HttpPost]
+        public async Task<IActionResult> myAccount(MainModel model,MyAccountDetailsModel details)
+        {
+            int OrgId = _commonHelper.GetOrgID(HttpContext);
+            if (ModelState.IsValid)
+            {
+                if (model.myAccountDetails != null)
+                {
+                    model.myAccountDetails.OrgId = OrgId;
+                    await _myAccountPageService.AddAddressDetails(model.myAccountDetails);
+                }
+                if(details!=null)
+                {
+                    await _myAccountPageService.AddAddressDetails(details);
+                }
+
+            }
+            int Profileid = await _myAccountPageService.GetProfileId(User.Identity.Name, OrgId);
+            model.Myaccount = await _myAccountPageService.GetMyAccountDetail(OrgId, Profileid);
+            model.addressDetail=  await _myAccountPageService.GetAddressDetail(OrgId);
+            return View(model);
+        }
+        [HttpGet]
+        public async Task<IActionResult> Address_delete(int Id)
+        {
+            int OrgId = _commonHelper.GetOrgID(HttpContext);
+            await _myAccountPageService.DeleteAddressDetail(OrgId,Id);
+            return RedirectToAction("myAccount");
+        }
+
         [HttpGet]
         public async Task<IActionResult> EditProfile(int CategoryId)
         {

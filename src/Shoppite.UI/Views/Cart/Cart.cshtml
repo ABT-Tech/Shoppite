@@ -109,171 +109,555 @@
             text-decoration: none;
         }
 </style>
-
-<!-- Start main area -->
-<div class="main-area">
-
-    <!-- Start cart page area -->
-    <div class="cart-page-area">
+<!--cartSection-start-->
+<div class="px-4 px-lg-0 cartmain">
+    <div class="pb-5">
         <div class="container">
-            @*<div class="breadcrumb">
-                    <a title="Return to Home" asp-action="Index" asp-controller="Home" class="home">Home</a>
-                    <span class="navigation-pipe"><i class="fa fa-angle-right"></i></span>
-                    Shopping cart
-                </div>*@
-            <div class="cart-wrap">
-                <h4 class="cart-title">Shopping cart</h4>
-            </div>
-            <div class="row" style="margin: 0px -40px 0px -35px;">
-                @if (Model.F_Getproduct_CartDetails_By_Orgids.Count != 0)
-                {
-                    <div class="col-lg-9 col-md-9 col-12 mb-4 shadow card">
-                        <div class="cart-wrap">
-                            <div class="table-responsive">
-                                <table id="myTable" class="table  carttb">
-                                    <thead>
-                                        <tr class="">
-                                            <th>Added Product</th>
-                                            <th>Product Detail</th>
-                                            <th>Qty</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                        @foreach (var cartlist in Model.F_Getproduct_CartDetails_By_Orgids)
-                                        {
-
-                                            int x = (int)cartlist.ProductId;
-
-
-                                        <tr class="">
-                                            <td class="">
-                                                <input class="HidenProId" asp-for="@cartlist.ProductId" hidden />
-                                                <a href="/ProductDetail/Details/@cartlist.ProductGuid"><img alt="" class="img-responsive" src="@cartlist.CoverImage"></a>
-                                                <input class="HidenGuid" asp-for="@cartlist.OrderGuid" hidden />
-                                            </td>
-                                            <td>
-                                                <h6><a href="/ProductDetail/Details/@cartlist.ProductGuid" class="product_name_Over">@cartlist.ProductName</a></h6>
-                                                @if (cartlist.BasicQty <= 0)
+            <div class="row">
+                <div class="col-12 text-center" style="margin: 0px 0px 25px 0px;">
+                    <h1 class="sectionmainheading">MY BAG</h1>
+                </div>
+                <div class="col-lg-12 p-5 rounded shadow-sm mb-5 cartbackgrd">
+                    <!-- productcartsection-start -->
+                    @if (Model.F_Getproduct_CartDetails_By_Orgids != null)
+                    {
+                    @foreach (var cartlist in Model.F_Getproduct_CartDetails_By_Orgids)
+                    {
+                        <div class="card cartitemmobview" style="border-radius: 10px;">
+                            <div class="card-body d-flex p-0 col-12 col-md-12 col-lg-12">
+                                <div class="col-lg-2 p-0">
+                                    <img src="@cartlist.CoverImage" alt="" width="200" height="auto"
+                                         class="img-fluid rounded shadow-sm">
+                                    <div class="col-lg-12 m-4 mobselectqunty">
+                                        <span class="font-weight-bold">Quantity:</span> <select name="subject"
+                                                                                                id="subject" class="border-0">
+                                            <option value="" selected="selected">1</option>
+                                            <option value="" selected="selected">2</option>
+                                            <option value="" selected="selected">3</option>
+                                            <option value="" selected="selected">4</option>
+                                            <option value="" selected="selected">5</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-10 mobfontlayout" style="line-height: 24px;">
+                                    <p class="card-title font-weight-bold m-0">
+                                       @cartlist.ProductName
+                                    </p>
+                                    <p class="font-weight-bold m-0">
+                                        ₹@cartlist.Price <span class="text-decoration-line-through"
+                                                               style="color: darkgrey;">₹</span> <span class="ml-1 text-success">
+                                            35%
+                                            off
+                                        </span>
+                                    </p>
+                                    <p class="m-0">@cartlist.AttributeName: <span class="font-weight-bold">@cartlist.SpecificationName</span></p>
+                                    <p class="m-0">
+                                        <i class="fa fa-repeat" aria-hidden="true"></i> <span class="font-weight-bold">14 days</span> return available
+                                    </p>
+                                    <p class="m-0">
+                                        <i class="fa fa-truck" aria-hidden="true"></i> Delivery by <span class="font-weight-bold">12th Jun</span>
+                                    </p>
+                                    <div class="row border-top border-black border-2 displayviewqunty">
+                                        <div class="col-lg-12 m-2 d-flex justify-content-between">
+                                            <div class="">
+                                                <span class="font-weight-bold">Quantity:</span> <select name="subject"
+                                                                                                        id="subject" class="m-0 border-0">
+                                                    <option value="" selected="selected">1</option>
+                                                    <option value="" selected="selected">2</option>
+                                                    <option value="" selected="selected">3</option>
+                                                    <option value="" selected="selected">4</option>
+                                                    <option value="" selected="selected">5</option>
+                                                </select>
+                                            </div>
+                                            <div class="">
+                                                @if (Model.WishlistModel != null)
                                                 {
-                                                    <div>
-                                                        <h5 class="text-danger">Out Of Stock.</h5>
-                                                             <p>Please remove this product in the cartList for the checkOut.</p>
-                                                     </div>
+                                                    @for (int i = 0; i < Model.WishlistModel.Count; i++)
+                                                    {
+                                                        if (cartlist.ProductId == Model.WishlistModel[i].ProductId)
+                                                        {
+                                                            <a href="#" class="m-2 hovertextlayout"
+                                                               style="color: #000000; font-weight: 700;">
+                                                                <i class="fa fa-heart font-weight-bold" style="color:red;" aria-hidden="true"></i>
+                                                                Move to Whishlist
+                                                            </a>
+                                                        }
+                                                    }
                                                 }
                                                 else
                                                 {
-                                                    <div class="fw-bold price amount" data-price="@cartlist.Price" id="pP_@cartlist.ProductId" style="color: #FE5B5A;"></div>
-                                                }
-                                            </td>
-
-                                            <td>
-                                                @if (cartlist.BasicQty > 0)
-                                                {
-                                                    <div class="number">
-                                                        <span class="minus">-</span>
-                                                        <input type="number" id="ProductQTY" data-id="99" data-price="@cartlist.Price" class="quant" value="@cartlist.Qty" max="@cartlist.BasicQty" />
-                                                        <span class="plus">+</span>
-                                                    </div>
-                                                }
-                                            </td>
-                                            <td>
-                                                <form method="get">
-                                                    <a class="deleteItem" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="GetDelete(@cartlist.ProductId)">
-                                                        <i class="fa fa-trash"></i>
+                                                    <a href="#" class="m-2 hovertextlayout"
+                                                       style="color: #000000; font-weight: 700;">
+                                                        <i class="fa fa-heart font-weight-bold" aria-hidden="true"></i>
+                                                        Move to Whishlist
                                                     </a>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                        }
+                                                }
 
-                                    </tbody>
-                                </table>
 
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 mb-4 col-12 mobres">
-                        <div>
-                            <div class="card shadow" style="width: 18rem;">
-                                <div class="card-body">
-                                    <h5 class="card-title">Price Details (@Model.F_Getproduct_CartDetails_By_Orgids.Count items)</h5>
-                                    <div class="cart-price">
-                                        <div class="cart-product-line fast-line">
-                                            <span>Shipping</span>
-                                            <span class="free-shiping">Free shipping!</span>
-                                        </div>
-                                        <div class="cart-product-line">
-                                            <span>Final Total</span>
-                                            <span class="total"></span>
+                                                <span class="m-2 font-weight-bold">|</span>
+                                                <a href="#" class="m-2 hovertextlayout"
+                                                   style="color: #000000; font-weight: 700;">
+                                                    <i class="fa fa-trash font-weight-bold" aria-hidden="true"></i>
+                                                    Remove
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="row border-top border-black border-2 mobselectqunty mobfontlayoutbutton">
+                                <div class="col-lg-12 d-flex justify-content-between m-2">
+                                    <a href="#" class="m-2 hovertextlayout" style="color: #000000; font-weight: 700;">
+                                        <i class="fa fa-heart font-weight-bold" aria-hidden="true"></i> Move to
+                                        Whishlist
+                                    </a>
+                                    <span class="m-2 font-weight-bold">|</span>
+                                    <a href="#" class=" m-2 mr-4 hovertextlayout"
+                                       style="color: #000000; font-weight: 700;">
+                                        <i class="fa fa-trash font-weight-bold" aria-hidden="true"></i> Remove
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    }  
+                    }
+                        <!-- productcartsection-end -->
+                        <!-- productcartsection-button-start -->
+                        <button type="button" class="buttonapplyalignment4 mt-4 d-flex"
+                                style="margin: 30px 0px 0px 0px; border-radius: 25px;">
+                            <a asp-action="Index" asp-controller="Home">Continue Shopping</a>
+                        </button>
+                        <!-- productcartsection-button-end -->
+                    </div>
+            </div>
+            <div class="row py-5 p-4 rounded shadow-sm cartbackgrd">
+                <div class="col-lg-6">
+                    <!-- couponssection-start -->
+                    <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">
+                        Checks For Coupons
+                    </div>
+                    <div class="mt-4 mb-4">
+                        <p class="instractionline font-italic mb-4" style="margin: 20px;">
+                            If you have a coupon code,
+                            please enter it in the box below
+                        </p>
+                        <div id="faq">
+                            <ul>
+                                <li class="applycouponsalignment">
+                                    <h2 class="availableofferheading applycouponsheading">
+                                        <img src="img/couponsimage.png" alt="discountimge" width="30px"
+                                             height="30px" />
+                                        Apply Coupons
+                                    </h2>
+                                    <button type="button" class="buttonapplyalignment1" data-toggle="modal"
+                                            data-target="#exampleModalCenter">
+                                        Apply
+                                    </button>
+                                </li>
+                                <li>
+                                    <h6 class="totalsave" style="margin: 20px;">You saved additional ₹500</h6>
+                                    <h6 class="totalsave" style="margin: 20px;">
+                                        The coupon has been applied
+                                        successfully.
+                                    </h6>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- model-start -->
+                        <div class="modal" id="exampleModalCenter" tabindex="-1" role="dialog"
+                             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Search Coupons</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <input type="text" placeholder="Search coupon"
+                                               aria-describedby="button-addon3" class="form-control border-0">
+                                        <button id="button-addon3" type="button"
+                                                class="btn btn-dark px-4 rounded-pill"
+                                                style="margin: 15px 0px 15px 146px;">
+                                            <i class="fa fa-gift mr-2"></i>Search coupon
+                                        </button>
+                                        <p style="border-top: 1px solid  #000000;"></p>
 
-                                    <div class="cart-checkout">
-                                        <a onclick="GetOrder()">Check out<i class="fa fa-chevron-right"></i></a>
+                                        <div id="faq">
+                                            <ul>
+                                                <li style="background-color: #E6E8FA;">
+                                                    <input type="checkbox" id="vehicle1" name="vehicle1"
+                                                           value="Bike" style="margin: 17px;">
+                                                    <label for="vehicle1" class="modelcouponsticket">
+                                                        SHOOPPY500
+                                                    </label><br>
+                                                    <p class="modelcardtotalsave">
+                                                        Save ₹500
+                                                    </p>
+                                                    <p>
+                                                        Rs.500 Off on Minimum Purchase of Rs.3500
+                                                        <br>
+                                                        Expire on:10th june 2023 | 12:00am
+                                                    </p>
+                                                </li>
+                                                <li style="background-color: #aed4f0;">
+                                                    <input type="checkbox" id="vehicle1" name="vehicle1"
+                                                           value="Bike" style="margin: 17px;">
+                                                    <label for="vehicle1" class="modelcouponsticket">
+                                                        SHOOPPY500
+                                                    </label><br>
+                                                    <p class="modelcardtotalsave">
+                                                        Save ₹500
+                                                    </p>
+                                                    <p>
+                                                        Rs.500 Off on Minimum Purchase of Rs.3500
+                                                        <br>
+                                                        Expire on:10th june 2023 | 12:00am
+                                                    </p>
+                                                </li>
+                                                <li style="background-color: #E6E8FA;">
+                                                    <input type="checkbox" id="vehicle1" name="vehicle1"
+                                                           value="Bike" style="margin: 17px;">
+                                                    <label for="vehicle1" class="modelcouponsticket">
+                                                        SHOOPPY500
+                                                    </label><br>
+                                                    <p class="modelcardtotalsave">
+                                                        Save ₹500
+                                                    </p>
+                                                    <p>
+                                                        Rs.500 Off on Minimum Purchase of Rs.3500
+                                                        <br>
+                                                        Expire on:10th june 2023 | 12:00am
+                                                    </p>
+                                                </li>
+                                                <li style="background-color: #aed4f0;">
+                                                    <input type="checkbox" id="vehicle1" name="vehicle1"
+                                                           value="Bike" style="margin: 17px;">
+                                                    <label for="vehicle1" class="modelcouponsticket">
+                                                        SHOOPPY500
+                                                    </label><br>
+                                                    <p class="modelcardtotalsave">
+                                                        Save ₹500
+                                                    </p>
+                                                    <p>
+                                                        Rs.500 Off on Minimum Purchase of Rs.3500
+                                                        <br>
+                                                        Expire on:10th june 2023 | 12:00am
+                                                    </p>
+                                                </li>
+                                                <li style="background-color: #E6E8FA;">
+                                                    <input type="checkbox" id="vehicle1" name="vehicle1"
+                                                           value="Bike" style="margin: 17px;">
+                                                    <label for="vehicle1" class="modelcouponsticket">
+                                                        SHOOPPY500
+                                                    </label><br>
+                                                    <p class="modelcardtotalsave">
+                                                        Save ₹500
+                                                    </p>
+                                                    <p>
+                                                        Rs.500 Off on Minimum Purchase of Rs.3500
+                                                        <br>
+                                                        Expire on:10th june 2023 | 12:00am
+                                                    </p>
+                                                </li>
+                                                <li style="background-color: #aed4f0;">
+                                                    <input type="checkbox" id="vehicle1" name="vehicle1"
+                                                           value="Bike" style="margin: 17px;">
+                                                    <label for="vehicle1" class="modelcouponsticket">
+                                                        SHOOPPY500
+                                                    </label><br>
+                                                    <p class="modelcardtotalsave">
+                                                        Save ₹500
+                                                    </p>
+                                                    <p>
+                                                        Rs.500 Off on Minimum Purchase of Rs.3500
+                                                        <br>
+                                                        Expire on:10th june 2023 | 12:00am
+                                                    </p>
+                                                </li>
+                                                <li style="background-color: #E6E8FA">
+                                                    <input type="checkbox" id="vehicle1" name="vehicle1"
+                                                           value="Bike" style="margin: 17px;">
+                                                    <label for="vehicle1" class="modelcouponsticket">
+                                                        SHOOPPY500
+                                                    </label><br>
+                                                    <p class="modelcardtotalsave">
+                                                        Save ₹500
+                                                    </p>
+                                                    <p>
+                                                        Rs.500 Off on Minimum Purchase of Rs.3500
+                                                        <br>
+                                                        Expire on:10th june 2023 | 12:00am
+                                                    </p>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="buttonapplyalignment">Apply</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- model-end -->
+                        <!-- <div class="input-group mb-4 border rounded-pill p-2">
+                            <input type="text" placeholder="Apply coupon" aria-describedby="button-addon3"
+                                class="form-control border-0">
+                            <div class="input-group-append border-0">
+                                <button id="button-addon3" type="button" class="btn btn-dark px-4 rounded-pill"><i
+                                        class="fa fa-gift mr-2"></i>Apply coupon</button>
+                            </div>
+                        </div> -->
+                    </div>
+                    <!-- couponssection-end -->
+                    <!-- availableoffersection-start -->
+                    <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">
+                        <img src="img/discount.png" alt="discountimge" width="20px" height="20px" /> Available
+                        Offers
+                    </div>
+                    <div class="mt-4 mb-4">
+                        <div id="faq">
+                            <ul>
+                                <li>
+                                    <h2 class="availableofferheading applycouponsheading">
+                                        <img src="img/discount.png" alt="discountimge" width="20px" height="20px" />
+                                        Available Offers
+                                    </h2>
+                                    <p class="availableofferjudtify">
+                                        <i class="fa fa-circle colorcobavailableoffer" aria-hidden="true"></i>
+                                        10% Instant Discount on ICICI Bank Credit and Debit Cards on a min spend of
+                                        Rs 3,500.TCA
+                                    </p>
+                                    <p class="availableofferjudtify">
+                                        <i class="fa fa-circle colorcobavailableoffer" aria-hidden="true"></i>
+                                        10% Instant Discount on Kotak Credit and Debit Cards on a min spend of Rs
+                                        3,500.TCA
+                                    </p>
+                                    <p class="availableofferjudtify">
+                                        <i class="fa fa-circle colorcobavailableoffer" aria-hidden="true"></i>
+                                        10% Cashback upto Rs 200 on Paytm Wallet and Postpaid transaction on a min
+                                        spend of Rs 2,000. TCA
+                                    </p>
+                                    <p class="availableofferjudtify">
+                                        <i class="fa fa-circle colorcobavailableoffer" aria-hidden="true"></i> 2x
+                                        Cashback upto Rs 500 or Flat Rs 150 Cashback
+                                        for select users on CRED Pay UPI on a min spend of Rs 1000. Available only
+                                        on Android Devices. TCA
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- availableoffersection-end -->
+                    <!-- Instructionssellersection-start -->
+                    <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">
+                        Instructions for seller
+                    </div>
+                    <div class="p-4">
+                        <p class="instractionline font-italic mb-4">
+                            If you have some information for the seller you can leave them in the box below
+                        </p>
+                        <textarea name="" cols="30" rows="2" class="form-control"></textarea>
+                    </div>
+                    <!-- Instructionssellersection-end -->
+                </div>
+                <div class="col-lg-6">
+                    <!-- pincodesection-start -->
+                    <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Check Pincode</div>
+                    <div class="p-4">
+                        <p class="instractionline font-italic mb-4">
+                            Please check your area pincode if Delivery available or not
+                        </p>
+                        <div id="faqpincode">
+                            <ul>
+                                <li class="applycouponsalignment">
+                                    <h2 class="availableofferheading applycouponsheading">
+                                        Delivery Availability
+                                    </h2>
+                                    <button type="button" class="buttonapplyalignment2" data-toggle="modal"
+                                            data-target="#exampleModal">
+                                        Check Pincode
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Modal-start -->
+                    <div class="modal" id="exampleModal" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Check Pincode</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="main-search-input-wrap">
+                                        <div class="main-search-input fl-wrap mb-4">
+                                            <div class="main-search-input-item">
+                                                <input class="pincodesearchbar" type="text" value=""
+                                                       placeholder="Search Products...">
+                                            </div>
+                                            <button class="main-search-button">Check</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                }
-                else
-                {
-                    <div class="text-center">
-                        <img class="ml-sm-0 ml-5" style="height:auto;width:auto;" src="~/img/emptycart.gif" />
-
-                        <div class="Shop_Now_Div">
-                            <a class="Shop_Now" asp-action="Index" asp-controller="Home">Shop Now<i class="fa fa-shopping-cart" style="font-size:20px;"></i></a>
-                        </div>
+                    <!-- Modal-end -->
+                    <!-- pincodesection-end -->
+                    <!-- giftwrappingsection-start -->
+                    <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">
+                        Gifting &
+                        Personalisation
                     </div>
-                }
-            </div>
+                    <div class="p-4">
+                        <p class="instractionline font-italic mb-4">
+                            If you have add gift wrapping on the items
+                        </p>
+                        <div id="faqpincode">
+                            <ul>
+                                <li class="applycouponsalignment">
+                                    <h2 class="availableofferheading applycouponsheading">
+                                        Gift Wrapping
+                                    </h2>
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="buttonapplyalignment3" data-toggle="modal"
+                                            data-target="#exampleModalLong">
+                                        Add Gift Wrap
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- Modal-start -->
+                        <div class="modal bd-example-modal-lg" id="exampleModalLong" tabindex="-1" role="dialog"
+                             aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                            <div class="modal-dialog model-lg modal-dialog-centered modal-dialog-scrollable"
+                                 role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">
+                                            Gifting & Personalisation
+                                        </h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h4 style="font-family: Times New Roman; font-weight: 800; letter-spacing: 2px;">
+                                            Gift Wrapping
+                                        </h4>
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="recipient-name" class="col-form-label tex">
+                                                    Recipient
+                                                    Name:
+                                                </label>
+                                                <input type="text" class="form-control" id="recipient-name">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="message-text" class="col-form-label">Message:</label>
+                                                <textarea class="form-control" id="message-text"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="recipient-name" class="col-form-label">
+                                                    Sender
+                                                    Name:
+                                                </label>
+                                                <input type="text" class="form-control" id="recipient-name">
+                                            </div>
+                                            <p class="totalsave">
+                                                <b>Please Note:</b> Gift wrap and personalised
+                                                message, Only for ₹60
+                                            </p>
+                                            <div class="form-group" style="display: flex; justify-content: center;">
+                                                <button type="button" class="buttonapplyalignment">
+                                                    Apply Gift
+                                                    Wrap
+                                                </button>
+                                            </div>
+                                            <h5 style="border-bottom: 1px solid  #000000; line-height: 45px;">
+                                                HOW
+                                                DOES IT WORK?
+                                            </h5>
 
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <p style="margin: 25px 0px 0px 0px; ">
+                                                <b>Personalised card</b>
+                                            </p>
+                                            <p>
+                                                Your message will be printed on a letter.
+                                            </p>
+                                            <p style="margin: 25px 0px 0px 0px; ">
+                                                <b>Invoice will be included</b>
+                                            </p>
+                                            <p>
+                                                The receiver will get an invoice showing the amount you pay or the
+                                                discount applied.
+                                            </p>
+                                            <p style="margin: 25px 0px 0px 0px; ">
+                                                <b>Original product tags will be retained</b>
+                                            </p>
+                                            <p>
+                                                Original product tags with MRP will be left intact in-case you’d
+                                                like to exchange for a different size.
+                                            </p>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="modal-body fw-bold">
-                            Are you sure you want to remove this item ?
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <a id="btnContinueDelete" href="" class="btn btn-outline-danger">Delete</a>
-                        </div>
+                        <!-- Modal-end -->
                     </div>
+                    <!-- giftwrappingsection-end -->
+                    <!-- ordersummarysection-start -->
+                    <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">
+                        Order summary
+                    </div>
+                    <div class="p-4">
+                        <p class="instractionline font-italic mb-4">
+                            Shipping and additional costs are calculated based on values you have entered.
+                        </p>
+                        <ul class="list-unstyled mb-4">
+                            <li class="d-flex justify-content-between py-3 border-bottom">
+                                <strong class="text-muted">Bag Total</strong><strong>₹390.00</strong>
+                            </li>
+                            <li class="d-flex justify-content-between py-3 border-bottom">
+                                <strong class="text-muted">
+                                    Shipping Charge and
+                                    handling
+                                </strong><strong>₹10.00</strong>
+                            </li>
+                            <li class="d-flex justify-content-between py-3 border-bottom">
+                                <strong class="text-muted">Bag Subtotal </strong><strong>₹390.00</strong>
+                            </li>
+                            <li class="d-flex justify-content-between py-3 border-bottom">
+                                <strong class="text-muted">Discount on Bag</strong><strong>₹0.00</strong>
+                            </li>
+                            <li class="d-flex justify-content-between py-3 border-bottom">
+                                <strong class="text-muted">Coupon Discount</strong><strong>
+                                    <p class="mobviewcoupons" data-toggle="modal" data-target="#exampleModalCenter">
+                                        Apply Coupons?
+                                    </p>
+                                </strong>
+                            </li>
+                            <li class="d-flex justify-content-between py-3 border-bottom">
+                                <strong class="text-muted">Total Amount</strong>
+                                <h5 class="font-weight-bold">₹400.00</h5>
+                            </li>
+                            <p class="totalsave">You will save ₹6987.8 on this order</p>
+                        </ul><a href="checkoutselectaddresspage.html" class="btn btn-dark rounded-pill py-2 btn-block">Procceed to checkout</a>
+                    </div>
+                    <!-- ordersummarysection-end -->
                 </div>
             </div>
-            @*<div class="actions">
-                    <div class="cartpage-btn">
-                        <ul> /Cart/DeleteProduct/@cartlist.ProductId
-                            <li><a asp-action="index" asp-controller="home" class="cbtn">continue shopping</a></li>
-                            <li><a href="#" class="cbtn">update shopping cart</a></li>
-                            <li><a href="#" class="cbtn">clear shopping cart</a></li>
-                        </ul>
-                    </div>
-                </div>*@
-            <!-- start cart discount code area -->
-            @*<div class="cart-discount-code-area">
-                    <h2>Discount codes</h2>
-                    <p>Enter your coupon code if you have one.</p>
-                    <input type="text">
-                    <a href="#">Apply coupon</a>
-                </div>*@
-            <!-- End cart discount code area -->
-            <!-- Start Stmate shoping and cart -->
-            <!-- End Stmate shoping and cart -->
         </div>
     </div>
-    <!-- End cart page area -->
-    <!-- Start brand logo area -->
-    <!-- End brand logo area -->
 </div>
+<!--cartSection-end-->
 <!-- End main area -->
 <!-- JS -->
 <!-- jquery -->

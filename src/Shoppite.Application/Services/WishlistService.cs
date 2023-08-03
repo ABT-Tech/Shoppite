@@ -30,10 +30,10 @@ namespace Shoppite.Application.Services
             var mapped = ObjectMapper.Mapper.Map<List<Customer_WishlistModel>>(wishlist);
             return mapped;
         }
-        public async Task AddWishList(MainModel wishlist, int ProductId)
+        public async Task AddWishList(MainModel wishlist, int ProductId, int? SpecificationId)
         {
             var mapped = ObjectMapper.Mapper.Map<CustomerWishlist>(wishlist);
-            await _wishlistRepository.AddWishList(mapped, ProductId);
+            await _wishlistRepository.AddWishList(mapped, ProductId,SpecificationId);
 
         }
         public async Task<List<f_order_masterDetailsModel>> GetMyOrders(string UserName,int Orgid)
@@ -65,8 +65,7 @@ namespace Shoppite.Application.Services
         {
             CustomerWishlist wishlist = new CustomerWishlist();
             wishlist.ProductId = mainModel.ProductId;
-            wishlist.UserName = "amithakkar991@gmail.com";
-            //wishlist.UserName = _accessor.HttpContext.User.Identity.Name;
+            wishlist.UserName = _accessor.HttpContext.User.Identity.Name;
             wishlist.InsertDate = DateTime.Now;
             wishlist.Ip = _accessor.HttpContext.Connection.RemoteIpAddress.ToString();
             wishlist.OrgId = mainModel.OrgId;

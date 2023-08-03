@@ -102,12 +102,12 @@
                             </button>
                             <div id="myDropdown" class="dropdown-content">
                                 <a asp-action="Register" asp-controller="Authentications">Login</a>
-                                <a href="Myprofilepage.html" class="droptext">My Profile</a>
+                                <a asp-controller="myAccount" asp-action="MyAccount" class="droptext">My Profile</a>
                                 <a asp-action="Register" asp-controller="Authentications">Sign Up</a>
                             </div>
                         </div>
                         <button data-toggle="tooltip" data-placement="top" title="My Bag" class="round-3">
-                            <a href="cartpage.html">
+                            <a asp-action="Cart" asp-controller="Cart">
                                 <img src="~/img/cart (1).png" alt="cartimge" />
                             </a>
                         </button>
@@ -133,7 +133,7 @@
                             </button>
                             <div id="myDropdown" class="dropdown-content">
                                 <a asp-action="Register" asp-controller="Authentications" class="droptext">Login</a>
-                                <a asp-action="Register" asp-controller="Authentications" class="droptext">My Profile</a>
+                                <a asp-action="myAccount" asp-controller="MyAccount" class="droptext">My Profile</a>
                                 <a href="#" class="droptext">Sign Up</a>
                             </div>
                         </div>

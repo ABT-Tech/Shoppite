@@ -29,7 +29,7 @@ namespace Shoppite.Infrastructure.Repository
             };
             return await _dbContext.Set<SP_UserWishList>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
         }
-        public async Task AddWishList(CustomerWishlist wishlist, int ProductId)
+        public async Task AddWishList(CustomerWishlist wishlist, int ProductId, int? SpecificationId)
         {
             CustomerWishlist cuswishlist = _dbContext.CustomerWishlist.FirstOrDefault(u => u.ProductId == ProductId && u.UserName == wishlist.UserName);
 

@@ -1,4 +1,4 @@
-﻿
+﻿using PagedList;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Shoppite.Application.Models;
@@ -68,10 +68,13 @@ namespace Shoppite.Infrastructure.Repository
         public async Task<List<F_getproducts_By_CatId>> GetAllProductByCategory(string CategoryId,int Orgid)
         {
      
-            string sql = "select * from f_getproducts_By_CatID_ProductList(@ID)";
+            string sql = "select * from f_getproducts_By_CatID_ProductList(@ID,@OrgId)";
             List<SqlParameter> parms = new List<SqlParameter>
             {
-                new SqlParameter { ParameterName = "@ID", Value = CategoryId }
+                new SqlParameter { ParameterName = "@ID", Value = CategoryId },
+                new SqlParameter { ParameterName = "@OrgId", Value = Orgid }
+
+
             };
             return await _dbContext.Set<F_getproducts_By_CatId>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
         }
@@ -164,6 +167,16 @@ namespace Shoppite.Infrastructure.Repository
                 new SqlParameter { ParameterName = "@ID", Value = CategoryId }
             };
             return await _dbContext.Set<F_getproducts_By_CatId>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
+        }
+        public async Task<List<SP_GetCategoryWiseProductCount>> GetProductCount(int Orgid)
+        {
+            string sql = "exec SP_GetCategoryWiseProductCount @OrgId";
+            List<SqlParameter> parms = new List<SqlParameter>
+            { 
+                // Create parameters    
+                new SqlParameter { ParameterName = "@orgid", Value = Orgid },
+            };
+            return await _dbContext.Set<SP_GetCategoryWiseProductCount>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
         }
     }   
 }

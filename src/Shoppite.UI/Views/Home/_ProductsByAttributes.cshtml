@@ -1,6 +1,6 @@
 ﻿@model Shoppite.Application.Models.MainModel
                     <!--productslist-single-products-Section-start-->
-@foreach (var product in Model.Product_specification.Take(8))
+@foreach (var product in Model.Product_specification.Skip(8))
 {
     <div class="col-6 col-lg-3 col-md-4 ">
         <div class="wrapper">
@@ -21,35 +21,26 @@
                 </span>
                 @if (User.Identity.IsAuthenticated)
                 {
-                    @if (Model.Wishlists!=null)
+                    for (int i = 0; i < Model.Wishlists.Count; i++)
                     {
-                        for (int i = 0; i < Model.Wishlists.Count; i++)
+                        @if (product.ProductId == Model.Wishlists[i].ProductId)
                         {
-                            @if (product.ProductId == Model.Wishlists[i].ProductId)
-                            {
-                                <span class="whislistpro mt-5">
-                                    <a class="whislistprobutton" href="/Home/AddToWhishList?ProductId=@product.ProductId&id=@product.ProductGUID&CategoryId=@product.Category_Id"
-                                       data-toggle="tooltip" data-placement="top" title="Move To Wishlist">
-                                        <i class="fa fa-heart"
-                                           style="width: 20px; height: 20px; color: red;"></i>
-                                    </a>
-                                </span>
-                            }
-                            else
-                            {
-                                <span class="whislistpro mt-5">
-                                    <a class="whislistprobutton" href="/Home/AddToWhishList?ProductId=@product.ProductId&id=@product.ProductGUID&CategoryId=@product.Category_Id"
-                                       data-toggle="tooltip" data-placement="top" title="Move To Wishlist">
-                                        <i class="fa fa-heart"
-                                           style="width: 20px; height: 20px; color: #000000;"></i>
-                                    </a>
-                                </span>
-
-                            }
+                            <span class="whislistpro mt-5">
+                                <a class="whislistprobutton" href="/Home/AddToWhishList?ProductId=@product.ProductId&id=@product.ProductGUID&CategoryId=@product.Category_Id"
+                                   data-toggle="tooltip" data-placement="top" title="Move To Wishlist">
+                                    <i class="fa fa-heart"
+                                       style="width: 20px; height: 20px; color: red;"></i>
+                                </a>
+                            </span>
                         }
-
                     }
-
+                    <span class="whislistpro mt-5">
+                        <a class="whislistprobutton" href="/Home/AddToWhishList?ProductId=@product.ProductId&id=@product.ProductGUID&CategoryId=@product.Category_Id"
+                           data-toggle="tooltip" data-placement="top" title="Move To Wishlist">
+                            <i class="fa fa-heart"
+                               style="width: 20px; height: 20px; color: #000000;"></i>
+                        </a>
+                    </span>
                     <span class="cartpro mt-5">
                         <a asp-action="AddProductToCart" asp-controller="ProductDetail" type="submit" class="cartprobutton" data-toggle="tooltip"
                            data-placement="bottom" title="Move To Bag">
@@ -117,7 +108,7 @@
             </div>
             <div class="modal-body">
                 <div class="prolistsimilarlayout mb-3">
-                    <!--productslist-single-products-list-similer products model-Section-start-->                    
+                    <!--productslist-single-products-list-similer products model-Section-start-->
                     <!--productslist-single-products-list-similer products model-Section-end-->
                 </div>
             </div>

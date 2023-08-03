@@ -13,5 +13,9 @@ namespace Shoppite.Application.Interfaces
         Task<MainModel> GetProfileByProfileId(int profileid);
         Task ChangePassword(MainModel model);
         Task<int> GetProfileId(string username,int orgid);
+        Task AddAddressDetails(MyAccountDetailsModel myaccount);
+        Task<List<MyAccountDetailsModel>> GetAddressDetail(int orgId);
+        Task<MyAccountDetailsModel> GetAddressdetailBYId(int orgId ,int Id);
+        Task DeleteAddressDetail(int orgId, int Id);
     }
 }

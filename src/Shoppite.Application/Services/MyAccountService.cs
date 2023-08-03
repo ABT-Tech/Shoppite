@@ -54,5 +54,26 @@ namespace Shoppite.Application.Services
         {
             return await _myAccountRepository.GetProfileId(username,orgid);
         }
+        public async Task AddAddressDetails(MyAccountDetailsModel myaccount)
+        {
+            var mapped = ObjectMapper.Mapper.Map<MyAccountDetails>(myaccount);
+            await _myAccountRepository.AddAddressDetails(mapped);
+        }
+        public async Task<List<MyAccountDetailsModel>> GetAddressDetail(int orgId)
+        {
+            var myAccount_Data = await _myAccountRepository.GetAddressDetail(orgId);
+            var mapped = ObjectMapper.Mapper.Map<List<MyAccountDetailsModel>>(myAccount_Data);
+            return mapped;
+        }
+        public async Task<MyAccountDetailsModel> GetAddressdetailBYId(int orgId, int Id)
+        {
+            var myAccount_Data = await _myAccountRepository.GetAddressdetailBYId(orgId,Id);
+            var mapped = ObjectMapper.Mapper.Map<MyAccountDetailsModel>(myAccount_Data);
+            return mapped;
+        }
+        public async Task DeleteAddressDetail(int orgId, int Id)
+        {
+            await _myAccountRepository.DeleteAddressDetail(orgId, Id);
+        }
     }
 }

@@ -105,6 +105,7 @@ namespace Shoppite.Infrastructure.Data
         public virtual DbSet<f_order_master> F_Order_Master { get; set; }
         public virtual DbSet<f_order_masterDetails> f_order_masterDetails { get; set; }
         public virtual DbSet<SP_GetSimilarProducts> SP_GetSimilarProducts { get; set; }
+        public virtual DbSet<MyAccountDetails> MyAccountDetails { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -569,6 +570,51 @@ namespace Shoppite.Infrastructure.Data
                 entity.Property(e => e.Status)
                     .HasColumnName("status")
                     .HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<MyAccountDetails>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.FirstName).HasMaxLength(50);
+
+                entity.Property(e => e.LastName)
+                    .HasColumnName("LastName");
+
+                entity.Property(e => e.Address).HasMaxLength(100);
+
+                entity.Property(e => e.Address1)
+                    .HasColumnName("Address1");
+
+                entity.Property(e => e.State)
+                    .HasColumnName("State")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.City)
+                    .HasColumnName("City");
+
+                entity.Property(e => e.Landmark)
+                    .HasColumnName("Landmark")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.Email)
+                    .HasColumnName("Email")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.Mobile)
+                    .HasColumnName("Mobile")
+                    .HasMaxLength(15);
+
+                entity.Property(e => e.AltMobile)
+                    .HasColumnName("AltMobile")
+                    .HasMaxLength(15);
+
+                entity.Property(e => e.AddressType)
+                    .HasColumnName("AddressType")
+                    .HasMaxLength(10);
+
+                entity.Property(e => e.IsDefault)
+                    .HasColumnType("bool");
             });
 
             modelBuilder.Entity<MigrationHistory>(entity =>
@@ -1378,6 +1424,10 @@ namespace Shoppite.Infrastructure.Data
                 entity.HasNoKey();
             });
             modelBuilder.Entity<SP_GetSimilarProducts>(entity =>
+            {
+                entity.HasNoKey();
+            });
+            modelBuilder.Entity<SP_GetCategoryWiseProductCount>(entity =>
             {
                 entity.HasNoKey();
             });

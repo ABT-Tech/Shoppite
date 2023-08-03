@@ -16,5 +16,8 @@ namespace Shoppite.Core.Entities
         public decimal? Price { get; set; }
         public int? Qty { get; set; }
         public int? BasicQty { get; set; }
+        public int SpecificationId { get; set; }
+        public String SpecificationName { get; set; }
+        public String AttributeName { get; set; }
     }
 }
