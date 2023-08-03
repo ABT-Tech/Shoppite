@@ -403,7 +403,7 @@ body {
     .service-text-icon-active .service-text h3:hover{
         font-size: 16px;
         font-weight: 800;
-        text-decoration: underline;
+        text-decoration: none;
     }
 
     .service-text-icon-active .service-text p {
@@ -649,6 +649,7 @@ body {
         font-size: 12px;
         font-weight: 600;
         line-height: 61px;
+        text-decoration:none;
         text-transform: uppercase;
         white-space: normal !important;
         word-wrap: break-word !important;
@@ -686,12 +687,13 @@ body {
 
             .megamenu ul li a.home:hover {
                 color: #fff;
+                text-decoration:none;
             }
 
     .megamenu ul li:hover a {
        /* color: #fe5b5a;*/
        color: white;
-        text-decoration: underline;
+        text-decoration: none;
         font-size:13px;
     }
 
@@ -856,7 +858,7 @@ body {
             .mega-item-menu a span:hover {
                 color: #F15B5A;
                 font-size: 14px;
-                text-decoration: underline;
+                text-decoration: none;
             }
 
 .mega-bottom {
@@ -1101,7 +1103,7 @@ body {
 .tab-menu-area .tab_cates li a .name {
     color: #363636;
     font-family: "Raleway",sans-serif;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
     line-height: 50px;
     text-transform: uppercase;
@@ -1111,7 +1113,7 @@ body {
 .tab-menu-area .tab_cates li a .name:hover {
     color: #363636;
     font-family: "Raleway",sans-serif;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 700;
     line-height: 50px;
     text-transform: uppercase;
@@ -1319,6 +1321,7 @@ body {
         .product-info h5 a:hover {
             color: #FE5B5A;
             font-size: 16px;
+            text-decoration:none;
         }
 
 .product-info span {
@@ -1329,7 +1332,27 @@ body {
     font-weight: 700;
     margin-bottom: -20px;
 }
+@media screen and (max-width: 390px) {
+    .product-info span {
+        color: #fe5b5a;
+        display: block;
+        font-family: "Montserrat",sans-serif;
+        font-size: 12px;
+        font-weight: 700;
+        margin-bottom: -20px;
+    }
+}
 
+@media screen and (min-width: 390px) and (max-width: 500px) {
+    .product-info span {
+        color: #fe5b5a;
+        display: block;
+        font-family: "Montserrat",sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        margin-bottom: -20px;
+    }
+}
     .product-info span del {
         color: #6f6f6f;
         font-family: "Montserrat",sans-serif;

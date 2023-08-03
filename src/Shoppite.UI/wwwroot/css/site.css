@@ -71,12 +71,33 @@ body {
 }
 .product_name_Over {
     display: inline-block;
-    width:170px;
+    width:210px;
     white-space: nowrap;
     overflow: hidden !important;
     text-overflow: ellipsis;
     overflow: hidden;
 }
+@media screen and (max-width: 390px) {
+    .product_name_Over {
+        display: inline-block;
+        width: 150px;
+        white-space: nowrap;
+        overflow: hidden !important;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+}
+@media screen and (min-width: 390px) and (max-width: 500px) {
+    .product_name_Over {
+        display: inline-block;
+        width: 165px;
+        white-space: nowrap;
+        overflow: hidden !important;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+}
+
 .resswiper {
     display: none;
 }
