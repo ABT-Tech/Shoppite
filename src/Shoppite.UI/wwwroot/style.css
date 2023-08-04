@@ -5616,7 +5616,6 @@ body.cart .cart-subtotal {
 
 body.cart .carousel-inner > .item > a > img, .carousel-inner > .item > img, .img-responsive, .thumbnail a > img, .thumbnail > img {
     display: block;
-    height: 127px;
     max-width: 100%;
 }
 
@@ -7615,7 +7614,9 @@ textarea:focus-visible {
     align-self: center;
     border-top: 0.1px solid black;
 }
-
+.cartimghe{
+    height:127px;
+}
 @media screen and (max-width: 390px) {
     .whishlisthorizontalline {
         margin: 0px;
@@ -7625,6 +7626,9 @@ textarea:focus-visible {
     }
     .whishlisttrasebtn {
         font-size: 11px;
+    }
+    .cartimghe {
+        height: 80px;
     }
 }
 
@@ -7637,5 +7641,8 @@ textarea:focus-visible {
     }
     .whishlisttrasebtn {
         font-size: 12px;
+    }
+    .cartimghe {
+        height: 80px;
     }
 }
