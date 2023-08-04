@@ -153,11 +153,11 @@
                                                     <a href="/ProductDetail/Details/@cartlist.ProductGuid">
                                                        @if (cartlist.Image != null)
                                                         {
-                                                            <img alt="" class="img-responsive" src="@cartlist.Image">
+                                                            <img alt="" class="img-responsive cartimghe" src="@cartlist.Image">
                                                         }
                                                         else
                                                         {
-                                                            <img alt="" class="img-responsive" src="@cartlist.CoverImage">
+                                                            <img alt="" class="img-responsive cartimghe" src="@cartlist.CoverImage">
                                                         }
                                                     </a>
                                                     <input class="HidenGuid" asp-for="@cartlist.OrderGuid" hidden />

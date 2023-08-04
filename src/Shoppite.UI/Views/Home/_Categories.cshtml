@@ -16,10 +16,10 @@
                     @foreach (var subcat in item.SubcategoryDetails.Where(x=>x.IsPublished == true && x.IsIncludeMenu == true).Take(3)) 
                     {
                         <section class="mega-item-menu w-auto border-1">
-                            <a class="title" asp-controller="Home" asp-route-CategoryId="@subcat.CategoryId" asp-action="AllProducts"><span>@subcat.CategoryName</span></a>
+                            <a class="title" asp-controller="Home" asp-route-CategoryId="@subcat.CategoryId" asp-action="AllProducts" title="@subcat.CategoryName"><span>@subcat.CategoryName</span></a>
                             @foreach (var categories in subcat.ProductsDetails.Take(5))
                             {
-                                <a href="/ProductDetail/Details/@categories.ProductGuid" class="product_name_Over"><span>@categories.ProductName</span></a>
+                                <a href="/ProductDetail/Details/@categories.ProductGuid" class="product_name_Over" title="@categories.ProductName"><span>@categories.ProductName</span></a>
                             }
                         </section>
                     } 
