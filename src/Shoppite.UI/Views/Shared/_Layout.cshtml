@@ -331,10 +331,8 @@
                                 </div>
                             </div>
                             <div class="col-lg-8 col-md-8">
-                                <div class="footer-top-about-us">
-                                    <h4><span>ABOUT US</span></h4>
-                                    <p>shooppy is a provide of highly features android and ios app and also provide web. This platform through increase your business. </p>
-                                </div>
+                                @await Component.InvokeAsync("AboutUs")
+
                             </div>
                         </div>
                     </div>
@@ -353,7 +351,7 @@
                                     <h4><span>Newsletter</span></h4>
                                 </div>
                                 <div class="newslettei-from">
-                                    <p>Subscribe to the Shooppy mail list to receive updates on new arrivals, special offers and other discount information.</p>
+                                    <p>Subscribe to the mail list to receive updates on new arrivals, special offers and other discount information.</p>
                                     <form method="get" enctype="multipart/form-data">
                                         <div class="form-group">
                                             <input type="email" placeholder="Enter your e-mail" size="18" name="email" id="newsletter-input" class="inputNew form-control grey newsletter-input">
@@ -384,8 +382,9 @@
                                 <div class="footer-menu">
                                     <nav>
                                         <ul>
-                                            <li><a asp-controller="Home" asp-action="TermsAndCondition">Terms & Conditions</a></li>
-                                            <li><a asp-controller="Home" asp-action="PrivacyPolicy">Privacy Policy</a></li>
+                                            <li><a asp-controller="Home" asp-action="MerchantTermsAndCondition">Terms & Conditions</a></li>
+                                            <li><a asp-controller="Home" asp-action="MerchantPrivacyPolicy">Privacy Policy</a></li>
+                                            <li><a asp-controller="Home" asp-action="MerchantRefundPolicy">Return & Refund Policy</a></li>
                                         </ul>
                                     </nav>
                                 </div>

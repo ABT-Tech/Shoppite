@@ -59,7 +59,7 @@ namespace Shoppite.UI.Helpers
             int orgid = 1;
             var subdomain = GetSubDomain(httpContext);
             if (subdomain.Contains("localhost"))
-                orgid = 13;
+                orgid = 55;
             else
             {
                 LogError(subdomain);
@@ -214,6 +214,12 @@ namespace Shoppite.UI.Helpers
             var orgname = string.Empty;
             var orgObject = _dbContext.Organization.Where(x => x.Id == orgID).FirstOrDefault();
             return orgObject.OrgDescription;
+        }
+
+        public Core.Entities.Organization OrganizationDetails(int orgID)
+        {
+            var orgObject = _dbContext.Organization.Where(x => x.Id == orgID).FirstOrDefault();
+            return orgObject;
         }
 
     }
