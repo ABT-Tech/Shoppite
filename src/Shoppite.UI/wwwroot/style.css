@@ -812,7 +812,7 @@ body {
 .mega-item-menu {
     float: left;
     margin-right: -13px;
-    width: 160px;
+    width: 200px !important;
 }
 
     .mega-item-menu a.title span {

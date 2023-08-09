@@ -11,7 +11,7 @@
     {
         <li>
            <a href="">@item.maincaturlpath</a>
-           <div class="megamenudown" style="">
+           <div class="megamenudown" style="max-width: 730px !important;">
                <div class="mega-top d-flex">
                     @foreach (var subcat in item.SubcategoryDetails.Where(x=>x.IsPublished == true && x.IsIncludeMenu == true).Take(3)) 
                     {
