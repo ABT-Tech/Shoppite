@@ -241,27 +241,34 @@
                                 }
 
                             <div id="SpecBtn">
-                               @foreach (var pro in Model.Sp_GetProductSpecificationsModels)
-                                {
+                              
                                     <div class="hungry d-inline-flex">
                                         <div class="selection m-1">
-                                           @if (pro.IsSpecificationExist == 1)
+                                            @foreach (var pro in Model.Sp_GetProductSpecificationsModels)
                                             {
-                                                @*<input id="@pro.SpecificationNames" class="" onclick="Match('@pro.SpecificationIds')"  type="radio">*@
-                                                <button id="@pro.SpecificationNames" type="button" class="btn mr-md-2 mb-md-0 mb-2 btn-outline-primary @pro.SpecificationNames" name="dropspec" data-name="Specification" data-id="@pro.SpecificationIds">@pro.SpecificationNames</button>
+                                                @if (pro.IsSpecificationExist == 1 && pro.IsDefault == true)
+                                                {
+                                                    @*<input id="@pro.SpecificationNames" class="" onclick="Match('@pro.SpecificationIds')"  type="radio">*@
+                                                    <button id="@pro.ProductSpecificationId" type="button" class="btn mr-md-2 mb-md-0 mb-2  btn-primary @pro.SpecificationNames" name="dropspec" data-name="Specification" data-id="@pro.SpecificationIds">@pro.SpecificationNames</button>
 
-                                                @*<label for="@pro.SpecificationNames" class="InStock">@pro.SpecificationNames</label>*@
-                                            }
-                                            else
-                                            {
-                                                <button id="@pro.SpecificationNames" type="button" class="btn mr-md-2 mb-md-0 mb-2 btn-outline-dark @pro.SpecificationNames" name="dropspec" disabled>@pro.SpecificationNames</button>
+                                                    @*<label for="@pro.SpecificationNames" class="InStock">@pro.SpecificationNames</label>*@
+                                                }
+                                                else if (pro.IsSpecificationExist == 1)
+                                                {
+                                                    <button id="@pro.ProductSpecificationId" type="button" class="btn mr-md-2 mb-md-0 mb-2 btn-outline-primary  @pro.SpecificationNames" name="dropspec" data-name="Specification" data-id="@pro.SpecificationIds">@pro.SpecificationNames</button>
 
-                                                @*<input id="@pro.SpecificationNames" class="@pro.SpecificationNames" name="dropspec" type="radio" disabled>
-                                                  <label for="@pro.SpecificationNames" class="OutStock">@pro.SpecificationNames</label>*@
+                                                }
+                                                else
+                                                {
+                                                    <button id="@pro.ProductSpecificationId" type="button" class="btn mr-md-2 mb-md-0 mb-2 btn-outline-dark @pro.SpecificationNames" name="dropspec" disabled>@pro.SpecificationNames</button>
+
+                                                    @*<input id="@pro.SpecificationNames" class="@pro.SpecificationNames" name="dropspec" type="radio" disabled>
+                <label for="@pro.SpecificationNames" class="OutStock">@pro.SpecificationNames</label>*@
+                                                }
                                             }
-                                        </div>
+                                            </div>
                                     </div>
-                                }
+                               
                             </div>
 
                                 @*</form>*@
@@ -547,19 +554,22 @@
     });
 
 
-    window.onload = function () {
-        var SpecBtn = $('#SpecBtn');
+    //window.onload = function () {
+    //    var SpecBtn = $('#SpecBtn');
 
-        for (var i = 0; SpecBtn[0].children.length > i; i++){
-            if (SpecBtn[0].children[i].firstElementChild.firstElementChild.disabled == false) {
-                SpecBtn[0].children[i].firstElementChild.firstElementChild.click();
-                break;
-            }
-        }
-    };
+    //    for (var i = 0; SpecBtn[0].children.length > i; i++){
+    //        if (SpecBtn[0].children[i].firstElementChild.firstElementChild.disabled == false) {
+    //            SpecBtn[0].children[i].firstElementChild.firstElementChild.click();
+    //            break;
+    //        }
+    //    }
+    //};
 
     $('button[data-name="Specification"]').click(function () {
+      //  var id = $(this).attr('id');
+       // id.removeClass("btn-outline-primary").addClass("btn-primary");
         var specId = $(this).attr("data-id");
+        $(this).addClass("btn-primary").siblings().removeClass("btn-primary").addClass("btn-outline-primary");
         Match(specId);
     });
 

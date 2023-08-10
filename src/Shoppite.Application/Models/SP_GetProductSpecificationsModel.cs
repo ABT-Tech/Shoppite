@@ -9,5 +9,7 @@ namespace Shoppite.Application.Models
         public string SpecificationNames { get; set; }
         public int SpecificationIds { get; set; }
         public int IsSpecificationExist { get; set; }
+        public bool IsDefault { get; set; }
+        public int ProductSpecificationId { get; set; }
     }
 }
