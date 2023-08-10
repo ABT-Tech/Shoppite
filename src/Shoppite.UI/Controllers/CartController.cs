@@ -207,7 +207,7 @@
             }
         }
 
-        [HttpGet]
+        [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> PaymentResponse(IFormCollection data)
         {
