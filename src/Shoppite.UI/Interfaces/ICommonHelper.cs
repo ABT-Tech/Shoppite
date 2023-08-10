@@ -16,5 +16,6 @@ namespace Shoppite.UI.Interfaces
         string EncryptAES256_V3(string plainText, string _key, string _iv);
         string OrganizationName(HttpContext httpContext);
         Core.Entities.Organization OrganizationDetails(int orgID);
+        void LogError(string msg);
     }
 }

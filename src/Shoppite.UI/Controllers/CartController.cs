@@ -1,5 +1,7 @@
 ﻿namespace Shoppite.UI.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
     using Newtonsoft.Json;
@@ -15,10 +17,7 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    /// <summary>
-    /// Defines the <see cref="CartController" />.
-    /// </summary>
-    [Authorize]
+    
     public class CartController : Controller
     {
         /// <summary>
@@ -52,6 +51,7 @@
         /// The Cart.
         /// </summary>
         /// <returns>The <see cref="Task{IActionResult}"/>.</returns>
+        [Shoppite.UI.Extensions.Authorize]
         public async Task<IActionResult> Cart()
         {
             int orgid = _commonHelper.GetOrgID(HttpContext);
@@ -72,6 +72,7 @@
         /// </summary>
         /// <param name="id">The id<see cref="int"/>.</param>
         /// <returns>The <see cref="ActionResult"/>.</returns>
+        [Shoppite.UI.Extensions.Authorize]
         [HttpGet]
         public ActionResult DeleteProduct(int id)
         {
@@ -84,6 +85,7 @@
         /// </summary>
         /// <param name="checkOut">The checkOut<see cref="CheckOutModel"/>.</param>
         /// <returns>The <see cref="Task{ActionResult}"/>.</returns>
+        [Shoppite.UI.Extensions.Authorize]
         [HttpPost]
         public async Task<ActionResult> AddToCheck([FromBody] CheckOutModel checkOut)
         {
@@ -97,6 +99,7 @@
         /// </summary>
         /// <param name="orderid">The orderid<see cref="Guid"/>.</param>
         /// <returns>The <see cref="Task{ActionResult}"/>.</returns>
+        [Shoppite.UI.Extensions.Authorize]
         public async Task<ActionResult> CheckOut(Guid orderid)
         {
             var order = await _cartPageService.CheckOrder(orderid);
@@ -113,9 +116,19 @@
         /// The OrderSuccess.
         /// </summary>
         /// <returns>The <see cref="Task{IActionResult}"/>.</returns>
+        [HttpGet]
         public async Task<IActionResult> OrderSuccess()
         {
-            // await _cartPageService.UpdateOrder(orderid);Guid orderid
+            return View();
+        }
+
+        /// <summary>
+        /// The OrderSuccess.
+        /// </summary>
+        /// <returns>The <see cref="Task{IActionResult}"/>.</returns>
+        [HttpGet]
+        public async Task<IActionResult> OrderPaymentFail()
+        {
             return View();
         }
 
@@ -125,6 +138,7 @@
         /// <param name="Model">The Model<see cref="CartModel"/>.</param>
         /// <returns>The <see cref="Task{IActionResult}"/>.</returns>
         [HttpPost]
+        [Shoppite.UI.Extensions.Authorize]
         public async Task<IActionResult> SaveAddress(CartModel Model)
         {
             int orgid = _commonHelper.GetOrgID(HttpContext);
@@ -137,8 +151,12 @@
         }
 
         [HttpPost]
+        [Shoppite.UI.Extensions.Authorize]
         public async Task<IActionResult> MakePaymentRequest(CartModel Model)
         {
+            int orgid = _commonHelper.GetOrgID(HttpContext);
+            Model.OrderShippingModel.OrgId = orgid;
+            await _cartPageService.SaveAddress(Model);
             if (Model.IsPaytm)
             {
                 var order = await _cartPageService.CheckOrder((Guid)Model.OrderBasicModel.OrderGuid);
@@ -169,7 +187,7 @@
                     merchantParams.custMobile = Model.OrderShippingModel.Phone;
                     merchantParams.udf1 = Model.OrderShippingModel.Address;
                     merchantParams.udf2 = Model.OrderShippingModel.Address;
-                    merchantParams.returnURL = merchantDetails.AggregatorCallbackURL+ "/Cart/OrderSuccess";
+                    merchantParams.returnURL = merchantDetails.AggregatorCallbackURL+ "/Cart/PaymentResponse";
                     merchantParams.isMultiSettlement =  "0";
                     merchantParams.productId = "DEFAULT";
                     merchantParams.channelId = "0";
@@ -179,22 +197,24 @@
                     string encryptedParams = EncryptPaymentRequest(merchantDetails.AggregatorMerchantId, merchantDetails.AggregatorMerchantApiKey, objMerchantParams);
                     ViewBag.merchantId = merchantDetails.AggregatorMerchantId;
                     ViewBag.reqData = encryptedParams;
-                }
-                int orgid = _commonHelper.GetOrgID(HttpContext);
-                Model.OrderShippingModel.OrgId = orgid;
-                await _cartPageService.SaveAddress(Model);
-                await _cartPageService.UpdateOrder((Guid)Model.OrderBasicModel.OrderGuid);
+                }   
                 return View();
             }
             else
             {
-                int orgid = _commonHelper.GetOrgID(HttpContext);
-                Model.OrderShippingModel.OrgId = orgid;
-                await _cartPageService.SaveAddress(Model);
                 await _cartPageService.UpdateOrder((Guid)Model.OrderBasicModel.OrderGuid);
                 return RedirectToAction("OrderSuccess");
             }
-            
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> PaymentResponse(IFormCollection data)
+        {
+            var merchantDetails = _commonHelper.GetMerchantDetails(HttpContext);
+            var merchantResponse = _commonHelper.DecryptAES256_V3(data["respData"], merchantDetails.AggregatorMerchantId, merchantDetails.AggregatorMerchantApiKey);
+            _commonHelper.LogError(merchantResponse);
+            return null;
         }
 
         public string EncryptPaymentRequest(string merchantId,string key,string merchantParamsJson)
