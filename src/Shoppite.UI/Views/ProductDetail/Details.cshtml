@@ -203,13 +203,13 @@
                                 <p>@Model.ProductBasicModel.ShortDescription</p>
                                 <p class="sin-item">
                                     <span class="sin-item-text" id="Change_Qty"> @Model.ProductBasicModel.Qty Items </span>
-                                    @if (@Model.ProductBasicModel.Qty != 0)
+                                    @if (Model.ProductBasicModel.Qty!=0)
                                     {
-                                        <span class="sin-item-btn">In stock</span>
+                                        <span id="instock" class="sin-item-btn stocklbl">In Stock</span>
                                     }
                                     else
                                     {
-                                        <span class="sin-item-out-stock">Out of stock</span>
+                                        <span id="outofstock" class="sin-item-out-stock stocklbl">Out Of Stock</span>
                                     }
                                 </p>
                                 @*<form method="post" action="#">*@
@@ -595,7 +595,18 @@
                     location.reload();
                 } else {
                   $('#Product_Price').text('₹' + data.price);
-                    $('#Change_Qty').text(data.qty +' Items');
+                    $('#Change_Qty').text(data.qty + ' Items');
+                    if (data.qty == 0) {
+                        $(".sin-item span.stocklbl").removeClass("sin-item-btn");
+                        $(".sin-item span.stocklbl").addClass("sin-item-out-stock");
+                        $(".sin-item span.stocklbl").text('Out Of Stock');
+                    }
+                    else {
+                        $(".sin-item span.stocklbl").removeClass("sin-item-out-stock");
+                        $(".sin-item span.stocklbl").addClass("sin-item-btn");
+                        $(".sin-item span.stocklbl").text('In Stock');
+                        
+                    }
                     $('#Prod_Spec').text(data.name);
                     $('#MainIMGH').attr('href', data.image);
                     $('#MainImg').attr('src', data.image);
