@@ -117,8 +117,9 @@
         /// </summary>
         /// <returns>The <see cref="Task{IActionResult}"/>.</returns>
         [HttpGet]
-        public async Task<IActionResult> OrderSuccess()
-        {
+        [AllowAnonymous]
+        public IActionResult OrderSuccess(Guid OrderGuid)
+        {   
             return View();
         }
 
@@ -127,7 +128,8 @@
         /// </summary>
         /// <returns>The <see cref="Task{IActionResult}"/>.</returns>
         [HttpGet]
-        public async Task<IActionResult> OrderPaymentFail()
+        [AllowAnonymous]
+        public IActionResult OrderPaymentFail(Guid OrderGuid)
         {
             return View();
         }
@@ -187,7 +189,7 @@
                     merchantParams.custMobile = Model.OrderShippingModel.Phone;
                     merchantParams.udf1 = Model.OrderShippingModel.Address;
                     merchantParams.udf2 = Model.OrderShippingModel.Address;
-                    merchantParams.returnURL = merchantDetails.AggregatorCallbackURL+ "/Cart/PaymentResponse";
+                    merchantParams.returnURL = merchantDetails.AggregatorCallbackURL+ "Cart/PaymentResponse";
                     merchantParams.isMultiSettlement =  "0";
                     merchantParams.productId = "DEFAULT";
                     merchantParams.channelId = "0";
@@ -209,12 +211,23 @@
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> PaymentResponse(IFormCollection data)
+        public async Task<IActionResult> PaymentResponse()
         {
-            var merchantDetails = _commonHelper.GetMerchantDetails(HttpContext);
-            var merchantResponse = _commonHelper.DecryptAES256_V3(data["respData"], merchantDetails.AggregatorMerchantId, merchantDetails.AggregatorMerchantApiKey);
-            _commonHelper.LogError(merchantResponse);
-            return null;
+            var response = HttpContext.Request.Form["respData"];
+            var merchantDetails = _commonHelper.GetMerchantDetails(HttpContext);   
+            string merchantEncryptionKey = merchantDetails.AggregatorMerchantApiKey.Substring(0, 16);
+            var merchantResponse = _commonHelper.DecryptAES256_V3(response.ToString(), merchantDetails.AggregatorMerchantApiKey, merchantEncryptionKey);
+            var objmerchangeResponse = JsonConvert.DeserializeObject<MerchantResponse>(merchantResponse);
+            if(objmerchangeResponse.trans_status =="Ok")
+            {
+                await _cartPageService.UpdateOrder(new Guid(objmerchangeResponse.txn_id));
+                return RedirectToAction("OrderSuccess", new Guid(objmerchangeResponse.txn_id));
+            }
+            else
+            {
+                await _cartPageService.CancelOrder(new Guid(objmerchangeResponse.txn_id));
+                return RedirectToAction("OrderPaymentFail", new Guid(objmerchangeResponse.txn_id));
+            }
         }
 
         public string EncryptPaymentRequest(string merchantId,string key,string merchantParamsJson)

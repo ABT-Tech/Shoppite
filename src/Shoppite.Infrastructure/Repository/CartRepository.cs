@@ -128,6 +128,58 @@ namespace Shoppite.Infrastructure.Repository
             await _dbContext.SaveChangesAsync();
         }
 
+        public async Task CancelOrder(OrderBasic orderBasic)
+        {
+            var check = await _dbContext.OrderBasic.Where(x => x.OrderGuid == orderBasic.OrderGuid && x.OrderStatus == "Cart" && x.UserName == orderBasic.UserName).ToListAsync();
+
+            foreach (var order in check)
+            {
+                order.OrderStatus = "Cancelled";
+                order.ReferenceId = "COD";
+                order.PaymentMode = "Cash On Delivery";
+                order.LastOrderStatus = "Cancelled";
+                order.InsertDate = DateTime.Now;
+
+                _dbContext.OrderBasic.Update(order);
+
+                var Inventory = await _dbContext.ProductBasic.Where(x => x.ProductId == order.ProductId && x.OrgId == order.OrgId).FirstOrDefaultAsync();
+
+                if (Inventory != null)
+                {
+                    var local = _dbContext.Set<ProductBasic>().Local.FirstOrDefault(x => x.ProductId.Equals(Inventory.ProductId));
+                    if (local != null)
+                    {
+                        _dbContext.Entry(local).State = EntityState.Detached;
+                    }
+                    Inventory.Qty = Inventory.Qty + order.Qty;
+
+                    _dbContext.Entry(Inventory).State = EntityState.Modified;
+                }
+                await _dbContext.SaveChangesAsync();
+            }
+
+            var getOrderMster = await _dbContext.OrderMaster.Where(x => x.OrderGuid == orderBasic.OrderGuid).FirstOrDefaultAsync();
+            if (getOrderMster != null)
+            {
+                var StatusCheck = await _dbContext.OrderStatus.FirstOrDefaultAsync(x => x.OrderId == getOrderMster.OrderMasterId);
+                if (StatusCheck == null)
+                {
+                    OrderStatus orderStatus = new OrderStatus
+                    {
+                        OrderId = getOrderMster.OrderMasterId,
+                        OrderStatus1 = "Cancelled",
+                        StatusDate = DateTime.Now,
+                        Remarks = string.Empty,
+                        Insertby = DateTime.Now.ToString(),
+                        OrgId = getOrderMster.OrgId,
+
+                    };
+                    _dbContext.OrderStatus.Add(orderStatus);
+                }
+            }
+            await _dbContext.SaveChangesAsync();
+        }
+
         public async Task UpdateOrderQty(OrderBasic orderBasic)
         {
             var check = await _dbContext.OrderBasic.Where(x => x.OrderGuid == orderBasic.OrderGuid && x.OrderStatus == "Cart" && x.UserName == orderBasic.UserName && x.ProductId == orderBasic.ProductId).FirstOrDefaultAsync();
