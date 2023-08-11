@@ -118,7 +118,7 @@
         /// <returns>The <see cref="Task{IActionResult}"/>.</returns>
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult OrderSuccess(Guid OrderGuid)
+        public IActionResult OrderSuccess()
         {   
             return View();
         }
@@ -129,7 +129,7 @@
         /// <returns>The <see cref="Task{IActionResult}"/>.</returns>
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult OrderPaymentFail(Guid OrderGuid)
+        public IActionResult OrderPaymentFail()
         {
             return View();
         }
