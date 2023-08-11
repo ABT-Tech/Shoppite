@@ -12,7 +12,6 @@ namespace Shoppite.Application.Models
         public int UserId { get; set; }
         public int SpecId { get; set; }
         public Guid? guid { get; set; }
-        [RegularExpression("^([0-9]{10})$", ErrorMessage = "Invalid Mobile Number.")]
         public string ContactNumber { get; set; }
         public string Country { get; set; }
         public string City { get; set; }

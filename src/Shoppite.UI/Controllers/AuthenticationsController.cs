@@ -87,9 +87,12 @@ namespace Shoppite.UI.Controllers
         public async Task<ActionResult> Register(UsersModal usersModal)
         {
             int OrgId = _commonHelper.GetOrgID(HttpContext);
+            //if(usersModal.Username)
           var Register = await _AuthenticationPageService.RegisterDetail(usersModal.Username,usersModal.Password,usersModal.Email,OrgId);
+        
             if (Register == null)
                 return RedirectToAction("Login");
+              
             else
                 TempData["SignValidError"] = "Email is already exsist";
             //return RedirectToAction("Index","Home", new { area = "" });
