@@ -156,12 +156,16 @@
         [Shoppite.UI.Extensions.Authorize]
         public async Task<IActionResult> MakePaymentRequest(CartModel Model)
         {
+            _commonHelper.LogError("Test1");
             int orgid = _commonHelper.GetOrgID(HttpContext);
             Model.OrderShippingModel.OrgId = orgid;
             await _cartPageService.SaveAddress(Model);
+            _commonHelper.LogError("Test2");
             if (Model.IsPaytm)
             {
+                _commonHelper.LogError("Test3");
                 var order = await _cartPageService.CheckOrder((Guid)Model.OrderBasicModel.OrderGuid);
+                _commonHelper.LogError("Test4");
                 var merchantDetails = _commonHelper.GetMerchantDetails(HttpContext);
                 var strProductMapping = string.Empty;
                 decimal? TotalOrderCharge = 0;
@@ -197,6 +201,7 @@
                     merchantParams.Rid = merchantDetails.AggregatorRID.ToString();
                     var objMerchantParams = JsonConvert.SerializeObject(merchantParams);
                     string encryptedParams = EncryptPaymentRequest(merchantDetails.AggregatorMerchantId, merchantDetails.AggregatorMerchantApiKey, objMerchantParams);
+                    _commonHelper.LogError("Test5");
                     ViewBag.merchantId = merchantDetails.AggregatorMerchantId;
                     ViewBag.reqData = encryptedParams;
                 }   
@@ -221,12 +226,12 @@
             if(objmerchangeResponse.trans_status =="Ok")
             {
                 await _cartPageService.UpdateOrder(new Guid(objmerchangeResponse.txn_id));
-                return RedirectToAction("OrderSuccess", new Guid(objmerchangeResponse.txn_id));
+                return RedirectToAction("OrderSuccess");
             }
             else
             {
                 await _cartPageService.CancelOrder(new Guid(objmerchangeResponse.txn_id));
-                return RedirectToAction("OrderPaymentFail", new Guid(objmerchangeResponse.txn_id));
+                return RedirectToAction("OrderPaymentFail");
             }
         }
 
