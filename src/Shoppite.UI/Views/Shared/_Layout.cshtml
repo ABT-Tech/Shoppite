@@ -93,11 +93,11 @@
 
 <body class="home">
 
-    <div class="containers text-center" style="z-index:10;">
+    <div class="containers text-center" style="z-index: 10; display: none;">
         <img src="~/img/cart_loder.gif" alt="" class="mx-auto d-block">
     </div>
     <!-- Start main area -->
-    <div class="main-area" style="pointer-events: none; filter: blur(20px); overflow: hidden; width: 100%; height: 100%; position: absolute; top: 0; left: 0;">
+    <div class="main-area">
         @*<div class="main-area">*@
         <!-- Start header -->
         <header>
@@ -450,7 +450,7 @@
     <!-- main js
     ============================================ -->
     <script src="~/js/main.js"></script>
-
+    <script src="~/js/jquery.lazy-master/jquery.lazy.js"></script>
     <script src="https://sdk.cashfree.com/js/ui/2.0.0/cashfree.sandbox.js"></script>
     @* <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>*@
     <script>
@@ -461,15 +461,17 @@
 
         //});
 
-        $(window).on('load', function () {
-            //  $(".slider-area").attr
-            $(".containers").fadeOut("slow");
-            // $(".container").remove.attr("style", "display:initial");
-            /* pointer - events: none;*/
-            $(".main-area").removeAttr("style", "filter: blur(20px)");
-        });
+        //$(window).on('load', function () {
+        //    $(".containers").fadeOut("slow");
+        //    $(".main-area").removeAttr("style", "filter: blur(20px)");
+        //});
     </script>
     @await RenderSectionAsync("Scripts", required: false)
+    <script>
+        $(function () {
+            $('.lazy').Lazy();
+        });
+    </script>
 </body>
 
 </html>
