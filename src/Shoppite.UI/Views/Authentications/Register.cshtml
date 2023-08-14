@@ -53,16 +53,17 @@
                         <span class="focus-input100 text-danger" asp-validation-for="Email" data-placeholder=""></span>
                     </div>
 
-                    <div class="wrap-input100 validate-input" data-validate="Enter userName">
+                    <div class="wrap-input100 validate-input" data-validate="Only alphabets allowed: a-z A-Z ">
                         <input class="input100" asp-for="Username" type="text" name="Username" placeholder="Enter userName">
-                        <span class="focus-input100 text-danger" asp-validation-for="Username" data-placeholder=""></span>
+                        <span class="focus-input100 text-danger" asp-validation-for="Username" data-placeholder="">
+                        </span>
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate="Enter password">
                         <span class="btn-show-pass">
                             <i class="fa fa-eye"></i>
                         </span>
-                        <input class="input100" asp-for="Password" type="password" name="password" placeholder="Enter Password">
+                        <input class="input100" asp-for="Password" type="password" name="password" placeholder="Enter Password" required>
                         <span class="focus-input100 text-danger" asp-validation-for="Password" data-placeholder=""></span>
                     </div>
 

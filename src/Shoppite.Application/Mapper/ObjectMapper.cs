@@ -89,7 +89,7 @@ namespace Shoppite.Application.Mapper
             CreateMap<F_getproducts_By_BrandId, F_getproducts_By_BrandIdModel>().ReverseMap();
             CreateMap<f_order_masterDetails, f_order_masterDetailsModel>().ReverseMap();
             CreateMap<f_getproduct_varient_By_Guid, f_getproduct_varient_By_GuidModel>().ReverseMap();
-
+            CreateMap<ProductSpecificationModel, ProductSpecification>().ReverseMap();
 
         }
     }
