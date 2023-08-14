@@ -90,6 +90,27 @@
             color: #fff;
         }
 
+    .SavePaymentBtn {
+        background: #fff;
+        color: #fff;
+        border: 1px solid lightgray;
+        display: block;
+        height: 30px;
+        /*line-height: 31px;*/
+        margin-bottom: 20px;
+        margin-left: 4px;
+        text-align: center;
+        text-decoration: none;
+        text-transform: uppercase;
+        width: 115px;
+        border-radius: 10px;
+    }
+
+        .SavePaymentBtn:hover {
+            background: #eae1e1;
+            color: #fff;
+        }
+
 
     .makeover {
         width: 220px;
@@ -224,6 +245,7 @@
                                                     <input type="hidden" asp-for="OrderShippingModel.Address" />
                                                     <input type="hidden" asp-for="OrderShippingModel.Email" />
                                                     <input type="hidden" asp-for="IsPaytm" />
+                                                    <input type="hidden" asp-for="IsPaytmClicked" />
 
                                                     <div class="col-12">
                                                         <div class="form-group">
@@ -246,146 +268,106 @@
                                         </div>
                                         <div aria-labelledby="headingFour" data-bs-parent="#accordion" role="tabpanel" class="panel-collapse collapse" id="paymentInformation" aria-expanded="false">
 
-                                            <div class="content-info" style="padding-left: 20px;">
+                                            <div class="content-info" >
 
-                                                <div aria-multiselectable="true" role="tablist" id="accordion1" class="panel-group">
+                                                <div id="accordion1" class="panel-group" style="display:flex">
                                                     @*<div class="panel sauget-accordion SubPanel pt-2 d-none">
-                                                        <div id="headingFive1" role="tab" class="panel-heading">
-                                                            <h4 class="panel-title">
-                                                                <a aria-controls="orderReview1" aria-expanded="false" href="#orderReview1" data-bs-toggle="collapse" class="makeover collapsed">
-                                                                    <img style="height: auto; width: auto;" src="~/img/icons8-bank-cards-30.png" /> card details
-                                                                </a>
-                                                            </h4>
-                                                        </div>
-                                                        <div aria-labelledby="headingFive1" data-bs-parent="#accordion1" role="tabpanel" class="panel-collapse collapse" id="orderReview1" aria-expanded="false">
-                                                            <div class="content-info">
-                                                                <div class="checkout-option">
-                                                                    <div class="master-card-info">
-                                                                        <div class="row">
+            <div id="headingFive1" role="tab" class="panel-heading">
+                <h4 class="panel-title">
+                    <a aria-controls="orderReview1" aria-expanded="false" href="#orderReview1" data-bs-toggle="collapse" class="makeover collapsed">
+                        <img style="height: auto; width: auto;" src="~/img/icons8-bank-cards-30.png" /> card details
+                    </a>
+                </h4>
+            </div>
+            <div aria-labelledby="headingFive1" data-bs-parent="#accordion1" role="tabpanel" class="panel-collapse collapse" id="orderReview1" aria-expanded="false">
+                <div class="content-info">
+                    <div class="checkout-option">
+                        <div class="master-card-info">
+                            <div class="row">
 
-                                                                            <div class="col-sm-6 mx-auto">
-                                                                                <div class="form-group">
-                                                                                    <label>Name on Card <sup>*</sup></label>
-                                                                                    <input type="text" class="form-control">
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-sm-6 mx-auto">
-                                                                                <div class="cardtype form-group">
-                                                                                    <label>Credit Card Type</label>
-                                                                                    <select class="form-control">
-                                                                                        <option>--Please Select--</option>
-                                                                                        <option>American Express</option>
-                                                                                        <option>Visa</option>
-                                                                                        <option>MasterCard</option>
-                                                                                        <option>Discover</option>
-                                                                                    </select>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-sm-6 mx-auto">
-                                                                                <div class="form-group">
-                                                                                    <label>Credit Card Number <sup>*</sup></label>
-                                                                                    <input type="text" class="form-control">
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-sm-6 mx-auto">
-                                                                                <div class="expirationdate form-group">
-                                                                                    <label>Expiration Date</label>
-                                                                                    <div class="d-flex g-4">
-                                                                                        <select class="form-control month-select w-50">
-                                                                                            <option>Month</option>
-                                                                                            <option>01 - January</option>
-                                                                                            <option>02 - February</option>
-                                                                                            <option>03 - March</option>
-                                                                                            <option>04 - April</option>
-                                                                                            <option>05 - May</option>
-                                                                                            <option>06 - June</option>
-                                                                                            <option>07 - July</option>
-                                                                                            <option>08 - August</option>
-                                                                                            <option>09 - September</option>
-                                                                                            <option>10 - October</option>
-                                                                                            <option>11 - November</option>
-                                                                                            <option>12 - December</option>
-                                                                                        </select> &nbsp; &nbsp;
-                                                                                        <select class="form-control year-select w-50">
-                                                                                            <option>Year</option>
-                                                                                            <option>2015</option>
-                                                                                            <option>2016</option>
-                                                                                            <option>2017</option>
-                                                                                            <option>2018</option>
-                                                                                            <option>2019</option>
-                                                                                            <option>2020</option>
-                                                                                            <option>2021</option>
-                                                                                            <option>2022</option>
-                                                                                            <option>2023</option>
-                                                                                            <option>2024</option>
-                                                                                            <option>2025</option>
-                                                                                        </select>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-sm-6 mx-auto">
-                                                                                <div class="verificationcard form-group">
-                                                                                    <label>Card Verification Number <sup>*</sup></label>
-                                                                                    <input type="text" class="form-control">
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-sm-6"></div>
+                                <div class="col-sm-6 mx-auto">
+                                    <div class="form-group">
+                                        <label>Name on Card <sup>*</sup></label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 mx-auto">
+                                    <div class="cardtype form-group">
+                                        <label>Credit Card Type</label>
+                                        <select class="form-control">
+                                            <option>--Please Select--</option>
+                                            <option>American Express</option>
+                                            <option>Visa</option>
+                                            <option>MasterCard</option>
+                                            <option>Discover</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 mx-auto">
+                                    <div class="form-group">
+                                        <label>Credit Card Number <sup>*</sup></label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 mx-auto">
+                                    <div class="expirationdate form-group">
+                                        <label>Expiration Date</label>
+                                        <div class="d-flex g-4">
+                                            <select class="form-control month-select w-50">
+                                                <option>Month</option>
+                                                <option>01 - January</option>
+                                                <option>02 - February</option>
+                                                <option>03 - March</option>
+                                                <option>04 - April</option>
+                                                <option>05 - May</option>
+                                                <option>06 - June</option>
+                                                <option>07 - July</option>
+                                                <option>08 - August</option>
+                                                <option>09 - September</option>
+                                                <option>10 - October</option>
+                                                <option>11 - November</option>
+                                                <option>12 - December</option>
+                                            </select> &nbsp; &nbsp;
+                                            <select class="form-control year-select w-50">
+                                                <option>Year</option>
+                                                <option>2015</option>
+                                                <option>2016</option>
+                                                <option>2017</option>
+                                                <option>2018</option>
+                                                <option>2019</option>
+                                                <option>2020</option>
+                                                <option>2021</option>
+                                                <option>2022</option>
+                                                <option>2023</option>
+                                                <option>2024</option>
+                                                <option>2025</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 mx-auto">
+                                    <div class="verificationcard form-group">
+                                        <label>Card Verification Number <sup>*</sup></label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6"></div>
 
-                                                                            <div class="block-area-button">
-                                                                                <button class="btn btn-default add-tag-btn SaveBtn">Continue</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>*@
+                                <div class="block-area-button">
+                                    <button class="btn btn-default add-tag-btn SaveBtn">Continue</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
 
                                                     @if (Model.IsPaytm)
                                                     {
-                                                    <div class="panel sauget-accordion SubPanel">
-                                                        <div id="headingFive2" role="tab" class="panel-heading" style="margin-top:25px;">
-                                                            <h4 class="panel-title">
-                                                                <a aria-controls="orderReview2" aria-expanded="false" href="#orderReview2" data-bs-toggle="collapse" class="makeover collapsed" style="display:initial;">
-                                                                    <img style="height: 21px; width: 35px;" src="~/img/UPI_logo_PNG_lyp5s5.png" /> Pay With UPI
-                                                                </a>
-                                                            </h4>
-                                                        </div>
-                                                        <div aria-labelledby="headingFive2" data-bs-parent="#accordion1" role="tabpanel" class="panel-collapse collapse" id="orderReview2" aria-expanded="false">
-                                                            <div class="content-info">
-                                                                <div class="page-product-box" id="idTab2">
-                                                                    <div class="row">
-                                                                        <div class="col-sm-7">
-                                                                            <div class="form-group">
-                                                                                <div class="block-area-button">
-                                                                                    <button style="width:auto;margin:15px;" id="paytm-btn-click" class="SaveBtn">1Pay</button>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    <button style="width:auto;margin:15px;height:100%;" id="paytm-btn-click" class="SavePaymentBtn"><img src="~/images/Payment.gif" style="height:50px" alt="buttonpng" border="0" /></button>
                                                     }
-
-                                                    <div class="panel sauget-accordion SubPanel">
-                                                        <div id="headingFive3" role="tab" class="panel-heading" style="margin-top:25px;">
-                                                            <h4 class="panel-title">
-                                                                <a aria-controls="orderReview3" aria-expanded="false" href="#orderReview3" data-bs-toggle="collapse" class="makeover collapsed" style="display:initial;">
-                                                                    <img style="height: 30px; width:auto;" src="~/img/icons8-cash-on-delivery-96.png" /> Cash On Delivery
-                                                                </a>
-                                                            </h4>
-                                                        </div>
-                                                        <div aria-labelledby="headingFive3" data-bs-parent="#accordion1" role="tabpanel" class="panel-collapse collapse" id="orderReview3" aria-expanded="false">
-                                                            <div class="content-info">
-                                                                @*<a href="/Cart/OrderSuccess?orderid=@Model.OrderBasicModel.OrderGuid" class=" mt-2 btn SaveBtn" style="width: 160px;">Cash on Delivery</a>*@
-                                                                <button style="width:auto;margin:15px;" type="submit" class="SaveBtn">Cash on Delivery</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-
+                                                    <button style="width: auto; margin: 15px; height: 100%;" type="submit" class="SavePaymentBtn"><img src="~/images/cash-on-delivery-icon-14.jpg" style="height:50px" alt="buttonpng" border="0" /></button>
                                                 </div>
                                             </div>
                                         </div>
@@ -458,7 +440,7 @@
     //}
 
     $("#paytm-btn-click").click(function () {
-        $("#IsPaytm").val('true');
+        $("#IsPaytmClicked").val('true');
         $("form").submit();
     })
 </script>
