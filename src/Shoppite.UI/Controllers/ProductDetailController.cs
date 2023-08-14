@@ -46,7 +46,9 @@ namespace Shoppite.UI.Controllers
             string userName = User.Identity.Name;
             int orgid = _commonHelper.GetOrgID(HttpContext);         
             var Product_Details = await _ProductDetailPageService.GetProductDetails(id, orgid, userName);
-            if(userName!=null)
+            if (Product_Details.ProductPriceModel != null)
+                Product_Details.ProductPriceModel.Price = Product_Details.ProductPriceModel.Price + Product_Details.ProductPriceModel.DeliveryFees;
+            if (userName!=null)
             {
                 Product_Details.Wishlists = await _productWishListService.GetWishList(userName, OrgId);
             }

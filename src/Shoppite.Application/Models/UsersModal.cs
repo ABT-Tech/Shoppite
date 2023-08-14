@@ -13,7 +13,7 @@ namespace Shoppite.Application.Models
         public int UserId { get; set; }
 
         [Required]
-        [RegularExpression("[a-zA-Z]", ErrorMessage = "only alphabet")]
+        [RegularExpression("^[a-zA-Z]*$", ErrorMessage = "only alphabet")]
 
         public string Username { get; set; }
 
