@@ -15,5 +15,6 @@ namespace Shoppite.Application.Models
         public OrderBasicModel OrderBasicModel { get; set; }
         public UsersProfileModal UsersProfileModal { get; set; }
         public bool IsPaytm { get; set; }
+        public bool IsPaytmClicked { get; set; }
     }
 }

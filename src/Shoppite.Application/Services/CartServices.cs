@@ -123,7 +123,7 @@ namespace Shoppite.Application.Services
         {
             OrderBasic orderBasic = new OrderBasic();
             orderBasic.OrderGuid = guid;
-            orderBasic.UserName = _accessor.HttpContext.User.Identity.Name;
+            //orderBasic.UserName = _accessor.HttpContext.User.Identity.Name;
 
             await _CartRepository.UpdateOrder(orderBasic);
         }
@@ -140,7 +140,6 @@ namespace Shoppite.Application.Services
         {
             OrderBasic orderBasic = new OrderBasic();
             orderBasic.OrderGuid = guid;
-            orderBasic.UserName = _accessor.HttpContext.User.Identity.Name;
 
             await _CartRepository.CancelOrder(orderBasic);
         }

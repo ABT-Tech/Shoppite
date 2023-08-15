@@ -9,7 +9,7 @@
             {
                 if (image.Banner != null)
                 {
-                    <a asp-action="AllProducts" asp-route-CategoryId="@image.CategoryId"><img src="@image.Banner" alt="slider image" class="rounded-3" /></a>
+                    <a asp-action="AllProducts" asp-route-CategoryId="@image.CategoryId"><img src="@image.Banner" alt="slider image" class="rounded-3 lazy" /></a>
                 }
             }
         }
@@ -22,7 +22,7 @@
             {
                 if (image.Banner != null)
                 {
-                    <a asp-action="AllProducts" asp-route-CategoryId="@image.CategoryId"><img src="@image.Banner" alt="slider image" class="rounded-3" /></a>
+                    <a asp-action="AllProducts" asp-route-CategoryId="@image.CategoryId"><img src="@image.Banner" alt="slider image" class="rounded-3 lazy" /></a>
                 }
             }
         }
@@ -37,7 +37,7 @@ else
         {
             if (image.Image != null)
             {
-                <a asp-action="AllProducts" asp-route-CategoryId="@image.CategoryId"><img src="@image.Image" alt="slider image" class="rounded-3" /></a>
+                <a asp-action="AllProducts" asp-route-CategoryId="@image.CategoryId"><img src="@image.Image" alt="slider image" class="rounded-3 lazy" /></a>
             }
         }
 

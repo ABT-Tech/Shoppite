@@ -78,7 +78,7 @@ namespace Shoppite.Infrastructure.Repository
 
         public async Task UpdateOrder(OrderBasic orderBasic)
         {
-            var check = await _dbContext.OrderBasic.Where(x => x.OrderGuid == orderBasic.OrderGuid && x.OrderStatus == "Cart" && x.UserName == orderBasic.UserName).ToListAsync();
+            var check = await _dbContext.OrderBasic.Where(x => x.OrderGuid == orderBasic.OrderGuid && x.OrderStatus == "Cart").ToListAsync();
 
             foreach (var order in check)
             {
@@ -130,7 +130,7 @@ namespace Shoppite.Infrastructure.Repository
 
         public async Task CancelOrder(OrderBasic orderBasic)
         {
-            var check = await _dbContext.OrderBasic.Where(x => x.OrderGuid == orderBasic.OrderGuid && x.OrderStatus == "Cart" && x.UserName == orderBasic.UserName).ToListAsync();
+            var check = await _dbContext.OrderBasic.Where(x => x.OrderGuid == orderBasic.OrderGuid && x.OrderStatus == "Cart" ).ToListAsync();
 
             foreach (var order in check)
             {

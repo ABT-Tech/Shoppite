@@ -160,7 +160,7 @@
             int orgid = _commonHelper.GetOrgID(HttpContext);
             Model.OrderShippingModel.OrgId = orgid;
             await _cartPageService.SaveAddress(Model);
-            if (Model.IsPaytm)
+            if (Model.IsPaytmClicked)
             {
                 var order = await _cartPageService.CheckOrder((Guid)Model.OrderBasicModel.OrderGuid);
                 var merchantDetails = _commonHelper.GetMerchantDetails(HttpContext);
@@ -228,12 +228,12 @@
                 var vendorContactdetails = await _cartPageService.GetVendorContactDetails(new Guid(objmerchangeResponse.txn_id));
                 await _commonHelper.SendWhatsAppMesage(vendorContactdetails.Item1, vendorContactdetails.Item2, vendorContactdetails.Item3, "order_notify_to_vendor_templateid");
 
-                return RedirectToAction("OrderSuccess", new Guid(objmerchangeResponse.txn_id));
+                return RedirectToAction("OrderSuccess");
             }
             else
             {
                 await _cartPageService.CancelOrder(new Guid(objmerchangeResponse.txn_id));
-                return RedirectToAction("OrderPaymentFail", new Guid(objmerchangeResponse.txn_id));
+                return RedirectToAction("OrderPaymentFail");
             }
         }
 
