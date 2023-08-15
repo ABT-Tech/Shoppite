@@ -21,5 +21,6 @@ namespace Shoppite.Core.Repositories
         Task<f_getproduct_CartDetails_By_Orgid> CheckProdInCart(int orgId,string ProductName,string Username,int SpecId);
         Task<List<OrderBasic>> GetProductListBYOrder(OrderBasic orderBasic);
         Task CancelOrder(OrderBasic orderBasic);
+        Task<(int, string, string)> GetVendorContactDetails(Guid guid);
     }
 }

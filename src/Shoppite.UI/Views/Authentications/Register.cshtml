@@ -53,10 +53,10 @@
                         <span class="focus-input100 text-danger" asp-validation-for="Email" data-placeholder=""></span>
                     </div>
 
-                    <div class="wrap-input100 validate-input" data-validate="Only alphabets allowed: a-z A-Z ">
+                    <div class="wrap-input100 validate-input" @*data-validate="Only alphabets allowed: a-z A-Z*@>
                         <input class="input100" asp-for="Username" type="text" name="Username" placeholder="Enter userName">
-                        <span class="focus-input100 text-danger" asp-validation-for="Username" data-placeholder="">
-                        </span>
+                        @*<span class="focus-input100 text-danger" asp-validation-for="Username" data-placeholder="">*@
+                        @*</span>*@
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate="Enter password">

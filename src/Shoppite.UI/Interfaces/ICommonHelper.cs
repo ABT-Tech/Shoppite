@@ -17,5 +17,6 @@ namespace Shoppite.UI.Interfaces
         string OrganizationName(HttpContext httpContext);
         Core.Entities.Organization OrganizationDetails(int orgID);
         void LogError(string msg);
+        Task SendWhatsAppMesage(int orderId,string mobileNumber,string orgName,string template);
     }
 }

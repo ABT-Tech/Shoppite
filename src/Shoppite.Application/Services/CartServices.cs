@@ -144,5 +144,12 @@ namespace Shoppite.Application.Services
 
             await _CartRepository.CancelOrder(orderBasic);
         }
+        public async Task<VendorContactDetails> GetVendorContactDetails(Guid guid)
+        {
+            OrderBasic orderBasic = new OrderBasic();
+            orderBasic.OrderGuid = guid;
+            var details = await _CartRepository.GetVendorContactDetails(orderBasic.OrderGuid.Value);
+            return ObjectMapper.Mapper.Map<VendorContactDetails>(details);
+        }
     }
 }

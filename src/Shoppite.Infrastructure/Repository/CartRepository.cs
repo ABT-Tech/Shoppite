@@ -222,5 +222,16 @@ namespace Shoppite.Infrastructure.Repository
             var Filter =  await _dbContext.Set<f_getproduct_CartDetails_By_Orgid>().FromSqlRaw(sql, parms.ToArray()).Where(x=>x.UserName == Username && x.ProductName == ProductName && x.SpecificationId == SpecId).FirstOrDefaultAsync();
             return Filter;
         }
+        public async Task<(int, string,string)> GetVendorContactDetails(Guid OrderGuid)
+        {
+            var result = await (from o in _dbContext.OrderMaster
+                         join p in _dbContext.UsersProfile on o.OrgId equals p.OrgId
+                         join or in _dbContext.Organization on p.OrgId equals or.Id
+                         where p.Type == "vendor"
+                         select new { o.OrderMasterId, p.ContactNumber,or.OrgName }).FirstOrDefaultAsync();
+
+            
+            return (result.OrderMasterId.Value, result.ContactNumber,result.OrgName);
+        }
     }
 }
