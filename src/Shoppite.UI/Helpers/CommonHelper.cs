@@ -243,18 +243,17 @@ namespace Shoppite.UI.Helpers
                 var request = new RestRequest("Message");
                 var MobileNumber = mobileNumber.StartsWith("91") ? mobileNumber : "91" + mobileNumber;
                 MobileNumber = IsTestEnable == "1" ? "917046493455" : MobileNumber;
-                orderID = Convert.ToInt32(orderID.ToString().PadLeft(4, '0'));
+                var ordersID = orderID.ToString().PadLeft(5, '0');
                 string body = "";
                 request.AddHeader("API-KEY", APIKey);
                 request.AddHeader("Content-Type", "application/json");
                 if(template == "order_notify_to_vendor_templateid")
                 {
-                    //string body = "{\r\n" + "\"mobile\": \"" + mobileNumber + "\",\"templateid\": \"" + templetID + "\",\"template\": \"" + templetID + "\",\"template\":{ \"components\":[{ \"type\":\"body\",\"parameters\":[{ \"type\":\"text\",\"text\":\"" + orgname + "\"},{ \"type\":\"" + orgname + "\",\"text\":\"" + orgname + "\"}]}]}}";
-                 body = "{\r\n" + "\"mobile\": \"" + MobileNumber + "\",\"templateid\": \"" + templetID + "\",\"template\":{ \"components\":[{ \"type\":\"body\",\"parameters\":[{ \"type\":\"text\",\"text\":\"" + orgname + "\"},{ \"type\":\"text\",\"text\":\"" + orderID + "\"}]}]}}";
+                 body = "{\r\n" + "\"mobile\": \"" + MobileNumber + "\",\"templateid\": \"" + templetID + "\",\"template\":{ \"components\":[{ \"type\":\"body\",\"parameters\":[{ \"type\":\"text\",\"text\":\"" + orgname + "\"},{ \"type\":\"text\",\"text\":\"" + ordersID + "\"}]}]}}";
                 }
                 if(template == "order_shiping_templateid")
                 {
-                 body = "{\r\n" + "\"mobile\": \"" + MobileNumber + "\",\"templateid\": \"" + templetID + "\",\"template\":{ \"components\":[{ \"type\":\"body\",\"parameters\":[{ \"type\":\"text\",\"text\":\"" + orgname + "\"},{ \"type\":\"text\",\"text\":\"" + orderID + "\"}]}]}}";
+                 body = "{\r\n" + "\"mobile\": \"" + MobileNumber + "\",\"templateid\": \"" + templetID + "\",\"template\":{ \"components\":[{ \"type\":\"body\",\"parameters\":[{ \"type\":\"text\",\"text\":\"" + orgname + "\"},{ \"type\":\"text\",\"text\":\"" + ordersID + "\"}]}]}}";
                 }
                 request.AddParameter("application/json", body, ParameterType.RequestBody);
                 var response = await client.ExecutePostAsync(request);
