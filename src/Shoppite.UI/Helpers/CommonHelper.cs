@@ -239,9 +239,11 @@ namespace Shoppite.UI.Helpers
                 var templetID = _configuration.GetSection("WhatsAppSettings")[template].ToString();
                 var client = new RestClient(WhatsAppURL + "sendnotification");
                 var IsTestEnable = _configuration.GetSection("WhatsAppSettings")["IsTest"].ToString();
+                var TestMobileNumer = _configuration.GetSection("WhatsAppSettings")["TestMobileNumber"].ToString();
                 var request = new RestRequest("Message");
                 var MobileNumber = mobileNumber.StartsWith("91") ? mobileNumber : "91" + mobileNumber;
                 MobileNumber = IsTestEnable == "1" ? "917046493455" : MobileNumber;
+                orderID = Convert.ToInt32(orderID.ToString().PadLeft(4, '0'));
                 string body = "";
                 request.AddHeader("API-KEY", APIKey);
                 request.AddHeader("Content-Type", "application/json");
