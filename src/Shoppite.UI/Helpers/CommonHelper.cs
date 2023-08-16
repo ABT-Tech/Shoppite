@@ -1,5 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using RestSharp;
 using Shoppite.Application.Models;
+using Shoppite.Core.Entities;
 using Shoppite.Infrastructure.Data;
 using Shoppite.UI.Interfaces;
 using System;
@@ -16,9 +21,12 @@ namespace Shoppite.UI.Helpers
     public class CommonHelper: ICommonHelper
     {
         protected readonly Shoppite_masterContext _dbContext;
-        public CommonHelper(Shoppite_masterContext dbContext)
+        private readonly IConfiguration _configuration;
+        private readonly ICommonHelper _commonHelper;
+        public CommonHelper(Shoppite_masterContext dbContext, IConfiguration configuration)
         {
             _dbContext = dbContext;
+            _configuration = configuration;
         }
         public string GetSubDomain(HttpContext httpContext)
         {
@@ -222,5 +230,54 @@ namespace Shoppite.UI.Helpers
             return orgObject;
         }
 
+        public async Task SendWhatsAppMesage(int orderID, string mobileNumber, string orgname , string template)
+        {
+            try
+            {
+                var WhatsAppURL = _configuration.GetSection("WhatsAppSettings")["WhatsAppURL"].ToString();
+                var APIKey = _configuration.GetSection("WhatsAppSettings")["APIKey"].ToString();
+                var templetID = _configuration.GetSection("WhatsAppSettings")[template].ToString();
+                var client = new RestClient(WhatsAppURL + "sendnotification");
+                var IsTestEnable = _configuration.GetSection("WhatsAppSettings")["IsTest"].ToString();
+                var TestMobileNumer = _configuration.GetSection("WhatsAppSettings")["TestMobileNumber"].ToString();
+                var request = new RestRequest("Message");
+                var MobileNumber = mobileNumber.StartsWith("91") ? mobileNumber : "91" + mobileNumber;
+                MobileNumber = IsTestEnable == "1" ? "917046493455" : MobileNumber;
+                var ordersID = orderID.ToString().PadLeft(5, '0');
+                string body = "";
+                request.AddHeader("API-KEY", APIKey);
+                request.AddHeader("Content-Type", "application/json");
+                if(template == "order_notify_to_vendor_templateid")
+                {
+                 body = "{\r\n" + "\"mobile\": \"" + MobileNumber + "\",\"templateid\": \"" + templetID + "\",\"template\":{ \"components\":[{ \"type\":\"body\",\"parameters\":[{ \"type\":\"text\",\"text\":\"" + orgname + "\"},{ \"type\":\"text\",\"text\":\"" + ordersID + "\"}]}]}}";
+                }
+                if(template == "order_shiping_templateid")
+                {
+                 body = "{\r\n" + "\"mobile\": \"" + MobileNumber + "\",\"templateid\": \"" + templetID + "\",\"template\":{ \"components\":[{ \"type\":\"body\",\"parameters\":[{ \"type\":\"text\",\"text\":\"" + orgname + "\"},{ \"type\":\"text\",\"text\":\"" + ordersID + "\"}]}]}}";
+                }
+                request.AddParameter("application/json", body, ParameterType.RequestBody);
+                var response = await client.ExecutePostAsync(request);
+                if (response.IsSuccessStatusCode)
+                {
+                    JObject jObject = JsonConvert.DeserializeObject<JObject>(response.Content);
+                    bool status = (bool)jObject["status"];
+                    WhatsAppMessages whatsApp = new WhatsAppMessages();
+                    whatsApp.MobileNumber = MobileNumber;
+                    whatsApp.MessageRequest = body;
+                    whatsApp.TemplateID = templetID;
+                    whatsApp.Is_SendMessage = status;
+                    whatsApp.MessageResponse = response.Content;
+                    whatsApp.OrgName = orgname;
+                    whatsApp.InsertDateTime = DateTime.Now;
+                    await _dbContext.WhatsAppMessages.AddAsync(whatsApp);
+                    await _dbContext.SaveChangesAsync();
+
+                }
+            }
+            catch(Exception ex)
+            {
+                LogError("Mobile Number : " + mobileNumber+ ", Template : "+ template + ", Message : "+ ex.Message + ", Stack Trace : " + ex.StackTrace);
+            }
+        }
     }
 }

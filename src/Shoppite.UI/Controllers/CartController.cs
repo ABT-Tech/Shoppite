@@ -148,7 +148,8 @@
             await _cartPageService.SaveAddress(Model);
 
             await _cartPageService.UpdateOrder((Guid)Model.OrderBasicModel.OrderGuid);
-
+            var vendorContactdetails = await _cartPageService.GetVendorContactDetails((Guid)Model.OrderBasicModel.OrderGuid);
+            await _commonHelper.SendWhatsAppMesage(vendorContactdetails.Item1, vendorContactdetails.Item2,vendorContactdetails.Item3, "order_notify_to_vendor_templateid");
             return RedirectToAction("OrderSuccess");
         }
 
@@ -174,7 +175,7 @@
                     if (string.IsNullOrEmpty(strProductMapping))
                         strProductMapping += orderDetails.ProductId + "~" + TotalProductCharges;
                     else
-                        strProductMapping += "|"+orderDetails.ProductId + "~" + TotalProductCharges;
+                        strProductMapping += "|" + orderDetails.ProductId + "~" + TotalProductCharges;
                     TotalOrderCharge = TotalOrderCharge + TotalProductCharges;
                 }
                 using (HttpClient client = new HttpClient())
@@ -183,14 +184,14 @@
                     merchantParams.merchantId = merchantDetails.AggregatorMerchantId;
                     merchantParams.apiKey = merchantDetails.AggregatorMerchantApiKey;
                     merchantParams.txnId = order.OrderBasicModel.OrderGuid.ToString();
-                    merchantParams.amount = IsTestEnable == "1"?"10.00": TotalOrderCharge.ToString();
+                    merchantParams.amount = IsTestEnable == "1" ? "10.00" : TotalOrderCharge.ToString();
                     merchantParams.dateTime = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                     merchantParams.custMail = Model.OrderShippingModel.Email;
                     merchantParams.custMobile = Model.OrderShippingModel.Phone;
                     merchantParams.udf1 = Model.OrderShippingModel.Address;
                     merchantParams.udf2 = Model.OrderShippingModel.Address;
-                    merchantParams.returnURL = merchantDetails.AggregatorCallbackURL+ "Cart/PaymentResponse";
-                    merchantParams.isMultiSettlement =  "0";
+                    merchantParams.returnURL = merchantDetails.AggregatorCallbackURL + "Cart/PaymentResponse";
+                    merchantParams.isMultiSettlement = "0";
                     merchantParams.productId = "DEFAULT";
                     merchantParams.channelId = "0";
                     merchantParams.txnType = "DIRECT";
@@ -199,12 +200,14 @@
                     string encryptedParams = EncryptPaymentRequest(merchantDetails.AggregatorMerchantId, merchantDetails.AggregatorMerchantApiKey, objMerchantParams);
                     ViewBag.merchantId = merchantDetails.AggregatorMerchantId;
                     ViewBag.reqData = encryptedParams;
-                }   
+                }
                 return View();
             }
             else
             {
                 await _cartPageService.UpdateOrder((Guid)Model.OrderBasicModel.OrderGuid);
+                var vendorContactdetails = await _cartPageService.GetVendorContactDetails((Guid)Model.OrderBasicModel.OrderGuid);
+                await _commonHelper.SendWhatsAppMesage(vendorContactdetails.Item1, vendorContactdetails.Item2, vendorContactdetails.Item3, "order_notify_to_vendor_templateid"); 
                 return RedirectToAction("OrderSuccess");
             }
         }
@@ -221,6 +224,10 @@
             if(objmerchangeResponse.trans_status =="Ok")
             {
                 await _cartPageService.UpdateOrder(new Guid(objmerchangeResponse.txn_id));
+                await _cartPageService.GetVendorContactDetails(new Guid(objmerchangeResponse.txn_id));
+                var vendorContactdetails = await _cartPageService.GetVendorContactDetails(new Guid(objmerchangeResponse.txn_id));
+                await _commonHelper.SendWhatsAppMesage(vendorContactdetails.Item1, vendorContactdetails.Item2, vendorContactdetails.Item3, "order_notify_to_vendor_templateid");
+
                 return RedirectToAction("OrderSuccess");
             }
             else

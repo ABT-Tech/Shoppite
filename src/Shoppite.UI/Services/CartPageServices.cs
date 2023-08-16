@@ -68,5 +68,9 @@ namespace Shoppite.UI.Services
         {
             await _CartService.CancelOrder(guid);
         }
+        public async Task<VendorContactDetails> GetVendorContactDetails(Guid guid)
+        {
+            return await _CartService.GetVendorContactDetails(guid);
+        }
     }
 }

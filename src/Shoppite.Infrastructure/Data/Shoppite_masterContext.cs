@@ -109,6 +109,7 @@ namespace Shoppite.Infrastructure.Data
         public virtual DbSet<f_getproduct_varient_By_Guid> F_Getproduct_Varient_By_Guid { get; set; }
         public virtual DbSet<SP_GetProductDetails> SP_GetProductDetails { get; set; }
         public virtual DbSet<SP_GetProductSpecifications> SP_GetProductSpecifications { get; set; }
+        public virtual DbSet<WhatsAppMessages> WhatsAppMessages { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -1305,6 +1306,29 @@ namespace Shoppite.Infrastructure.Data
                 entity.Property(e => e.Title).HasMaxLength(50);
 
                 entity.Property(e => e.Type).HasMaxLength(30);
+            });
+            modelBuilder.Entity<WhatsAppMessages>(entity =>
+            {
+                entity.HasKey(e => e.ID);
+
+                entity.ToTable("WhatsAppMessages");
+
+                entity.Property(e => e.MobileNumber).HasMaxLength(50);
+
+                entity.Property(e => e.MessageRequest).HasMaxLength(2000);
+
+                entity.Property(e => e.TemplateID).HasMaxLength(50);
+
+                entity.Property(e => e.Is_SendMessage).HasColumnName("Is_SendMessage");
+
+                entity.Property(e => e.MessageRequest).HasMaxLength(2000);
+
+                entity.Property(e => e.MessageResponse).HasMaxLength(2000);
+
+                entity.Property(e => e.OrgName).HasMaxLength(100);
+
+                entity.Property(e => e.InsertDateTime).HasColumnType("datetime");
+
             });
 
             modelBuilder.Entity<OrganizationAggregatorControl>(entity =>
