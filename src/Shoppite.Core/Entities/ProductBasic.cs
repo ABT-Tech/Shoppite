@@ -25,6 +25,8 @@ namespace Shoppite.Core.Entities
         public DateTime? InsertDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
         public int? ProfileId { get; set; }
+        public bool? IsRefund { get; set; }
+        public bool? IsReturn { get; set; }
         public string CoverImage { get; set; }
         public int? OrgId { get; set; }
     }

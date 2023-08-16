@@ -86,7 +86,7 @@
             color: #ffffff;
             padding: 0.5em;
             cursor: pointer;
-            text-align:center;
+            text-align: center;
         }
 
         .hungry .selection .OutStock {
@@ -99,6 +99,7 @@
             cursor: pointer;
             text-align: center;
         }
+
         .hungry .selection .InStock:hover {
             background-color: #5fc0dc;
         }
@@ -110,6 +111,10 @@
             .hungry .selection input[type=radio]:checked ~ label {
                 background-color: #f1592a;
             }
+
+    .No_Refund_ReTurn{
+        height:100px;
+    }
 </style>
 
 <form enctype="multipart/form-data" method="" class="">
@@ -133,7 +138,7 @@
         <!-- End mobile menu -->
         <!-- Start single product area -->
         <div class="single-product-area">
-            <div class="container-fluid">              
+            <div class="container-fluid">
                 <div class="single-products">
                     <div class="row">
                         <!-- Start single product image -->
@@ -192,18 +197,18 @@
                             <div class="single-product-details">
                                 <div class="d-inline-flex" id="Prod_Name"><h1>@Model.ProductBasicModel.ProductName</h1>&nbsp;<h1 id="Prod_Spec"></h1></div>
                                 @*<p><strong>Reference:</strong> demo_1 </p>
-                                    <p><strong>Condition:</strong> New product </p>*@
+        <p><strong>Condition:</strong> New product </p>*@
                                 <h2>
                                     <span id="Product_Price">₹ @Model.ProductPriceModel.Price </span>
                                     @*@if (Model.ProductPriceModel.TaxExempt == true)
-                                        {
-                                         <span class="text-black">tax incl.</span>
-                                        }*@
+            {
+             <span class="text-black">tax incl.</span>
+            }*@
                                 </h2>
                                 <p>@Model.ProductBasicModel.ShortDescription</p>
                                 <p class="sin-item">
                                     <span class="sin-item-text" id="Change_Qty"> @Model.ProductBasicModel.Qty Items </span>
-                                    @if (Model.ProductBasicModel.Qty!=0)
+                                    @if (Model.ProductBasicModel.Qty != 0)
                                     {
                                         <span id="instock" class="sin-item-btn stocklbl">In Stock</span>
                                     }
@@ -217,8 +222,8 @@
                                     <label>Quantity </label>
                                     @*  <input type="number" asp-for="OrderBasicModel.Qty" name="OrderBasicModel.Qty" id="french-hens" min="1" value="1">*@
                                     @*<span class="minus">-</span>
-                                        <input type="number" class="count" asp-for="OrderBasicModel.Qty" name="OrderBasicModel.Qty" min="1" max="@Model.ProductBasicModel.Qty" value="1">
-                                        <span class="plus">+</span>*@
+            <input type="number" class="count" asp-for="OrderBasicModel.Qty" name="OrderBasicModel.Qty" min="1" max="@Model.ProductBasicModel.Qty" value="1">
+            <span class="plus">+</span>*@
 
                                     <div class="input-group">
                                         <span class="">
@@ -235,13 +240,13 @@
                                     </div>
                                 </div>
 
-                               @foreach (var Attribute in Model.AttributesSetupModel)
+                                @foreach (var Attribute in Model.AttributesSetupModel)
                                 {
                                     <h6>@Attribute.AttributeName</h6>
                                 }
 
-                            <div id="SpecBtn">
-                              
+                                <div id="SpecBtn">
+
                                     <div class="hungry d-inline-flex">
                                         <div class="selection m-1">
                                             @foreach (var pro in Model.Sp_GetProductSpecificationsModels)
@@ -263,14 +268,26 @@
                                                     <button id="@pro.ProductSpecificationId" type="button" class="btn mr-md-2 mb-md-0 mb-2 btn-outline-dark @pro.SpecificationNames" name="dropspec" disabled>@pro.SpecificationNames</button>
 
                                                     @*<input id="@pro.SpecificationNames" class="@pro.SpecificationNames" name="dropspec" type="radio" disabled>
-                <label for="@pro.SpecificationNames" class="OutStock">@pro.SpecificationNames</label>*@
+                            <label for="@pro.SpecificationNames" class="OutStock">@pro.SpecificationNames</label>*@
                                                 }
                                             }
-                                            </div>
+                                        </div>
                                     </div>
-                               
-                            </div>
 
+                                </div>
+
+                          
+                                <div class="d-flex">
+                                   @if (Model.ProductBasicModel.IsRefund)
+                                    {
+                                        <div class="pt-1"> <img src="~/img/NoRefund.png" class="No_Refund_ReTurn" alt="No Refund Available" /></div>
+                                    }
+                                    @if (Model.ProductBasicModel.IsReturn)
+                                    {
+                                        <div class="pb-1"> <img src="~/img/NoReturn.png" class="No_Refund_ReTurn" alt="No ReTurn Available" /></div>
+                                    }
+                                </div>
+                            
                                 @*</form>*@
 
                                 @if (Model.ProductBasicModel.Qty == 0)
@@ -281,7 +298,7 @@
                                                 <button class="exclusive disabled mt-3" name="DSubmit" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" disabled>
                                                     <span class="">Add to cart</span>
                                                 </button>
-                                            </p>                                              
+                                            </p>
                                         </div>
                                         <div class="col-sm-6 Buy_Now_Btn">
                                             <p class="buttons_bottom_block no-print disabled" id="add_to_cart">
@@ -605,7 +622,7 @@
                         $(".sin-item span.stocklbl").removeClass("sin-item-out-stock");
                         $(".sin-item span.stocklbl").addClass("sin-item-btn");
                         $(".sin-item span.stocklbl").text('In Stock');
-                        
+
                     }
                     $('#Prod_Spec').text(data.name);
                     $('#MainIMGH').attr('href', data.image);
@@ -634,12 +651,12 @@
                         $('#Wish_Logo').removeAttr('style');
                         $('#Wish_Logo').css('color','black');
                         $('#Wish_Logo').css('font-size','20px');
-                    }                                                   
+                    }
 
                     var WishLink = document.getElementById("AddtoWish").href;
                     WishLink += '&Specid=' + SpecId;
                     $('#AddtoWish').attr('href', WishLink);
-                   
+
 
                 }
                // $('#' + data.subName).click();
