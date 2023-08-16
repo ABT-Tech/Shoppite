@@ -41,44 +41,54 @@ namespace Shoppite.Application.Services
             var categories = mainCatlist.GroupBy(x => new { x.maincatid, x.maincaturlpath, }, (key, g) => new { CatId = key.maincatid, Catname = key.maincaturlpath, categories = g.ToList() });
             foreach (var category in categories)
             {
-                var Maincat = await _categoryRepository.MaincatDetails(category.CatId, category.Catname);
-                MainCategoryModel mainCategoryModel = new MainCategoryModel();
-                mainCategoryModel.maincatid = category.CatId;
-                mainCategoryModel.maincaturlpath = category.Catname;
-                mainCategoryModel.IsPublished = Maincat.IsPublished;
-                mainCategoryModel.IsShowHomePage = Maincat.IsShowHomePage;
-                mainCategoryModel.IsIncludeMenu = Maincat.IsIncludeMenu;
-
-                mainCategoryModel.SubcategoryDetails = mainCategoryModel.SubcategoryDetails == null ? new List<CategoryProductModel>() : mainCategoryModel.SubcategoryDetails;
-                var childCategories = category.categories.GroupBy(c => new { c.category_name, c.Category_Id }, (key, g) => new { ChildCatId = key.Category_Id, ChildCatname = key.category_name, categories = g.ToList() });
-                foreach (var Product in childCategories)
+                if (category != null)
                 {
-                    var ChaildCat = await _categoryRepository.FindChaildCat(Product.ChildCatId, Product.ChildCatname, category.CatId);
-
-                    CategoryProductModel categoryProductModel = new CategoryProductModel();
-                    categoryProductModel.CategoryId = Product.ChildCatId;
-                    categoryProductModel.CategoryName = Product.ChildCatname;
-                    categoryProductModel.IsPublished = ChaildCat.IsPublished;
-                    categoryProductModel.IsShowHomePage = ChaildCat.IsShowHomePage;
-                    categoryProductModel.IsIncludeMenu = ChaildCat.IsIncludeMenu;
-
-                    mainCategoryModel.SubcategoryDetails.Add(categoryProductModel);
-                    categoryProductModel.ProductsDetails = categoryProductModel.ProductsDetails == null ? new List<ProductBaseModel>() : categoryProductModel.ProductsDetails;
-                    foreach (var prod in category.categories.Where(a => a.Category_Id.Equals(Product.ChildCatId)))
+                    var Maincat = await _categoryRepository.MaincatDetails(category.CatId, category.Catname);
+                    MainCategoryModel mainCategoryModel = new MainCategoryModel();
+                    mainCategoryModel.maincatid = category.CatId;
+                    mainCategoryModel.maincaturlpath = category.Catname;
+                    if (Maincat != null)
                     {
-                        ProductBaseModel productBaseModel = new ProductBaseModel();
-                        productBaseModel.ProductGuid = prod.ProductGUID;
-                        productBaseModel.ProductId = prod.ProductId;
-                        productBaseModel.ProductName = prod.ProductName;
-                        productBaseModel.OldPrice = prod.OldPrice;
-                        productBaseModel.Price = prod.Price;
-                        productBaseModel.CoverImage = prod.image;
-                        categoryProductModel.ProductsDetails.Add(productBaseModel);
+                        mainCategoryModel.IsPublished = Maincat.IsPublished;
+                        mainCategoryModel.IsShowHomePage = Maincat.IsShowHomePage;
+                        mainCategoryModel.IsIncludeMenu = Maincat.IsIncludeMenu;
                     }
+
+                    mainCategoryModel.SubcategoryDetails = mainCategoryModel.SubcategoryDetails == null ? new List<CategoryProductModel>() : mainCategoryModel.SubcategoryDetails;
+                    var childCategories = category.categories.GroupBy(c => new { c.category_name, c.Category_Id }, (key, g) => new { ChildCatId = key.Category_Id, ChildCatname = key.category_name, categories = g.ToList() });
+                    foreach (var Product in childCategories)
+                    {
+                        var ChaildCat = await _categoryRepository.FindChaildCat(Product.ChildCatId, Product.ChildCatname, category.CatId);
+                        if (ChaildCat != null)
+                        {
+                            CategoryProductModel categoryProductModel = new CategoryProductModel();
+                            categoryProductModel.CategoryId = Product.ChildCatId;
+                            categoryProductModel.CategoryName = Product.ChildCatname;
+                            categoryProductModel.IsPublished = ChaildCat.IsPublished;
+                            categoryProductModel.IsShowHomePage = ChaildCat.IsShowHomePage;
+                            categoryProductModel.IsIncludeMenu = ChaildCat.IsIncludeMenu;
+
+                            mainCategoryModel.SubcategoryDetails.Add(categoryProductModel);
+                            categoryProductModel.ProductsDetails = categoryProductModel.ProductsDetails == null ? new List<ProductBaseModel>() : categoryProductModel.ProductsDetails;
+                            foreach (var prod in category.categories.Where(a => a.Category_Id.Equals(Product.ChildCatId)))
+                            {
+                                ProductBaseModel productBaseModel = new ProductBaseModel();
+                                productBaseModel.ProductGuid = prod.ProductGUID;
+                                productBaseModel.ProductId = prod.ProductId;
+                                productBaseModel.ProductName = prod.ProductName;
+                                productBaseModel.OldPrice = prod.OldPrice;
+                                productBaseModel.Price = prod.Price;
+                                productBaseModel.CoverImage = prod.image;
+                                categoryProductModel.ProductsDetails.Add(productBaseModel);
+                            }
+
+                        }
+                        
+                    }
+                    mainCategory.Add(mainCategoryModel);
                 }
-                mainCategory.Add(mainCategoryModel);
             }
-            return mainCategory;
+                return mainCategory;
         }
         public async Task<List<CategoryMasterModel>> GetCategories(int CategoryId,int OrgId)
         {
