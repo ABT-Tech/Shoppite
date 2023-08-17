@@ -242,7 +242,7 @@ namespace Shoppite.UI.Helpers
                 var TestMobileNumer = _configuration.GetSection("WhatsAppSettings")["TestMobileNumber"].ToString();
                 var request = new RestRequest("Message");
                 var MobileNumber = mobileNumber.StartsWith("91") ? mobileNumber : "91" + mobileNumber;
-                MobileNumber = IsTestEnable == "1" ? "917046493455" : MobileNumber;
+                MobileNumber = IsTestEnable == "1" ? TestMobileNumer : MobileNumber;
                 var ordersID = orderID.ToString().PadLeft(5, '0');
                 string body = "";
                 request.AddHeader("API-KEY", APIKey);
