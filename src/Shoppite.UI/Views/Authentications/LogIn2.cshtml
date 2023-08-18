@@ -30,16 +30,13 @@
         <span>or use your email for registration</span>*@
                 <input type="text" id="Reglogname" asp-for="Username" placeholder="Username" required />
                 <span id="SUUserError" class="text-danger"> </span>
-
                 <input type="email" id="Regsignemail" asp-for="Email" placeholder="Email" required />
                 <span id="SUEmailError" class="text-danger"> </span>
-
                 <input type="password" id="Regpassword" asp-for="Password" placeholder="Password" name="password" required />
                 <span id="SUPassError" asp-validation-for="Password" class="text-danger"> </span>
                 <span id="SUPassLengthError" class="text-danger"> Password must greater than eight character</span>
                 @*<input type="password" id="Regrepassword" placeholder="Confirm Password" />*@
                @* <div id="Eror"><p style="color:red;"> Password and Confirm Password Should be same</p></div>*@
-
                 <button type="submit">Sign Up</button>
             </form>
         </div>
@@ -54,11 +51,9 @@
         <span>or use your account</span>*@
                 <input type="email" id="logemail" asp-for="Email" placeholder="Email" required />
                 <span id="UserEmptError" class="text-danger"> </span>
-
                 <input type="password" name="password" asp-for="Password" autocomplete="current-password" id="logpass" placeholder="Password" required />
                 @* <i class="far fa-eye field-icon" id="togglePassword" style="margin-left: -30px; cursor: pointer;"></i>*@
                 <span id="PassEmptError" class="text-danger"> </span>
-
                 <a href="#">Forgot your password?</a>
                 @*<div id="msg"><p style="color:red;"> Invalid Username Or Password</p></div>*@
                 @TempData["LogError"]
@@ -84,61 +79,47 @@
 @*<script src="~/js/vendor/jquery-3.5.1.min.js"></script>*@
 <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 <script src="~/js/vendor/jquery-migrate-3.3.0.min.js"></script>
-
 <!-- bootstrap js
 ============================================ -->
 <script src="js/bootstrap.min.js"></script>
-
 <!-- owl.carousel.min js
 ============================================ -->
 <script src="js/owl.carousel.min.js"></script>
-
 <!-- jquery.nivo.slider.pack.3.2 js
 ============================================ -->
 <script src="~/js/jquery.nivo.slider.pack.3.2.js"></script>
-
 <!-- jqueryui js
 ============================================ -->
 <script src="~/js/jqueryui.js"></script>
-
 <!-- jqueryui js
 ============================================ -->
 <script src="~/js/jquery.fancybox.js"></script>
-
 <!-- jquery.meanmenu js
 ============================================ -->
 <script src="~/js/jquery.meanmenu.js"></script>
-
 <!-- wow js
 ============================================ -->
 <script src="~/js/wow.js"></script>
-
 <!-- plugins js
 ============================================ -->
 <script src="~/js/plugins.js"></script>
-
 <!-- main js
 ============================================ -->
 <script src="~/js/main.js"></script>
   <script>
       const togglePassword = document.querySelector('#togglePassword');
       const password = document.querySelector('#id_password');
-
       const signUpButton = document.getElementById('signUp');
       const signInButton = document.getElementById('signIn');
       const container = document.getElementById('container');
-
       signUpButton.addEventListener('click', () => {
           container.classList.add("right-panel-active");
       });
-
       signInButton.addEventListener('click', () => {
           container.classList.remove("right-panel-active");
       });
-
   </script>
 @*<script>
-
     $('#msg').hide();
     $('#Eror').hide();
     $('#UserEmptError').hide();
@@ -147,12 +128,8 @@
     $('#SUEmailError').hide();
     $('#SUPassError').hide();
     $('#SUPassLengthError').hide();
-
-
     const togglePassword = document.querySelector('#togglePassword');
     const password = document.querySelector('#id_password');
-
-
     //togglePassword.addEventListener('click', function (e) {
     //    // toggle the type attribute
     //    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
@@ -160,32 +137,25 @@
     //    // toggle the eye slash icon
     //    this.classList.toggle('far far-eye-slash');
     //});
-
-
     const signUpButton = document.getElementById('signUp');
     const signInButton = document.getElementById('signIn');
     const container = document.getElementById('container');
-
     signUpButton.addEventListener('click', () => {
         container.classList.add("right-panel-active");
     });
-
     signInButton.addEventListener('click', () => {
         container.classList.remove("right-panel-active");
     });
-
     function LogIn() {
         var UserId = $("#logemail").val();
         var PassWord = $("#logpass").val();
         var datal = { "userid": UserId, "password": PassWord };
         var detaillog = JSON.stringify({ datal });
-
         if (UserId == "") {
             $('#UserEmptError').show();
         } else if (PassWord == "") {
             $('#PassEmptError').show();
         } else {
-
                       $.ajax({
                           type: "POST",
                           url: '@Url.Action("Login", "Authentications")',
@@ -193,7 +163,6 @@
                           dataType: 'JSON',
                           contentType: 'application/json; charset=utf-8',
                           success: function (data) {
-
                               if (data == "fail") {
                                   $("#msg").show();
                               }
@@ -204,21 +173,15 @@
                           },
                           Error: function (error) {
                                 alert("some");
-
                           }
                       });
                }
-
     };
-
-
     function Register() {
-
         var Pass = $('#Regpassword').val();
         var UserName = $("#Reglogname").val();
         var Email = $("#Regsignemail").val();
         //var ConfPass = $('#Regrepassword').val();
-
        if (UserName == "")
        {
             $('#SUUserError').show();
@@ -237,15 +200,12 @@
        }
        else
        {
-
           var Regdata = {
-
                 "UserName": $("#Reglogname").val(),
                 "Password": Pass,
                 "Email": $("#Regsignemail").val(),
           };
           var UserDetail = JSON.stringify({ Regdata });
-
          $.ajax({
                 type: "POST",
                 url: '@Url.Action("Register", "Authentications")',
@@ -261,15 +221,10 @@
                 },
                 Error: function () {
                     alert("some thing Wrong");
-
                 }
           });
-
         }
-
     }
-
-
 </script>*@
 
 

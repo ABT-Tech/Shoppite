@@ -1,5 +1,4 @@
 ﻿@model Shoppite.Application.Models.MainModel
-
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
 <link href="~/css/MainpageSwipper.css" rel="stylesheet" />
@@ -7,13 +6,10 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 <style>
-
-
     .swiper {
         width: 100%;
         height: 50%;
     }
-
     .swiper-slide {
         text-align: center;
         font-size: 14px;
@@ -22,7 +18,6 @@
         justify-content: center;
         align-items: center;
     }
-
         .swiper-slide img {
             display: flex;
             width: 100%;
@@ -53,10 +48,8 @@
                 </div>
                 <!-- Start tab menu area -->
                 <div class="col-lg-3 col-md-3 resmenu">
-
                     <div class="tab-menu-area toplist" id="myDIV">
                         <ul id="tabs" class="nav nav-tabs tab_cates text-nowrap flex-container" data-tabs="tabs">
-
                             <li class="shadow CatLI">
                                 @foreach (var Cat in Model.GetSp_Getcat_ResultModel.Where(x => x.IsPublished == true && x.IsShowHomePage == true).Take(5))
                                  {
@@ -68,7 +61,6 @@
                                     </a>
                                  }
                             </li>
-
                         </ul>
                     </div>
                 </div>
@@ -78,7 +70,6 @@
                     <div class="new-product-area">
                         <div class="container-fluid">
                            @* @await Html.PartialAsync("_HorizontalBanner", Model)*@
-                          
                             <div class="pt-3 overflow-hidden">
                                 <div class="swiper mySwiper">
                                     <div class="swiper-wrapper d-flex d-flex-inline ml-2" id="prodtabdata">
@@ -88,7 +79,6 @@
                                     <div class="swiper-button-prev"> <i class="fa fa-angle-left"></i> </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -97,7 +87,6 @@
     </div>
 </div>
 <!-- End category product and carosel area -->
-
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 <script>
@@ -132,13 +121,11 @@
             }
         }
     });
-
     function testajaxcall(id)
     {
         //debugger;
         var prod_Div = '';
         var ProdAry = [];
-
             $.ajax({
                 type: "GET",
                 url: '@Url.Action("Get_Product_By_Cat", "Home")',
@@ -147,14 +134,12 @@
                 contentType: "application/json",
                 success: function(result)
                 {
-
                     for (var i = 0; i < result.length; i++) {
-
                         prod_Div = '<div class="swiper-slide">';
                         prod_Div += '<div class="product-item" >';
                         prod_Div += '<div class="top-item"> <div class="img-hover-zoom">';
                         prod_Div += '<a href="/ProductDetail/Details/' + result[i].productGUID + '" class="product_Images" > ';
-                        prod_Div += '<img src="' + result[i].image + '" alt="' + result[i].productName + '" class="lazy" />';
+                        prod_Div += '<img src="' + result[i].image + '" alt="' + result[i].productName + '" class="lazy" loading="lazy" />';
                         prod_Div += '</a> </div>';
                         //prod_Div += '<div class="top-cocial">';
                         //prod_Div += '<p>';
@@ -199,22 +184,18 @@
                     $("#prodtabdata").html(ProdAry.join(''));
 
                     if (ProdAry.length == 0) {
-                        $("#prodtabdata").html('<img class="" style="margin-top: 3.6pc;" src="/img/no-product-found.jpg" alt="NoProductFound" />');
+                        $("#prodtabdata").html('<img class="" style="margin-top: 3.6pc;" src="/img/no-product-found.jpg" alt="NoProductFound" loading="lazy" />');
                     }
-
                 },
                 error: function (xhr, status, error)
                 {
                     alert(xhr.responseText);
                 }
             })
-
     };
-
     window.onload = function () {
         document.getElementsByName("CatName")[0].click();
     };
-      
     var links = document.querySelectorAll('.toplist ul li a');
     links.forEach(function (element) {
         element.addEventListener('click', function (e) {
@@ -226,8 +207,6 @@
             this.classList.add('active');
         });
     });
-
-
     //var swiper = new Swiper(".mySwiper", {
     //    slidesPerView: 1,
     //    spaceBetween: 30,
@@ -241,5 +220,4 @@
     //        prevEl: ".swiper-button-prev",
     //    },
     //});
-
 </script>

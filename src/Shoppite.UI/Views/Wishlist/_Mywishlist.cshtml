@@ -10,7 +10,6 @@
         font-weight:bold;
         /*border-radius: 1px;*/
     }
-
         .Shop_Now:hover {
             color: #fe5b5a;
             /*color: white;*/
@@ -28,11 +27,11 @@
                         <a href="@Url.Action("Details", "ProductDetail",new { id = wishlist.ProductGuid } )">
                            @if (wishlist.Image != null)
                             {
-                                <img style="height: 244px; width: 100%; object-fit: contain; " src="@wishlist.Image" alt="">
+                                <img loading="lazy" style="height: 244px; width: 100%; object-fit: contain; " src="@wishlist.Image" alt="">
                             }
                             else
                             {
-                                <img style="height: 244px; width: 100%; object-fit: contain; " src="@wishlist.CoverImage" alt="">
+                                <img loading="lazy" style="height: 244px; width: 100%; object-fit: contain; " src="@wishlist.CoverImage" alt="">
                             }
                         </a>
                     </div>
@@ -59,12 +58,11 @@
                 </div>
             </div>
         }
-
     }
     else
     {
         <div class="text-center">
-            <img src="/img/boxdog_dribbble.gif" style="max-height: 300px; width: auto;" />
+            <img src="/img/boxdog_dribbble.gif" loading="lazy" style="max-height: 300px; width: auto;" />
             <h4 style="color: #fe5b5a; margin-top: -35px;">Your Wishlist is Empty! </h4>
             <h6>seems like you don't have wishes here.</h6>
             <div class="Shop_Now_Div">
@@ -72,7 +70,6 @@
             </div>
         </div>
     }
-
 </div>
 <script>
     $('.removewish').click(function (e)

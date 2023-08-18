@@ -1,14 +1,8 @@
 ﻿@model Shoppite.Application.Models.MainModel
-
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
 <link href="~/css/MainpageSwipper.css" rel="stylesheet" />
 <link href="~/css/site.css" rel="stylesheet" />
-
-
-<style>
-    
-</style>
 <!-- Start tab and carosel area -->
 <div id="content" class="tabandcarosel-area">
     <div class="container-fluid">
@@ -39,7 +33,6 @@
                     <div class="new-product-area">
                         <div class="container-fluid">
                            @* @await Html.PartialAsync("_HorizontalBanner", Model)*@
-
                             <div class="pt-3 overflow-hidden">
                                 <div class="swiper mySwiper">
                                     <div class="swiper-wrapper d-flex d-flex-inline " id="prodtabdata">
@@ -49,7 +42,6 @@
                                     <div class="swiper-button-prev"> <i class="fa fa-angle-left"></i> </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -58,10 +50,8 @@
     </div>
 </div>
 <!-- End category product and carosel area -->
-
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-
 <script>
     var swiper = new Swiper(".mySwiper", {
         slidesPerView: 4,
@@ -94,14 +84,11 @@
             }
         }
     });
-
     function testajaxcall(id)
     {
         //debugger;
         var prod_Div = '';
         var ProdAry = [];
-
-
             $.ajax({
                 type: "GET",
                 url: '@Url.Action("Get_Product_By_Cat", "Home")',
@@ -110,14 +97,12 @@
                 contentType: "application/json",
                 success: function(result)
                 {
-
                     for (var i = 0; i < result.length; i++) {
-
                         prod_Div = '<div class="swiper-slide">';
                         prod_Div += '<div class="product-item" >';
                         prod_Div += '<div class="top-item"> <div class="img-hover-zoom">';
                         prod_Div += '<a href="/ProductDetail/Details/' + result[i].productGUID + '" class="product_Images" > ';
-                        prod_Div += '<img src="' + result[i].image + '" alt="' + result[i].productName + '" />';
+                        prod_Div += '<img src="' + result[i].image + '" alt="' + result[i].productName + '" loading="lazy" />';
                         prod_Div += '</a> </div>';
                         //prod_Div += '<div class="top-cocial">';
                         //prod_Div += '<p>';
@@ -157,22 +142,18 @@
                     }
                     $("#prodtabdata").html(ProdAry.join(''));
                     if (ProdAry.length == 0) {
-                        $("#prodtabdata").html('<img class="" style="margin-top: 3.6pc;" src="/img/no-product-found.jpg" alt="NoProductFound" />');
+                        $("#prodtabdata").html('<img class="" style="margin-top: 3.6pc;" src="/img/no-product-found.jpg" alt="NoProductFound" loading="lazy" />');
                     }
-
                 },
                 error: function (xhr, status, error)
                 {
                     alert(xhr.responseText);
                 }
             })
-
     };
-
     window.onload = function () {
         document.getElementsByName("CatName")[0].click();
     };
-
     var links = document.querySelectorAll('.toplist ul li a');
     links.forEach(function (element) {
         element.addEventListener('click', function (e) {
@@ -184,10 +165,7 @@
             this.classList.add('active');
         });
     });
-
-
     $('#removewishlist').hide();
-
     $('.addWish').click(function (e)
     {
         if ($(e.target).css('color') == 'rgb(255, 0, 0)')
@@ -212,5 +190,4 @@
         }
         });
     });
-
 </script>

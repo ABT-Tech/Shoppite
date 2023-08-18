@@ -15,13 +15,12 @@
                 <!-- Start new product -->
                 <div class="new-products">
                     <div class="producttabcarosel carosel-product5 owl-carousel">
-
                         @foreach (var group in product)
                          {
                             <div class="product-item">
                                 <div class="top-item">
                                     <a href="@Url.Action("Details", "ProductDetail",new { id = group.ProductGUID } )">
-                                        <img src="@group.image"  alt="@group.ProductName" style="height: 244px;" class="lazy"/>
+                                        <img src="@group.image"  alt="@group.ProductName" style="height: 244px;" loading="lazy" class="lazy"/>
                                     </a>
                                     @*<div class="top-cocial">
                                         <p>
