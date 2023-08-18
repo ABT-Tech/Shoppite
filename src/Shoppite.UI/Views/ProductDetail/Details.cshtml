@@ -145,7 +145,7 @@
                                     </div>
                                     <div id="my-tab-content" class="product-details-large tab-content jump">
                                         <div class="tab-pane active" id="view1">
-                                            <a class="fancybox" id="MainIMGH" href="@Model.ProductBasicModel.CoverImage" data-fancybox-group="gallery" title=""><img id="MainImg" src="@Model.ProductBasicModel.CoverImage" loading="lazy" alt="">@*<span>View larger<i class="fa fa-search-plus"></i></span>*@</a>
+                                            <a class="fancybox" id="MainIMGH" href="@Model.ProductBasicModel.CoverImage" data-fancybox-group="gallery" title=""><img id="MainImg" src="@Model.ProductBasicModel.CoverImage" loading="lazy" alt=""  style=" width: 100%; object-fit: contain; height: 400px;">@*<span>View larger<i class="fa fa-search-plus"></i></span>*@</a>
                                         </div>
                                         @foreach (var proImg in Model.ProductImagesModel)
                                         {
@@ -155,10 +155,10 @@
                                         }
                                     </div>
                                     <div id="viewproduct" class="nav nav-tabs producttabcarosel product-view owl-carousel" data-tabs="tabs">
-                                        <div class="pro-view"><a href="#view1" data-bs-toggle="tab" class="active"><img src="@Model.ProductBasicModel.CoverImage" loading="lazy" alt=""></a></div>
+                                        <div class="pro-view"><a href="#view1" data-bs-toggle="tab" class="active"><img src="@Model.ProductBasicModel.CoverImage" loading="lazy" alt="" style="width: 100%; object-fit: contain; height: 120px;"></a></div>
                                         @foreach (var Preview in Model.ProductImagesModel)
                                         {
-                                            <div class="pro-view"><a href="#view_@Preview.ProductImagesId" data-bs-toggle="tab"><img src="@Preview.Image" alt="" loading="lazy"></a></div>
+                                            <div class="pro-view"><a href="#view_@Preview.ProductImagesId" data-bs-toggle="tab"><img src="@Preview.Image" alt="" loading="lazy" style="width: 100%; object-fit: contain; height: 120px;"></a></div>
                                         }
                                         @*<div class="pro-view"><a href="@Model.ProductImagesModel.Image" data-bs-toggle="tab"><img src="@Model.ProductImagesModel.Image" alt=""></a></div>
                                             <div class="pro-view"><a href="@Model.ProductImagesModel.Image" data-bs-toggle="tab"><img src="@Model.ProductImagesModel.Image" alt=""></a></div>*@
