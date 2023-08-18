@@ -147,9 +147,6 @@
             Model.OrderShippingModel.OrgId = orgid;
             await _cartPageService.SaveAddress(Model);
 
-            await _cartPageService.UpdateOrder((Guid)Model.OrderBasicModel.OrderGuid);
-            var vendorContactdetails = await _cartPageService.GetVendorContactDetails((Guid)Model.OrderBasicModel.OrderGuid);
-            await _commonHelper.SendWhatsAppMesage(vendorContactdetails.Item1, vendorContactdetails.Item2,vendorContactdetails.Item3, "order_notify_to_vendor_templateid");
             return RedirectToAction("OrderSuccess");
         }
 
