@@ -3,72 +3,47 @@
     ViewData["Title"] = "Cart Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <!-- Favicon
        ============================================ -->
 <link rel="shortcut icon" type="image/x-icon" href="~/img/favicon.ico">
-
 <!-- Fonts  -->
-
 <link href='https://fonts.googleapis.com/css?family=Raleway:400,500,600,700,300,800' rel='stylesheet' type='text/css'>
-
 <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 <!-- CSS  -->
 <!-- Bootstrap CSS
 ============================================ -->
 <link rel="stylesheet" href="~/css/bootstrap.min.css">
-
 <!-- owl.carousel CSS
 ============================================ -->
 <link rel="stylesheet" href="~/css/owl.carousel.css">
-
 <!-- nivo slider CSS
 ============================================ -->
 <link rel="stylesheet" href="~/css/nivo-slider.css">
-
 <!-- font-awesome.min CSS
 ============================================ -->
 <link rel="stylesheet" href="css/font-awesome.min.css">
-
 <!-- jquery.fancybox CSS
 ============================================ -->
 <link rel="stylesheet" href="~/css/fancb/jquery.fancybox.css">
-
 <!-- meanmenu.min CSS
 ============================================ -->
 <link rel="stylesheet" href="~/css/meanmenu.min.css">
-
 <!-- animate CSS
 ============================================ -->
 <link rel="stylesheet" href="~/css/animate.css">
-
 <!-- normalize CSS
 ============================================ -->
 <link rel="stylesheet" href="~/css/normalize.css">
-
 <!-- main CSS
 ============================================ -->
 <link rel="stylesheet" href="~/css/main.css">
-
 <!-- style CSS
 ============================================ -->
 <link rel="stylesheet" href="~/style.css">
-
 <!-- responsive CSS
 ============================================ -->
 <link rel="stylesheet" href="~/css/responsive.css">
 <style>
-    /*    .SaveBtn {
-        height: 35px;
-        width: 100px;
-        border: none;
-        background-color: #ff5b5a;
-        color: white;
-        font-weight: bold;
-        font-size: 18px;
-
-
-    }*/
     .SaveBtn {
         background: #ff5b5a;
         color: #fff;
@@ -84,12 +59,10 @@
         width: 115px;
         border-radius: 10px;
     }
-
         .SaveBtn:hover {
             background: #363636;
             color: #fff;
         }
-
     .SavePaymentBtn {
         background: #fff;
         color: #fff;
@@ -105,21 +78,16 @@
         width: 115px;
         border-radius: 10px;
     }
-
         .SavePaymentBtn:hover {
             background: #eae1e1;
             color: #fff;
         }
-
-
     .makeover {
         width: 220px;
         border-radius: 40px;
     }
 </style>
-
 <div class="main-area">
-
     <!-- Start checkout page area -->
     <div class="checkout-page-area">
         <div class="container-fluid">
@@ -136,7 +104,6 @@
                         <div class="col-lg-9 col-md-12 mb-5">
                             <form asp-action="MakePaymentRequest" asp-controller="Cart" enctype="multipart/form-data" method="post" class=" pt-2 text-capitalize">
                                 <input type="hidden" asp-for="OrderBasicModel.OrderGuid" />
-
                                 <div aria-multiselectable="true" role="tablist" id="accordion" class="panel-group">
                                     <div class="panel sauget-accordion">
                                         <div id="headingOne" role="tab" class="panel-heading">
@@ -149,13 +116,11 @@
                                         <div aria-labelledby="headingOne" data-bs-parent="#accordion" role="tabpanel" class="panel-collapse collapse show" id="checkoutMethod" aria-expanded="true" style="">
                                             <div class="content-info">
                                                 <div class="row ">
-
                                                     <div class="col-md-4 offset-md-9 mb-0">
                                                         <button type="button" class="btn btn-default add-tag-btn SaveBtn mb-0 mt-2" onclick="toggleEnable('IpF1','IpF2','IpF3','IpF4','IpF5','IpF6','IpF7','IpF8')">
                                                             Edit
                                                         </button>
                                                     </div>
-
                                                     <div class="col-sm-6 mx-auto">
                                                         <div class="form-group m-1">
                                                             <label class="control-label">First Name</label>
@@ -165,7 +130,6 @@
                                                                   data-valmsg-for="ShopName" data-valmsg-replace="true"></span>
                                                         </div>
                                                     </div>
-
                                                     <div class="col-sm-6 mx-auto">
                                                         <div class="form-group m-1">
                                                             <label class="control-label">Last Name</label>
@@ -175,7 +139,6 @@
                                                                   data-valmsg-for="ContactNumber" data-valmsg-replace="true"></span>
                                                         </div>
                                                     </div>
-
                                                     <div class="col-sm-6 mx-auto">
                                                         <div class="form-group m-1">
                                                             <label class="control-label">Street</label>
@@ -185,7 +148,6 @@
                                                                   data-valmsg-for="Country" data-valmsg-replace="true"></span>
                                                         </div>
                                                     </div>
-
                                                     <div class="col-sm-6 mx-auto">
                                                         <div class="form-group m-1">
                                                             <label class="control-label">City</label>
@@ -195,7 +157,6 @@
                                                                   data-valmsg-for="City" data-valmsg-replace="true"></span>
                                                         </div>
                                                     </div>
-
                                                     <div class="col-sm-6 mx-auto">
                                                         <div class="form-group m-1">
                                                             <label class="control-label">Phone Number</label>
@@ -205,7 +166,6 @@
                                                                   data-valmsg-for="Zip" data-valmsg-replace="true"></span>
                                                         </div>
                                                     </div>
-
                                                     <div class="col-sm-6 mx-auto">
                                                         <div class="form-group m-1">
                                                             <label class="control-label">Zipcode</label>
@@ -215,7 +175,6 @@
                                                                   data-valmsg-for="State" data-valmsg-replace="true"></span>
                                                         </div>
                                                     </div>
-
                                                     <div class="col-sm-6 mx-auto">
                                                         <div class="form-group m-1">
                                                             <label class="control-label">Address</label>
@@ -225,7 +184,6 @@
                                                                   data-valmsg-for="Address" data-valmsg-replace="true"></span>
                                                         </div>
                                                     </div>
-
                                                     <div class="col-sm-6 mx-auto">
                                                         <div class="form-group m-1">
                                                             <label class="control-label">Email</label>
@@ -235,7 +193,6 @@
                                                                   data-valmsg-for="PaypalId" data-valmsg-replace="true"></span>
                                                         </div>
                                                     </div>
-
                                                     <input type="hidden" asp-for="OrderShippingModel.FirstName" />
                                                     <input type="hidden" asp-for="OrderShippingModel.LastName" />
                                                     <input type="hidden" asp-for="OrderShippingModel.Street" />
@@ -246,18 +203,15 @@
                                                     <input type="hidden" asp-for="OrderShippingModel.Email" />
                                                     <input type="hidden" asp-for="IsPaytm" />
                                                     <input type="hidden" asp-for="IsPaytmClicked" />
-
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <button type="button" style="width:auto;" id="Proceed_to_Next" class="SaveBtn" onclick="document.getElementById('Target').click()">Proceed to Next</button>
                                                         </div>
                                                     </div>
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="panel sauget-accordion mb-5">
                                         <div id="headingFour" role="tab" class="panel-heading">
                                             <h4 class="panel-title">
@@ -267,9 +221,7 @@
                                             </h4>
                                         </div>
                                         <div aria-labelledby="headingFour" data-bs-parent="#accordion" role="tabpanel" class="panel-collapse collapse" id="paymentInformation" aria-expanded="false">
-
                                             <div class="content-info" >
-
                                                 <div id="accordion1" class="panel-group" style="display:flex">
                                                     @*<div class="panel sauget-accordion SubPanel pt-2 d-none">
             <div id="headingFive1" role="tab" class="panel-heading">
@@ -362,18 +314,16 @@
                 </div>
             </div>
         </div>*@
-
                                                     @if (Model.IsPaytm)
                                                     {
-                                                    <button style="width:auto;margin:15px;height:100%;" id="paytm-btn-click" class="SavePaymentBtn"><img src="~/images/Payment.gif" style="height:50px" alt="buttonpng" border="0" /></button>
+                                                    <button style="width:auto;margin:15px;height:100%;" id="paytm-btn-click" class="SavePaymentBtn"><img src="~/images/Payment.gif" loading="lazy" style="height:50px" alt="buttonpng" border="0" /></button>
                                                     }
-                                                    <button style="width: auto; margin: 15px; height: 100%;" type="submit" class="SavePaymentBtn"><img src="~/images/cash-on-delivery-icon-14.jpg" style="height:50px" alt="buttonpng" border="0" /></button>
+                                                    <button style="width: auto; margin: 15px; height: 100%;" type="submit" class="SavePaymentBtn"><img src="~/images/cash-on-delivery-icon-14.jpg" loading="lazy" style="height:50px" alt="buttonpng" border="0" /></button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
                             </form>
                         </div>
                         <div class="col-lg-3 col-md-12">
@@ -397,7 +347,6 @@
 </div>
 @section scripts {
 <script>
-
     document.getElementById("IpF1").disabled = true;
     document.getElementById("IpF2").disabled = true;
     document.getElementById("IpF3").disabled = true;
@@ -406,10 +355,8 @@
     document.getElementById("IpF6").disabled = true;
     document.getElementById("IpF7").disabled = true;
     document.getElementById("IpF8").disabled = true;
-
     function toggleEnable(el1, el2, el3, el4, el5, el6, el7, el8) {
         var textbox = document.getElementById(el1, el2, el3, el4, el5, el6, el7, el8);
-
         if (textbox.disabled) {
             // If disabled, do this
             document.getElementById("IpF1").disabled = false;
@@ -438,7 +385,6 @@
     //function ProceedtoNext() {
     //    $('#Target').click();
     //}
-
     $("#paytm-btn-click").click(function () {
         $("#IsPaytmClicked").val('true');
         $("form").submit();

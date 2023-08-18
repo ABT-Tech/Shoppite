@@ -1,12 +1,10 @@
 ﻿@model Shoppite.Application.Models.ProductDetailModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-
 @{
     ViewData["Title"] = "Detail Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @*<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">*@
-
 <style>
     /* Chrome, Safari, Edge, Opera */
     input::-webkit-outer-spin-button,
@@ -14,16 +12,13 @@
         -webkit-appearance: none;
         margin: 0;
     }
-
     /* Firefox */
     input[type=number] {
         -moz-appearance: textfield;
     }
-
     .modal-header {
         background-color: #fe5b5a;
     }
-
     .minus, .plus {
         color: white;
         border-radius: 100%;
@@ -32,36 +27,29 @@
         font-weight: 900;
         background-color: #343a40;
     }
-
     .minus {
         /* padding: 3px 6.5px;*/
     }
-
         .minus:hover {
             background-color: #fe5b5a;
         }
-
     .plus:hover {
         background-color: #fe5b5a;
     }
-
     .count {
         border: none;
         text-align: center;
         /*padding-left: 20px;*/
         width: 50px;
     }
-
     .megamenu-area {
         z-index: 1;
     }
-
     #Des ul {
         margin: 0px;
         padding: 0px 0px 0px 20px;
         list-style: disc;
     }
-
     .single-mori-info #Des ul li {
         border-top: none;
         display: revert;
@@ -73,11 +61,9 @@
     #Set_Price, #Set_Name, #Set_Qty, #SpecId {
         opacity: 0;
     }
-
     .hungry .selection {
         margin-bottom: 1em;
     }
-
         .hungry .selection .InStock {
             display: inline-block;
             width: 5em;
@@ -88,7 +74,6 @@
             cursor: pointer;
             text-align:center;
         }
-
         .hungry .selection .OutStock {
             display: inline-block;
             width: 5em;
@@ -102,16 +87,13 @@
         .hungry .selection .InStock:hover {
             background-color: #5fc0dc;
         }
-
         .hungry .selection input[type=radio] {
             display: none;
         }
-
             .hungry .selection input[type=radio]:checked ~ label {
                 background-color: #f1592a;
             }
 </style>
-
 <form enctype="multipart/form-data" method="" class="">
     <input type="hidden" asp-for="AttributesSetupModel" />
     <input type="hidden" id="OrgId" asp-for="ProductBasicModel.OrgId" />
@@ -163,26 +145,24 @@
                                     </div>
                                     <div id="my-tab-content" class="product-details-large tab-content jump">
                                         <div class="tab-pane active" id="view1">
-                                            <a class="fancybox" id="MainIMGH" href="@Model.ProductBasicModel.CoverImage" data-fancybox-group="gallery" title=""><img id="MainImg" src="@Model.ProductBasicModel.CoverImage" alt="">@*<span>View larger<i class="fa fa-search-plus"></i></span>*@</a>
+                                            <a class="fancybox" id="MainIMGH" href="@Model.ProductBasicModel.CoverImage" data-fancybox-group="gallery" title=""><img id="MainImg" src="@Model.ProductBasicModel.CoverImage" loading="lazy" alt="">@*<span>View larger<i class="fa fa-search-plus"></i></span>*@</a>
                                         </div>
                                         @foreach (var proImg in Model.ProductImagesModel)
                                         {
                                             <div class="tab-pane" id="view_@proImg.ProductImagesId">
-                                                <a class="fancybox" href="@proImg.Image" data-fancybox-group="gallery" title=""><img src="@proImg.Image" alt="">@*<span>View larger<i class="fa fa-search-plus"></i></span>*@</a>
+                                                <a class="fancybox" href="@proImg.Image" data-fancybox-group="gallery" title=""><img src="@proImg.Image" loading="lazy" alt="">@*<span>View larger<i class="fa fa-search-plus"></i></span>*@</a>
                                             </div>
                                         }
                                     </div>
-
                                     <div id="viewproduct" class="nav nav-tabs producttabcarosel product-view owl-carousel" data-tabs="tabs">
-                                        <div class="pro-view"><a href="#view1" data-bs-toggle="tab" class="active"><img src="@Model.ProductBasicModel.CoverImage" alt=""></a></div>
+                                        <div class="pro-view"><a href="#view1" data-bs-toggle="tab" class="active"><img src="@Model.ProductBasicModel.CoverImage" loading="lazy" alt=""></a></div>
                                         @foreach (var Preview in Model.ProductImagesModel)
                                         {
-                                            <div class="pro-view"><a href="#view_@Preview.ProductImagesId" data-bs-toggle="tab"><img src="@Preview.Image" alt=""></a></div>
+                                            <div class="pro-view"><a href="#view_@Preview.ProductImagesId" data-bs-toggle="tab"><img src="@Preview.Image" alt="" loading="lazy"></a></div>
                                         }
                                         @*<div class="pro-view"><a href="@Model.ProductImagesModel.Image" data-bs-toggle="tab"><img src="@Model.ProductImagesModel.Image" alt=""></a></div>
                                             <div class="pro-view"><a href="@Model.ProductImagesModel.Image" data-bs-toggle="tab"><img src="@Model.ProductImagesModel.Image" alt=""></a></div>*@
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -219,7 +199,6 @@
                                     @*<span class="minus">-</span>
                                         <input type="number" class="count" asp-for="OrderBasicModel.Qty" name="OrderBasicModel.Qty" min="1" max="@Model.ProductBasicModel.Qty" value="1">
                                         <span class="plus">+</span>*@
-
                                     <div class="input-group">
                                         <span class="">
                                             <button type="button" class="minus btn btn-default btn-number min" disabled="disabled" data-type="minus" data-field="OrderBasicModel.Qty" style="z-index:0;">
@@ -234,14 +213,11 @@
                                         </span>
                                     </div>
                                 </div>
-
                                @foreach (var Attribute in Model.AttributesSetupModel)
                                 {
                                     <h6>@Attribute.AttributeName</h6>
                                 }
-
                             <div id="SpecBtn">
-                              
                                     <div class="hungry d-inline-flex">
                                         <div class="selection m-1">
                                             @foreach (var pro in Model.Sp_GetProductSpecificationsModels)
@@ -250,29 +226,23 @@
                                                 {
                                                     @*<input id="@pro.SpecificationNames" class="" onclick="Match('@pro.SpecificationIds')"  type="radio">*@
                                                     <button id="@pro.ProductSpecificationId" type="button" class="btn mr-md-2 mb-md-0 mb-2  btn-primary @pro.SpecificationNames" name="dropspec" data-name="Specification" data-id="@pro.SpecificationIds">@pro.SpecificationNames</button>
-
                                                     @*<label for="@pro.SpecificationNames" class="InStock">@pro.SpecificationNames</label>*@
                                                 }
                                                 else if (pro.IsSpecificationExist == 1)
                                                 {
                                                     <button id="@pro.ProductSpecificationId" type="button" class="btn mr-md-2 mb-md-0 mb-2 btn-outline-primary  @pro.SpecificationNames" name="dropspec" data-name="Specification" data-id="@pro.SpecificationIds">@pro.SpecificationNames</button>
-
                                                 }
                                                 else
                                                 {
                                                     <button id="@pro.ProductSpecificationId" type="button" class="btn mr-md-2 mb-md-0 mb-2 btn-outline-dark @pro.SpecificationNames" name="dropspec" disabled>@pro.SpecificationNames</button>
-
                                                     @*<input id="@pro.SpecificationNames" class="@pro.SpecificationNames" name="dropspec" type="radio" disabled>
                 <label for="@pro.SpecificationNames" class="OutStock">@pro.SpecificationNames</label>*@
                                                 }
                                             }
                                             </div>
                                     </div>
-                               
                             </div>
-
                                 @*</form>*@
-
                                 @if (Model.ProductBasicModel.Qty == 0)
                                 {
                                     <div class="row">
@@ -291,7 +261,6 @@
                                             </p>
                                         </div>
                                     </div>
-
                                     <!-- Modal -->
                                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered">
@@ -313,7 +282,6 @@
                                 else
                                 {
                                     <p class="buttons_bottom_block no-print" id="add_to_cart">
-
                                         @if (User.Identity.IsAuthenticated)
                                         {
                                             @if (Model.ProductPriceModel.DisableBuyButton == true)
@@ -334,7 +302,6 @@
                                                             <span>Add to cart</span>
                                                         </button>
                                                     </div>
-
                                                     <div class="col-sm-6 Buy_Now_Btn ">
                                                         <button class="exclusive mt-3" name="BuyNow" asp-action="BuyNow" asp-controller="ProductDetail" type="submit">
                                                             <span>Buy Now</span>
@@ -363,7 +330,6 @@
                                                             <span>Add to cart</span>
                                                         </button>
                                                     </div>
-
                                                     <div class="col-sm-6 Buy_Now_Btn">
                                                         <button class="exclusive mt-3" name="Login" asp-action="Login" asp-controller="Authentications" type="submit">
                                                             <span>Buy Now</span>
@@ -374,11 +340,9 @@
                                         }
                                     </p>
                                 }
-
                             </div>
                         </div>
                         @*End single product details*@
-
                     </div>
                 </div>
                 <!-- Start single more info -->
@@ -416,7 +380,6 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- End single more info -->
                 <!-- Start single Accessories -->
                 <div class="new-product-area">
@@ -429,7 +392,7 @@
                             <div class="product-item mb-3">
                                 <div class="top-item">
                                     <a href="@Url.Action("Details", "ProductDetail",new { id = product.ProductGUID } )">
-                                        <img src="@product.image" alt="@product.ProductName" style="height: 244px;width: 299px;">
+                                        <img src="@product.image" alt="@product.ProductName" loading="lazy" style="height: 244px;width: 299px;">
                                     </a>
                                 </div>
                                 <div class="bottom-item">
@@ -463,38 +426,26 @@
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="~/plugins/jquery/jquery.min.js"></script>
 <script>
-
     (function ($) {
-
         "use strict";
-
         $('[data-toggle="tooltip"]').tooltip()
-
         // $('#exampleModalCenter').modal('show')
-
         var fullHeight = function () {
-
             $('.js-fullheight').css('height', $(window).height());
             $(window).resize(function () {
                 $('.js-fullheight').css('height', $(window).height());
             });
-
         };
         fullHeight();
-
     })
-
-
     $('.btn-number').click(function (e) {
         e.preventDefault();
-
         fieldName = $(this).attr('data-field');
         type = $(this).attr('data-type');
         var input = $("input[name='" + fieldName + "']");
         var currentVal = parseInt(input.val());
         if (!isNaN(currentVal)) {
             if (type == 'minus') {
-
                 if (currentVal > input.attr('min')) {
                     input.val(currentVal - 1).change();
                     $('.max').attr('disabled', false);
@@ -502,9 +453,7 @@
                 if (parseInt(input.val()) == input.attr('min')) {
                     $(this).attr('disabled', true);
                 }
-
             } else if (type == 'plus') {
-
                 if (currentVal < input.attr('max')) {
                     if (currentVal >= 10) {
                         $(this).attr('disabled', true);
@@ -518,25 +467,18 @@
                 if (parseInt(input.val()) == input.attr('max')) {
                     $(this).attr('disabled', true);
                 }
-
             }
-
         } else {
             input.val(0);
         }
-
     });
-
-
     $('.input-number').focusin(function () {
         $(this).data('oldValue', $(this).val());
     });
     $('.input-number').change(function () {
-
         minValue = parseInt($(this).attr('min'));
         maxValue = parseInt($(this).attr('max'));
         valueCurrent = parseInt($(this).val());
-
         name = $(this).attr('name');
         if (valueCurrent >= minValue) {
             $(".btn-number[data-type='minus'][data-field='" + name + "']").removeAttr('disabled')
@@ -550,10 +492,7 @@
             alert('Sorry, the maximum Quantity was reached');
             $(this).val($(this).data('oldValue'));
         }
-
     });
-
-
     //window.onload = function () {
     //    var SpecBtn = $('#SpecBtn');
 
@@ -564,7 +503,6 @@
     //        }
     //    }
     //};
-
     $('button[data-name="Specification"]').click(function () {
       //  var id = $(this).attr('id');
        // id.removeClass("btn-outline-primary").addClass("btn-primary");
@@ -572,17 +510,12 @@
         $(this).addClass("btn-primary").siblings().removeClass("btn-primary").addClass("btn-outline-primary");
         Match(specId);
     });
-
     function Match(id) {
-
         var PName = $('#Prod_Name').val();
-
-
         var Daata = Object();
         Daata.Guid = $('#ProdGuid').val();
         Daata.SpecId = id;
         Daata.Orgid = $('#OrgId').val();
-
         $.ajax({
             type: 'POST',
             url: '@Url.Action("Product_Spcification_Details", "ProductDetail")',
@@ -604,8 +537,7 @@
                     else {
                         $(".sin-item span.stocklbl").removeClass("sin-item-out-stock");
                         $(".sin-item span.stocklbl").addClass("sin-item-btn");
-                        $(".sin-item span.stocklbl").text('In Stock');
-                        
+                        $(".sin-item span.stocklbl").text('In Stock');   
                     }
                     $('#Prod_Spec').text(data.name);
                     $('#MainIMGH').attr('href', data.image);
@@ -614,14 +546,12 @@
                     document.getElementById("Set_Qty").value = data.qty;
                     var SpecId = parseInt(data.specId);
                     document.getElementById("SpecId").value = SpecId;
-
                     if ($('.exclusive')[0].name == 'AttToCart') {
                         document.getElementsByName("AttToCart")[0].setAttribute("formaction", "/ProductDetail/Add_Specification_ToCart");
                     }
                     if ($('.exclusive')[1].name == 'BuyNow') {
                         document.getElementsByName("BuyNow")[0].setAttribute("formaction", "/ProductDetail/Add_Specification_BuyNow");
                     }
-
                     if (data.is_In_WishList == true) {
                         $('#Wish_Logo').removeClass('fa-regular');
                         $('#Wish_Logo').addClass('fa');
@@ -635,23 +565,16 @@
                         $('#Wish_Logo').css('color','black');
                         $('#Wish_Logo').css('font-size','20px');
                     }                                                   
-
                     var WishLink = document.getElementById("AddtoWish").href;
                     WishLink += '&Specid=' + SpecId;
                     $('#AddtoWish').attr('href', WishLink);
-                   
-
                 }
                // $('#' + data.subName).click();
-
-
             },
             error: function (xhr, status, error) {
                 alert("some thing worng");
             }
         })
-
     };
-
 </script>
 
