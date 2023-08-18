@@ -227,7 +227,7 @@ namespace Shoppite.Infrastructure.Repository
             var result = await (from o in _dbContext.OrderMaster
                          join p in _dbContext.UsersProfile on o.OrgId equals p.OrgId
                          join or in _dbContext.Organization on p.OrgId equals or.Id
-                         where p.Type == "vendor"
+                         where p.Type == "vendor" && o.OrderGuid == OrderGuid
                          select new { o.OrderMasterId, p.ContactNumber,or.OrgName }).FirstOrDefaultAsync();
 
             
