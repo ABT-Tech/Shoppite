@@ -13,19 +13,19 @@ namespace Shoppite.Application.Models
         public int ShippingId { get; set; }
         public Guid? OrderGuid { get; set; }
         [Required]
-        [RegularExpression("[A-Za-z]", ErrorMessage ="Only alphabets allowed")]
+        [RegularExpression("^[A-Za-z]*$", ErrorMessage ="Only alphabets allowed")]
         public string FirstName { get; set; }
         [Required]
-        [RegularExpression("[A-Za-z]", ErrorMessage = "Only alphabets allowed")]
+        [RegularExpression("^[A-Za-z]*$", ErrorMessage = "Only alphabets allowed")]
         public string LastName { get; set; }
         [Required]
         [RegularExpression(@"[A-Za-z0-9'\.\-\s\,]", ErrorMessage = "Please enter valid Adress")]
         public string Address { get; set; }
         [Required]
-        [RegularExpression("[A-Za-z0-9 - ]", ErrorMessage = "Please enter valid Adress")]
+        [RegularExpression("^[A-Za-z0-9]*$", ErrorMessage = "Please enter valid Adress")]
         public string Street { get; set; }
         [Required]
-        [RegularExpression("[A-Za-z]", ErrorMessage = "Please enter a valid city name")]
+        [RegularExpression("^[A-Za-z]*$", ErrorMessage = "Please enter a valid city name")]
         public string City { get; set; }
         [Required]
         [RegularExpression("^[0-9]*$", ErrorMessage = "only numbers")]
