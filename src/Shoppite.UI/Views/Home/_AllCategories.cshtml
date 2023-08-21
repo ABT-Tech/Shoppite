@@ -7,7 +7,7 @@
             <div class="wishlist-box">
                 <div class="wish-image">
                     <a asp-action="AllProducts" asp-controller="Home" asp-route-CategoryId="@wishlist.ID">
-                        <img style="height:244px;width:250px" src="@Url.Content("~")@wishlist.Icons" alt="">
+                        <img style="height:244px;width:250px" loading="lazy" src="@Url.Content("~")@wishlist.Icons" alt="">
                     </a>
                 </div>
                 <div class="wishlisst-info ">

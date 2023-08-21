@@ -4,7 +4,7 @@
     <div class="row">
         @if (Model.ProductdByBrand.Count == 0)
         {
-            <img class="" style="margin-top: 3.6pc;" src="/img/no-product-found.jpg" alt="NoProductFound">
+            <img class="" style="margin-top: 3.6pc;" src="/img/no-product-found.jpg" loading="lazy" alt="NoProductFound">
         }
         else
         {
@@ -14,7 +14,7 @@
                     <div class="product-item">  
                         <div class="top-item">
                             <a href="@Url.Action("Details","ProductDetail", new {id = product.ProductGuid })">
-                                <img style="height:244px;width:250px" src="@product.Image" alt="Product image">
+                                <img style="height:244px;width:250px" src="@product.Image" loading="lazy" alt="Product image">
                             </a> 
                         </div>
                         <div class="bottom-item">

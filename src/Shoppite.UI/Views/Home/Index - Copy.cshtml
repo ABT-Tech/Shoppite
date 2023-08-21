@@ -1,6 +1,5 @@
 ﻿@model Shoppite.Application.Models.MainModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-
 @{
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -354,8 +353,8 @@
                 <!-- Nivo slider Demo 35 -->
                 <div id="NivosliderD35oo slider-gray-bg">
                     <div class="nivoSlider">
-                        <img src="img/slider/3.jpg" alt="slider image">
-                        <img src="img/slider/5.jpg" alt="slider image">
+                        <img src="img/slider/3.jpg" loading="lazy" alt="slider image">
+                        <img src="img/slider/5.jpg" loading="lazy" alt="slider image">
                     </div>
                 </div>
             </div>
@@ -390,7 +389,6 @@
                             {
                                 int X = (int)Cat.ID;
                                 <li>
-
                                     <a onclick="testajaxcall('@X')"  data-toggle="tab" name="CatName" class="name xbtn">
                                         <label class="name">@Cat.NAME</label>
                                         @*<span class="thumb"><img class="imgm" src="img/tab-icon/12-0_thumb.png" alt="thumb"></span>
@@ -407,9 +405,8 @@
                     <div class="new-product-area">
                         <div class="container-fluid">
                             <div class="tab-contant-static-image">
-                                <a href="#"><img src="img/product/banner_tabCate.jpg" alt="Static image"></a>
+                                <a href="#"><img src="img/product/banner_tabCate.jpg" loading="lazy" alt="Static image"></a>
                             </div>
-
                             <div class="pt-3 overflow-hidden">
                                 <div class="swiper mySwiper">
                                     <div class="swiper-wrapper d-flex d-flex-inline " id="prodtabdata">
@@ -419,7 +416,6 @@
                                     <div class="swiper-button-prev"> <i class="fa fa-angle-left"></i> </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -443,14 +439,12 @@
                 <!-- Start new product -->
                 <div class="new-products">
                     <div class="producttabcarosel carosel-product5 owl-carousel">
-
                         @foreach (var group in product)
                         {
-
                             <div class="product-item">
                                 <div class="top-item">
                                     <a href="#">
-                                        <img src="@group.image" alt="@group.ProductName">
+                                        <img src="@group.image" loading="lazy" alt="@group.ProductName">
                                     </a>
                                     <div class="top-cocial">
                                         <p>
@@ -503,24 +497,21 @@
         </div>
         <div class="brand-logo">
             <div class="producttabcarosel pos-logo-slide owl-carousel">
-
                 @foreach (var BLogo in Model.BrandsModel)
                 {
                     if (BLogo.BrandImage != "")
                     {
                         <div class="carosel-lo">
-                            <a href="#"><img id="Brand_Logo_Img" src="@BLogo.BrandImage" alt="@BLogo.BrandName" style="max-height: 68px; max-width: 130px;"></a>
+                            <a href="#"><img id="Brand_Logo_Img" src="@BLogo.BrandImage" alt="@BLogo.BrandName" loading="lazy" style="max-height: 68px; max-width: 130px;"></a>
                         </div>
                     }
                 }
-
             </div>
         </div>
     </div>
 </div>
 <!-- End brand logo area -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
-
 <script>
     var swiper = new Swiper(".mySwiper", {
         slidesPerView: 4,
@@ -553,7 +544,6 @@
             }
         }
     });
-
     function testajaxcall(id)
     {
         //debugger;
@@ -561,8 +551,6 @@
         var ProdAry = [];
         var header = document.getElementById("myDIV");
         var btns = header.getElementsByClassName("xbtn");
-
-
             $.ajax({
                 type: "GET",
                 url: '@Url.Action("Get_Product_By_Cat", "Home")',
@@ -571,14 +559,12 @@
                 contentType: "application/json",
                 success: function(result)
                 {
-
                     for (var i = 0; i < result.length; i++) {
-
                         prod_Div = '<div class="swiper-slide">';
                         prod_Div += '<div class="product-item" >';
                         prod_Div += '<div class="top-item">';
                         prod_Div += '<a href="#">';
-                        prod_Div += '<img src="' + result[i].image + '" alt="' + result[i].productName +'">';
+                        prod_Div += '<img src="' + result[i].image + '" alt="' + result[i].productName +'" loading="lazy">';
                         prod_Div += '</a>';
                         prod_Div += '<div class="top-cocial">';
                         prod_Div += '<p>';
@@ -617,20 +603,16 @@
                         ProdAry.push(resetdiv);
                     }
                     $("#prodtabdata").html(ProdAry.join(''));
-
                 },
                 error: function (xhr, status, error)
                 {
                     alert(xhr.responseText);
                 }
             })
-
     };
-
     window.onload = function () {
         document.getElementsByName("CatName")[0].click();
     };
-
     var links = document.querySelectorAll('.toplist ul li a');
     links.forEach(function (element) {
         element.addEventListener('click', function (e) {
@@ -642,7 +624,6 @@
             this.classList.add('active');
         });
     });
-
 </script>
 
 

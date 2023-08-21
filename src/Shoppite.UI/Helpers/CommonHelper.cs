@@ -89,7 +89,7 @@ namespace Shoppite.UI.Helpers
             message += string.Format("Message: {0}", msg);
             message += Environment.NewLine;
             message += "-----------------------------------------------------------";
-            message += Environment.NewLine;
+            message += Environment.NewLine;          
             string path = "C:\\inetpub\\vhosts\\shooppy.in\\httpdocs\\ErrorLog.txt";
             using (StreamWriter writer = new StreamWriter(path, true))
             {
@@ -242,25 +242,28 @@ namespace Shoppite.UI.Helpers
                 var TestMobileNumer = _configuration.GetSection("WhatsAppSettings")["TestMobileNumber"].ToString();
                 var request = new RestRequest("Message");
                 var MobileNumber = mobileNumber.StartsWith("91") ? mobileNumber : "91" + mobileNumber;
-                MobileNumber = IsTestEnable == "1" ? "917046493455" : MobileNumber;
+                MobileNumber = IsTestEnable == "1" ? TestMobileNumer : MobileNumber;
                 var ordersID = orderID.ToString().PadLeft(5, '0');
+                LogError("WhatsApp Request initialize - MobileNumber : " + MobileNumber + ", WhatsAppURL : " + WhatsAppURL + ", ordersID : '" + ordersID + "', Template : "+ templetID + ", orgname :" + orgname + " , APIKEY : " + APIKey);
                 string body = "";
                 request.AddHeader("API-KEY", APIKey);
                 request.AddHeader("Content-Type", "application/json");
                 if(template == "order_notify_to_vendor_templateid")
                 {
                  body = "{\r\n" + "\"mobile\": \"" + MobileNumber + "\",\"templateid\": \"" + templetID + "\",\"template\":{ \"components\":[{ \"type\":\"body\",\"parameters\":[{ \"type\":\"text\",\"text\":\"" + orgname + "\"},{ \"type\":\"text\",\"text\":\"" + ordersID + "\"}]}]}}";
+                 LogError("WhatsApp Request Body - WhatsappRequestBody : " + body);
                 }
-                if(template == "order_shiping_templateid")
+                if (template == "order_shiping_templateid")
                 {
                  body = "{\r\n" + "\"mobile\": \"" + MobileNumber + "\",\"templateid\": \"" + templetID + "\",\"template\":{ \"components\":[{ \"type\":\"body\",\"parameters\":[{ \"type\":\"text\",\"text\":\"" + orgname + "\"},{ \"type\":\"text\",\"text\":\"" + ordersID + "\"}]}]}}";
+                 LogError("WhatsApp Request Body - WhatsappRequestBody : " + body);
                 }
                 request.AddParameter("application/json", body, ParameterType.RequestBody);
                 var response = await client.ExecutePostAsync(request);
-                if (response.IsSuccessStatusCode)
-                {
+                LogError("WhatsApp response - StatusCode   :" + response.IsSuccessStatusCode);
                     JObject jObject = JsonConvert.DeserializeObject<JObject>(response.Content);
                     bool status = (bool)jObject["status"];
+                    LogError("status : " + status);          
                     WhatsAppMessages whatsApp = new WhatsAppMessages();
                     whatsApp.MobileNumber = MobileNumber;
                     whatsApp.MessageRequest = body;
@@ -269,14 +272,13 @@ namespace Shoppite.UI.Helpers
                     whatsApp.MessageResponse = response.Content;
                     whatsApp.OrgName = orgname;
                     whatsApp.InsertDateTime = DateTime.Now;
+                    LogError("WhatsApp Insert Request in Database - MobileNo : " + whatsApp.MobileNumber + ", MessageRequest : " + whatsApp.MessageRequest + ", TemplateID : " + whatsApp.TemplateID + ", Is_SendMessage : " + whatsApp.Is_SendMessage + ", MessageResponse : " + whatsApp.MessageResponse + ", OrgName : " + whatsApp.OrgName + "InsertDateTime : "+ whatsApp.InsertDateTime);
                     await _dbContext.WhatsAppMessages.AddAsync(whatsApp);
                     await _dbContext.SaveChangesAsync();
-
-                }
             }
             catch(Exception ex)
             {
-                LogError("Mobile Number : " + mobileNumber+ ", Template : "+ template + ", Message : "+ ex.Message + ", Stack Trace : " + ex.StackTrace);
+                LogError("WhatsApp Exception - Mobile Number : " + mobileNumber+ ", Template : "+ template + ", Message : "+ ex.Message + ", Stack Trace : " + ex.StackTrace);
             }
         }
     }
