@@ -30,7 +30,7 @@
                                 @*@foreach (var myaccount in Model.Myaccount.Take(1))
                                     {*@
                                 <h1>My Profile</h1>
-                                <img src="@Model.Myaccount.CoverImage" loading="lazy" style="margin-right: 55px;max-height:100px; float: right;" />
+                                <img src="@Model.Myaccount.CoverImage" loading="lazy" alt="yourcoverimg" style="margin-right: 55px;max-height:100px; float: right;" />
                                 <form action="#">
                                     <div class="row">
                                         <div class="col-lg-6">
@@ -44,10 +44,10 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-6 cart-checkout">
-                                            <a class="text-decoration-none" asp-controller="MyAccount" asp-action="EditProfile">Edit Profile &nbsp;<i class="fa fa-pen"></i></a>
+                                            <a class="text-decoration-none" asp-controller="MyAccount" asp-action="EditProfile" name="editpro">Edit Profile &nbsp;<i class="fa fa-pen"></i></a>
                                         </div>
                                         <div class="col-6 cart-checkout" id="fadeshow1">
-                                            <a class="text-decoration-none" asp-action="Logout" asp-controller="Authentications">Logout<i class="fa fa-sign-out-alt"></i></a>
+                                            <a class="text-decoration-none" asp-action="Logout" asp-controller="Authentications" name="logout">Logout<i class="fa fa-sign-out-alt"></i></a>
                                         </div>
                                     </div>
                                 </form>

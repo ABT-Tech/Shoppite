@@ -1,53 +1,8 @@
 ﻿@model Shoppite.Application.Models.MainModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <div class="main-area">
-    @*<div class="megamenu-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-9">
-                    <div class="megamenu">
-                        <nav>
-                            <ul>
-                                <li>
-                                    <a class="home" asp-action="Index" asp-controller="Home">Home</a>
-                                    <div class="megamenudown-mini home-ve">
-                                        <div class="mega-top">
-                                            <div class="mega-item-menu">
-                                                <a class="title" href="#"><span>Home variyation</span></a>
-                                                <a href="index-2.html"><span>Home2</span></a>
-                                                <a href="index-3.html"><span>Home3</span></a>
-                                                <a href="index-4.html"><span>Home4</span></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                @await Html.PartialAsync("_Categories", Model)
-                                @await Html.PartialAsync("_MoreCategories", Model)
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="search-box">
-                        <form method="get" action="#" id="searchbox-eleyas">
-                            <p>
-                                <input type="text" value="" placeholder="You keyword..." name="search_query">
-                                <button class="button-search" name="submit_search" type="submit">
-                                    <span><i class="fa fa-search"></i></span>
-                                </button>
-                            </p>
-                        </form>
-                    </div>
-                </div>              
-            </div>
-        </div>
-    </div>*@
     <div class="product-categori-area">
         <div class="container">
-            @*<div class="breadcrumb" style="color:#777;background-color:white !important">
-                <span><a title="Return to Home" href="index.html" class="home"></a>Home</span>
-                <span class="navigation-pipe"><i class="fa fa-angle-right"></i></span>Brands
-            </div>*@
             <div class="product-categori">
                 <div class="row flex-row-reverse">
                     <div class="col-lg-12 col-md-12">
@@ -62,7 +17,7 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <div class="list-view-image">
-                                                    <a href="#"><img src="img/product/blouse1.jpg" loading="lazy" alt=""></a>
+                                                    <a href="#" name="blklink"><img src="img/product/blouse1.jpg" loading="lazy" alt="blankimg"></a>
                                                 </div>
                                             </div>
                                             <div class="col-md-8">
@@ -74,15 +29,15 @@
                                                         <i class="fa fa-star-o"></i>
                                                         <i class="fa fa-star-o"></i>
                                                     </p>
-                                                    <h5><a href="#">Blouse</a></h5>
+                                                    <h5><a href="#" name="link">Blouse</a></h5>
                                                     <span class="list-product-price">£ 32.40</span>
                                                     <p class="product-desc">Short-sleeved blouse with feminine draped sleeve detail.</p>
                                                     <div class="product-social">
                                                         <ul>
-                                                            <li><a href="#"><i class="fa fa-external-link"></i><span>Add to cart</span></a></li>
-                                                            <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-bar-chart"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                                            <li><a href="#" name="link"><i class="fa fa-external-link"></i><span>Add to cart</span></a></li>
+                                                            <li><a href="#" name="link"><i class="fa fa-heart-o"></i></a></li>
+                                                            <li><a href="#" name="link"><i class="fa fa-bar-chart"></i></a></li>
+                                                            <li><a href="#" name="link"><i class="fa fa-shopping-cart"></i></a></li>
                                                         </ul>
                                                     </div>
                                                 </div>

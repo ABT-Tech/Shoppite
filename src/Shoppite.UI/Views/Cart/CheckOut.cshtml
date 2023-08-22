@@ -92,7 +92,7 @@
     <div class="checkout-page-area">
         <div class="container-fluid">
             <div class="breadcrumb">
-                <a title="Return to Home" href="/" class="home">Home</a>
+                <a title="Return to Home" href="/" class="home" name="homelink">Home</a>
                 <span class="navigation-pipe"><i class="fa fa-angle-right"></i></span>
                 checkout
             </div>
@@ -108,7 +108,7 @@
                                     <div class="panel sauget-accordion">
                                         <div id="headingOne" role="tab" class="panel-heading">
                                             <h4 class="panel-title">
-                                                <a aria-controls="checkoutMethod" aria-expanded="true" href="#checkoutMethod" data-bs-toggle="collapse" class="collapse" style="display:flex;">
+                                                <a aria-controls="checkoutMethod" aria-expanded="true" href="#checkoutMethod" data-bs-toggle="collapse" name="billinfolink" class="collapse" style="display:flex;">
                                                     <span style=" width: 29px; padding: 6px 17px 0px 11px; font-size: 15px; margin-right: 25px; }">1</span>  Billing Information
                                                 </a>
                                             </h4>
@@ -117,7 +117,7 @@
                                             <div class="content-info">
                                                 <div class="row ">
                                                     <div class="col-md-4 offset-md-9 mb-0">
-                                                        <button type="button" class="btn btn-default add-tag-btn SaveBtn mb-0 mt-2" onclick="toggleEnable('IpF1','IpF2','IpF3','IpF4','IpF5','IpF6','IpF7','IpF8')">
+                                                        <button type="button" class="btn btn-default add-tag-btn SaveBtn mb-0 mt-2" name="editbtn" onclick="toggleEnable('IpF1','IpF2','IpF3','IpF4','IpF5','IpF6','IpF7','IpF8')">
                                                             Edit
                                                         </button>
                                                     </div>
@@ -205,7 +205,7 @@
                                                     <input type="hidden" asp-for="IsPaytmClicked" />
                                                     <div class="col-12">
                                                         <div class="form-group">
-                                                            <button type="button" style="width:auto;" id="Proceed_to_Next" class="SaveBtn" onclick="document.getElementById('Target').click()">Proceed to Next</button>
+                                                            <button type="button" style="width:auto;" id="Proceed_to_Next" class="SaveBtn" onclick="document.getElementById('Target').click()" name="proceedtonextbtn">Proceed to Next</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -215,7 +215,7 @@
                                     <div class="panel sauget-accordion mb-5">
                                         <div id="headingFour" role="tab" class="panel-heading">
                                             <h4 class="panel-title">
-                                                <a aria-controls="paymentInformation" aria-expanded="false" id="Target" href="#paymentInformation" data-bs-toggle="collapse" class="collapsed" style="display:flex;">
+                                                <a aria-controls="paymentInformation" aria-expanded="false" id="Target" href="#paymentInformation" data-bs-toggle="collapse" class="collapsed" style="display:flex;" name="paymentinfolink">
                                                     <span style=" width: 29px; padding: 6px 17px 0px 11px; font-size: 15px; margin-right: 25px; }" >2</span> Payment Information
                                                 </a>
                                             </h4>
@@ -223,102 +223,11 @@
                                         <div aria-labelledby="headingFour" data-bs-parent="#accordion" role="tabpanel" class="panel-collapse collapse" id="paymentInformation" aria-expanded="false">
                                             <div class="content-info" >
                                                 <div id="accordion1" class="panel-group" style="display:flex">
-                                                    @*<div class="panel sauget-accordion SubPanel pt-2 d-none">
-            <div id="headingFive1" role="tab" class="panel-heading">
-                <h4 class="panel-title">
-                    <a aria-controls="orderReview1" aria-expanded="false" href="#orderReview1" data-bs-toggle="collapse" class="makeover collapsed">
-                        <img style="height: auto; width: auto;" src="~/img/icons8-bank-cards-30.png" /> card details
-                    </a>
-                </h4>
-            </div>
-            <div aria-labelledby="headingFive1" data-bs-parent="#accordion1" role="tabpanel" class="panel-collapse collapse" id="orderReview1" aria-expanded="false">
-                <div class="content-info">
-                    <div class="checkout-option">
-                        <div class="master-card-info">
-                            <div class="row">
-
-                                <div class="col-sm-6 mx-auto">
-                                    <div class="form-group">
-                                        <label>Name on Card <sup>*</sup></label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 mx-auto">
-                                    <div class="cardtype form-group">
-                                        <label>Credit Card Type</label>
-                                        <select class="form-control">
-                                            <option>--Please Select--</option>
-                                            <option>American Express</option>
-                                            <option>Visa</option>
-                                            <option>MasterCard</option>
-                                            <option>Discover</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 mx-auto">
-                                    <div class="form-group">
-                                        <label>Credit Card Number <sup>*</sup></label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 mx-auto">
-                                    <div class="expirationdate form-group">
-                                        <label>Expiration Date</label>
-                                        <div class="d-flex g-4">
-                                            <select class="form-control month-select w-50">
-                                                <option>Month</option>
-                                                <option>01 - January</option>
-                                                <option>02 - February</option>
-                                                <option>03 - March</option>
-                                                <option>04 - April</option>
-                                                <option>05 - May</option>
-                                                <option>06 - June</option>
-                                                <option>07 - July</option>
-                                                <option>08 - August</option>
-                                                <option>09 - September</option>
-                                                <option>10 - October</option>
-                                                <option>11 - November</option>
-                                                <option>12 - December</option>
-                                            </select> &nbsp; &nbsp;
-                                            <select class="form-control year-select w-50">
-                                                <option>Year</option>
-                                                <option>2015</option>
-                                                <option>2016</option>
-                                                <option>2017</option>
-                                                <option>2018</option>
-                                                <option>2019</option>
-                                                <option>2020</option>
-                                                <option>2021</option>
-                                                <option>2022</option>
-                                                <option>2023</option>
-                                                <option>2024</option>
-                                                <option>2025</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 mx-auto">
-                                    <div class="verificationcard form-group">
-                                        <label>Card Verification Number <sup>*</sup></label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6"></div>
-
-                                <div class="block-area-button">
-                                    <button class="btn btn-default add-tag-btn SaveBtn">Continue</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>*@
                                                     @if (Model.IsPaytm)
                                                     {
-                                                    <button style="width:auto;margin:15px;height:100%;" id="paytm-btn-click" class="SavePaymentBtn"><img src="~/images/Payment.gif" loading="lazy" style="height:50px" alt="buttonpng" border="0" /></button>
+                                                    <button style="width:auto;margin:15px;height:100%;" id="paytm-btn-click" class="SavePaymentBtn" name="paymentbtn"><img src="~/images/Payment.gif" loading="lazy" style="height:50px" alt="paymentbuttonpng" border="0" /></button>
                                                     }
-                                                    <button style="width: auto; margin: 15px; height: 100%;" type="submit" class="SavePaymentBtn"><img src="~/images/cash-on-delivery-icon-14.jpg" loading="lazy" style="height:50px" alt="buttonpng" border="0" /></button>
+                                                    <button style="width: auto; margin: 15px; height: 100%;" type="submit" class="SavePaymentBtn" name="codbtn"><img src="~/images/cash-on-delivery-icon-14.jpg" loading="lazy" style="height:50px" alt="paymentbuttonpng" border="0" /></button>
                                                 </div>
                                             </div>
                                         </div>
@@ -331,9 +240,9 @@
                                 <h4>CHECKOUT PROGRESS</h4>
                                 <ul>
                                     @*<li><a href="#">Billing Address</a></li>*@
-                                    <li><a href="#">Sipping Address</a></li>
+                                    <li><a href="#" name="shipaddlink">Sipping Address</a></li>
                                     @*<li><a href="#">Shiping Method</a></li>*@
-                                    <li><a href="#">Payment Method</a></li>
+                                    <li><a href="#" name="paymentmethodlink">Payment Method</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -358,7 +267,6 @@
     function toggleEnable(el1, el2, el3, el4, el5, el6, el7, el8) {
         var textbox = document.getElementById(el1, el2, el3, el4, el5, el6, el7, el8);
         if (textbox.disabled) {
-            // If disabled, do this
             document.getElementById("IpF1").disabled = false;
             document.getElementById("IpF2").disabled = false;
             document.getElementById("IpF3").disabled = false;
@@ -382,9 +290,6 @@
             // document.getElementById(el2).disabled = true;
         }
     }
-    //function ProceedtoNext() {
-    //    $('#Target').click();
-    //}
     $("#paytm-btn-click").click(function () {
         $("#IsPaytmClicked").val('true');
         $("form").submit();

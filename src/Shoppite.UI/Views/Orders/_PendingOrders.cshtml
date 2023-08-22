@@ -29,19 +29,13 @@
             <div class="col-lg-4 col-md-4 col-12">
                 <div style="width:355px;" class="wishlist-box card rounded shadow d-flex">
                     <div class="d-inline-flex">
-                       @* <div class="img-hover-zoom">
-                            <a href="">
-                                <img class="wish-image" style="height: 100px; width: 100px; margin: 5px; object-fit: contain;" src="" alt="">
-                            </a>
-                        </div>*@
                         <div style="margin: 5px;">
-                           @* //<h6 style="padding:5px 0px 0px 0px;" class="product_name_Over ">@myorders.ProductName</h6>*@
                             <p> <b style="color: #fe5b5a;">Order Date:</b> @myorders.orderdate</p>
                             <p> <b style="color: #fe5b5a;">OrderId:</b> @myorders.OrderMasterId</p>
                         </div>
                         <div style="width: 58px;text-align:center;">
                             <abbr title="More Order Details">
-                                <a href="/Orders/OrderDetails?orderid=@myorders.OrderMasterId">
+                                <a href="/Orders/OrderDetails?orderid=@myorders.OrderMasterId" name="link">
                                     <h2>
                                         <i class="fa fa-angle-right pt-4"></i>
                                     </h2>
@@ -57,6 +51,6 @@
 else
 {
     <div class="text-center">
-        <img src="~/images/NoOrderPlace.gif" loading="lazy" style="max-height: 400px; width: 100%; margin-left: 25px;" />
+        <img src="~/images/NoOrderPlace.gif" loading="lazy" alt="NoOrderPlace" style="max-height: 400px; width: 100%; margin-left: 25px;" />
     </div>
 }
