@@ -125,7 +125,7 @@
                                             </p>
                                             <p>
                                                 <i class="fa fa-envelope Icon"></i>&nbsp;&nbsp;&nbsp;<span class="call">
-                                                    Email: <a href="mailto:@Model.f_Order_MasterModel.Email" style="color: #000000; font-weight:500; letter-spacing: 1.5px;">@Model.f_Order_MasterModel.Email</a>
+                                                    Email: <a href="mailto:@Model.f_Order_MasterModel.Email" style="color: #000000; font-weight:500; letter-spacing: 1.5px;" name="link">@Model.f_Order_MasterModel.Email</a>
                                                 </span>
                                             </p>
                                         </div>
@@ -144,7 +144,7 @@
                                             </p>
                                             <p>
                                                 <i class="fa fa-envelope Icon"></i>&nbsp;&nbsp;&nbsp;<span class="call">
-                                                    Email: <a href="mailto:@Model.f_Order_MasterModel.Email" style="color: #000000; font-weight:500; letter-spacing: 1.5px;">@Model.f_Order_MasterModel.Email</a>
+                                                    Email: <a href="mailto:@Model.f_Order_MasterModel.Email" style="color: #000000; name=" link" font-weight:500; letter-spacing: 1.5px;">@Model.f_Order_MasterModel.Email</a>
                                                 </span>
                                             </p>
                                         </div>
@@ -161,11 +161,11 @@
                                                             }
                                                             else if (Model.f_Order_MasterModel.LastOrderStatus == "Request Cancellation")
                                                             {
-                                                                <img class="img-fluid" loading="lazy" style="margin-top:-70px;" src="~/img/Cancel.gif" />
+                                                                <img class="img-fluid" loading="lazy" alt="cancelimg" style="margin-top:-70px;" src="~/img/Cancel.gif" />
                                                             }
                                                             else
                                                             {
-                                                                <li style="margin: 15px 0px 35px 0px; "><a href="/Orders/CancleOrder?orderid=@Model.f_Order_MasterModel.OrderId" class="cbtn download">Cancel Order</a></li>
+                                                                <li style="margin: 15px 0px 35px 0px; "><a href="/Orders/CancleOrder?orderid=@Model.f_Order_MasterModel.OrderId" name="link" class="cbtn download">Cancel Order</a></li>
                                                             }
                                                         </ul>
                                                     </div>
@@ -199,8 +199,8 @@
                                                 {
                                                     <div class="col-md-2">
                                                         <div class="list-view-image" style="margin-left: 8px;">
-                                                            <a href="#">
-                                                                <img src="@productImg.CoverImage" loading="lazy" alt="" />
+                                                            <a href="#" name="link">
+                                                                <img src="@productImg.CoverImage" loading="lazy" alt="@productImg.ProductName" />
                                                             </a>
                                                         </div>
                                                     </div>
@@ -215,7 +215,7 @@
                                                         <div class="col-6 col-md-8 list-view-details justify-content-end">
                                                             <div class="cartPage-btn">
                                                                 <ul class="text-center mt-5">
-                                                                        <li style="margin: 25px 0px 35px 0px; "><a href="/ProductDetail/Details/@productImg.ProductGUID" class="cbtn return">Buy Again</a></li>
+                                                                        <li style="margin: 25px 0px 35px 0px; "><a href="/ProductDetail/Details/@productImg.ProductGUID" name="link" class="cbtn return">Buy Again</a></li>
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -233,9 +233,6 @@
         </div>
         <!-- End categori content -->
     </div>
-    <!-- End main area -->
-    <!-- JS -->
-    <!-- jquery -->
     <script src="js/vendor/jquery-3.5.1.min.js"></script>
     <script src="js/vendor/jquery-migrate-3.3.0.min.js"></script>
     <!-- bootstrap js
@@ -277,8 +274,6 @@
                 " - $" + $("#slider-range").slider("values", 1));
         });
     </script>
-    <!-- main js
-        ============================================ -->
     <script src="js/main.js"></script>
 </body>
 </html>

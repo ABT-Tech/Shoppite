@@ -11,54 +11,29 @@
                 <div class="new-product-title">
                     <h4><span>@groupq.deals </span></h4>
                 </div>
-                <!-- End product title -->
-                <!-- Start new product -->
                 <div class="new-products">
                     <div class="producttabcarosel carosel-product5 owl-carousel">
                         @foreach (var group in product)
                          {
                             <div class="product-item">
                                 <div class="top-item">
-                                    <a href="@Url.Action("Details", "ProductDetail",new { id = group.ProductGUID } )">
+                                    <a href="@Url.Action("Details", "ProductDetail",new { id = group.ProductGUID } )" name="productslink">
                                         <img src="@group.image"  alt="@group.ProductName" style="height: 244px;" loading="lazy" class="lazy"/>
                                     </a>
-                                    @*<div class="top-cocial">
-                                        <p>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </p>
-                                    </div>*@
                                 </div>
                                 <div class="bottom-item">
                                     <div class="product-info">
-                                        <h5><a href="@Url.Action("Details", "ProductDetail",new { id = group.ProductGUID } )" class="product_name_Over">@group.ProductName</a></h5>
+                                        <h5><a href="@Url.Action("Details", "ProductDetail",new { id = group.ProductGUID } )" name="productlink" class="product_name_Over">@group.ProductName</a></h5>
                                         <span>
                                             ₹@group.Price &nbsp;&nbsp;
                                             @if (group.OldPrice != null)
                                             {
                                                 <del>₹@group.OldPrice</del>
-
                                             }
                                         </span>
                                         <p>
-                                            @*<i class="fa fa-star-o"></i>
-                                              <i class="fa fa-star-o"></i>
-                                              <i class="fa fa-star-o"></i>
-                                              <i class="fa fa-star-o"></i>
-                                              <i class="fa fa-star-o"></i>*@
                                         </p>
                                     </div>
-                                    @*<div class="product-social">
-                                        <ul>
-                                            <li><a href="#"><i class="fa fa-external-link"></i></a></li>
-                                            <li><a class="addWish" data-product="@group.ProductId"><i class="fa fa-heart" id="addtowishlist"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-bar-chart"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                        </ul>
-                                    </div>*@
                                 </div>
                             </div>
                          }
@@ -69,7 +44,6 @@
         }
     </div>
 </div>
-@*<div id="test"></div>*@
 <script>
     function GetProductDetails(id) {
         $.ajax({
@@ -80,10 +54,8 @@
             contentType: "application/json",
             success: function (result) {
                 window.location.href = 'Details';
-                //$("#test").append(data);
             },
             error: function (xhr, status, error) {
-               // window.location = xhr;
                 alert(xhr.responseText);
                 console.log(xhr);
                 console.log(error);

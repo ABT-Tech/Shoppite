@@ -4,29 +4,20 @@
     @foreach (var item in Model.ProductsDetails.Where(x=>x.IsPublished == true && x.IsIncludeMenu == true).Take(4))
     {
         <li>
-           <a href="">@item.maincaturlpath</a>
+           <a href="" name="maincaturlpath">@item.maincaturlpath</a>
            <div class="megamenudown" style="max-width: 730px !important;">
                <div class="mega-top d-flex">
                     @foreach (var subcat in item.SubcategoryDetails.Where(x=>x.IsPublished == true && x.IsIncludeMenu == true).Take(3)) 
                     {
                         <section class="mega-item-menu w-auto border-1">
-                            <a class="title" asp-controller="Home" asp-route-CategoryId="@subcat.CategoryId" asp-action="AllProducts" title="@subcat.CategoryName"><span>@subcat.CategoryName</span></a>
+                            <a class="title" asp-controller="Home" asp-route-CategoryId="@subcat.CategoryId" asp-action="AllProducts" title="@subcat.CategoryName" name="categorylink"><span>@subcat.CategoryName</span></a>
                             @foreach (var categories in subcat.ProductsDetails.Take(5))
                             {
-                                <a href="/ProductDetail/Details/@categories.ProductGuid" class="product_name_Over" title="@categories.ProductName"><span>@categories.ProductName</span></a>
+                                <a href="/ProductDetail/Details/@categories.ProductGuid" class="product_name_Over" title="@categories.ProductName" name="catproductnamelink"><span>@categories.ProductName</span></a>
                             }
                         </section>
                     } 
                 </div>
-            @*  <div class="mega-bottom">
-                        @foreach (var cat in item.SubcategoryDetails.Take(3))
-                        {
-                            @foreach (var product in cat.ProductsDetails.Take(3))
-                            {
-                                <a href="/ProductDetail/Details/@product.ProductGuid"><img style="width:292px; height:143px" src="@product.CoverImage" alt="@product.ProductName"></a>
-                           }
-                        }
-                    </div>*@
             </div>
         </li>
     }

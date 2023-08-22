@@ -4,7 +4,6 @@
     ViewData["Title"] = "Detail Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@*<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">*@
 <style>
     /* Chrome, Safari, Edge, Opera */
     input::-webkit-outer-spin-button,
@@ -55,9 +54,6 @@
         display: revert;
         float: none;
     }
-    /*    .single-mori-info #Des ul{
-        position:fixed;
-    }*/
     #Set_Price, #Set_Name, #Set_Qty, #SpecId {
         opacity: 0;
     }
@@ -128,37 +124,37 @@
                                             <p class="sin-adto-cart-bottom d-flex justify-content-end">
                                                 @if (@Model.ProductBasicModel.WishlistedProduct == true)
                                                 {
-                                                    <abbr title="WishList"><a id="AddtoWish" href="/ProductDetail/AddToWhishList?ProductId=@Model.ProductBasicModel.ProductId&id=@Model.ProductBasicModel.ProductGuid"><i id="Wish_Logo" style="color: black; font-size: 20px;" class="fa-regular fa-heart"></i></a></abbr>
+                                                    <abbr title="WishList"><a id="AddtoWish" href="/ProductDetail/AddToWhishList?ProductId=@Model.ProductBasicModel.ProductId&id=@Model.ProductBasicModel.ProductGuid" name="link"><i id="Wish_Logo" style="color: black; font-size: 20px;" class="fa-regular fa-heart"></i></a></abbr>
                                                 }
                                                 else
                                                 {
-                                                    <abbr title="WishList"><a id="AddtoWish" href="/ProductDetail/AddToWhishList?ProductId=@Model.ProductBasicModel.ProductId&id=@Model.ProductBasicModel.ProductGuid "><i id="Wish_Logo" style="color: black; font-size: 20px;" class="fa-regular fa-heart"></i></a></abbr>
+                                                    <abbr title="WishList"><a id="AddtoWish" href="/ProductDetail/AddToWhishList?ProductId=@Model.ProductBasicModel.ProductId&id=@Model.ProductBasicModel.ProductGuid " name="link"><i id="Wish_Logo" style="color: black; font-size: 20px;" class="fa-regular fa-heart"></i></a></abbr>
                                                 }
                                             </p>
                                         }
                                         else
                                         {
                                             <p class="sin-adto-cart-bottom d-flex justify-content-end">
-                                                <abbr title="WishList"><a href="/Authentications/Login"><i style="color: black; font-size: 20px;" class="fa-regular fa-heart"></i></a></abbr>
+                                                <abbr title="WishList"><a href="/Authentications/Login" name="link"><i style="color: black; font-size: 20px;" class="fa-regular fa-heart"></i></a></abbr>
                                             </p>
                                         }
                                     </div>
                                     <div id="my-tab-content" class="product-details-large tab-content jump">
                                         <div class="tab-pane active" id="view1">
-                                            <a class="fancybox" id="MainIMGH" href="@Model.ProductBasicModel.CoverImage" data-fancybox-group="gallery" title=""><img id="MainImg" src="@Model.ProductBasicModel.CoverImage" loading="lazy" alt=""  style=" width: 100%; object-fit: contain; height: 400px;">@*<span>View larger<i class="fa fa-search-plus"></i></span>*@</a>
+                                            <a class="fancybox" name="link" id="MainIMGH" href="@Model.ProductBasicModel.CoverImage" data-fancybox-group="gallery" title=""><img id="MainImg" src="@Model.ProductBasicModel.CoverImage" loading="lazy" alt="productimg"  style=" width: 100%; object-fit: contain; height: 400px;">@*<span>View larger<i class="fa fa-search-plus"></i></span>*@</a>
                                         </div>
                                         @foreach (var proImg in Model.ProductImagesModel)
                                         {
                                             <div class="tab-pane" id="view_@proImg.ProductImagesId">
-                                                <a class="fancybox" href="@proImg.Image" data-fancybox-group="gallery" title=""><img src="@proImg.Image" loading="lazy" alt="">@*<span>View larger<i class="fa fa-search-plus"></i></span>*@</a>
+                                                <a class="fancybox" href="@proImg.Image" data-fancybox-group="gallery" name="link" title=""><img src="@proImg.Image" loading="lazy" alt="productsimg">@*<span>View larger<i class="fa fa-search-plus"></i></span>*@</a>
                                             </div>
                                         }
                                     </div>
                                     <div id="viewproduct" class="nav nav-tabs producttabcarosel product-view owl-carousel" data-tabs="tabs">
-                                        <div class="pro-view"><a href="#view1" data-bs-toggle="tab" class="active"><img src="@Model.ProductBasicModel.CoverImage" loading="lazy" alt="" style="width: 100%; object-fit: contain; height: 120px;"></a></div>
+                                        <div class="pro-view"><a href="#view1" data-bs-toggle="tab" class="active"><img src="@Model.ProductBasicModel.CoverImage" loading="lazy" alt="productsimg" style="width: 100%; object-fit: contain; height: 120px;"></a></div>
                                         @foreach (var Preview in Model.ProductImagesModel)
                                         {
-                                            <div class="pro-view"><a href="#view_@Preview.ProductImagesId" data-bs-toggle="tab"><img src="@Preview.Image" alt="" loading="lazy" style="width: 100%; object-fit: contain; height: 120px;"></a></div>
+                                            <div class="pro-view"><a href="#view_@Preview.ProductImagesId" name="link" data-bs-toggle="tab"><img src="@Preview.Image" alt="productsimg" loading="lazy" style="width: 100%; object-fit: contain; height: 120px;"></a></div>
                                         }
                                         @*<div class="pro-view"><a href="@Model.ProductImagesModel.Image" data-bs-toggle="tab"><img src="@Model.ProductImagesModel.Image" alt=""></a></div>
                                             <div class="pro-view"><a href="@Model.ProductImagesModel.Image" data-bs-toggle="tab"><img src="@Model.ProductImagesModel.Image" alt=""></a></div>*@
@@ -201,13 +197,13 @@
                                         <span class="plus">+</span>*@
                                     <div class="input-group">
                                         <span class="">
-                                            <button type="button" class="minus btn btn-default btn-number min" disabled="disabled" data-type="minus" data-field="OrderBasicModel.Qty" style="z-index:0;">
+                                            <button type="button" class="minus btn btn-default btn-number min" name="btn" disabled="disabled" data-type="minus" data-field="OrderBasicModel.Qty" style="z-index:0;">
                                                 <span class="fa fa-minus"></span>
                                             </button>
                                         </span>
                                         <input type="number" class="input-number count" asp-for="OrderBasicModel.Qty" name="OrderBasicModel.Qty" value="1" min="1" max="@Model.ProductBasicModel.Qty">
                                         <span class="">
-                                            <button type="button" class="plus btn btn-default btn-number max" data-type="plus" data-field="OrderBasicModel.Qty" style="z-index:0;">
+                                            <button type="button" class="plus btn btn-default btn-number max" data-type="plus" name="btn" data-field="OrderBasicModel.Qty" style="z-index:0;">
                                                 <span class="fa fa-plus"></span>
                                             </button>
                                         </span>
@@ -267,13 +263,13 @@
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="exampleModalLabel">Shooppy Say's..</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" name="btn"></button>
                                                 </div>
                                                 <div class="modal-body fw-bold d-flex">
                                                     This item is currently&nbsp;<div class="text-danger">out of stock</div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">close</button>
+                                                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" name="btn">close</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -349,8 +345,8 @@
                 <div class="single-mori-info">
                     <div id="content">
                         <ul class="idTabs idTabsShort nav" id="single-tabs" data-tabs="tabs" style="margin-top: 15px;">
-                            <li class="first"><a href="#sin-more1" data-bs-toggle="tab" class="active"><span>More info</span></a></li>
-                            <li><a href="#sin-more2" class="" data-bs-toggle="tab">Additional Info</a></li>
+                            <li class="first"><a href="#sin-more1" data-bs-toggle="tab" class="active" name="link"><span>More info</span></a></li>
+                            <li><a href="#sin-more2" class="" name="link" data-bs-toggle="tab">Additional Info</a></li>
                             @*<li class="last"><a class="idTabHrefShort page-product-heading" href="#sin-more3" data-bs-toggle="tab">Reviews</a></li>*@
                         </ul>
                         <div id="my-tab-content-eleyas" class="tab-content jump">
@@ -391,13 +387,13 @@
                         {
                             <div class="product-item mb-3">
                                 <div class="top-item">
-                                    <a href="@Url.Action("Details", "ProductDetail",new { id = product.ProductGUID } )">
+                                    <a href="@Url.Action("Details", "ProductDetail",new { id = product.ProductGUID } )" name="link">
                                         <img src="@product.image" alt="@product.ProductName" loading="lazy" style="height: 244px;width: 299px;">
                                     </a>
                                 </div>
                                 <div class="bottom-item">
                                     <div class="product-info">
-                                        <h5><a href="@Url.Action("Details", "ProductDetail",new { id = product.ProductGUID } )" class="product_name_Over">@product.ProductName</a></h5>
+                                        <h5><a href="@Url.Action("Details", "ProductDetail",new { id = product.ProductGUID } )" name="link" class="product_name_Over">@product.ProductName</a></h5>
                                         <span>
                                             ₹@product.Price &nbsp;&nbsp;
                                             @if (product.OldPrice != null)
@@ -429,7 +425,6 @@
     (function ($) {
         "use strict";
         $('[data-toggle="tooltip"]').tooltip()
-        // $('#exampleModalCenter').modal('show')
         var fullHeight = function () {
             $('.js-fullheight').css('height', $(window).height());
             $(window).resize(function () {
@@ -458,7 +453,6 @@
                     if (currentVal >= 10) {
                         $(this).attr('disabled', true);
                         alert('Sorry, the maximum purchase Quantity was reached');
-                        //$(this).val($(this).data('oldValue'));
                     } else {
                         input.val(currentVal + 1).change();
                         $('.min').attr('disabled', false);
@@ -493,19 +487,7 @@
             $(this).val($(this).data('oldValue'));
         }
     });
-    //window.onload = function () {
-    //    var SpecBtn = $('#SpecBtn');
-
-    //    for (var i = 0; SpecBtn[0].children.length > i; i++){
-    //        if (SpecBtn[0].children[i].firstElementChild.firstElementChild.disabled == false) {
-    //            SpecBtn[0].children[i].firstElementChild.firstElementChild.click();
-    //            break;
-    //        }
-    //    }
-    //};
     $('button[data-name="Specification"]').click(function () {
-      //  var id = $(this).attr('id');
-       // id.removeClass("btn-outline-primary").addClass("btn-primary");
         var specId = $(this).attr("data-id");
         $(this).addClass("btn-primary").siblings().removeClass("btn-primary").addClass("btn-outline-primary");
         Match(specId);
@@ -569,7 +551,6 @@
                     WishLink += '&Specid=' + SpecId;
                     $('#AddtoWish').attr('href', WishLink);
                 }
-               // $('#' + data.subName).click();
             },
             error: function (xhr, status, error) {
                 alert("some thing worng");

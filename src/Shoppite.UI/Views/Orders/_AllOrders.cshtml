@@ -41,7 +41,7 @@
                         </div>
                         <div style="width: 58px;text-align:center;">
                             <abbr title="More Order Details">
-                                <a href="/Orders/OrderDetails?orderid=@myorders.OrderMasterId">
+                                <a href="/Orders/OrderDetails?orderid=@myorders.OrderMasterId" name="link">
                                     <h2>
                                         <i class="fa fa-angle-right pt-4"></i>
                                     </h2>
@@ -49,11 +49,6 @@
                             </abbr>
                         </div>
                     </div>
-                    @* <p style="margin:5px;">@myorders.OrderStatus</p>
-                        <div class="wish-image">
-                        </div>
-                        <div class="wishlisst-info ">
-                        </div>*@
                 </div>
             </div>
         }
@@ -61,7 +56,7 @@
     else
     {
             <div class="text-center">
-                <img src="~/images/NoOrderPlace.gif" loading="lazy" style="max-height: 400px; width: 100%; margin-left: 25px;" />
+                <img src="~/images/NoOrderPlace.gif" loading="lazy" alt="NoOrderPlace" style="max-height: 400px; width: 100%; margin-left: 25px;" />
             </div>
     }
 </div>
