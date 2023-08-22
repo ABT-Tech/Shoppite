@@ -1,10 +1,4 @@
 ﻿@model Shoppite.Application.Models.MainModel
-
-
-<style>
-
-</style>
-
 @if (Model.ProductsDetails != null)
 {
     @foreach (var item in Model.ProductsDetails.Where(x=>x.IsPublished == true && x.IsIncludeMenu == true).Take(4))
