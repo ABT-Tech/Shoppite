@@ -99,5 +99,50 @@ namespace Shoppite.Infrastructure.Repository
 
             return findEmail;
         }
+
+        public async Task<Users> Get_Exist_Login_Data(string email, string password)
+        {
+            string ps = this.EncryptPass.Encrypt(password);
+            //var UserValidate =  _MasterContext.Users.Where(x => x.Email == email && x.Password == ps && x.OrgId == orgid).FirstOrDefault();
+
+            var q = await(from user in _MasterContext.Users
+                          join userprofile in _MasterContext.UsersProfile on user.Email equals userprofile.UserName
+                          where user.Email == email && user.Password == ps && userprofile.Type == "Client"
+                          select user).FirstOrDefaultAsync();
+            return q;
+        }
+
+        public async Task Get_Exist_UserProfile_Data(Users userLogin,int orgid)
+        {
+            var checkProfile = await _MasterContext.UsersProfile.Where(x => x.UserName == userLogin.Email && x.OrgId == userLogin.OrgId).FirstOrDefaultAsync();
+            if(checkProfile != null)
+            {
+                checkProfile.OrgId = orgid;
+                checkProfile.ProfileId = 0;
+                checkProfile.ProfileGuid = userLogin.Guid;
+                checkProfile.InsertDate = DateTime.Now;
+
+                await _MasterContext.AddAsync(checkProfile);
+            }
+            await _MasterContext.SaveChangesAsync();
+        }
+
+        public async Task<Users> AddExistsUser(Users userLogin, int orgId)
+        {
+            var checkUser = await _MasterContext.Users.Where(x => x.Email == userLogin.Email && x.Password == userLogin.Password && x.OrgId == orgId).FirstOrDefaultAsync();
+
+            if (checkUser == null)
+            {
+                userLogin.OrgId = orgId;
+                userLogin.Guid =  Guid.NewGuid();
+                userLogin.UserId = 0;
+                userLogin.CreatedDate = DateTime.Now;
+
+                await _MasterContext.AddAsync(userLogin);
+            }
+           await _MasterContext.SaveChangesAsync();
+
+            return userLogin;
+        }
     }
 }
