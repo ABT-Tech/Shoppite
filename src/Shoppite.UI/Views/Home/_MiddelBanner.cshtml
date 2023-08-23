@@ -1,5 +1,4 @@
 ﻿@model Shoppite.Application.Models.MainModel
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
     .responsive {
         height: auto;
@@ -13,7 +12,7 @@
         {
             <div class="col-md-6">
                 <div class="shrink image">
-                    <a  asp-action="AllProducts" asp-route-CategoryId="@image.CategoryId"><img src="@image.Image" loading="lazy" class="rounded-2 mt-2 responsive img-fluid lazy" alt="slider image" /></a>
+                    <a  asp-action="AllProducts" asp-route-CategoryId="@image.CategoryId" name="middlebannerlink"><img src="@image.Image" loading="lazy" class="rounded-2 mt-2 responsive img-fluid lazy" alt="middelimage" /></a>
                 </div>
             </div>
         }

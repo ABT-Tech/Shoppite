@@ -8,17 +8,7 @@
                     <nav>
                         <ul>
                             <li> 
-                                <a class="home" href="/">Home</a>
-                                @*<div class="megamenudown-mini home-ve">
-                <div class="mega-top">
-                    <div class="mega-item-menu">
-                        <a class="title" href="#"><span>Home variyation</span></a>
-                        <a href="index-2.html"><span>Home2</span></a>
-                        <a href="index-3.html"><span>Home3</span></a>
-                        <a href="index-4.html"><span>Home4</span></a>
-                    </div>
-                </div>
-            </div>*@
+                                <a class="home" href="/" name="link">Home</a>
                             </li>
                             @await Html.PartialAsync("/Views/Home/_Categories.cshtml", Model)
                             @await Html.PartialAsync("/Views/Home/_MoreCategories.cshtml", Model)
@@ -31,7 +21,7 @@
                     <form method="get" asp-action="SearchProduct" asp-controller="Home" id="searchbox-eleyas">
                         <p>
                             <input type="text" asp-for="searchKey" placeholder="Your keyword...">
-                            <button class="button-search" name="submit_search" type="submit">
+                            <button class="button-search" name="submitbtn" type="submit">
                                 <span><i class="fa fa-search"></i></span>
                             </button>
                         </p>
@@ -47,18 +37,17 @@
             <nav id="dropdown">
                 <ul class="nav">
                     <li>
-                        <a href="/">Home</a>
+                        <a href="/" name="link">Home</a>
                     </li>
                     @foreach (var item in Model.ProductsDetails)
                     {
                         <li>
-                            @*<a href="shop-grid.html">Electronic</a>*@
-                            <a>@item.maincaturlpath </a>
+                            <a name="link">@item.maincaturlpath </a>
                             <ul>
                                 <li>
                                     @foreach (var subcat in item.SubcategoryDetails)
                                      {
-                                        <a asp-controller="Home" asp-route-CategoryId="@subcat.CategoryId" asp-action="AllProducts">@subcat.CategoryName</a>
+                                        <a  name="link" asp-controller="Home" asp-route-CategoryId="@subcat.CategoryId" asp-action="AllProducts">@subcat.CategoryName</a>
                                      }
                                 </li>
                             </ul>
@@ -73,7 +62,7 @@
                     <form method="get" asp-action="SearchProduct" asp-controller="Home" id="searchbox-eleyas">
                         <p>
                             <input type="text" asp-for="searchKey" placeholder="You keyword...">
-                            <button class="button-search" name="submit_search" type="submit">
+                            <button class="button-search" name="submitbtn" type="submit">
                                 <span><i class="fa fa-search"></i></span>
                             </button>
                         </p>

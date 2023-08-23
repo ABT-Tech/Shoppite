@@ -16,7 +16,7 @@
         <h3>Chat with Shooppy</h3>
         <div>
             <div id="chatbot" class="main-card collapsed">
-                <button id="chatbot_toggle">
+                <button id="chatbot_toggle" name="chatbtn">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M0 0h24v24H0V0z" fill="none" />
                         <path d="M15 4v7H5.17l-.59.59-.58.58V4h11m1-2H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1zm5 4h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1z" />
@@ -44,7 +44,7 @@
                 <div class="input-div">
                     <input class="input-message" name="message" type="text" id="message"
                            placeholder="Type your message ..." />
-                    <button class="input-send" onclick="send()">
+                    <button class="input-send" onclick="send()" name="sendbtn">
                         <svg style="width:24px;height:24px">
                             <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z" />
                         </svg>
@@ -184,10 +184,6 @@
                 else {
                     window.setTimeout(addResponseMsg, 1000, "sorry i'm not able to understand what do you want to say");
                 }
-                // else if (msg == "hello" || msg == "hi" || msg == "good morning" || msg == "good afternoon" || msg == "good evening" || msg == "good night") {
-                //     window.setTimeout(addResponseMsg, 1000, ("sorry i'm not able to understand what do you want to say"));
-                //     return;
-                // }
             }
             function addMsg(msg) {
                 var div = document.createElement("div");

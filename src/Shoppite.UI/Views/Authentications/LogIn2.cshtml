@@ -22,12 +22,6 @@
         <div class="form-container sign-up-container">
             <form  asp-action="Register" asp-controller="Authentications" method="post" enctype="multipart/form-data">
                 <h1>Create Account</h1>
-                @*<div class="social-container">
-            <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-            <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-        </div>
-        <span>or use your email for registration</span>*@
                 <input type="text" id="Reglogname" asp-for="Username" placeholder="Username" required />
                 <span id="SUUserError" class="text-danger"> </span>
                 <input type="email" id="Regsignemail" asp-for="Email" placeholder="Email" required />
@@ -35,29 +29,19 @@
                 <input type="password" id="Regpassword" asp-for="Password" placeholder="Password" name="password" required />
                 <span id="SUPassError" asp-validation-for="Password" class="text-danger"> </span>
                 <span id="SUPassLengthError" class="text-danger"> Password must greater than eight character</span>
-                @*<input type="password" id="Regrepassword" placeholder="Confirm Password" />*@
-               @* <div id="Eror"><p style="color:red;"> Password and Confirm Password Should be same</p></div>*@
-                <button type="submit">Sign Up</button>
+                <button type="submit" name="signupbtn">Sign Up</button>
             </form>
         </div>
         <div class="form-container sign-in-container">
             <form asp-action="Login" asp-controller="Authentications" method="post" enctype="multipart/form-data">
                 <h1>Sign in</h1>
-                @*<div class="social-container">
-        <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-        <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-        <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-        </div>
-        <span>or use your account</span>*@
                 <input type="email" id="logemail" asp-for="Email" placeholder="Email" required />
                 <span id="UserEmptError" class="text-danger"> </span>
                 <input type="password" name="password" asp-for="Password" autocomplete="current-password" id="logpass" placeholder="Password" required />
-                @* <i class="far fa-eye field-icon" id="togglePassword" style="margin-left: -30px; cursor: pointer;"></i>*@
                 <span id="PassEmptError" class="text-danger"> </span>
-                <a href="#">Forgot your password?</a>
-                @*<div id="msg"><p style="color:red;"> Invalid Username Or Password</p></div>*@
+                <a href="#" name="forgotlink">Forgot your password?</a>
                 @TempData["LogError"]
-                <button type="submit" id="logsub">Sign In</button>
+                <button type="submit" id="logsub" name="signinbtn">Sign In</button>
             </form>
         </div>
         <div class="overlay-container">
@@ -65,12 +49,12 @@
                 <div class="overlay-panel overlay-left">
                     <h1>Welcome Back!</h1>
                     <p>To keep connected with us please login with your personal info</p>
-                    <button class="ghost" id="signIn">Sign In</button>
+                    <button class="ghost" id="signIn" name="signinbtn">Sign In</button>
                 </div>
                 <div class="overlay-panel overlay-right">
                     <h1>Hello, Friend!</h1>
                     <p>Enter your personal details and start journey with us</p>
-                    <button class="ghost" id="signUp">Sign Up</button>
+                    <button class="ghost" id="signUp" name="signupbtn">Sign Up</button>
                 </div>
             </div>
         </div>
@@ -119,116 +103,3 @@
           container.classList.remove("right-panel-active");
       });
   </script>
-@*<script>
-    $('#msg').hide();
-    $('#Eror').hide();
-    $('#UserEmptError').hide();
-    $('#PassEmptError').hide();
-    $('#SUUserError').hide();
-    $('#SUEmailError').hide();
-    $('#SUPassError').hide();
-    $('#SUPassLengthError').hide();
-    const togglePassword = document.querySelector('#togglePassword');
-    const password = document.querySelector('#id_password');
-    //togglePassword.addEventListener('click', function (e) {
-    //    // toggle the type attribute
-    //    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-    //    password.setAttribute('type', type);
-    //    // toggle the eye slash icon
-    //    this.classList.toggle('far far-eye-slash');
-    //});
-    const signUpButton = document.getElementById('signUp');
-    const signInButton = document.getElementById('signIn');
-    const container = document.getElementById('container');
-    signUpButton.addEventListener('click', () => {
-        container.classList.add("right-panel-active");
-    });
-    signInButton.addEventListener('click', () => {
-        container.classList.remove("right-panel-active");
-    });
-    function LogIn() {
-        var UserId = $("#logemail").val();
-        var PassWord = $("#logpass").val();
-        var datal = { "userid": UserId, "password": PassWord };
-        var detaillog = JSON.stringify({ datal });
-        if (UserId == "") {
-            $('#UserEmptError').show();
-        } else if (PassWord == "") {
-            $('#PassEmptError').show();
-        } else {
-                      $.ajax({
-                          type: "POST",
-                          url: '@Url.Action("Login", "Authentications")',
-                          data: detaillog,
-                          dataType: 'JSON',
-                          contentType: 'application/json; charset=utf-8',
-                          success: function (data) {
-                              if (data == "fail") {
-                                  $("#msg").show();
-                              }
-                              else {
-                                  window.location = "/";
-                                  $("#msg").hide();
-                              }
-                          },
-                          Error: function (error) {
-                                alert("some");
-                          }
-                      });
-               }
-    };
-    function Register() {
-        var Pass = $('#Regpassword').val();
-        var UserName = $("#Reglogname").val();
-        var Email = $("#Regsignemail").val();
-        //var ConfPass = $('#Regrepassword').val();
-       if (UserName == "")
-       {
-            $('#SUUserError').show();
-       }
-       else if (Email == "")
-       {
-           $('#SUEmailError').show();
-       }
-       else if (Pass == "")
-       {
-           $('#SUPassError').show();
-       }
-       else if (!Pass.length >= 8)
-       {
-           $('#SUPassLengthError').show();
-       }
-       else
-       {
-          var Regdata = {
-                "UserName": $("#Reglogname").val(),
-                "Password": Pass,
-                "Email": $("#Regsignemail").val(),
-          };
-          var UserDetail = JSON.stringify({ Regdata });
-         $.ajax({
-                type: "POST",
-                url: '@Url.Action("Register", "Authentications")',
-                data: UserDetail,
-                dataType: 'JSON',
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                    if (data == "Succsess") {
-                        alert("User add successfully");
-                    } else {
-                        alert("user is already registered");
-                    }
-                },
-                Error: function () {
-                    alert("some thing Wrong");
-                }
-          });
-        }
-    }
-</script>*@
-
-
-
-
-
-
