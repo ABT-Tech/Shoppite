@@ -121,49 +121,41 @@
                                             <div class="panel-body">
                                                 <div class="content-info">
                                                     <div class="row ">
-
                                                         <div class="col-sm-6 mx-auto">
-
-
-
                                                             <div class="form-group m-1">
                                                                 <label class="control-label">First Name</label>
-                                                                <input asp-for="OrderShippingModel.FirstName" id="IpF1" required="required" class="form-control input-validation-error IpF"
-                                                                       data-val="true" data-val-required="Shop name is required" />
-                                                                <span asp-validation-for="OrderShippingModel.FirstName" id="ShopName" class="text-danger field-valiation-error"
-                                                                      data-valmsg-for="ShopName" data-valmsg-replace="true"></span>
+                                                                <input asp-for="OrderShippingModel.FirstName" name="OrderShippingModel.FirstName" id="FirstName" required="required" class="form-control"
+                                                                       data-val="true" data-val-required="FirstName  is required" />
+                                                                <span asp-validation-for="OrderShippingModel.FirstName" class="text-danger field-valiation-error"
+                                                                      data-valmsg-for="FirstName" data-valmsg-replace="true"></span>
                                                             </div>
-
-
-
                                                         </div>
-
                                                         <div class="col-sm-6 mx-auto">
                                                             <div class="form-group m-1">
                                                                 <label class="control-label">Last Name</label>
-                                                                <input asp-for="OrderShippingModel.LastName" required="required" id="IpF2" class="form-control input-validation-error IpF"
-                                                                       data-val="true" data-val-required="Contact number is required" />
-                                                                <span asp-validation-for="OrderShippingModel.LastName" id="ContactNumber" class="text-danger field-valiation-error"
-                                                                      data-valmsg-for="ContactNumber" data-valmsg-replace="true"></span>
+                                                                <input asp-for="OrderShippingModel.LastName" name="OrderShippingModel.LastName" required="required" id="LastName" class="form-control" 
+                                                                       data-val="true" data-val-required="LastName  is required" />
+                                                                <span asp-validation-for="OrderShippingModel.LastName"  class="text-danger field-valiation-error"
+                                                                      data-valmsg-for="LastName" data-valmsg-replace="true"></span>
                                                             </div>
                                                         </div>
 
                                                         <div class="col-sm-6 mx-auto">
                                                             <div class="form-group m-1">
                                                                 <label class="control-label">Street</label>
-                                                                <input asp-for="OrderShippingModel.Street" required="required" id="IpF3" class="form-control input-validation-error IpF"
-                                                                       data-val="true" data-val-required="Country name is required" />
-                                                                <span asp-validation-for="OrderShippingModel.Street" id="Country" class="text-danger field-valiation-error"
-                                                                      data-valmsg-for="Country" data-valmsg-replace="true"></span>
+                                                                <input asp-for="OrderShippingModel.Street" name="OrderShippingModel.Street" required="required" id="Street" class="form-control"
+                                                                       data-val="true" data-val-required="Street  is required" />
+                                                                <span asp-validation-for="OrderShippingModel.Street"  class="text-danger field-valiation-error"
+                                                                      data-valmsg-for="Street" data-valmsg-replace="true"></span>
                                                             </div>
                                                         </div>
 
                                                         <div class="col-sm-6 mx-auto">
                                                             <div class="form-group m-1">
                                                                 <label class="control-label">City</label>
-                                                                <input asp-for="OrderShippingModel.City" required="required" id="IpF4" class="form-control input-validation-error IpF"
+                                                                <input asp-for="OrderShippingModel.City" name="OrderShippingModel.City" required="required" id="City" class="form-control"
                                                                        data-val="true" data-val-required="City name is required" />
-                                                                <span asp-validation-for="OrderShippingModel.City" id="City" class="text-danger field-valiation-error"
+                                                                <span asp-validation-for="OrderShippingModel.City"  class="text-danger field-valiation-error"
                                                                       data-valmsg-for="City" data-valmsg-replace="true"></span>
                                                             </div>
                                                         </div>
@@ -171,29 +163,29 @@
                                                         <div class="col-sm-6 mx-auto">
                                                             <div class="form-group m-1">
                                                                 <label class="control-label">Phone Number</label>
-                                                                <input asp-for="OrderShippingModel.Phone" id="IpF5" required="required" class="form-control input-validation-error IpF"
-                                                                       data-val="true" data-val-required="Zip code is required" />
-                                                                <span asp-validation-for="OrderShippingModel.Phone" id="Zip" class="text-danger field-valiation-error"
-                                                                      data-valmsg-for="Zip" data-valmsg-replace="true"></span>
+                                                                <input asp-for="OrderShippingModel.Phone" name="OrderShippingModel.Phone" id="Phone" required="required" class="form-control"
+                                                                       data-val="true" data-val-required="Phone Number is required" />
+                                                                <span asp-validation-for="OrderShippingModel.Phone"  class="text-danger field-valiation-error"
+                                                                      data-valmsg-for="Phone" data-valmsg-replace="true"></span>
                                                             </div>
                                                         </div>
 
                                                         <div class="col-sm-6 mx-auto">
                                                             <div class="form-group m-1">
                                                                 <label class="control-label">Zipcode</label>
-                                                                <input asp-for="OrderShippingModel.Zipcode" required="required" id="IpF6" class="form-control input-validation-error IpF"
-                                                                       data-val="true" data-val-required="state name is required" />
-                                                                <span asp-validation-for="OrderShippingModel.Zipcode" id="State" class="text-danger field-valiation-error"
-                                                                      data-valmsg-for="State" data-valmsg-replace="true"></span>
+                                                                <input asp-for="OrderShippingModel.Zipcode" name="OrderShippingModel.Zipcode" required="required" id="Zipcode" class="form-control "
+                                                                       data-val="true" data-val-required="Zipcode  is required" />
+                                                                <span asp-validation-for="OrderShippingModel.Zipcode"  class="text-danger field-valiation-error"
+                                                                      data-valmsg-for="Zipcode" data-valmsg-replace="true"></span>
                                                             </div>
                                                         </div>
 
                                                         <div class="col-sm-6 mx-auto">
                                                             <div class="form-group m-1">
                                                                 <label class="control-label">Address</label>
-                                                                <textarea asp-for="OrderShippingModel.Address" required="required" id="IpF7" class="form-control input-validation-error IpF"
+                                                                <textarea asp-for="OrderShippingModel.Address" name="OrderShippingModel.Address" required="required" id="Address" class="form-control"
                                                                           data-val="true" data-val-required="Address is required"></textarea>
-                                                                <span asp-validation-for="OrderShippingModel.Address" id="State" class="text-danger field-valiation-error"
+                                                                <span asp-validation-for="OrderShippingModel.Address"  class="text-danger field-valiation-error"
                                                                       data-valmsg-for="Address" data-valmsg-replace="true"></span>
                                                             </div>
                                                         </div>
@@ -201,10 +193,10 @@
                                                         <div class="col-sm-6 mx-auto">
                                                             <div class="form-group m-1">
                                                                 <label class="control-label">Email</label>
-                                                                <input asp-for="OrderShippingModel.Email" required="required" id="IpF8" class="form-control input-validation-error"
-                                                                       data-val="true" data-val-required="PaypalId is required" />
-                                                                <span asp-validation-for="OrderShippingModel.Email" id="PaypalId" class="text-danger field-valiation-error"
-                                                                      data-valmsg-for="PaypalId" data-valmsg-replace="true"></span>
+                                                                <input type="email" asp-for="OrderShippingModel.Email" name="OrderShippingModel.Email" required="required" id="Email" class="form-control input-validation-error"
+                                                                       data-val="true" data-val-required="Email is required" />
+                                                                <span asp-validation-for="OrderShippingModel.Email"  class="text-danger field-valiation-error"
+                                                                      data-valmsg-for="Email" data-valmsg-replace="true"></span>
                                                             </div>
                                                         </div>
 
@@ -219,11 +211,11 @@
                                                         <input type="hidden" asp-for="IsPaytm" />
                                                         <input type="hidden" asp-for="IsPaytmClicked" />
 
-                                                        <div class="col-12">
+                                                       @* <div class="col-12">
                                                             <div class="form-group">
                                                                 <button type="button" style="width:auto;" id="Proceed_to_Next" class="SaveBtn" onclick="document.getElementById('Target').click()">Proceed to Next</button>
                                                             </div>
-                                                        </div>
+                                                        </div>*@
                                                     </div>
                                                     </div>
                                                 </div>
@@ -311,52 +303,26 @@
                 if (!current.hasClass("in")) {
                     current.collapse("show");
                 }
-
+            
                 return false;
             }
         });
     });
 
-   @* document.getElementById("IpF1").disabled = true;
-    document.getElementById("IpF2").disabled = true;
-    document.getElementById("IpF3").disabled = true;
-    document.getElementById("IpF4").disabled = true;
-    document.getElementById("IpF5").disabled = true;
-    document.getElementById("IpF6").disabled = true;
-    document.getElementById("IpF7").disabled = true;
-    document.getElementById("IpF8").disabled = true;*@
-
-    @*function toggleEnable(el1, el2, el3, el4, el5, el6, el7, el8) {
-        var textbox = document.getElementById(el1, el2, el3, el4, el5, el6, el7, el8);
-        if (textbox.disabled) {
-            // If disabled, do this
-            document.getElementById("IpF1").disabled = false;
-            document.getElementById("IpF2").disabled = false;
-            document.getElementById("IpF3").disabled = false;
-            document.getElementById("IpF4").disabled = false;
-            document.getElementById("IpF5").disabled = false;
-            document.getElementById("IpF6").disabled = false;
-            document.getElementById("IpF7").disabled = false;
-            document.getElementById("IpF8").disabled = false;
-            // document.getElementById(el2).disabled = false;
-        }
-        else {
-            // Enter code here
-            document.getElementById("IpF1").disabled = true;
-            document.getElementById("IpF2").disabled = true;
-            document.getElementById("IpF3").disabled = true;
-            document.getElementById("IpF4").disabled = true;
-            document.getElementById("IpF5").disabled = true;
-            document.getElementById("IpF6").disabled = true;
-            document.getElementById("IpF7").disabled = true;
-            document.getElementById("IpF8").disabled = true;
-            // document.getElementById(el2).disabled = true;
-        }
-    }*@
-    //function ProceedtoNext() {
-    //    $('#Target').click();
-    //}
     $("#paytm-btn-click").click(function () {
+        inputs.each(function () {
+
+            if ($(this).val() == "") {
+
+                var current = $(this).closest(".panel-collapse");
+
+                if (!current.hasClass("in")) {
+                    current.collapse("show");
+                }
+
+                return false;
+            }
+        });
         $("#IsPaytmClicked").val('true');
         $("form").submit();
     })
