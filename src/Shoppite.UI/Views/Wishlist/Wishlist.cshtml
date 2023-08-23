@@ -1,65 +1,13 @@
 ﻿@model Shoppite.Application.Models.MainModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <div class="main-area">
-    @*<div class="megamenu-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-9">
-                    <div class="megamenu">
-                        <nav>
-                            <ul>
-                                <li>
-                                    <a class="home" asp-action="Index" asp-controller="Home">Home</a>
-                                    <div class="megamenudown-mini home-ve">
-                                        <div class="mega-top">
-                                            <div class="mega-item-menu">
-                                                <a class="title" href="#"><span>Home variyation</span></a>
-                                                <a href="index-2.html"><span>Home2</span></a>
-                                                <a href="index-3.html"><span>Home3</span></a>
-                                                <a href="index-4.html"><span>Home4</span></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                @await Html.PartialAsync("~/Views/Home/_Categories.cshtml", Model)
-                                @await Html.PartialAsync("~/Views/Home/_MoreCategories.cshtml", Model)
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="search-box">
-                        <form method="get" action="#" id="searchbox-eleyas">
-                            <p>
-                                <input type="text" value="" placeholder="You keyword..." name="search_query">
-                                <button class="button-search" name="submit_search" type="submit">
-                                    <span><i class="fa fa-search"></i></span>
-                                </button>
-                            </p>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>*@
 </div>
 <div class="wishlists-page-area">
     <div class="container-fluid">
-        @*<div class="row">
-            <div class="breadcrumb" style="color:#777; background-color: white !important">
-                Home
-                <span class="navigation-pipe"><i class="fa fa-angle-right"></i></span>My account
-                <span class="navigation-pipe"><i class="fa fa-angle-right"></i></span>
-                Wishlist
-            </div>
-        </div>*@
         <div class="row">
             <h4 class="cart-title">My wishlists</h4>
             <div class="wishlist-product">
                 @await Html.PartialAsync("_Mywishlist", Model)
-                @*<p class="wishlist-back">
-                    <a href="#"><i class="fa fa-angle-left"></i>Back to your account</a> <a asp-action="Index"><i class="fa fa-angle-left"></i>Home</a>
-                </p>*@
             </div>
         </div>
     </div>

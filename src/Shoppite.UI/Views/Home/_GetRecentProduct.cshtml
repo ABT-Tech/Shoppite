@@ -9,7 +9,7 @@
             <div class="producttabcarosel carosel-product5 owl-carousel">
                 @foreach (var product in Model.f_Getproducts_RecentlyviewedModel)
                 {
-                    <div class="product-item">
+                    <div class="product-item" style="height: 340px;">
                         <div class="top-item">
                             <a href="@Url.Action("Details", "ProductDetail", new { id = product.ProductGUID })" name="productwiselink">
                                 <img src="@product.image" alt="@product.ProductName" loading="lazy" style="height: 244px;width: 299px;" class="lazy">
