@@ -66,9 +66,8 @@ namespace Shoppite.UI.Controllers
             if (usersModal != null)
             {
 
-
                 int OrgId = _commonHelper.GetOrgID(HttpContext);
-                var UserValidate = await _AuthenticationPageService.Get_Exist_Login_Data(usersModal.Email, usersModal.Password, OrgId);
+                var UserValidate = await _AuthenticationPageService.Get_Login_Data(usersModal.Email, usersModal.Password, OrgId);
                 if (UserValidate.Password != null && UserValidate.Email != null)
                 {
                     await CreateAuthenticationTicket(UserValidate);
@@ -79,8 +78,11 @@ namespace Shoppite.UI.Controllers
                     TempData["LoginValidError"] = "Username or Password is Incorrect";
                 }
             }
+            else
+            {
+              TempData["LoginValidError"] = "User Not Found Please Sign Up";
+            }
             //return RedirectToAction("Index","Home", new { area = "" });
-            TempData["LoginValidError"] = "User Not Found Please Sign Up";
             return View(usersModal);
         }
 

@@ -114,7 +114,7 @@ namespace Shoppite.Infrastructure.Repository
 
         public async Task Get_Exist_UserProfile_Data(Users userLogin,int orgid)
         {
-            var checkProfile = await _MasterContext.UsersProfile.Where(x => x.UserName == userLogin.Email && x.OrgId == userLogin.OrgId).FirstOrDefaultAsync();
+            var checkProfile = await _MasterContext.UsersProfile.Where(x => x.UserName == userLogin.Email).FirstOrDefaultAsync();
             if(checkProfile != null)
             {
                 checkProfile.OrgId = orgid;
@@ -138,11 +138,12 @@ namespace Shoppite.Infrastructure.Repository
                 userLogin.UserId = 0;
                 userLogin.CreatedDate = DateTime.Now;
 
-                await _MasterContext.AddAsync(userLogin);
-            }
-           await _MasterContext.SaveChangesAsync();
+                 await _MasterContext.AddAsync(userLogin);
+                 await _MasterContext.SaveChangesAsync();
 
-            return userLogin;
+               return userLogin;
+            }
+            return checkUser;
         }
     }
 }

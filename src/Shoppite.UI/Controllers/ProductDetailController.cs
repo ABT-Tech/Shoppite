@@ -120,28 +120,64 @@ namespace Shoppite.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> AddProductToCart(ProductDetailModel productDetailModel)
         {
-            await _ProductDetailPageService.AddToCart(productDetailModel);
-            return RedirectToAction("Details",new { id = productDetailModel.ProductBasicModel.ProductGuid });
+            try
+            {
+                await _ProductDetailPageService.AddToCart(productDetailModel);
+                return RedirectToAction("Details", new { id = productDetailModel.ProductBasicModel.ProductGuid });
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         } 
 
         public async Task<IActionResult>BuyNow(ProductDetailModel productDetailModel)
         {
-           var Buy =  await _ProductDetailPageService.BuyNow(productDetailModel);
-            return RedirectToAction("CheckOut", "Cart", new { orderid = Buy.OrderBasicModel.OrderGuid});
+            try
+            {
+                var Buy = await _ProductDetailPageService.BuyNow(productDetailModel);
+                return RedirectToAction("CheckOut", "Cart", new { orderid = Buy.OrderBasicModel.OrderGuid });
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+           
         }
          
         public async Task<IActionResult>Add_Specification_ToCart(ProductDetailModel productDetailModel)
         {
-            await _ProductDetailPageService.Addto_Spec_Product(productDetailModel);
+            try
+            {
+                await _ProductDetailPageService.Addto_Spec_Product(productDetailModel);
 
-            return RedirectToAction("Details", new { id = productDetailModel.ProductBasicModel.ProductGuid });
+                return RedirectToAction("Details", new { id = productDetailModel.ProductBasicModel.ProductGuid });
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+           
         }
 
         public async Task<IActionResult> Add_Specification_BuyNow(ProductDetailModel productDetailModel)
         {
-            var Buy_Now = await _ProductDetailPageService.BuyNow_Spec_Product(productDetailModel);
+            try
+            {
+                var Buy_Now = await _ProductDetailPageService.BuyNow_Spec_Product(productDetailModel);
 
-            return RedirectToAction("CheckOut","Cart", new { orderid = Buy_Now.ProductBasicModel.ProductGuid });
+                return RedirectToAction("CheckOut", "Cart", new { orderid = Buy_Now.OrderBasicModel.OrderGuid });
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+           
         }
     }
 }
