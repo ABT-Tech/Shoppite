@@ -34,7 +34,7 @@
                         @foreach (var Cat in Model.GetSp_Getcat_ResultModel.Where(x=>x.IsPublished == true && x.IsShowHomePage == true).Take(5))
                         {
                             int X = (int)Cat.ID;
-                            <div class="swiper-slide"><a onclick="testajaxcall('@X')" data-toggle="tab" name="CatName" class="" style="letter-spacing:0.5px;font-weight:600;font-size:15px;">@Cat.NAME</a></div>
+                            <div class="swiper-slide"><a onclick="testajaxcall('@X')" data-toggle="tab" name="CatName" class="" style="letter-spacing:0.5px;font-weight:600;font-size:15px;" >@Cat.NAME</a></div>
                         }
                     </div>
                     <div class="swiper-button-next" style="font-weight:500;width:50px;" onclick="document.querySelector('.swiper-slide-next a').click();"><i class="fa-solid fa-chevron-right"></i></div>
