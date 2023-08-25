@@ -12,6 +12,7 @@ namespace Shoppite.Core.Entities
         public int OrderVariationId { get; set; }
         public Guid? OrderGuid { get; set; }
         public int? ProductSpecificationId { get; set; }
+        public int OrderId { get; set; }
         public int? OrgId { get; set; }
     }
 }
