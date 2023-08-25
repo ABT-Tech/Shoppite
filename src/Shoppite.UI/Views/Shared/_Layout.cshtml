@@ -11,8 +11,8 @@
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=5, user-scalable=1">
     <meta name="keywords" content="create online store, store app, e-commerce website and store, buy and sell online, shooping app, selling platform, develop website, setup online store, how to start an online store, digital store, shop website" />
     @*<title>@ViewData["Title"]</title>*@
-    <title>Shooppy - Create online shopping website or store app, visit our website to start the process</title>
-    <meta name="description" content="">
+    <title id="orgname">Shooppy Online Store</title>
+    <meta name="description" content="create online store, store app, e-commerce website and store, buy and sell online, shooping app, selling platform, develop website, setup online store, how to start an online store, digital store, shop website">
     <!-- Favicon
         ============================================ -->
     @*await Html.PartialAsync("~/Views/Home/_Favicon.cshtml")*@
@@ -365,6 +365,12 @@
         $(function () {
             $('.lazy').Lazy();
         });
+
+        var ShopName = window.location.href;
+        var partname = ShopName.split("/");
+        partname[2].split(".")[0];
+        var titlename = partname[2].split(".")[0];
+        document.getElementById('orgname').innerHTML = titlename;
     </script>
 </body>
 </html>
