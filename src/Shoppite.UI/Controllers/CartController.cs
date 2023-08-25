@@ -102,14 +102,23 @@
         [Shoppite.UI.Extensions.Authorize]
         public async Task<ActionResult> CheckOut(Guid orderid)
         {
-            var order = await _cartPageService.CheckOrder(orderid);
-            var merchantDetails = _commonHelper.GetMerchantDetails(HttpContext);
-            order.IsPaytm = false;
-            if (merchantDetails != null)
+            try
             {
-                order.IsPaytm = true;
+                var order = await _cartPageService.CheckOrder(orderid);
+                var merchantDetails = _commonHelper.GetMerchantDetails(HttpContext);
+                order.IsPaytm = false;
+                if (merchantDetails != null)
+                {
+                    order.IsPaytm = true;
+                }
+                return View(order);
             }
-            return View(order);
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+            
         }
 
         /// <summary>
@@ -204,8 +213,13 @@
             {
                 await _cartPageService.UpdateOrder((Guid)Model.OrderBasicModel.OrderGuid);
                 var vendorContactdetails = await _cartPageService.GetVendorContactDetails((Guid)Model.OrderBasicModel.OrderGuid);
-                _commonHelper.LogError("Call WhatsApp from MakePaymentRequest - orderID : " + vendorContactdetails.Item1 + ", mobileNumber : " + vendorContactdetails.Item2 + ", orgname : " + vendorContactdetails.Item3 + ", Template : order_notify_to_vendor_templateid ");
-                await _commonHelper.SendWhatsAppMesage(vendorContactdetails.Item1, vendorContactdetails.Item2, vendorContactdetails.Item3, "order_notify_to_vendor_templateid"); 
+
+                var IsWhatsappEnable = _configuration.GetSection("WhatsAppSettings")["IsEnable"].ToString();
+                if (IsWhatsappEnable == "1")
+                {
+                    _commonHelper.LogError("Call WhatsApp from MakePaymentRequest - orderID : " + vendorContactdetails.Item1 + ", mobileNumber : " + vendorContactdetails.Item2 + ", orgname : " + vendorContactdetails.Item3 + ", Template : order_notify_to_vendor_templateid ");
+                    await _commonHelper.SendWhatsAppMesage(vendorContactdetails.Item1, vendorContactdetails.Item2, vendorContactdetails.Item3, "order_notify_to_vendor_templateid");
+                }
                 return RedirectToAction("OrderSuccess");
             }
         }
@@ -224,8 +238,13 @@
                 await _cartPageService.UpdateOrder(new Guid(objmerchangeResponse.txn_id));
                 await _cartPageService.GetVendorContactDetails(new Guid(objmerchangeResponse.txn_id));
                 var vendorContactdetails = await _cartPageService.GetVendorContactDetails(new Guid(objmerchangeResponse.txn_id));
-                _commonHelper.LogError("Call WhatsApp from PaymentResponse - orderID : " + vendorContactdetails.Item1 + ", mobileNumber : " + vendorContactdetails.Item2 + ", orgname : " + vendorContactdetails.Item3 + ", Template : order_notify_to_vendor_templateid ");
-                await _commonHelper.SendWhatsAppMesage(vendorContactdetails.Item1, vendorContactdetails.Item2, vendorContactdetails.Item3, "order_notify_to_vendor_templateid");
+
+                var IsWhatsappEnable = _configuration.GetSection("WhatsAppSettings")["IsEnable"].ToString();
+                if(IsWhatsappEnable == "1")
+                {
+                    _commonHelper.LogError("Call WhatsApp from PaymentResponse - orderID : " + vendorContactdetails.Item1 + ", mobileNumber : " + vendorContactdetails.Item2 + ", orgname : " + vendorContactdetails.Item3 + ", Template : order_notify_to_vendor_templateid ");
+                    await _commonHelper.SendWhatsAppMesage(vendorContactdetails.Item1, vendorContactdetails.Item2, vendorContactdetails.Item3, "order_notify_to_vendor_templateid");
+                }
 
                 return RedirectToAction("OrderSuccess");
             }
