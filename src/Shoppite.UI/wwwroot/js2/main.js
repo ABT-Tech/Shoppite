@@ -85,5 +85,15 @@
         
     });
 
+    $("#User_YES").click(function () {
+        $("#exampleModalLongTitle").addClass("d-none");
+        $("#exampleModalLongTitle").slideUp("fast"); //Slide Up Effect
+        $("#YNbtn").addClass("d-none");
+        $("#YNbtn").slideUp("fast"); //Slide Up Effect
+        $("#exampleModalLongTitleChange").removeClass("d-none");
+        $("#exampleModalLongTitleChange").slideDown("fast");
+        $("#formPart").removeClass("d-none");
+        $("#formPart").slideDown("fast"); //Slide Down Effect
+    });
 
 })(jQuery);

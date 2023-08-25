@@ -45,17 +45,18 @@
                         <i class="zmdi zmdi-font"></i>
                     </span>
                     <div class="wrap-input100 validate-input" data-validate="Valid email is: a@b.c">
-                        <input class="input100" asp-for="Email" type="text" name="email" placeholder="Enter Email">
+                        <input class="input100" asp-for="Email" type="text" name="email" placeholder="Enter Email" >
                         <span class="focus-input100 text-danger" asp-validation-for="Email" data-placeholder=""></span>
                     </div>
-                    <div class="wrap-input100 validate-input">
-                        <input class="input100" asp-for="Username" type="text" name="Username" placeholder="Enter userName">
+                    <div class="wrap-input100 validate-input" data-validate="Enter UserName">
+                        <input class="input100" asp-for="Username" type="text" name="Username" placeholder="Enter userName" >
+                        <span class="focus-input100 text-danger" asp-validation-for="Username" data-placeholder=""></span>
                     </div>
                     <div class="wrap-input100 validate-input" data-validate="Enter password">
                         <span class="btn-show-pass">
                             <i class="fa fa-eye"></i>
                         </span>
-                        <input class="input100" asp-for="Password" type="password" name="password" placeholder="Enter Password" required>
+                        <input class="input100" asp-for="Password" type="password" name="password" placeholder="Enter Password" >
                         <span class="focus-input100 text-danger" asp-validation-for="Password" data-placeholder=""></span>
                     </div>
                     <div class="container-login100-form-btn">
