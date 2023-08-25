@@ -295,7 +295,7 @@
                 OrderBasic orderBasic = new OrderBasic();
                 orderBasic.ProductId = productDetailModel.ProductBasicModel.ProductId;
                 orderBasic.OrderGuid = Guid.Empty;
-                orderBasic.Price = productDetailModel.ProductPriceModel.Price;
+                orderBasic.Price = productDetailModel.ProductPriceModel.Price- productDetailModel.ProductPriceModel.DeliveryFees;
                 orderBasic.DeliveryFees = productDetailModel.ProductPriceModel.DeliveryFees;
                 orderBasic.InsertDate = DateTime.Now;
                 orderBasic.OrderStatus = "Cart";
@@ -366,7 +366,7 @@
             OrderBasic orderBasic = new OrderBasic();
             orderBasic.ProductId = productDetailModel.ProductBasicModel.ProductId;
             orderBasic.OrderGuid = Orderguid;
-            orderBasic.Price = productDetailModel.ProductPriceModel.Price;
+            orderBasic.Price = productDetailModel.ProductPriceModel.Price- productDetailModel.ProductPriceModel.DeliveryFees;
             orderBasic.DeliveryFees = productDetailModel.ProductPriceModel.DeliveryFees;
             orderBasic.InsertDate = DateTime.Now;
             orderBasic.OrderStatus = "Cart";
@@ -470,7 +470,7 @@
                         OrderBasic orderBasic = new OrderBasic();
                         orderBasic.ProductId = productDetailModel.ProductBasicModel.ProductId;
                         orderBasic.OrderGuid = Guid.Empty;
-                        orderBasic.Price = productDetailModel.ProductPriceModel.Price;
+                        orderBasic.Price = productDetailModel.ProductPriceModel.Price - productDetailModel.ProductPriceModel.DeliveryFees;
                         orderBasic.DeliveryFees = productDetailModel.ProductPriceModel.DeliveryFees;
                         orderBasic.InsertDate = DateTime.Now;
                         orderBasic.OrderStatus = "Cart";
@@ -523,7 +523,7 @@
                     OrderBasic orderBasic = new OrderBasic();
                     orderBasic.ProductId = productDetailModel.ProductBasicModel.ProductId;
                     orderBasic.OrderGuid = Guid.Empty;
-                    orderBasic.Price = productDetailModel.ProductPriceModel.Price;
+                    orderBasic.Price = productDetailModel.ProductPriceModel.Price- productDetailModel.ProductPriceModel.DeliveryFees;
                     orderBasic.DeliveryFees = productDetailModel.ProductPriceModel.DeliveryFees;
                     orderBasic.InsertDate = DateTime.Now;
                     orderBasic.OrderStatus = "Cart";
@@ -597,7 +597,7 @@
                 OrderBasic orderBasic = new OrderBasic();
                 orderBasic.ProductId = productDetailModel.ProductBasicModel.ProductId;
                 orderBasic.OrderGuid = Orderguid;
-                orderBasic.Price = productDetailModel.ProductPriceModel.Price;
+                orderBasic.Price = productDetailModel.ProductPriceModel.Price - productDetailModel.ProductPriceModel.DeliveryFees;
                 orderBasic.DeliveryFees = productDetailModel.ProductPriceModel.DeliveryFees;
                 orderBasic.InsertDate = DateTime.Now;
                 orderBasic.OrderStatus = "Cart";
@@ -614,7 +614,8 @@
                     {
                         OrderGuid = orderBasic.OrderGuid,
                         ProductSpecificationId = get_Product_SpecId.ProductSpecificationId,
-                        OrgId = orderBasic.OrgId
+                        OrgId = orderBasic.OrgId,
+                        OrderId = orderBasic.OrderId
                     };
                     var Varient = await _ProductDetailRepsitory.Add_Order_Varient(orderVariation);
                     orderBasic.OrderVariationId = Varient.OrderVariationId;

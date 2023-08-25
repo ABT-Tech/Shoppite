@@ -1,4 +1,5 @@
 ﻿@model Shoppite.Application.Models.CartModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     ViewData["Title"] = "Cart Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -102,137 +103,149 @@
                 <div class="checkout-content">
                     <div class="row">
                         <div class="col-lg-9 col-md-12 mb-5">
-                            <form asp-action="MakePaymentRequest" asp-controller="Cart" enctype="multipart/form-data" method="post" class=" pt-2 text-capitalize">
+                            <form asp-action="MakePaymentRequest" id="myForm" asp-controller="Cart" enctype="multipart/form-data" method="post" class=" pt-2 text-capitalize">
                                 <input type="hidden" asp-for="OrderBasicModel.OrderGuid" />
-                                <div aria-multiselectable="true" role="tablist" id="accordion" class="panel-group">
-                                    <div class="panel sauget-accordion">
-                                        <div id="headingOne" role="tab" class="panel-heading">
+
+                                <div id="accordion" class="panel-group">
+                                    <div class="panel datainputs sauget-accordion">
+
+                                        <div id="headingOne" class="panel-heading" data-toggle="collapse" data-parent="#accordion" data-target="#collapse1">
                                             <h4 class="panel-title">
-                                                <a aria-controls="checkoutMethod" aria-expanded="true" href="#checkoutMethod" data-bs-toggle="collapse" name="billinfolink" class="collapse" style="display:flex;">
+                                                <a class="accordion-toggle" style="display:flex;">
                                                     <span style=" width: 29px; padding: 6px 17px 0px 11px; font-size: 15px; margin-right: 25px; }">1</span>  Billing Information
                                                 </a>
+
                                             </h4>
                                         </div>
-                                        <div aria-labelledby="headingOne" data-bs-parent="#accordion" role="tabpanel" class="panel-collapse collapse show" id="checkoutMethod" aria-expanded="true" style="">
+                                        <div id="collapse1" class="panel-collapse collapse in" style="">
+                                            <div class="panel-body">
+                                                <div class="content-info">
+                                                    <div class="row ">
+                                                        <div class="col-sm-6 mx-auto">
+                                                            <div class="form-group m-1">
+                                                                <label class="control-label">First Name</label>
+                                                                <input asp-for="OrderShippingModel.FirstName" name="OrderShippingModel.FirstName" id="FirstName" required="required" class="form-control"
+                                                                       data-val="true" data-val-required="FirstName  is required" />
+                                                                <span asp-validation-for="OrderShippingModel.FirstName" class="text-danger field-valiation-error"
+                                                                      data-valmsg-for="FirstName" data-valmsg-replace="true"></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6 mx-auto">
+                                                            <div class="form-group m-1">
+                                                                <label class="control-label">Last Name</label>
+                                                                <input asp-for="OrderShippingModel.LastName" name="OrderShippingModel.LastName" required="required" id="LastName" class="form-control" 
+                                                                       data-val="true" data-val-required="LastName  is required" />
+                                                                <span asp-validation-for="OrderShippingModel.LastName"  class="text-danger field-valiation-error"
+                                                                      data-valmsg-for="LastName" data-valmsg-replace="true"></span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-sm-6 mx-auto">
+                                                            <div class="form-group m-1">
+                                                                <label class="control-label">Street</label>
+                                                                <input asp-for="OrderShippingModel.Street" name="OrderShippingModel.Street" required="required" id="Street" class="form-control"
+                                                                       data-val="true" data-val-required="Street  is required" />
+                                                                <span asp-validation-for="OrderShippingModel.Street"  class="text-danger field-valiation-error"
+                                                                      data-valmsg-for="Street" data-valmsg-replace="true"></span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-sm-6 mx-auto">
+                                                            <div class="form-group m-1">
+                                                                <label class="control-label">City</label>
+                                                                <input asp-for="OrderShippingModel.City" name="OrderShippingModel.City" required="required" id="City" class="form-control"
+                                                                       data-val="true" data-val-required="City name is required" />
+                                                                <span asp-validation-for="OrderShippingModel.City"  class="text-danger field-valiation-error"
+                                                                      data-valmsg-for="City" data-valmsg-replace="true"></span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-sm-6 mx-auto">
+                                                            <div class="form-group m-1">
+                                                                <label class="control-label">Phone Number</label>
+                                                                <input asp-for="OrderShippingModel.Phone" name="OrderShippingModel.Phone" id="Phone" required="required" class="form-control"
+                                                                       data-val="true" data-val-required="Phone Number is required" />
+                                                                <span asp-validation-for="OrderShippingModel.Phone"  class="text-danger field-valiation-error"
+                                                                      data-valmsg-for="Phone" data-valmsg-replace="true"></span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-sm-6 mx-auto">
+                                                            <div class="form-group m-1">
+                                                                <label class="control-label">Zipcode</label>
+                                                                <input asp-for="OrderShippingModel.Zipcode" name="OrderShippingModel.Zipcode" required="required" id="Zipcode" class="form-control "
+                                                                       data-val="true" data-val-required="Zipcode  is required" />
+                                                                <span asp-validation-for="OrderShippingModel.Zipcode"  class="text-danger field-valiation-error"
+                                                                      data-valmsg-for="Zipcode" data-valmsg-replace="true"></span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-sm-6 mx-auto">
+                                                            <div class="form-group m-1">
+                                                                <label class="control-label">Address</label>
+                                                                <textarea asp-for="OrderShippingModel.Address" name="OrderShippingModel.Address" required="required" id="Address" class="form-control"
+                                                                          data-val="true" data-val-required="Address is required"></textarea>
+                                                                <span asp-validation-for="OrderShippingModel.Address"  class="text-danger field-valiation-error"
+                                                                      data-valmsg-for="Address" data-valmsg-replace="true"></span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-sm-6 mx-auto">
+                                                            <div class="form-group m-1">
+                                                                <label class="control-label">Email</label>
+                                                                <input type="email" asp-for="OrderShippingModel.Email" name="OrderShippingModel.Email" required="required" id="Email" class="form-control input-validation-error"
+                                                                       data-val="true" data-val-required="Email is required" />
+                                                                <span asp-validation-for="OrderShippingModel.Email"  class="text-danger field-valiation-error"
+                                                                      data-valmsg-for="Email" data-valmsg-replace="true"></span>
+                                                            </div>
+                                                        </div>
+
+                                                        <input type="hidden" asp-for="OrderShippingModel.FirstName" />
+                                                        <input type="hidden" asp-for="OrderShippingModel.LastName" />
+                                                        <input type="hidden" asp-for="OrderShippingModel.Street" />
+                                                        <input type="hidden" asp-for="OrderShippingModel.City" />
+                                                        <input type="hidden" asp-for="OrderShippingModel.Phone" />
+                                                        <input type="hidden" asp-for="OrderShippingModel.Zipcode" />
+                                                        <input type="hidden" asp-for="OrderShippingModel.Address" />
+                                                        <input type="hidden" asp-for="OrderShippingModel.Email" />
+                                                        <input type="hidden" asp-for="IsPaytm" />
+                                                        <input type="hidden" asp-for="IsPaytmClicked" />
+
+                                                       @* <div class="col-12">
+                                                            <div class="form-group">
+                                                                <button type="button" style="width:auto;" id="Proceed_to_Next" class="SaveBtn" onclick="document.getElementById('Target').click()">Proceed to Next</button>
+                                                            </div>
+                                                        </div>*@
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <div class="panel paytmbtn  sauget-accordion mb-5">
+                                    <div id="headingFour" class="panel-heading" data-toggle="collapse" data-parent="#accordion" data-target="#collapse3">
+                                        <h4 class="panel-title">
+                                            <a class="accordion-toggle " style="display:flex;">
+                                                <span style=" width: 29px; padding: 6px 17px 0px 11px; font-size: 15px; margin-right: 25px; }">2</span> Payment Information
+                                            </a>
+
+                                        </h4>
+                                    </div>
+                                    <div id="collapse3" class="panel-collapse collapse">
+                                        <div class="panel-body">
                                             <div class="content-info">
-                                                <div class="row ">
-                                                    <div class="col-md-4 offset-md-9 mb-0">
-                                                        <button type="button" class="btn btn-default add-tag-btn SaveBtn mb-0 mt-2" name="editbtn" onclick="toggleEnable('IpF1','IpF2','IpF3','IpF4','IpF5','IpF6','IpF7','IpF8')">
-                                                            Edit
-                                                        </button>
-                                                    </div>
-                                                    <div class="col-sm-6 mx-auto">
-                                                        <div class="form-group m-1">
-                                                            <label class="control-label">First Name</label>
-                                                            <input asp-for="OrderShippingModel.FirstName" id="IpF1" class="form-control input-validation-error IpF"
-                                                                   data-val="true" data-val-required="Shop name is required" />
-                                                            <span asp-validation-for="OrderShippingModel.FirstName" id="ShopName" class="text-danger field-valiation-error"
-                                                                  data-valmsg-for="ShopName" data-valmsg-replace="true"></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6 mx-auto">
-                                                        <div class="form-group m-1">
-                                                            <label class="control-label">Last Name</label>
-                                                            <input asp-for="OrderShippingModel.LastName" id="IpF2" class="form-control input-validation-error IpF"
-                                                                   data-val="true" data-val-required="Contact number is required" />
-                                                            <span asp-validation-for="OrderShippingModel.LastName" id="ContactNumber" class="text-danger field-valiation-error"
-                                                                  data-valmsg-for="ContactNumber" data-valmsg-replace="true"></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6 mx-auto">
-                                                        <div class="form-group m-1">
-                                                            <label class="control-label">Street</label>
-                                                            <input asp-for="OrderShippingModel.Street" id="IpF3" class="form-control input-validation-error IpF"
-                                                                   data-val="true" data-val-required="Country name is required" />
-                                                            <span asp-validation-for="OrderShippingModel.Street" id="Country" class="text-danger field-valiation-error"
-                                                                  data-valmsg-for="Country" data-valmsg-replace="true"></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6 mx-auto">
-                                                        <div class="form-group m-1">
-                                                            <label class="control-label">City</label>
-                                                            <input asp-for="OrderShippingModel.City" id="IpF4" class="form-control input-validation-error IpF"
-                                                                   data-val="true" data-val-required="City name is required" />
-                                                            <span asp-validation-for="OrderShippingModel.City" id="City" class="text-danger field-valiation-error"
-                                                                  data-valmsg-for="City" data-valmsg-replace="true"></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6 mx-auto">
-                                                        <div class="form-group m-1">
-                                                            <label class="control-label">Phone Number</label>
-                                                            <input asp-for="OrderShippingModel.Phone" id="IpF5" class="form-control input-validation-error IpF"
-                                                                   data-val="true" data-val-required="Zip code is required" />
-                                                            <span asp-validation-for="OrderShippingModel.Phone" id="Zip" class="text-danger field-valiation-error"
-                                                                  data-valmsg-for="Zip" data-valmsg-replace="true"></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6 mx-auto">
-                                                        <div class="form-group m-1">
-                                                            <label class="control-label">Zipcode</label>
-                                                            <input asp-for="OrderShippingModel.Zipcode" id="IpF6" class="form-control input-validation-error IpF"
-                                                                   data-val="true" data-val-required="state name is required" />
-                                                            <span asp-validation-for="OrderShippingModel.Zipcode" id="State" class="text-danger field-valiation-error"
-                                                                  data-valmsg-for="State" data-valmsg-replace="true"></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6 mx-auto">
-                                                        <div class="form-group m-1">
-                                                            <label class="control-label">Address</label>
-                                                            <textarea asp-for="OrderShippingModel.Address" id="IpF7" class="form-control input-validation-error IpF"
-                                                                      data-val="true" data-val-required="Address is required"></textarea>
-                                                            <span asp-validation-for="OrderShippingModel.Address" id="State" class="text-danger field-valiation-error"
-                                                                  data-valmsg-for="Address" data-valmsg-replace="true"></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6 mx-auto">
-                                                        <div class="form-group m-1">
-                                                            <label class="control-label">Email</label>
-                                                            <input asp-for="OrderShippingModel.Email" id="IpF8" class="form-control input-validation-error"
-                                                                   data-val="true" data-val-required="PaypalId is required" />
-                                                            <span asp-validation-for="OrderShippingModel.Email" id="PaypalId" class="text-danger field-valiation-error"
-                                                                  data-valmsg-for="PaypalId" data-valmsg-replace="true"></span>
-                                                        </div>
-                                                    </div>
-                                                    <input type="hidden" asp-for="OrderShippingModel.FirstName" />
-                                                    <input type="hidden" asp-for="OrderShippingModel.LastName" />
-                                                    <input type="hidden" asp-for="OrderShippingModel.Street" />
-                                                    <input type="hidden" asp-for="OrderShippingModel.City" />
-                                                    <input type="hidden" asp-for="OrderShippingModel.Phone" />
-                                                    <input type="hidden" asp-for="OrderShippingModel.Zipcode" />
-                                                    <input type="hidden" asp-for="OrderShippingModel.Address" />
-                                                    <input type="hidden" asp-for="OrderShippingModel.Email" />
-                                                    <input type="hidden" asp-for="IsPaytm" />
-                                                    <input type="hidden" asp-for="IsPaytmClicked" />
-                                                    <div class="col-12">
-                                                        <div class="form-group">
-                                                            <button type="button" style="width:auto;" id="Proceed_to_Next" class="SaveBtn" onclick="document.getElementById('Target').click()" name="proceedtonextbtn">Proceed to Next</button>
-                                                        </div>
-                                                    </div>
+                                                @if (Model.IsPaytm)
+                                                {
+                                                    <button style="width:auto;margin:15px;height:100%;" id="paytm-btn-click" class="SavePaymentBtn"><img src="~/images/Payment.gif" style="height:50px" alt="buttonpng" border="0" /></button>
+                                                }
+                                                <button id="cashondeliverybtn" style="width: auto; margin: 15px; height: 100%;" type="submit" class="SavePaymentBtn"><img src="~/images/cash-on-delivery-icon-14.jpg" style="height:50px" alt="buttonpng" border="0" /></button>
+
                                                 </div>
+
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="panel sauget-accordion mb-5">
-                                        <div id="headingFour" role="tab" class="panel-heading">
-                                            <h4 class="panel-title">
-                                                <a aria-controls="paymentInformation" aria-expanded="false" id="Target" href="#paymentInformation" data-bs-toggle="collapse" class="collapsed" style="display:flex;" name="paymentinfolink">
-                                                    <span style=" width: 29px; padding: 6px 17px 0px 11px; font-size: 15px; margin-right: 25px; }" >2</span> Payment Information
-                                                </a>
-                                            </h4>
-                                        </div>
-                                        <div aria-labelledby="headingFour" data-bs-parent="#accordion" role="tabpanel" class="panel-collapse collapse" id="paymentInformation" aria-expanded="false">
-                                            <div class="content-info" >
-                                                <div id="accordion1" class="panel-group" style="display:flex">
-                                                    @if (Model.IsPaytm)
-                                                    {
-                                                    <button style="width:auto;margin:15px;height:100%;" id="paytm-btn-click" class="SavePaymentBtn" name="paymentbtn"><img src="~/images/Payment.gif" loading="lazy" style="height:50px" alt="paymentbuttonpng" border="0" /></button>
-                                                    }
-                                                    <button style="width: auto; margin: 15px; height: 100%;" type="submit" class="SavePaymentBtn" name="codbtn"><img src="~/images/cash-on-delivery-icon-14.jpg" loading="lazy" style="height:50px" alt="paymentbuttonpng" border="0" /></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                              
                             </form>
                         </div>
                         <div class="col-lg-3 col-md-12">
@@ -254,45 +267,63 @@
         </div>
     </div>
 </div>
-@section scripts {
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
 <script>
-    document.getElementById("IpF1").disabled = true;
-    document.getElementById("IpF2").disabled = true;
-    document.getElementById("IpF3").disabled = true;
-    document.getElementById("IpF4").disabled = true;
-    document.getElementById("IpF5").disabled = true;
-    document.getElementById("IpF6").disabled = true;
-    document.getElementById("IpF7").disabled = true;
-    document.getElementById("IpF8").disabled = true;
-    function toggleEnable(el1, el2, el3, el4, el5, el6, el7, el8) {
-        var textbox = document.getElementById(el1, el2, el3, el4, el5, el6, el7, el8);
-        if (textbox.disabled) {
-            document.getElementById("IpF1").disabled = false;
-            document.getElementById("IpF2").disabled = false;
-            document.getElementById("IpF3").disabled = false;
-            document.getElementById("IpF4").disabled = false;
-            document.getElementById("IpF5").disabled = false;
-            document.getElementById("IpF6").disabled = false;
-            document.getElementById("IpF7").disabled = false;
-            document.getElementById("IpF8").disabled = false;
-            // document.getElementById(el2).disabled = false;
-        }
-        else {
-            // Enter code here
-            document.getElementById("IpF1").disabled = true;
-            document.getElementById("IpF2").disabled = true;
-            document.getElementById("IpF3").disabled = true;
-            document.getElementById("IpF4").disabled = true;
-            document.getElementById("IpF5").disabled = true;
-            document.getElementById("IpF6").disabled = true;
-            document.getElementById("IpF7").disabled = true;
-            document.getElementById("IpF8").disabled = true;
-            // document.getElementById(el2).disabled = true;
-        }
-    }
+    // Change styles according to panels state
+
+    $('.panel').on('show.bs.collapse hide.bs.collapse', function () {
+
+        $(this).toggleClass("paytmbtn datainputs");
+       // $(this).find(".indicator").toggleClass("glyphicon-chevron-right glyphicon-chevron-down");
+    })
+
+    // Initialize collapsibles
+
+    $('.collapse').collapse({
+        toggle: false,
+        parent: '#accordion'
+    });
+
+    // Bind panels behaviour to button
+
+    var inputs = $("#myForm input[required='required']");
+
+    $('#cashondeliverybtn').click(function () {
+
+        inputs.each(function () {
+
+            if ($(this).val() == "") {
+
+                var current = $(this).closest(".panel-collapse");
+
+                if (!current.hasClass("in")) {
+                    current.collapse("show");
+                }
+            
+                return false;
+            }
+        });
+    });
+
     $("#paytm-btn-click").click(function () {
+        inputs.each(function () {
+
+            if ($(this).val() == "") {
+
+                var current = $(this).closest(".panel-collapse");
+
+                if (!current.hasClass("in")) {
+                    current.collapse("show");
+                }
+
+                return false;
+            }
+        });
         $("#IsPaytmClicked").val('true');
         $("form").submit();
     })
 </script>
-}
