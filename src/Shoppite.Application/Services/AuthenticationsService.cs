@@ -30,6 +30,20 @@ namespace Shoppite.Application.Services
             return usersModal;
         }
 
+        public async Task<UsersModal> Get_Exist_Login_Data(string email, string password, int orgId)
+        {
+            UsersModal users = new UsersModal();
+            var UserLogin = await _AuthenticationRepository.Get_Exist_Login_Data(email, password);
+            if(UserLogin != null)
+            {
+                var ExistsUser = await _AuthenticationRepository.AddExistsUser(UserLogin, orgId);
+                await _AuthenticationRepository.Get_Exist_UserProfile_Data(ExistsUser, orgId);
+                users = ObjectMapper.Mapper.Map<UsersModal>(UserLogin);
+            }
+            
+            return users;
+        }
+
         public async Task<UsersModal> Get_Login_Data(string email, string passWord, int orgid)
         {
             UsersModal users = new UsersModal();

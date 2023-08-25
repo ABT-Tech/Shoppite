@@ -1,11 +1,12 @@
 ﻿@model Shoppite.Application.Models.OrganizationModel
 <div class="footer-top-about-us">
     <h4><span>ABOUT US</span></h4>
-    @if(!string.IsNullOrEmpty(Model.AboutUs))
+   @if (!string.IsNullOrEmpty(Model.AboutUs))
     {
-        <p>@Model.AboutUs</p>
+        <p>@Html.Raw(Model.AboutUs)</p>        
     }
-    else{
+    else
+    {
         <p>@Model.OrgName is retailer and supplier in PAN India</p>
     }
 </div>

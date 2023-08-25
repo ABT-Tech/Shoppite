@@ -67,7 +67,7 @@ namespace Shoppite.UI.Helpers
             int orgid = 1;
             var subdomain = GetSubDomain(httpContext);
             if (subdomain.Contains("localhost"))
-                orgid = 1;
+                orgid = 19;
             else
             {
                 LogError(subdomain);
@@ -82,6 +82,7 @@ namespace Shoppite.UI.Helpers
         }
         public void LogError(string msg)
         {
+            string logpath = _configuration.GetSection("LogPath")["File"].ToString();
             string message = string.Format("Time: {0}", DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt"));
             message += Environment.NewLine;
             message += "-----------------------------------------------------------";
@@ -90,7 +91,7 @@ namespace Shoppite.UI.Helpers
             message += Environment.NewLine;
             message += "-----------------------------------------------------------";
             message += Environment.NewLine;          
-            string path = "C:\\inetpub\\vhosts\\shooppy.in\\httpdocs\\ErrorLog.txt";
+            string path = logpath +"\\ErrorLog.txt";
             using (StreamWriter writer = new StreamWriter(path, true))
             {
                 writer.WriteLine(message);

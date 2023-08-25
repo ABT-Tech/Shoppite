@@ -51,5 +51,10 @@ namespace Shoppite.UI.Services
         {
             return _commonHelper.OrganizationDetails(orgid);
         }
+
+        public async Task<UsersModal> Get_Exist_Login_Data(string email, string password, int orgId)
+        {
+            return await _AuthenticationService.Get_Exist_Login_Data(email, password, orgId);
+        }
     }
 }
