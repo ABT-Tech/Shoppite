@@ -18,6 +18,7 @@
     @*await Html.PartialAsync("~/Views/Home/_Favicon.cshtml")*@
     @*<link rel="shortcut icon" type="image/x-icon" href="~/img/favicon.ico">*@
     <!-- Fonts  -->
+    <link href="https://fonts.googleapis.com/css?family=Miriam+Libre:400,700&display=swap" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Raleway:400,500,600,700,300,800' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
     <!-- Bootstrap CSS
@@ -263,7 +264,7 @@
                                     <form method="get" enctype="multipart/form-data">
                                         <div class="form-group">
                                             <input type="email" placeholder="Enter your e-mail" size="18" name="email" id="newsletter-input" class="inputNew form-control grey newsletter-input">
-                                            <button class="btn btn-default button button-small" asp-action="News_Letter_Submit" asp-controller="Home" name="submitNewsletterbutton" type="submit"><i class="fa fa-chevron-right"></i></button>
+                                            <button class="btn btn-default button button-small" asp-action="News_Letter_Submit" asp-controller="Home" aria-label="submitNewsletterbutton" type="submit"><i class="fa fa-chevron-right"></i></button>
                                             <p style="margin-top: -20px; color: #fe5b5a;" class="font-weight-bold">@TempData["EmailError"]</p>
                                         </div>
                                     </form>
@@ -309,7 +310,7 @@
                     </div>
                 </div>
                 <div class="scroll-to-top pull-right">
-                    <a href="#" class="bstore-scrollertop" name="link"><i class="fa fa-arrow-up"></i></a>
+                    <a href="#" class="bstore-scrollertop" aria-label="scroll"><i class="fa fa-arrow-up"></i></a>
                 </div>
             </div>
             <!-- Start footer copyright area -->
@@ -371,6 +372,27 @@
         partname[2].split(".")[0];
         var titlename = partname[2].split(".")[0];
         document.getElementById('orgname').innerHTML = titlename;
+
+        jQuery.event.special.touchstart = {
+            setup: function (_, ns, handle) {
+                this.addEventListener("touchstart", handle, { passive: !ns.includes("noPreventDefault") });
+            }
+        };
+        jQuery.event.special.touchmove = {
+            setup: function (_, ns, handle) {
+                this.addEventListener("touchmove", handle, { passive: !ns.includes("noPreventDefault") });
+            }
+        };
+        jQuery.event.special.wheel = {
+            setup: function (_, ns, handle) {
+                this.addEventListener("wheel", handle, { passive: true });
+            }
+        };
+        jQuery.event.special.mousewheel = {
+            setup: function (_, ns, handle) {
+                this.addEventListener("mousewheel", handle, { passive: true });
+            }
+        };
     </script>
 </body>
 </html>

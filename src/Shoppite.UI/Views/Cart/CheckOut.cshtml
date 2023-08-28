@@ -117,7 +117,7 @@
 
                                             </h4>
                                         </div>
-                                        <div id="collapse1" class="panel-collapse collapse in" style="">
+                                        <div id="collapse1" class="panel-collapse collapse" style="">
                                             <div class="panel-body">
                                                 <div class="content-info">
                                                     <div class="row ">
@@ -211,11 +211,11 @@
                                                         <input type="hidden" asp-for="IsPaytm" />
                                                         <input type="hidden" asp-for="IsPaytmClicked" />
 
-                                                       @* <div class="col-12">
+                                                        <div class="col-12">
                                                             <div class="form-group">
                                                                 <button type="button" style="width:auto;" id="Proceed_to_Next" class="SaveBtn" onclick="document.getElementById('Target').click()">Proceed to Next</button>
                                                             </div>
-                                                        </div>*@
+                                                        </div>
                                                     </div>
                                                     </div>
                                                 </div>
@@ -225,7 +225,7 @@
                                 <div class="panel paytmbtn  sauget-accordion mb-5">
                                     <div id="headingFour" class="panel-heading" data-toggle="collapse" data-parent="#accordion" data-target="#collapse3">
                                         <h4 class="panel-title">
-                                            <a class="accordion-toggle " style="display:flex;">
+                                            <a class="accordion-toggle " id="Target" style="display:flex;">
                                                 <span style=" width: 29px; padding: 6px 17px 0px 11px; font-size: 15px; margin-right: 25px; }">2</span> Payment Information
                                             </a>
 
@@ -292,7 +292,7 @@
 
     var inputs = $("#myForm input[required='required']");
 
-    $('#cashondeliverybtn').click(function () {
+   @* $('#cashondeliverybtn').click(function () {
 
         inputs.each(function () {
 
@@ -307,9 +307,9 @@
                 return false;
             }
         });
-    });
+    });*@
 
-    $("#paytm-btn-click").click(function () {
+   @* $("#paytm-btn-click").click(function () {
         inputs.each(function () {
 
             if ($(this).val() == "") {
@@ -325,5 +325,5 @@
         });
         $("#IsPaytmClicked").val('true');
         $("form").submit();
-    })
+    })*@
 </script>
