@@ -51,7 +51,28 @@ namespace Shoppite.Infrastructure.Repository
            await _dbContext.SaveChangesAsync();
 
         }
-
+        public async Task SaveUserAddressToUserProfile(OrderShipping orderShipping)
+        {
+            var UserAddress = _dbContext.UsersProfile.FirstOrDefault(x => x.UserName == orderShipping.UserName && x.OrgId == orderShipping.OrgId);
+              
+            if(UserAddress != null)
+            {
+                if (UserAddress.Address != null && UserAddress.City != null && UserAddress.Zip != null && UserAddress.ContactNumber != null)
+                {
+                }
+                else
+                {
+                    UserAddress.Address = orderShipping.Address;
+                    UserAddress.ContactNumber = orderShipping.Contactnumber;
+                    UserAddress.Country = "India";
+                    UserAddress.State = "Gujrat";
+                    UserAddress.City = orderShipping.City;
+                    UserAddress.Zip = orderShipping.Zipcode;
+                    _dbContext.UsersProfile.Update(UserAddress);
+                }
+            }
+            await _dbContext.SaveChangesAsync();
+        }
         //public async Task<OrderBasic> CheckOrder(OrderBasic orderBasic)
         //{
         //    var check = await _dbContext.OrderBasic.FirstOrDefaultAsync(x => x.OrderGuid == orderBasic.OrderGuid && x.OrderStatus == "Cart");

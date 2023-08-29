@@ -22,5 +22,7 @@ namespace Shoppite.Core.Repositories
         Task<List<OrderBasic>> GetProductListBYOrder(OrderBasic orderBasic);
         Task CancelOrder(OrderBasic orderBasic);
         Task<(int, string, string)> GetVendorContactDetails(Guid guid);
+        Task SaveUserAddressToUserProfile(OrderShipping orderShipping);
+
     }
 }

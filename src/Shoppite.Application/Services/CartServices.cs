@@ -58,6 +58,9 @@ namespace Shoppite.Application.Services
 
             var maapped = ObjectMapper.Mapper.Map<OrderShipping>(cartModel.OrderShippingModel);
             await _CartRepository.SaveAddress(maapped);
+
+            await _CartRepository.SaveUserAddressToUserProfile(maapped);
+            
         }
 
         public async Task UpdateOrderQty(CheckOutModel checkOut)
