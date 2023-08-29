@@ -100,14 +100,14 @@ namespace Shoppite.Infrastructure.Repository
             return findEmail;
         }
 
-        public async Task<Users> Get_Exist_Login_Data(string email, string password)
+        public async Task<Users> Get_Exist_Login_Data(string email, string phone)
         {
-            string ps = this.EncryptPass.Encrypt(password);
+            //string ps = this.EncryptPass.Encrypt(password);
             //var UserValidate =  _MasterContext.Users.Where(x => x.Email == email && x.Password == ps && x.OrgId == orgid).FirstOrDefault();
 
-            var q = await(from user in _MasterContext.Users
-                          join userprofile in _MasterContext.UsersProfile on user.Email equals userprofile.UserName
-                          where user.Email == email && user.Password == ps && userprofile.Type == "Client"
+            var q = await(from userprofile in _MasterContext.UsersProfile
+                          join user in _MasterContext.Users on userprofile.UserName equals user.Email 
+                          where user.Email == email && userprofile.ContactNumber == phone && userprofile.Type == "Client" && user.OrgId == userprofile.OrgId
                           select user).FirstOrDefaultAsync();
             return q;
         }

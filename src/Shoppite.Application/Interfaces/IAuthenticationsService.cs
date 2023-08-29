@@ -12,6 +12,6 @@ namespace Shoppite.Application.Interfaces
         public Task<UsersModal> Get_Logo(int orgid);
         Task<UsersModal> RegisterDetail(string userName, string password, string email, int orgId);
         Task<UsersModal> ForgotPass(string email, string password, int orgId);
-        Task<UsersModal> Get_Exist_Login_Data(string email, string password, int orgId);
+        Task<UsersModal> Get_Exist_Login_Data(string email, string phone, int orgId);
     }
 }
