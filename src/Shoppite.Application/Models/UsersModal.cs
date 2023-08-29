@@ -23,6 +23,7 @@ namespace Shoppite.Application.Models
        // [Required(ErrorMessage = "Password is required" )]
         public string Password { get; set; }
         public string Exist_Password { get; set; }
+        public string Exist_Phone_Number { get; set; }
         [Required]
         public string ConfPassword { get; set; }
         public string Email { get; set; }

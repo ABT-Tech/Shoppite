@@ -91,7 +91,7 @@ namespace Shoppite.UI.Controllers
         public async Task<ActionResult> UserExistLogin(UsersModal usersModal)
         {
             int OrgId = _commonHelper.GetOrgID(HttpContext);
-            var UserValidate = await _AuthenticationPageService.Get_Exist_Login_Data(usersModal.Exist_Email, usersModal.Exist_Password, OrgId);
+            var UserValidate = await _AuthenticationPageService.Get_Exist_Login_Data(usersModal.Exist_Email, usersModal.Exist_Phone_Number, OrgId);
             if (UserValidate.Password != null && UserValidate.Email != null)
             {
                 await CreateAuthenticationTicket(UserValidate);

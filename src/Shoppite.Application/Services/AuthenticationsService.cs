@@ -30,10 +30,10 @@ namespace Shoppite.Application.Services
             return usersModal;
         }
 
-        public async Task<UsersModal> Get_Exist_Login_Data(string email, string password, int orgId)
+        public async Task<UsersModal> Get_Exist_Login_Data(string email, string phone, int orgId)
         {
             UsersModal users = new UsersModal();
-            var UserLogin = await _AuthenticationRepository.Get_Exist_Login_Data(email, password);
+            var UserLogin = await _AuthenticationRepository.Get_Exist_Login_Data(email, phone);
             if(UserLogin != null)
             {
                 var ExistsUser = await _AuthenticationRepository.AddExistsUser(UserLogin, orgId);
