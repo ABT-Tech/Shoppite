@@ -111,7 +111,7 @@
 
                                         <div id="headingOne" class="panel-heading" data-toggle="collapse" data-parent="#accordion" data-target="#collapse1">
                                             <h4 class="panel-title">
-                                                <a class="accordion-toggle" style="display:flex;">
+                                                <a class="accordion-toggle" id="Billing_Info" style="display:flex;">
                                                     <span style=" width: 29px; padding: 6px 17px 0px 11px; font-size: 15px; margin-right: 25px; }">1</span>  Billing Information
                                                 </a>
 
@@ -292,7 +292,26 @@
 
     var inputs = $("#myForm input[required='required']");
 
-   @* $('#cashondeliverybtn').click(function () {
+    $('#Billing_Info').click(function () {
+
+        inputs.each(function () {
+
+            if ($(this).val() == "") {
+
+                var current = $(this).closest(".panel-collapse");
+
+                if (current.hasClass("show")) {
+                    current.removeClass("show");
+                }
+            }
+
+        });
+    });
+
+
+
+
+    $('#cashondeliverybtn').click(function () {
 
         inputs.each(function () {
 
@@ -303,13 +322,14 @@
                 if (!current.hasClass("in")) {
                     current.collapse("show");
                 }
-            
+                
                 return false;
             }
-        });
-    });*@
 
-   @* $("#paytm-btn-click").click(function () {
+        });
+    });
+
+    $("#paytm-btn-click").click(function () {
         inputs.each(function () {
 
             if ($(this).val() == "") {
@@ -325,5 +345,5 @@
         });
         $("#IsPaytmClicked").val('true');
         $("form").submit();
-    })*@
+    })
 </script>
