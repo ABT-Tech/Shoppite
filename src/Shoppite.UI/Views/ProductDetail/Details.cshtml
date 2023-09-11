@@ -329,7 +329,12 @@
                                         <tbody>
                                             <tr class="odd">
                                                 <td>Brand</td>
-                                                <td>@Model.BrandsModel.BrandName</td>
+                                                <td>
+                                                    @if (Model.BrandsModel != null)
+                                                    {
+                                                        @Model.BrandsModel.BrandName
+                                                    }
+                                                                                           </td>
                                             </tr>
                                             <tr class="even">
                                                 <td>Date First Available</td>
