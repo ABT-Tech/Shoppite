@@ -21,7 +21,7 @@
                                     }
                                     else
                                     {
-                                            <img src="~/img/NoProduct.png" loading="lazy" alt="noproductimg" />
+                                        <img src="~/img/NoProduct.png" loading="lazy" alt="noproductimg" />
                                     }
                                 </div>
                             </div>
@@ -35,18 +35,18 @@
                                 {
                                     <span class="cat-title">@at.AttributeName</span>
                                     <ul>
-                                            @for(int i=0;i< at.specifications.Count;i++)
-                                            {
-                                               <li>
-                                                  <span><input type="checkbox"   class="checkbox profileCheckbox" name="SpecificationName[]" value="@at.specifications[i].SpecificationName" id="chk_@i"  ></span>
-                                                  <label for="chk_@i">
-                                                      @at.specifications[i].SpecificationName
-                                                  </label>
-                                              </li>
+                                        @for (int i = 0; i < at.specifications.Count; i++)
+                                        {
+                                            <li>
+                                                <span><input type="checkbox" class="checkbox profileCheckbox" name="SpecificationName[]" value="@at.specifications[i].SpecificationName" id="chk_@i"></span>
+                                                <label for="chk_@i">
+                                                    @at.specifications[i].SpecificationName
+                                                </label>
+                                            </li>
                                         }
                                     </ul>
                                 }
-                            </div>                            
+                            </div>
                         </div>
                     </div>
                 </div>
