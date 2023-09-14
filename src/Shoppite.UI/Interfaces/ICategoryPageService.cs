@@ -11,10 +11,10 @@ namespace Shoppite.Web.Interfaces
         Task<List<CategoryMasterModel>> GetTopBannerImage(int orgId);
         Task<List<CategoryMasterModel>> GetMiddelBannerImage(int orgId);
         Task<IEnumerable<MainCategoryModel>> GetProductList(int orgId);
-        Task<List<CategoryMasterModel>> GetCategories(int OrgId);
+        Task<List<CategoryMasterModel>> GetCategories();
         Task<CategoryMasterModel> DisplayLogo(int orgId);
         Task<List<CategoryMasterModel>> GetBottomBanner(int orgID);
-        Task<List<f_getproducts_By_CatID_SpecificationNameModel>> GetAllProductByCategory(string CategoryId,int OrgId);
+        Task<List<f_getproducts_By_CatID_SpecificationNameModel>> GetAllProductByCategory(string CategoryId);
         Task<List<f_getproducts_By_CatID_SpecificationNameModel>> GetAllProductByAttribute(string CategoryId,string SpecificationName);
         Task<List<AttributeSetupModel>> GetAllAttributes(int orgId);
         Task<List<CategoryMasterModel>> GetBannerByCategory(int orgId);

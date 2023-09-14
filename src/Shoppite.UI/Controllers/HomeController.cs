@@ -44,7 +44,7 @@ namespace Shoppite.UI.Controllers
             brands.MiddelBanner = await _categoryPageService.GetMiddelBannerImage(OrgId);
             brands.TopBanner = await _categoryPageService.GetTopBannerImage(OrgId);
             brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
-            brands.Categories = await _categoryPageService.GetCategories(OrgId);
+            brands.Categories = await _categoryPageService.GetCategories();
             brands.BottomBanner = await _categoryPageService.GetBottomBanner(OrgId);
             brands.BannersByCategory = await _categoryPageService.GetBannerByCategory(OrgId);
             brands.CategoryBanner = await _categoryPageService.GetCategoryBannerImage(OrgId);
@@ -59,7 +59,7 @@ namespace Shoppite.UI.Controllers
             brands.MiddelBanner = await _categoryPageService.GetMiddelBannerImage(OrgId);
             brands.TopBanner = await _categoryPageService.GetTopBannerImage(OrgId);
             brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
-            brands.Categories = await _categoryPageService.GetCategories(OrgId);
+            brands.Categories = await _categoryPageService.GetCategories();
             brands.BottomBanner = await _categoryPageService.GetBottomBanner(OrgId);
             brands.BannersByCategory = await _categoryPageService.GetBannerByCategory(OrgId);
             brands.CategoryBanner = await _categoryPageService.GetCategoryBannerImage(OrgId);
@@ -89,11 +89,11 @@ namespace Shoppite.UI.Controllers
             var brands = await _BrandPageService.GetBrands(OrgId);
             brands.CategoryMaster = await _categoryPageService.DisplayLogo(OrgId);
             brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
-            brands.Categories = await _categoryPageService.GetCategories(OrgId);
+            brands.Categories = await _categoryPageService.GetCategories();
             brands.MiddelBanner = await _categoryPageService.GetMiddelBannerImage(OrgId);
-            brands.ProductCount = await _categoryPageService.GetProductCount(OrgId);
+          //  brands.ProductCount = await _categoryPageService.GetProductCount(OrgId);
            // brands.SP_GetSimilarProducts = await _categoryPageService.GetSimilarProducts(CategoryId, BrandId, OrgId);
-            brands.Product_specification = await _categoryPageService.GetAllProductByCategory(CategoryId, OrgId);
+            brands.Product_specification = await _categoryPageService.GetAllProductByCategory(CategoryId);
             if (User.Identity.Name != null)
             {
               brands.Wishlists = await _wishlistPageService.GetWishList(User.Identity.Name, OrgId);
@@ -115,7 +115,7 @@ namespace Shoppite.UI.Controllers
             }
             else
             {
-                model.Product_specification = await _categoryPageService.GetAllProductByCategory(CategoryId, OrgId);
+                model.Product_specification = await _categoryPageService.GetAllProductByCategory(CategoryId);
             }
             return PartialView(model);
         }
@@ -124,7 +124,7 @@ namespace Shoppite.UI.Controllers
         {
             int OrgId = _commonHelper.GetOrgID(HttpContext);
             MainModel model = new MainModel();
-            model.Product_specification = await _categoryPageService.GetAllProductByCategory(CategoryId, OrgId);
+            model.Product_specification = await _categoryPageService.GetAllProductByCategory(CategoryId);
         
             return PartialView(model);
         }
@@ -195,7 +195,7 @@ namespace Shoppite.UI.Controllers
             }
             else
             {
-                model.Product_specification = await _categoryPageService.GetAllProductByCategory(CategoryId, OrgId);
+                model.Product_specification = await _categoryPageService.GetAllProductByCategory(CategoryId);
             }
             return PartialView(model);
         }

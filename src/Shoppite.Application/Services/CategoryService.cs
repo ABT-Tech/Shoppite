@@ -80,9 +80,9 @@ namespace Shoppite.Application.Services
             }
             return mainCategory;
         }
-        public async Task<List<CategoryMasterModel>> GetCategories(int OrgId)
+        public async Task<List<CategoryMasterModel>> GetCategories()
         {
-            var categories = await _categoryRepository.GetCategories(OrgId);
+            var categories = await _categoryRepository.GetCategories();
             var mapped = ObjectMapper.Mapper.Map<List<CategoryMasterModel>>(categories);
             return mapped;
         }
@@ -98,9 +98,9 @@ namespace Shoppite.Application.Services
             var mapped = ObjectMapper.Mapper.Map<List<CategoryMasterModel>>(image);
             return mapped;
         }
-        public async Task<List<f_getproducts_By_CatID_SpecificationNameModel>> GetAllProductByCategory(string CategoryId, int orgId)
+        public async Task<List<f_getproducts_By_CatID_SpecificationNameModel>> GetAllProductByCategory(string CategoryId)
         {
-            var products = await _categoryRepository.GetAllProductByCategory(CategoryId,orgId);
+            var products = await _categoryRepository.GetAllProductByCategory(CategoryId);
             var mapped = ObjectMapper.Mapper.Map<List<f_getproducts_By_CatID_SpecificationNameModel>>(products);
             return mapped;
         }

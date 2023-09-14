@@ -34,9 +34,9 @@ namespace Shoppite.Web.Services
             var productList = await _categoryService.GetProductList(orgId);
             return productList;
         }
-        public async Task<List<CategoryMasterModel>> GetCategories(int OrgId)
+        public async Task<List<CategoryMasterModel>> GetCategories()
         {
-            var categories= await _categoryService.GetCategories(OrgId);
+            var categories= await _categoryService.GetCategories();
             return categories;
         }
         public async Task<CategoryMasterModel> DisplayLogo(int orgId)
@@ -50,9 +50,9 @@ namespace Shoppite.Web.Services
             var mapped = _mapper.Map<List<CategoryMasterModel>>(image);
             return mapped;
         }
-        public async Task<List<f_getproducts_By_CatID_SpecificationNameModel>> GetAllProductByCategory(string CategoryId,int OrgId)
+        public async Task<List<f_getproducts_By_CatID_SpecificationNameModel>> GetAllProductByCategory(string CategoryId)
         {
-            var productList = await _categoryService.GetAllProductByCategory(CategoryId,OrgId);
+            var productList = await _categoryService.GetAllProductByCategory(CategoryId);
             return productList;
         }
         public async Task<List<AttributeSetupModel>> GetAllAttributes(int orgId)

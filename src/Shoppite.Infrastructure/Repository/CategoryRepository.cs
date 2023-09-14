@@ -48,9 +48,9 @@ namespace Shoppite.Infrastructure.Repository
              return await _dbContext.Set<f_getproducts_By_CategoryID_Result>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
             //return f_getproducts_By_CategoryID_ResultList;
         }
-        public async Task<List<CategoryMaster>> GetCategories(int orgId)
+        public async Task<List<CategoryMaster>> GetCategories()
         {
-            return await _dbContext.CategoryMaster.Where(x=>x.OrgId== orgId).ToListAsync();
+            return await _dbContext.CategoryMaster.Where(x=>x.OrgId== 0&&x.ParentCategoryId!=0&&x.IsPublished==true).ToListAsync();
         }
         public async Task<Logo> DisplayLogo(int orgId)
         {
@@ -65,14 +65,14 @@ namespace Shoppite.Infrastructure.Repository
                      select ad_detail).ToList().TakeLast(1); 
             return q.ToList();
         }
-        public async Task<List<F_getproducts_By_CatId>> GetAllProductByCategory(string CategoryId,int Orgid)
+        public async Task<List<F_getproducts_By_CatId>> GetAllProductByCategory(string CategoryId)
         {
      
-            string sql = "select * from f_getproducts_By_CatID_ProductList(@ID,@OrgId)";
+            string sql = "exec  SP_getproducts_By_CatID_ProductList @ID";
             List<SqlParameter> parms = new List<SqlParameter>
             {
                 new SqlParameter { ParameterName = "@ID", Value = CategoryId },
-                new SqlParameter { ParameterName = "@OrgId", Value = Orgid }
+                //new SqlParameter { ParameterName = "@OrgId", Value = Orgid }
 
 
             };

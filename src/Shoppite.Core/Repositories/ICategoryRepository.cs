@@ -11,10 +11,10 @@ namespace Shoppite.Core.Repositories
         Task<List<AdsDetail>> GetTopBannerImage(int orgId);
         Task<List<AdsDetail>> GetMiddelBannerImage(int orgId);
         Task<IEnumerable<f_getproducts_By_CategoryID_Result>> GetProductList(int orgId);
-        Task<List<CategoryMaster>> GetCategories(int OrgId);
+        Task<List<CategoryMaster>> GetCategories();
         Task<Logo> DisplayLogo(int orgId);
         Task<List<AdsDetail>> GetBottomBanner(int orgID);
-        Task<List<F_getproducts_By_CatId>> GetAllProductByCategory(string CategoryId,int OrgId);
+        Task<List<F_getproducts_By_CatId>> GetAllProductByCategory(string CategoryId);
         Task<List<SP_GetSpecificationData_AttributName>> GetAllAttributes(int orgId);
         Task<List<f_getproducts_By_CatID_SpecificationName>> GetAllProductByAttribute(string CategoryId, string AttributeName);
         Task<List<CategoryMaster>> GetBannerByCategory(int orgId);
