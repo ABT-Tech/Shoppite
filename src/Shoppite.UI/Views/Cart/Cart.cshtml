@@ -1,32 +1,26 @@
 ﻿@model Shoppite.Application.Models.CartModel
-
 @{
     ViewData["Title"] = "Cart Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link href="~/css/site.css" rel="stylesheet" />
 <style>
-
     /* Chrome, Safari, Edge, Opera */
     input::-webkit-outer-spin-button,
     input::-webkit-inner-spin-button {
         -webkit-appearance: none;
         margin: 0;
     }
-
     /* Firefox */
     input[type=number] {
         -moz-appearance: textfield;
     }
-
     span {
         cursor: pointer;
     }
-
     .number {
         margin: 0px;
     }
-
     .minus, .plus {
         width: 25px;
         height: 20px;
@@ -40,21 +34,15 @@
         margin: 6px 0px 5px 8px;
         padding: 0px 0px 25px 0px;
     }
-
-    }
-
     .minus:hover {
         background-color: #FE5B5A;
     }
-
     .plus:hover {
         background-color: #FE5B5A;
     }
-
     .fa-trash:hover {
         color: #FE5B5A;
     }
-
     input {
         /*height: 34px;*/
         width: 38px;
@@ -65,45 +53,33 @@
         display: inline-block;
         vertical-align: middle;
     }
-
     .cart-product-line {
         border-top: 0px solid #515151;
     }
-    /*.QA{
-        text-align: center;
-        padding: 9px 10px;
-    }*/
-
     .Shop_Now {
         background-color: #363636;
         padding: 10px;
         color: white;
         border-radius: 1px;
     }
-
         .Shop_Now:hover {
             background-color: #fe5b5a;
             color: white;
             text-decoration: none;
         }
-
     .Shop_Now_Div {
         padding: 20px;
     }
-
     .modal-header {
         background-color: #fe5b5a;
     }
-
     .cart-checkout {
         color: white;
     }
-
     .product_name_Over {
         color: #000;
         text-decoration: none;
     }
-
         .product_name_Over:hover {
             color: #fe5b5a;
             text-decoration: none;
@@ -663,13 +639,10 @@
 <!-- jquery -->
 <script src="~/js/vendor/jquery-3.5.1.min.js"></script>
 <script src="~/js/vendor/jquery-migrate-3.3.0.min.js"></script>
-
 <script>
-
     var arr = [];
     var count;
     $(document).ready(function (id) {
-
         $('.minus').click(function () {
             var $input = $(this).parent().find('input');
             count = parseInt($input.val()) - 1;
@@ -678,7 +651,6 @@
             $input.change();
             return false;
         });
-
         $('.plus').click(function (id) {
             var $input = $(this).parent().find('input');
             $input.val(parseInt($input.val()) + 1);
@@ -686,12 +658,9 @@
             return false;
         });
     });
-
     $(document).ready(function () {
         update();
         $(".quant").change(function () {
-            //this: context of the input that was changed
-            //console.log('calling /Cart/AddTocart; id:', $(this).attr('data-id'), ' quantity: ', $(this).val());
             $.get(
                 '/Cart/AddTocart', {
                 id: $(this).attr('data-id'),
@@ -700,47 +669,32 @@
             });
             update();
         });
-
         function update() {
             var sum = 0.0;
             var quantity;
             $('#myTable > tbody  > tr').each(function () {
-
                 quantity = $(this).find('.quant').val();
                 var price = parseFloat($(this).find('.price').attr('data-price').replace(',', '.'));
                 var amount = (quantity * price);
-
                 sum += amount;
                 $(this).find('.amount').text('₹' + amount);
             });
             $('.total').text('₹' + sum);
         }
     });
-
-
     function GetDelete(id) {
-
         document.getElementById("btnContinueDelete").href = "/Cart/DeleteProduct/" + id;
     }
-
     function GetOrder() {
-
         var ar = [];
         var dataBunch = [];
-
         var tab = $("#myTable > tbody > tr").each(function () {
             $(this).find('td');
         });
-
         for (var i = 0; i < tab.length; i++) {
-
-           // dataBunch = [(tab[i].cells[0].childNodes[1].childNodes[0].currentSrc), (tab[i].children[0].children[1].value), (tab[i].cells[1].children[0].childNodes[0].innerText), (tab[i].cells[1].children[1].innerText), (tab[i].cells[2].children[0].children[1].value)];
-           // "Image": tab[i].cells[0].childNodes[1].childNodes[0].currentSrc, "ProductName": tab[i].cells[1].children[0].childNodes[0].innerText, "Price": tab[i].cells[1].children[1].innerText,
             ar.push({ "Guid": tab[i].children[0].children[2].value, "Qty": tab[i].cells[2].children[0].children[1].value, "ProductId": tab[i].cells[0].children[0].value });
         }
-
         var makeString = JSON.stringify({ar});
-
         $.ajax({
             type: "POST",
             url: '@Url.Action("AddToCheck", "Cart")',
@@ -754,8 +708,5 @@
                 alert( window.location = "/Cart/CheckOut/" + $('.HidenGuid').val())
             }
         });
-
     };
-
-
 </script>

@@ -63,12 +63,17 @@ namespace Shoppite.Application.Services
 
         public async Task AddtowhishList(MainModel mainModel)
         {
+            var FindProductSpec = await _wishlistRepository.FindProductSpec(mainModel.guid, mainModel.SpecId, mainModel.OrgId);
+
             CustomerWishlist wishlist = new CustomerWishlist();
             wishlist.ProductId = mainModel.ProductId;
             wishlist.UserName = _accessor.HttpContext.User.Identity.Name;
             wishlist.InsertDate = DateTime.Now;
             wishlist.Ip = _accessor.HttpContext.Connection.RemoteIpAddress.ToString();
             wishlist.OrgId = mainModel.OrgId;
+
+            if(FindProductSpec != null)
+            wishlist.ProductSpecificationId = FindProductSpec.ProductSpecificationId;
 
              await _wishlistRepository.AddtoWishList(wishlist);
         }

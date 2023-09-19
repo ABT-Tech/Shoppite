@@ -63,19 +63,46 @@ namespace Shoppite.UI.Controllers
         [HttpPost, AllowAnonymous]
         public async Task<ActionResult> Login(UsersModal usersModal)
         {
-            int OrgId = _commonHelper.GetOrgID(HttpContext);
-            var UserValidate = await _AuthenticationPageService.Get_Login_Data(usersModal.Email,usersModal.Password, OrgId);
-            if (UserValidate.Password != null && UserValidate.Email != null)
+            if (usersModal != null)
             {
-                await CreateAuthenticationTicket(UserValidate);
-                return RedirectToAction("Index","Home");
+
+                int OrgId = _commonHelper.GetOrgID(HttpContext);
+                var UserValidate = await _AuthenticationPageService.Get_Login_Data(usersModal.Email, usersModal.Password, OrgId);
+                if (UserValidate.Password != null && UserValidate.Email != null)
+                {
+                    await CreateAuthenticationTicket(UserValidate);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    TempData["LoginValidError"] = "Username or Password is Incorrect";
+                }
             }
             else
             {
-               TempData["LoginValidError"] = "Username or Password is Incorrect";
+              TempData["LoginValidError"] = "User Not Found Please Sign Up";
             }
             //return RedirectToAction("Index","Home", new { area = "" });
-             return View(usersModal);
+            return View(usersModal);
+        }
+
+
+        [HttpPost, AllowAnonymous]
+        public async Task<ActionResult> UserExistLogin(UsersModal usersModal)
+        {
+            int OrgId = _commonHelper.GetOrgID(HttpContext);
+            var UserValidate = await _AuthenticationPageService.Get_Exist_Login_Data(usersModal.Exist_Email, usersModal.Exist_Phone_Number, OrgId);
+            if (UserValidate.Password != null && UserValidate.Email != null)
+            {
+                await CreateAuthenticationTicket(UserValidate);
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                TempData["LoginValidError"] = "Username or Password is Incorrect";
+            }
+            //return RedirectToAction("Index","Home", new { area = "" });
+            return View("Login", usersModal);
         }
 
         public async Task<IActionResult> Register()
@@ -87,7 +114,9 @@ namespace Shoppite.UI.Controllers
         public async Task<ActionResult> Register(UsersModal usersModal)
         {
             int OrgId = _commonHelper.GetOrgID(HttpContext);
+            //if(usersModal.Username)
           var Register = await _AuthenticationPageService.RegisterDetail(usersModal.Username,usersModal.Password,usersModal.Email,OrgId);
+        
             if (Register == null)
                 return RedirectToAction("Register");
             else

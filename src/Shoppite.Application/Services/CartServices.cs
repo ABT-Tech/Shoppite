@@ -58,6 +58,9 @@ namespace Shoppite.Application.Services
 
             var maapped = ObjectMapper.Mapper.Map<OrderShipping>(cartModel.OrderShippingModel);
             await _CartRepository.SaveAddress(maapped);
+
+            await _CartRepository.SaveUserAddressToUserProfile(maapped);
+            
         }
 
         public async Task UpdateOrderQty(CheckOutModel checkOut)
@@ -99,7 +102,7 @@ namespace Shoppite.Application.Services
                 OrderGuid = guid,
                 UserName = _accessor.HttpContext.User.Identity.Name
             };
-               var order = await _CartRepository.CheckOrder(orderbasic);
+            var order = await _CartRepository.CheckOrder(orderbasic);
             cartModel.OrderBasicModel = ObjectMapper.Mapper.Map<OrderBasicModel>(order);
 
             var FindAddress = await _CartRepository.FindAddress(orderbasic.UserName);
@@ -108,7 +111,10 @@ namespace Shoppite.Application.Services
             var GetAddress = await _CartRepository.GetAddredd(orderbasic.UserName);
             cartModel.OrderShippingModel = ObjectMapper.Mapper.Map<OrderShippingModel>(GetAddress);
 
-           // cartModel.OrderShippingModel.Contactnumber = cartModel.UsersProfileModal.ContactNumber;
+            var orderList = await _CartRepository.GetProductListBYOrder(orderbasic);
+            cartModel.OrderBasicModels = ObjectMapper.Mapper.Map<List<OrderBasicModel>>(orderList);
+
+            // cartModel.OrderShippingModel.Contactnumber = cartModel.UsersProfileModal.ContactNumber;
             //cartModel.OrderShippingModel.City = cartModel.UsersProfileModal.City;
             //cartModel.OrderShippingModel.Address = cartModel.UsersProfileModal.Address;
             //cartModel.OrderShippingModel.UserName = cartModel.UsersProfileModal.UserName;
@@ -120,7 +126,7 @@ namespace Shoppite.Application.Services
         {
             OrderBasic orderBasic = new OrderBasic();
             orderBasic.OrderGuid = guid;
-            orderBasic.UserName = _accessor.HttpContext.User.Identity.Name;
+            //orderBasic.UserName = _accessor.HttpContext.User.Identity.Name;
 
             await _CartRepository.UpdateOrder(orderBasic);
         }
@@ -131,6 +137,21 @@ namespace Shoppite.Application.Services
             usersProfileModal.OrgId = orgid;
             var userProfile =  await _CartRepository.GetVendorDetails(usersProfileModal);
             return ObjectMapper.Mapper.Map<UsersProfileModal>(userProfile);
+        }
+
+        public async Task CancelOrder(Guid guid)
+        {
+            OrderBasic orderBasic = new OrderBasic();
+            orderBasic.OrderGuid = guid;
+
+            await _CartRepository.CancelOrder(orderBasic);
+        }
+        public async Task<VendorContactDetails> GetVendorContactDetails(Guid guid)
+        {
+            OrderBasic orderBasic = new OrderBasic();
+            orderBasic.OrderGuid = guid;
+            var details = await _CartRepository.GetVendorContactDetails(orderBasic.OrderGuid.Value);
+            return ObjectMapper.Mapper.Map<VendorContactDetails>(details);
         }
     }
 }

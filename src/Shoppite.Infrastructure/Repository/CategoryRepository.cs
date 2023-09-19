@@ -50,7 +50,15 @@ namespace Shoppite.Infrastructure.Repository
         }
         public async Task<List<CategoryMaster>> GetCategories(int orgId)
         {
-            return await _dbContext.CategoryMaster.Where(x=>x.OrgId== orgId).ToListAsync();
+            var q = await (from Cat_Product in _dbContext.ProductCategory
+                     join Master_Cat in _dbContext.CategoryMaster on Cat_Product.CategoryId equals Master_Cat.CategoryId
+                     where Cat_Product.OrgId == orgId
+                     select Master_Cat
+                     ).ToListAsync();
+
+            //return await _dbContext.CategoryMaster.Where(x=>x.OrgId== 0).ToListAsync();
+
+            return q;
         }
         public async Task<Logo> DisplayLogo(int orgId)
         {

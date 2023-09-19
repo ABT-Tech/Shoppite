@@ -57,6 +57,7 @@ namespace Shoppite.Infrastructure.Data
         public virtual DbSet<OrderStatus> OrderStatus { get; set; }
         public virtual DbSet<OrderVariation> OrderVariation { get; set; }
         public virtual DbSet<Organization> Organization { get; set; }
+        public virtual DbSet<OrganizationAggregatorControl> OrganizationAggregatorControls { get; set; }
         public virtual DbSet<PageCategory> PageCategory { get; set; }
         public virtual DbSet<PageCategoryDetails> PageCategoryDetails { get; set; }
         public virtual DbSet<ProductAttribute> ProductAttribute { get; set; }
@@ -104,6 +105,11 @@ namespace Shoppite.Infrastructure.Data
         public virtual DbSet<f_getproduct_CartDetails_By_Orgid> F_Getproduct_CartDetails_By_Orgid { get; set; }
         public virtual DbSet<f_order_master> F_Order_Master { get; set; }
         public virtual DbSet<f_order_masterDetails> f_order_masterDetails { get; set; }
+        public virtual DbSet<ProductVariant> ProductVariant { get; set; }
+        public virtual DbSet<f_getproduct_varient_By_Guid> F_Getproduct_Varient_By_Guid { get; set; }
+        public virtual DbSet<SP_GetProductDetails> SP_GetProductDetails { get; set; }
+        public virtual DbSet<SP_GetProductSpecifications> SP_GetProductSpecifications { get; set; }
+        public virtual DbSet<WhatsAppMessages> WhatsAppMessages { get; set; }
         public virtual DbSet<SP_GetSimilarProducts> SP_GetSimilarProducts { get; set; }
         public virtual DbSet<MyAccountDetails> MyAccountDetails { get; set; }
 
@@ -1348,6 +1354,36 @@ namespace Shoppite.Infrastructure.Data
 
                 entity.Property(e => e.Type).HasMaxLength(30);
             });
+            modelBuilder.Entity<WhatsAppMessages>(entity =>
+            {
+                entity.HasKey(e => e.ID);
+
+                entity.ToTable("WhatsAppMessages");
+
+                entity.Property(e => e.MobileNumber).HasMaxLength(50);
+
+                entity.Property(e => e.MessageRequest).HasMaxLength(2000);
+
+                entity.Property(e => e.TemplateID).HasMaxLength(50);
+
+                entity.Property(e => e.Is_SendMessage).HasColumnName("Is_SendMessage");
+
+                entity.Property(e => e.MessageRequest).HasMaxLength(2000);
+
+                entity.Property(e => e.MessageResponse).HasMaxLength(2000);
+
+                entity.Property(e => e.OrgName).HasMaxLength(100);
+
+                entity.Property(e => e.InsertDateTime).HasColumnType("datetime");
+
+            });
+
+            modelBuilder.Entity<OrganizationAggregatorControl>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+
+                entity.ToTable("Organization_Aggregator_Control");
+            });
 
             modelBuilder.Entity<SP_Status_HasProducts_Result>(entity =>
             {
@@ -1423,6 +1459,25 @@ namespace Shoppite.Infrastructure.Data
             {
                 entity.HasNoKey();
             });
+            modelBuilder.Entity<ProductVariant>(entity =>
+            {
+                entity.HasKey(e => e.ProductId);
+
+                entity.ToTable("Product_Variant");
+            });
+            modelBuilder.Entity<f_getproduct_varient_By_Guid>(entity =>
+            {
+                entity.HasNoKey();
+            });
+            modelBuilder.Entity<SP_GetProductDetails>(entity =>
+            {
+                entity.HasNoKey();
+            });
+            modelBuilder.Entity<SP_GetProductSpecifications>(entity =>
+            {
+                entity.HasNoKey();
+            });
+
             modelBuilder.Entity<SP_GetSimilarProducts>(entity =>
             {
                 entity.HasNoKey();

@@ -80,7 +80,8 @@ namespace Shoppite.UI.Controllers
         [HttpGet]
         public async Task<JsonResult> Get_Product_By_Cat(int ID)
         {
-           var AA = await _BrandPageService.Get_Product_By_Cat(ID);
+            int OrgId = _commonHelper.GetOrgID(HttpContext);
+           var AA = await _BrandPageService.Get_Product_By_Cat(ID,OrgId);
             return Json(AA.f_getproducts_By_CatIdModel);
         }
         public async Task<IActionResult> AllProducts(string CategoryId)
@@ -158,6 +159,21 @@ namespace Shoppite.UI.Controllers
         }
         public ActionResult PrivacyPolicy()
         {
+            return View();
+        }
+        public ActionResult MerchantTermsAndCondition()
+        {
+            ViewBag.OrganizationName = _commonHelper.OrganizationName(HttpContext);
+            return View();
+        }
+        public ActionResult MerchantPrivacyPolicy()
+        {
+            ViewBag.OrganizationName = _commonHelper.OrganizationName(HttpContext);
+            return View();
+        }
+        public ActionResult MerchantRefundPolicy()
+        {
+            ViewBag.OrganizationName = _commonHelper.OrganizationName(HttpContext);
             return View();
         }
         public async Task<IActionResult> PieChart()
