@@ -56,11 +56,7 @@ namespace Shoppite.UI.Controllers
                 {
                     model.myAccountDetails.OrgId = OrgId;
                     await _myAccountPageService.AddAddressDetails(model.myAccountDetails);
-                }
-                if(details!=null)
-                {
-                    await _myAccountPageService.AddAddressDetails(details);
-                }
+                }              
 
             }
             int Profileid = await _myAccountPageService.GetProfileId(User.Identity.Name, OrgId);

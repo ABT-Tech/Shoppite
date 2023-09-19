@@ -56,7 +56,7 @@ namespace Shoppite.Application.Services
         }
         public async Task AddAddressDetails(MyAccountDetailsModel myaccount)
         {
-            var mapped = ObjectMapper.Mapper.Map<MyAccountDetails>(myaccount);
+            var mapped = ObjectMapper.Mapper.Map<UserAddress>(myaccount);
             await _myAccountRepository.AddAddressDetails(mapped);
         }
         public async Task<List<MyAccountDetailsModel>> GetAddressDetail(int orgId)

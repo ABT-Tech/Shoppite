@@ -15,5 +15,6 @@ namespace Shoppite.Core.Repositories
         Task<List<F_Pending_Orders>> GetCancelledOrders(int OrgId, int ProfileId);
         Task<List<F_Pending_Orders>> GetDeliveredOrders(int OrgId, int ProfileId);
         Task AddtoWishList(CustomerWishlist wishlist);
+        Task<ProductSpecification> FindProductSpec(Guid? productGuid, int specId, int? orgId);
     }
 }

@@ -4,30 +4,30 @@
     <div class="row">
         @if (Model.ProductdByBrand.Count == 0)
         {
-            <img class="" style="margin-top: 3.6pc;" src="/img/no-product-found.jpg" alt="NoProductFound">
+            <img class="" style="margin-top: 3.6pc;" src="/img/no-product-found.jpg" loading="lazy" alt="NoProductFoundimg">
         }
         else
         {
             @foreach (var product in Model.ProductdByBrand)
             {
                 <div class="col-md-4 col-lg-4 col-sm-6 col-xl-3" style="margin-top:25px">
-                    <div class="product-item">
+                    <div class="product-item">  
                         <div class="top-item">
-                            <a href="@Url.Action("Details","ProductDetail", new {id = product.ProductGuid })">
-                                <img style="height:244px;width:250px" src="@product.Image" alt="Product image">
-                            </a>
+                            <a href="@Url.Action("Details","ProductDetail", new {id = product.ProductGuid })" name="prodetailspagelink">
+                                <img style="height:244px;width:250px" src="@product.Image" loading="lazy" alt="@product.ProductName">
+                            </a> 
                         </div>
                         <div class="bottom-item">
                             <div class="product-info">
-                                <h5><a href="@Url.Action("Details","ProductDetail" , new { id = product.ProductGuid })" class="product_name_Over">@product.ProductName</a></h5>
+                                <h5><a href="@Url.Action("Details","ProductDetail" , new { id = product.ProductGuid })" class="product_name_Over" name="productsname">@product.ProductName</a></h5>
                                 <span>
                                     ₹@product.Price &nbsp;&nbsp;
                                     @if (product.OldPrice != null)
                                     {
                                         <del>₹@product.OldPrice</del>
                                     }
-                                </span>
-                                <p>
+                                </span> 
+                                <p> 
                                 </p>
                             </div>
                         </div>

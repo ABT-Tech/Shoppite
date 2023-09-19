@@ -1,5 +1,7 @@
 ﻿namespace Shoppite.UI.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
     using Newtonsoft.Json;
@@ -8,15 +10,14 @@
     using Shoppite.UI.Helpers;
     using Shoppite.UI.Interfaces;
     using System;
+    using System.Collections.Generic;
     using System.Dynamic;
     using System.Net.Http;
+    using System.Security.Cryptography;
     using System.Text;
     using System.Threading.Tasks;
 
-    /// <summary>
-    /// Defines the <see cref="CartController" />.
-    /// </summary>
-    [Authorize]
+    
     public class CartController : Controller
     {
         /// <summary>
@@ -50,6 +51,7 @@
         /// The Cart.
         /// </summary>
         /// <returns>The <see cref="Task{IActionResult}"/>.</returns>
+        [Shoppite.UI.Extensions.Authorize]
         public async Task<IActionResult> Cart()
         {
             int orgid = _commonHelper.GetOrgID(HttpContext);
@@ -70,6 +72,7 @@
         /// </summary>
         /// <param name="id">The id<see cref="int"/>.</param>
         /// <returns>The <see cref="ActionResult"/>.</returns>
+        [Shoppite.UI.Extensions.Authorize]
         [HttpGet]
         public ActionResult DeleteProduct(int id)
         {
@@ -82,6 +85,7 @@
         /// </summary>
         /// <param name="checkOut">The checkOut<see cref="CheckOutModel"/>.</param>
         /// <returns>The <see cref="Task{ActionResult}"/>.</returns>
+        [Shoppite.UI.Extensions.Authorize]
         [HttpPost]
         public async Task<ActionResult> AddToCheck([FromBody] CheckOutModel checkOut)
         {
@@ -95,20 +99,47 @@
         /// </summary>
         /// <param name="orderid">The orderid<see cref="Guid"/>.</param>
         /// <returns>The <see cref="Task{ActionResult}"/>.</returns>
+        [Shoppite.UI.Extensions.Authorize]
         public async Task<ActionResult> CheckOut(Guid orderid)
         {
-            var order = await _cartPageService.CheckOrder(orderid);
-            //  var orderId = Request.Query
-            return View(order);
+            try
+            {
+                var order = await _cartPageService.CheckOrder(orderid);
+                var merchantDetails = _commonHelper.GetMerchantDetails(HttpContext);
+                order.IsPaytm = false;
+                if (merchantDetails != null)
+                {
+                    order.IsPaytm = true;
+                }
+                return View(order);
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+            
         }
 
         /// <summary>
         /// The OrderSuccess.
         /// </summary>
         /// <returns>The <see cref="Task{IActionResult}"/>.</returns>
-        public async Task<IActionResult> OrderSuccess()
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult OrderSuccess()
+        {   
+            return View();
+        }
+
+        /// <summary>
+        /// The OrderSuccess.
+        /// </summary>
+        /// <returns>The <see cref="Task{IActionResult}"/>.</returns>
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult OrderPaymentFail()
         {
-            // await _cartPageService.UpdateOrder(orderid);Guid orderid
             return View();
         }
 
@@ -118,65 +149,128 @@
         /// <param name="Model">The Model<see cref="CartModel"/>.</param>
         /// <returns>The <see cref="Task{IActionResult}"/>.</returns>
         [HttpPost]
+        [Shoppite.UI.Extensions.Authorize]
         public async Task<IActionResult> SaveAddress(CartModel Model)
         {
             int orgid = _commonHelper.GetOrgID(HttpContext);
             Model.OrderShippingModel.OrgId = orgid;
             await _cartPageService.SaveAddress(Model);
 
-            await _cartPageService.UpdateOrder((Guid)Model.OrderBasicModel.OrderGuid);
-
             return RedirectToAction("OrderSuccess");
         }
 
         [HttpPost]
+        [Shoppite.UI.Extensions.Authorize]
         public async Task<IActionResult> MakePaymentRequest(CartModel Model)
         {
-            if (Model.IsPaytm)
+            int orgid = _commonHelper.GetOrgID(HttpContext);
+            Model.OrderShippingModel.OrgId = orgid;
+            await _cartPageService.SaveAddress(Model);
+            if (Model.IsPaytmClicked)
             {
                 var order = await _cartPageService.CheckOrder((Guid)Model.OrderBasicModel.OrderGuid);
+                var merchantDetails = _commonHelper.GetMerchantDetails(HttpContext);
+                var strProductMapping = string.Empty;
+                decimal? TotalOrderCharge = 0;
+                decimal? TotalProductCharges = 0;
+                var IsTestEnable = _configuration.GetSection("OnePeSettings")["IsTest"].ToString();
+                ViewBag.AggregatorRedirectionLink = _configuration.GetSection("OnePeSettings")["URL"];
+                foreach (var orderDetails in order.OrderBasicModels)
+                {
+                    TotalProductCharges = orderDetails.Price + orderDetails.DeliveryFees;
+                    if (string.IsNullOrEmpty(strProductMapping))
+                        strProductMapping += orderDetails.ProductId + "~" + TotalProductCharges;
+                    else
+                        strProductMapping += "|" + orderDetails.ProductId + "~" + TotalProductCharges;
+                    TotalOrderCharge = TotalOrderCharge + TotalProductCharges;
+                }
                 using (HttpClient client = new HttpClient())
                 {
-                    CashfreeRequest cashfreeRequest = new CashfreeRequest();
-                    var orderId = Guid.NewGuid();
-                    cashfreeRequest.customer_details = new CustomerDetails();
-                    cashfreeRequest.customer_details.customer_email = Model.OrderShippingModel.Email;
-                    cashfreeRequest.customer_details.customer_id = Model.OrderShippingModel.ShippingId.ToString();
-                    cashfreeRequest.customer_details.customer_phone = "+918200408816";//Model.OrderShippingModel.Phone;
-                    cashfreeRequest.order_amount = (decimal)order.OrderBasicModel.Price;
-                    cashfreeRequest.order_currency = "INR";
-                    cashfreeRequest.order_id = orderId.ToString();
-                    StringContent content = new StringContent(JsonConvert.SerializeObject(cashfreeRequest), Encoding.UTF8, "application/json");
-                    client.DefaultRequestHeaders.Add("x-api-version", _configuration.GetSection("CashFreeSettings")["x-api-version"]);
-                    client.DefaultRequestHeaders.Add("x-client-id", _configuration.GetSection("CashFreeSettings")["x-client-id"]);
-                    client.DefaultRequestHeaders.Add("x-client-secret", _configuration.GetSection("CashFreeSettings")["x-client-secret"]);
-                    string endpoint = _configuration.GetSection("CashFreeSettings")["URL"];
-                    using (var Response = await client.PostAsync(endpoint, content))
-                    {
-                        var payment_session = string.Empty;
-                        var stream = await Response.Content.ReadAsStringAsync();
-                        var dynamicObject = JsonConvert.DeserializeObject<ExpandoObject>(stream) as dynamic;
-                        if (_commonHelper.DoesPropertyExist(dynamicObject, "payment_session_id")){
-                            payment_session = dynamicObject.payment_session_id;
-                        }
-                        ViewBag.PaymentSession = payment_session;
-                    }
+                    MerchantParams merchantParams = new MerchantParams();
+                    merchantParams.merchantId = merchantDetails.AggregatorMerchantId;
+                    merchantParams.apiKey = merchantDetails.AggregatorMerchantApiKey;
+                    merchantParams.txnId = order.OrderBasicModel.OrderGuid.ToString();
+                    merchantParams.amount = IsTestEnable == "1" ? "10.00" : TotalOrderCharge.ToString();
+                    merchantParams.dateTime = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+                    merchantParams.custMail = Model.OrderShippingModel.Email;
+                    merchantParams.custMobile = Model.OrderShippingModel.Phone;
+                    merchantParams.udf1 = Model.OrderShippingModel.Address;
+                    merchantParams.udf2 = Model.OrderShippingModel.Address;
+                    merchantParams.returnURL = merchantDetails.AggregatorCallbackURL + "Cart/PaymentResponse";
+                    merchantParams.isMultiSettlement = "0";
+                    merchantParams.productId = "DEFAULT";
+                    merchantParams.channelId = "0";
+                    merchantParams.txnType = "DIRECT";
+                    merchantParams.Rid = merchantDetails.AggregatorRID.ToString();
+                    var objMerchantParams = JsonConvert.SerializeObject(merchantParams);
+                    string encryptedParams = EncryptPaymentRequest(merchantDetails.AggregatorMerchantId, merchantDetails.AggregatorMerchantApiKey, objMerchantParams);
+                    ViewBag.merchantId = merchantDetails.AggregatorMerchantId;
+                    ViewBag.reqData = encryptedParams;
                 }
-                int orgid = _commonHelper.GetOrgID(HttpContext);
-                Model.OrderShippingModel.OrgId = orgid;
-                await _cartPageService.SaveAddress(Model);
-                await _cartPageService.UpdateOrder((Guid)Model.OrderBasicModel.OrderGuid);
                 return View();
             }
             else
             {
-                int orgid = _commonHelper.GetOrgID(HttpContext);
-                Model.OrderShippingModel.OrgId = orgid;
-                await _cartPageService.SaveAddress(Model);
                 await _cartPageService.UpdateOrder((Guid)Model.OrderBasicModel.OrderGuid);
+                var vendorContactdetails = await _cartPageService.GetVendorContactDetails((Guid)Model.OrderBasicModel.OrderGuid);
+
+                var IsWhatsappEnable = _configuration.GetSection("WhatsAppSettings")["IsEnable"].ToString();
+                if (IsWhatsappEnable == "1")
+                {
+                    _commonHelper.LogError("Call WhatsApp from MakePaymentRequest - orderID : " + vendorContactdetails.Item1 + ", mobileNumber : " + vendorContactdetails.Item2 + ", orgname : " + vendorContactdetails.Item3 + ", Template : order_notify_to_vendor_templateid ");
+                    await _commonHelper.SendWhatsAppMesage(vendorContactdetails.Item1, vendorContactdetails.Item2, vendorContactdetails.Item3, "order_notify_to_vendor_templateid");
+                }
                 return RedirectToAction("OrderSuccess");
             }
-            
         }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> PaymentResponse()
+        {
+            var response = HttpContext.Request.Form["respData"];
+            var merchantDetails = _commonHelper.GetMerchantDetails(HttpContext);   
+            string merchantEncryptionKey = merchantDetails.AggregatorMerchantApiKey.Substring(0, 16);
+            var merchantResponse = _commonHelper.DecryptAES256_V3(response.ToString(), merchantDetails.AggregatorMerchantApiKey, merchantEncryptionKey);
+            var objmerchangeResponse = JsonConvert.DeserializeObject<MerchantResponse>(merchantResponse);
+            if(objmerchangeResponse.trans_status =="Ok")
+            {
+                await _cartPageService.UpdateOrder(new Guid(objmerchangeResponse.txn_id));
+                await _cartPageService.GetVendorContactDetails(new Guid(objmerchangeResponse.txn_id));
+                var vendorContactdetails = await _cartPageService.GetVendorContactDetails(new Guid(objmerchangeResponse.txn_id));
+
+                var IsWhatsappEnable = _configuration.GetSection("WhatsAppSettings")["IsEnable"].ToString();
+                if(IsWhatsappEnable == "1")
+                {
+                    _commonHelper.LogError("Call WhatsApp from PaymentResponse - orderID : " + vendorContactdetails.Item1 + ", mobileNumber : " + vendorContactdetails.Item2 + ", orgname : " + vendorContactdetails.Item3 + ", Template : order_notify_to_vendor_templateid ");
+                    await _commonHelper.SendWhatsAppMesage(vendorContactdetails.Item1, vendorContactdetails.Item2, vendorContactdetails.Item3, "order_notify_to_vendor_templateid");
+                }
+
+                return RedirectToAction("OrderSuccess");
+            }
+            else
+            {
+                await _cartPageService.CancelOrder(new Guid(objmerchangeResponse.txn_id));
+                return RedirectToAction("OrderPaymentFail");
+            }
+        }
+
+        public string EncryptPaymentRequest(string merchantId,string key,string merchantParamsJson)
+        {
+            String encryptedText = string.Empty;
+            try
+            {
+                string original = merchantParamsJson; 
+                string merchantEncryptionKey = key.Substring(0, 16);
+                encryptedText = _commonHelper.EncryptAES256_V3(merchantParamsJson, key, merchantEncryptionKey);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: {0}", e.Message);
+            }
+
+            return encryptedText;
+        }
+        
     }
 }

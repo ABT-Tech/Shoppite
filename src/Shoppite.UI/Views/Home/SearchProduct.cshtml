@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="product-categori-area">
-    <div class="container">
+    <div class="container-fluid">
         <div class="product-categori">
             <div class="row flex-row-reverse">
                 <div class="col-lg-12 col-md-12">
@@ -21,41 +21,18 @@
                                         <div class="col-md-4 col-lg-4 col-sm-6 col-xl-3 mb-3" style="margin-top:25px">
                                             <div class="product-item">
                                                 <div class="top-item">
-                                                    <a href="@Url.Action("Details","ProductDetail", new {id = product.ProductGuid })">
-                                                        <img style="height:244px;width:250px" src="@product.CoverImage" alt="Product image">
+                                                    <a href="@Url.Action("Details","ProductDetail", new {id = product.ProductGuid })" name="productslink">
+                                                        <img style="height:244px;width:250px" src="@product.CoverImage" loading="lazy" alt="@product.ProductName">
                                                     </a>
-                                                    @*<div class="top-cocial">
-                                                            <p>
-                                                                <i class="fa fa-star-o"></i>
-                                                                <i class="fa fa-star-o"></i>
-                                                                <i class="fa fa-star-o"></i>
-                                                                <i class="fa fa-star-o"></i>
-                                                                <i class="fa fa-star-o"></i>
-                                                            </p>
-                                                        </div>*@
                                                 </div>
                                                 <div class="bottom-item">
                                                     <div class="product-info">
-                                                        <h5><a href="@Url.Action("Details","ProductDetail" , new { id = product.ProductGuid })" class="product_name_Over">@product.ProductName</a></h5>
-
+                                                        <h5><a href="@Url.Action("Details","ProductDetail" , new { id = product.ProductGuid })" name="productslink" class="product_name_Over">@product.ProductName</a></h5>
                                                         <span>₹@product.Price &nbsp;&nbsp;  @if (product.OldPrice != null)
                                                         {<del>₹@product.OldPrice</del>}</span>
                                                         <p>
-                                                            @*<i class="fa fa-star-o"></i>
-                                                                <i class="fa fa-star-o"></i>
-                                                                <i class="fa fa-star-o"></i>
-                                                                <i class="fa fa-star-o"></i>
-                                                                <i class="fa fa-star-o"></i>*@
                                                         </p>
                                                     </div>
-                                                    @*<div class="product-social">
-                                                            <ul>
-                                                                <li><a href="#"><i class="fa fa-external-link"></i></a></li>
-                                                                <li><a class="addWish" data-product="@product.ProductId"><i class="fa fa-heart" id="addtowishlist"></i></a></li>
-                                                                <li><a href="#"><i class="fa fa-bar-chart"></i></a></li>
-                                                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                                            </ul>
-                                                        </div>*@
                                                 </div>
                                             </div>
                                         </div>

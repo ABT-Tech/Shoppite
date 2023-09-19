@@ -1,12 +1,9 @@
 ﻿@model Shoppite.Application.Models.ProductDetailModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-
 @{
     ViewData["Title"] = "Detail Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@*<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">*@
-
 <style>
     /* Chrome, Safari, Edge, Opera */
     input::-webkit-outer-spin-button,
@@ -14,16 +11,13 @@
         -webkit-appearance: none;
         margin: 0;
     }
-
     /* Firefox */
     input[type=number] {
         -moz-appearance: textfield;
     }
-
     .modal-header {
         background-color: #fe5b5a;
     }
-
     .minus, .plus {
         color: white;
         border-radius: 100%;
@@ -32,78 +26,73 @@
         font-weight: 900;
         background-color: #343a40;
     }
-
     .minus {
         /* padding: 3px 6.5px;*/
     }
-
         .minus:hover {
             background-color: #fe5b5a;
         }
-
     .plus:hover {
         background-color: #fe5b5a;
     }
-
     .count {
         border: none;
         text-align: center;
         /*padding-left: 20px;*/
         width: 50px;
     }
-
     .megamenu-area {
         z-index: 1;
     }
-
     #Des ul {
         margin: 0px;
         padding: 0px 0px 0px 20px;
         list-style: disc;
     }
-
     .single-mori-info #Des ul li {
         border-top: none;
         display: revert;
         float: none;
     }
-    /*    .single-mori-info #Des ul{
-        position:fixed;
-    }*/
-    #Set_Price, #Set_Name {
+    #Set_Price, #Set_Name, #Set_Qty, #SpecId {
         opacity: 0;
     }
-
     .hungry .selection {
         margin-bottom: 1em;
     }
-
-        .hungry .selection label {
+        .hungry .selection .InStock {
             display: inline-block;
-            width: 8em;
+            width: 5em;
             background-color: #42b4d6;
             border-radius: 6px;
             color: #ffffff;
             padding: 0.5em;
             cursor: pointer;
+            text-align:center;
         }
-
-            .hungry .selection label:hover {
-                background-color: #5fc0dc;
-            }
-
+        .hungry .selection .OutStock {
+            display: inline-block;
+            width: 5em;
+            background-color: #808080;
+            border-radius: 6px;
+            color: #ffffff;
+            padding: 0.5em;
+            cursor: pointer;
+            text-align: center;
+        }
+        .hungry .selection .InStock:hover {
+            background-color: #5fc0dc;
+        }
         .hungry .selection input[type=radio] {
             display: none;
         }
-
             .hungry .selection input[type=radio]:checked ~ label {
                 background-color: #f1592a;
             }
 </style>
-
-<form enctype="multipart/form-data" method="get" class="">
+<form enctype="multipart/form-data" method="" class="">
     <input type="hidden" asp-for="AttributesSetupModel" />
-    <input type="hidden" asp-for="ProductBasicModel.OrgId" />
+    <input type="hidden" id="OrgId" asp-for="ProductBasicModel.OrgId" />
     <input type="hidden" asp-for="ProductBasicModel.ProductName" />
     <input type="hidden" id="ProdGuid" asp-for="ProductBasicModel.ProductGuid" />
     <input type="hidden" asp-for="ProductBasicModel.ProductId" />
@@ -112,147 +101,147 @@
     <input type="hidden" asp-for="ProductPriceModel.CurrencyId" />
     <input type="hidden" asp-for="ProductPriceModel.DeliveryFees" />
     <input type="hidden" asp-for="OrderBasicModel.UserName" />
-    <!-- Start main area -->
     <div class="main-area">
-        <!-- Start header -->
-        <!-- End header -->
-        <!-- Start mega menu area -->
-        <!-- End mega menu area -->
-        <!-- Start mobile menu -->
-        <!-- End mobile menu -->
-        <!-- Start single product area -->
         <div class="single-product-area">
-            <div class="container">
+            <div class="container-fluid">              
                 <div class="single-products">
                     <div class="row">
                         <!-- Start single product image -->
                         <div class="col-lg-4 col-md-6">
                             <div class="single-product-image">
                                 <div id="content-eleyas">
+                                    <div class="">
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                                            <p class="sin-adto-cart-bottom d-flex justify-content-end">
+                                                @if (@Model.ProductBasicModel.WishlistedProduct == true)
+                                                {
+                                                    <abbr title="WishList"><a id="AddtoWish" href="/ProductDetail/AddToWhishList?ProductId=@Model.ProductBasicModel.ProductId&id=@Model.ProductBasicModel.ProductGuid" name="link"><i id="Wish_Logo" style="color: black; font-size: 20px;" class="fa-regular fa-heart"></i></a></abbr>
+                                                }
+                                                else
+                                                {
+                                                    <abbr title="WishList"><a id="AddtoWish" href="/ProductDetail/AddToWhishList?ProductId=@Model.ProductBasicModel.ProductId&id=@Model.ProductBasicModel.ProductGuid " name="link"><i id="Wish_Logo" style="color: black; font-size: 20px;" class="fa-regular fa-heart"></i></a></abbr>
+                                                }
+                                            </p>
+                                        }
+                                        else
+                                        {
+                                            <p class="sin-adto-cart-bottom d-flex justify-content-end">
+                                                <abbr title="WishList"><a href="/Authentications/Login" name="link"><i style="color: black; font-size: 20px;" class="fa-regular fa-heart"></i></a></abbr>
+                                            </p>
+                                        }
+                                    </div>
                                     <div id="my-tab-content" class="product-details-large tab-content jump">
                                         <div class="tab-pane active" id="view1">
-                                            <a class="fancybox" href="@Model.ProductBasicModel.CoverImage" data-fancybox-group="gallery" title=""><img src="@Model.ProductBasicModel.CoverImage" alt="">@*<span>View larger<i class="fa fa-search-plus"></i></span>*@</a>
+                                            <a class="fancybox" name="link" id="MainIMGH" href="@Model.ProductBasicModel.CoverImage" data-fancybox-group="gallery" title=""><img id="MainImg" src="@Model.ProductBasicModel.CoverImage" loading="lazy" alt="productimg"  style=" width: 100%; object-fit: contain; height: 400px;">@*<span>View larger<i class="fa fa-search-plus"></i></span>*@</a>
                                         </div>
                                         @foreach (var proImg in Model.ProductImagesModel)
                                         {
                                             <div class="tab-pane" id="view_@proImg.ProductImagesId">
-                                                <a class="fancybox" href="@proImg.Image" data-fancybox-group="gallery" title=""><img src="@proImg.Image" alt="">@*<span>View larger<i class="fa fa-search-plus"></i></span>*@</a>
+                                                <a class="fancybox" href="@proImg.Image" data-fancybox-group="gallery" name="link" title=""><img src="@proImg.Image" loading="lazy" alt="productsimg">@*<span>View larger<i class="fa fa-search-plus"></i></span>*@</a>
                                             </div>
                                         }
                                     </div>
-
                                     <div id="viewproduct" class="nav nav-tabs producttabcarosel product-view owl-carousel" data-tabs="tabs">
-                                        <div class="pro-view"><a href="#view1" data-bs-toggle="tab" class="active"><img src="@Model.ProductBasicModel.CoverImage" alt=""></a></div>
+                                        <div class="pro-view"><a href="#view1" data-bs-toggle="tab" class="active"><img src="@Model.ProductBasicModel.CoverImage" loading="lazy" alt="productsimg" style="width: 100%; object-fit: contain; height: 120px;"></a></div>
                                         @foreach (var Preview in Model.ProductImagesModel)
                                         {
-                                            <div class="pro-view"><a href="#view_@Preview.ProductImagesId" data-bs-toggle="tab"><img src="@Preview.Image" alt=""></a></div>
+                                            <div class="pro-view"><a href="#view_@Preview.ProductImagesId" name="link" data-bs-toggle="tab"><img src="@Preview.Image" alt="productsimg" loading="lazy" style="width: 100%; object-fit: contain; height: 120px;"></a></div>
                                         }
-                                        @*<div class="pro-view"><a href="@Model.ProductImagesModel.Image" data-bs-toggle="tab"><img src="@Model.ProductImagesModel.Image" alt=""></a></div>
-                                            <div class="pro-view"><a href="@Model.ProductImagesModel.Image" data-bs-toggle="tab"><img src="@Model.ProductImagesModel.Image" alt=""></a></div>*@
                                     </div>
-
                                 </div>
                             </div>
                         </div>
-                        <!-- End single product image -->
-                        <!-- Start single product details -->
                         <div class="col-lg-5 col-md-6">
                             <div class="single-product-details">
                                 <div class="d-inline-flex" id="Prod_Name"><h1>@Model.ProductBasicModel.ProductName</h1>&nbsp;<h1 id="Prod_Spec"></h1></div>
-                                @*<p><strong>Reference:</strong> demo_1 </p>
-                                    <p><strong>Condition:</strong> New product </p>*@
                                 <h2>
                                     <span id="Product_Price">₹ @Model.ProductPriceModel.Price </span>
-                                    @*@if (Model.ProductPriceModel.TaxExempt == true)
-                                        {
-                                            <span class="text-black">tax incl.</span>
-                                        }*@
                                 </h2>
                                 <p>@Model.ProductBasicModel.ShortDescription</p>
                                 <p class="sin-item">
-                                    <span class="sin-item-text"> @Model.ProductBasicModel.Qty Items </span>
-                                    @if (@Model.ProductBasicModel.Qty != 0)
+                                    <span class="sin-item-text" id="Change_Qty"> @Model.ProductBasicModel.Qty Items </span>
+                                    @if (Model.ProductBasicModel.Qty!=0)
                                     {
-                                        <span class="sin-item-btn">In stock</span>
+                                        <span id="instock" class="sin-item-btn stocklbl">In Stock</span>
                                     }
                                     else
                                     {
-                                        <span class="sin-item-out-stock">Out of stock</span>
+                                        <span id="outofstock" class="sin-item-out-stock stocklbl">Out Of Stock</span>
                                     }
                                 </p>
-                                @*<form method="post" action="#">*@
                                 <div class="">
                                     <label>Quantity </label>
-                                    @*  <input type="number" asp-for="OrderBasicModel.Qty" name="OrderBasicModel.Qty" id="french-hens" min="1" value="1">*@
-                                    @*<span class="minus">-</span>
-                                        <input type="number" class="count" asp-for="OrderBasicModel.Qty" name="OrderBasicModel.Qty" min="1" max="@Model.ProductBasicModel.Qty" value="1">
-                                        <span class="plus">+</span>*@
-
                                     <div class="input-group">
                                         <span class="">
-                                            <button type="button" class="minus btn btn-default btn-number min" disabled="disabled" data-type="minus" data-field="OrderBasicModel.Qty">
+                                            <button type="button" class="minus btn btn-default btn-number min" name="btn" disabled="disabled" data-type="minus" data-field="OrderBasicModel.Qty" style="z-index:0;">
                                                 <span class="fa fa-minus"></span>
                                             </button>
                                         </span>
                                         <input type="number" class="input-number count" asp-for="OrderBasicModel.Qty" name="OrderBasicModel.Qty" value="1" min="1" max="@Model.ProductBasicModel.Qty">
                                         <span class="">
-                                            <button type="button" class="plus btn btn-default btn-number max" data-type="plus" data-field="OrderBasicModel.Qty">
+                                            <button type="button" class="plus btn btn-default btn-number max" data-type="plus" name="btn" data-field="OrderBasicModel.Qty" style="z-index:0;">
                                                 <span class="fa fa-plus"></span>
                                             </button>
                                         </span>
                                     </div>
                                 </div>
-                                @foreach (var pro in Model.AttributesSetupModel)
+                               @foreach (var Attribute in Model.AttributesSetupModel)
                                 {
-
-                                    if (pro.GetF_Getproduct_Specification_By_GuidModel.Count > 0)
-                                    {
-                                        <div class="hungry d-inline-flex">
-                                          <h6>@pro.AttributeName</h6>
-                                          @foreach (var spec in pro.GetF_Getproduct_Specification_By_GuidModel)
-                                           {
-                                              <div class="selection m-1">
-                                                 <input id="@spec.SpecificationName" name="hungry" type="radio">
-                                                 <label for="@spec.SpecificationName">@spec.SpecificationName</label>
-                                              </div>
-                                           }
-                                        </div>
-                                    }
+                                    <h6>@Attribute.AttributeName</h6>
                                 }
-                                @*</form>*@
-
+                            <div id="SpecBtn">
+                                    <div class="hungry d-inline-flex">
+                                        <div class="selection m-1">
+                                            @foreach (var pro in Model.Sp_GetProductSpecificationsModels)
+                                            {
+                                                @if (pro.IsSpecificationExist == 1 && pro.IsDefault == true)
+                                                {
+                                                    <button id="@pro.ProductSpecificationId" type="button" class="btn mr-md-2 mb-md-0 mb-2  btn-primary @pro.SpecificationNames" name="dropspec" data-name="Specification" data-id="@pro.SpecificationIds">@pro.SpecificationNames</button>
+                                                }
+                                                else if (pro.IsSpecificationExist == 1)
+                                                {
+                                                    <button id="@pro.ProductSpecificationId" type="button" class="btn mr-md-2 mb-md-0 mb-2 btn-outline-primary  @pro.SpecificationNames" name="dropspec" data-name="Specification" data-id="@pro.SpecificationIds">@pro.SpecificationNames</button>
+                                                }
+                                                else
+                                                {
+                                                    <button id="@pro.ProductSpecificationId" type="button" class="btn mr-md-2 mb-md-0 mb-2 btn-outline-dark @pro.SpecificationNames" name="dropspec" disabled>@pro.SpecificationNames</button>
+                                                }
+                                            }
+                                            </div>
+                                    </div>
+                            </div>
                                 @if (Model.ProductBasicModel.Qty == 0)
                                 {
                                     <div class="row">
-                                        <div class="col-sm-6 Add_Car_Btn">
+                                        <div class="col-sm-6 Add_Car_Btn ">
                                             <p class="buttons_bottom_block no-print disabled" id="add_to_cart">
-                                                <button class="exclusive disabled" name="Submit" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" disabled>
+                                                <button class="exclusive disabled mt-3" name="DSubmit" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" disabled>
                                                     <span class="">Add to cart</span>
                                                 </button>
-                                            </p>
+                                            </p>                                              
                                         </div>
                                         <div class="col-sm-6 Buy_Now_Btn">
                                             <p class="buttons_bottom_block no-print disabled" id="add_to_cart">
-                                                <button class="exclusive disabled" name="Submit" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" disabled>
+                                                <button class="exclusive disabled mt-3" name="DSubmit" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" disabled>
                                                     <span class="">Buy Now</span>
                                                 </button>
                                             </p>
                                         </div>
                                     </div>
-
                                     <!-- Modal -->
                                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="exampleModalLabel">Shooppy Say's..</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" name="btn"></button>
                                                 </div>
                                                 <div class="modal-body fw-bold d-flex">
                                                     This item is currently&nbsp;<div class="text-danger">out of stock</div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">close</button>
+                                                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" name="btn">close</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -261,7 +250,6 @@
                                 else
                                 {
                                     <p class="buttons_bottom_block no-print" id="add_to_cart">
-
                                         @if (User.Identity.IsAuthenticated)
                                         {
                                             @if (Model.ProductPriceModel.DisableBuyButton == true)
@@ -278,13 +266,12 @@
                                             {
                                                 <div class="row">
                                                     <div class="col-sm-6 Add_Car_Btn">
-                                                        <button class="exclusive" name="Submit" asp-action="AddProductToCart" asp-controller="ProductDetail" type="submit">
+                                                        <button class="exclusive mt-3" name="AttToCart" asp-action="AddProductToCart" asp-controller="ProductDetail" type="submit">
                                                             <span>Add to cart</span>
                                                         </button>
                                                     </div>
-
-                                                    <div class="col-sm-6 Buy_Now_Btn">
-                                                        <button class="exclusive" name="Submit" asp-action="BuyNow" asp-controller="ProductDetail" type="submit">
+                                                    <div class="col-sm-6 Buy_Now_Btn ">
+                                                        <button class="exclusive mt-3" name="BuyNow" asp-action="BuyNow" asp-controller="ProductDetail" type="submit">
                                                             <span>Buy Now</span>
                                                         </button>
                                                     </div>
@@ -307,13 +294,12 @@
                                             {
                                                 <div class="row">
                                                     <div class="col-sm-6 Add_Car_Btn">
-                                                        <button class="exclusive" name="Submit" asp-action="Login" asp-controller="Authentications" type="submit">
+                                                        <button class="exclusive mt-3" name="Login" asp-action="Login" asp-controller="Authentications" type="submit">
                                                             <span>Add to cart</span>
                                                         </button>
                                                     </div>
-
                                                     <div class="col-sm-6 Buy_Now_Btn">
-                                                        <button class="exclusive" name="Submit" asp-action="Login" asp-controller="Authentications" type="submit">
+                                                        <button class="exclusive mt-3" name="Login" asp-action="Login" asp-controller="Authentications" type="submit">
                                                             <span>Buy Now</span>
                                                         </button>
                                                     </div>
@@ -322,39 +308,16 @@
                                         }
                                     </p>
                                 }
-                                @if (User.Identity.IsAuthenticated)
-                                {
-                                    <p class="sin-adto-cart-bottom">
-                                        @if (@Model.ProductBasicModel.WishlistedProduct == true)
-                                        {
-                                            <abbr title="WishList"><a href="/ProductDetail/AddToWhishList?ProductId=@Model.ProductBasicModel.ProductId&id=@Model.ProductBasicModel.ProductGuid"><i style="color:red" class="fa fa-heart"></i></a></abbr>
-                                        }
-                                        else
-                                        {
-                                            <abbr title="WishList"><a href="/ProductDetail/AddToWhishList?ProductId=@Model.ProductBasicModel.ProductId&id=@Model.ProductBasicModel.ProductGuid"><i class="fa fa-heart"></i></a></abbr>
-                                        }
-                                    </p>
-                                }
-                                else
-                                {
-                                    <p class="sin-adto-cart-bottom">
-                                        <abbr title="WishList"><a href="/Authentications/Login"><i class="fa fa-heart"></i></a></abbr>
-                                    </p>
-
-                                }
                             </div>
                         </div>
-                        @*End single product details*@
-
                     </div>
                 </div>
                 <!-- Start single more info -->
                 <div class="single-mori-info">
                     <div id="content">
                         <ul class="idTabs idTabsShort nav" id="single-tabs" data-tabs="tabs" style="margin-top: 15px;">
-                            <li class="first"><a href="#sin-more1" data-bs-toggle="tab" class="active"><span>More info</span></a></li>
-                            <li><a href="#sin-more2" class="" data-bs-toggle="tab">Additional Info</a></li>
-                            @*<li class="last"><a class="idTabHrefShort page-product-heading" href="#sin-more3" data-bs-toggle="tab">Reviews</a></li>*@
+                            <li class="first"><a href="#sin-more1" data-bs-toggle="tab" class="active" name="link"><span>More info</span></a></li>
+                            <li><a href="#sin-more2" class="" name="link" data-bs-toggle="tab">Additional Info</a></li>
                         </ul>
                         <div id="my-tab-content-eleyas" class="tab-content jump">
                             <div class="tab-pane active" id="sin-more1">
@@ -366,7 +329,12 @@
                                         <tbody>
                                             <tr class="odd">
                                                 <td>Brand</td>
-                                                <td>@Model.BrandsModel.BrandName</td>
+                                                <td>
+                                                    @if (Model.BrandsModel != null)
+                                                    {
+                                                        @Model.BrandsModel.BrandName
+                                                    }
+                                                                                           </td>
                                             </tr>
                                             <tr class="even">
                                                 <td>Date First Available</td>
@@ -383,7 +351,6 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- End single more info -->
                 <!-- Start single Accessories -->
                 <div class="new-product-area">
@@ -395,13 +362,13 @@
                         {
                             <div class="product-item mb-3">
                                 <div class="top-item">
-                                    <a href="@Url.Action("Details", "ProductDetail",new { id = product.ProductGUID } )">
-                                        <img src="@product.image" alt="@product.ProductName" style="height: 244px;width: 299px;">
+                                    <a href="@Url.Action("Details", "ProductDetail",new { id = product.ProductGUID } )" name="link">
+                                        <img src="@product.image" alt="@product.ProductName" loading="lazy" style="height: 244px;width: 299px;">
                                     </a>
                                 </div>
                                 <div class="bottom-item">
                                     <div class="product-info">
-                                        <h5><a href="@Url.Action("Details", "ProductDetail",new { id = product.ProductGUID } )" class="product_name_Over">@product.ProductName</a></h5>
+                                        <h5><a href="@Url.Action("Details", "ProductDetail",new { id = product.ProductGUID } )" name="link" class="product_name_Over">@product.ProductName</a></h5>
                                         <span>
                                             ₹@product.Price &nbsp;&nbsp;
                                             @if (product.OldPrice != null)
@@ -421,24 +388,34 @@
         </div>
     </div>
     <input id="Set_Price" asp-for="ProductPriceModel.Price" />
+    <input id="Set_Qty" asp-for="ProductBasicModel.Qty" />
+    <input id="SpecId" asp-for="SpecId" />
 </form>
 <!-- End main area -->
-<script src="~/plugins/select2/js/select2.min.js"></script>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="~/plugins/jquery/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+<script src="~/plugins/select2/js/select2.min.js"></script>
 <script>
-
+    (function ($) {
+        "use strict";
+        $('[data-toggle="tooltip"]').tooltip()
+        var fullHeight = function () {
+            $('.js-fullheight').css('height', $(window).height());
+            $(window).resize(function () {
+                $('.js-fullheight').css('height', $(window).height());
+            });
+        };
+        fullHeight();
+    })
     $('.btn-number').click(function (e) {
         e.preventDefault();
-
         fieldName = $(this).attr('data-field');
         type = $(this).attr('data-type');
         var input = $("input[name='" + fieldName + "']");
         var currentVal = parseInt(input.val());
         if (!isNaN(currentVal)) {
             if (type == 'minus') {
-
                 if (currentVal > input.attr('min')) {
                     input.val(currentVal - 1).change();
                     $('.max').attr('disabled', false);
@@ -446,14 +423,11 @@
                 if (parseInt(input.val()) == input.attr('min')) {
                     $(this).attr('disabled', true);
                 }
-
             } else if (type == 'plus') {
-
                 if (currentVal < input.attr('max')) {
                     if (currentVal >= 10) {
                         $(this).attr('disabled', true);
                         alert('Sorry, the maximum purchase Quantity was reached');
-                        //$(this).val($(this).data('oldValue'));
                     } else {
                         input.val(currentVal + 1).change();
                         $('.min').attr('disabled', false);
@@ -462,25 +436,18 @@
                 if (parseInt(input.val()) == input.attr('max')) {
                     $(this).attr('disabled', true);
                 }
-
             }
-
         } else {
             input.val(0);
         }
-
     });
-
-
     $('.input-number').focusin(function () {
         $(this).data('oldValue', $(this).val());
     });
     $('.input-number').change(function () {
-
         minValue = parseInt($(this).attr('min'));
         maxValue = parseInt($(this).attr('max'));
         valueCurrent = parseInt($(this).val());
-
         name = $(this).attr('name');
         if (valueCurrent >= minValue) {
             $(".btn-number[data-type='minus'][data-field='" + name + "']").removeAttr('disabled')
@@ -494,19 +461,18 @@
             alert('Sorry, the maximum Quantity was reached');
             $(this).val($(this).data('oldValue'));
         }
-
     });
-
-
-    //  var Guid = $('#ProdGuid').val();
-    var PName = $('#Prod_Name').val();
-    $('select[name="dropspec"]').change(function () {
-       // var Name = $(this).val();
-
+    $('button[data-name="Specification"]').click(function () {
+        var specId = $(this).attr("data-id");
+        $(this).addClass("btn-primary").siblings().removeClass("btn-primary").addClass("btn-outline-primary");
+        Match(specId);
+    });
+    function Match(id) {
+        var PName = $('#Prod_Name').val();
         var Daata = Object();
         Daata.Guid = $('#ProdGuid').val();
-        Daata.Name = $(this).val();
-
+        Daata.SpecId = id;
+        Daata.Orgid = $('#OrgId').val();
         $.ajax({
             type: 'POST',
             url: '@Url.Action("Product_Spcification_Details", "ProductDetail")',
@@ -514,33 +480,57 @@
             data: JSON.stringify(Daata),
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                $('#Product_Price').text('₹' + data.price);
-                $('#Prod_Spec').text(data.name);
-
-                document.getElementById("Set_Price").value = data.price;
+                if (data == "nothing") {
+                    alert("this match is not awailable");
+                    location.reload();
+                } else {
+                  $('#Product_Price').text('₹' + data.price);
+                    $('#Change_Qty').text(data.qty + ' Items');
+                    if (data.qty == 0) {
+                        $(".sin-item span.stocklbl").removeClass("sin-item-btn");
+                        $(".sin-item span.stocklbl").addClass("sin-item-out-stock");
+                        $(".sin-item span.stocklbl").text('Out Of Stock');
+                    }
+                    else {
+                        $(".sin-item span.stocklbl").removeClass("sin-item-out-stock");
+                        $(".sin-item span.stocklbl").addClass("sin-item-btn");
+                        $(".sin-item span.stocklbl").text('In Stock');   
+                    }
+                    $('#Prod_Spec').text(data.name);
+                    $('#MainIMGH').attr('href', data.image);
+                    $('#MainImg').attr('src', data.image);
+                    document.getElementById("Set_Price").value = data.price;
+                    document.getElementById("Set_Qty").value = data.qty;
+                    var SpecId = parseInt(data.specId);
+                    document.getElementById("SpecId").value = SpecId;
+                    if ($('.exclusive')[0].name == 'AttToCart') {
+                        document.getElementsByName("AttToCart")[0].setAttribute("formaction", "/ProductDetail/Add_Specification_ToCart");
+                    }
+                    if ($('.exclusive')[1].name == 'BuyNow') {
+                        document.getElementsByName("BuyNow")[0].setAttribute("formaction", "/ProductDetail/Add_Specification_BuyNow");
+                    }
+                    if (data.is_In_WishList == true) {
+                        $('#Wish_Logo').removeClass('fa-regular');
+                        $('#Wish_Logo').addClass('fa');
+                        $('#Wish_Logo').removeAttr('style');
+                        $('#Wish_Logo').css('color','red');
+                        $('#Wish_Logo').css('font-size','20px');
+                    } else if (data.is_In_WishList == false) {
+                        $('#Wish_Logo').removeClass('fa');
+                        $('#Wish_Logo').addClass('fa-regular');
+                        $('#Wish_Logo').removeAttr('style');
+                        $('#Wish_Logo').css('color','black');
+                        $('#Wish_Logo').css('font-size','20px');
+                    }                                                   
+                    var WishLink = document.getElementById("AddtoWish").href;
+                    WishLink += '&Specid=' + SpecId;
+                    $('#AddtoWish').attr('href', WishLink);
+                }
             },
             error: function (xhr, status, error) {
                 alert("some thing worng");
             }
         })
-
-    });
-
+    };
 </script>
-<!--foreach (var prodattr in Model.AttributesSetupModel)
-{
-    if (prodattr.GetF_Getproduct_Specification_By_GuidModel.Count > 0)
-    {
-        <p class="selector1">
-  <select id="selectproductsort2" onselect="GETproduct()" class="select_1 select2 selectproductsort form-control" asp-items="(new SelectList(prodattr.GetF_Getproduct_Specification_By_GuidModel," AttributeId","SpecificationName"))"></select>
-            <h6>prodattr.AttributeName</h6>-->
-<!--<select id="selectproductsort2" name="dropspec" class="select_1 select2 selectproductsort form-control">
-                <option selected>select prodattr.AttributeName</option>
-                foreach (var spec in prodattr.GetF_Getproduct_Specification_By_GuidModel)
-                {
-                    <option id="sel_Opt">spec.SpecificationName</option>
-                }
-            </select>
-        </p>
-    }
-}-->
+

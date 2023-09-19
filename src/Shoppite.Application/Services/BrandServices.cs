@@ -69,10 +69,10 @@ namespace Shoppite.Application.Services
             return main;
         }
 
-        public async Task<MainModel> Get_Product_By_Cat(int ID)
+        public async Task<MainModel> Get_Product_By_Cat(int ID,int OrgId)
         {
             MainModel main = new MainModel();
-            var Product_By_Cat = await _BrandRepository.Get_Product_By_Cat(ID);
+            var Product_By_Cat = await _BrandRepository.Get_Product_By_Cat(ID,OrgId);
             main.f_getproducts_By_CatIdModel = ObjectMapper.Mapper.Map<List<F_getproducts_By_CatIdModel>>(Product_By_Cat);
             return main;
         }

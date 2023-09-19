@@ -18,6 +18,11 @@ namespace Shoppite.Core.Repositories
         Task<UsersProfile> FindAddress(string userName);
         Task<UsersProfile> GetVendorDetails(UsersProfile usersProfile);
         Task<OrderShipping> GetAddredd(string userName);
-        Task<f_getproduct_CartDetails_By_Orgid> CheckProdInCart(int orgId,string ProductName,string Username);
+        Task<f_getproduct_CartDetails_By_Orgid> CheckProdInCart(int orgId,string ProductName,string Username,int SpecId);
+        Task<List<OrderBasic>> GetProductListBYOrder(OrderBasic orderBasic);
+        Task CancelOrder(OrderBasic orderBasic);
+        Task<(int, string, string)> GetVendorContactDetails(Guid guid);
+        Task SaveUserAddressToUserProfile(OrderShipping orderShipping);
+
     }
 }

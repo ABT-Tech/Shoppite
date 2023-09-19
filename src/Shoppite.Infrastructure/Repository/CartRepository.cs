@@ -32,7 +32,7 @@ namespace Shoppite.Infrastructure.Repository
         }
         public async Task<OrderBasic> DeleteAsync(int id)
         {
-            var product = _dbContext.OrderBasic.FirstOrDefault(x => x.ProductId == id && x.OrderStatus == "Cart");
+            var product = _dbContext.OrderBasic.FirstOrDefault(x => x.OrderId == id && x.OrderStatus == "Cart");
             if (product != null)
             {
                 _dbContext.OrderBasic.Remove(product);
@@ -51,7 +51,28 @@ namespace Shoppite.Infrastructure.Repository
            await _dbContext.SaveChangesAsync();
 
         }
-
+        public async Task SaveUserAddressToUserProfile(OrderShipping orderShipping)
+        {
+            var UserAddress = _dbContext.UsersProfile.FirstOrDefault(x => x.UserName == orderShipping.UserName && x.OrgId == orderShipping.OrgId);
+              
+            if(UserAddress != null)
+            {
+                if (UserAddress.Address != null && UserAddress.City != null && UserAddress.Zip != null && UserAddress.ContactNumber != null)
+                {
+                }
+                else
+                {
+                    UserAddress.Address = orderShipping.Address;
+                    UserAddress.ContactNumber = orderShipping.Contactnumber;
+                    UserAddress.Country = "India";
+                    UserAddress.State = "Gujrat";
+                    UserAddress.City = orderShipping.City;
+                    UserAddress.Zip = orderShipping.Zipcode;
+                    _dbContext.UsersProfile.Update(UserAddress);
+                }
+            }
+            await _dbContext.SaveChangesAsync();
+        }
         //public async Task<OrderBasic> CheckOrder(OrderBasic orderBasic)
         //{
         //    var check = await _dbContext.OrderBasic.FirstOrDefaultAsync(x => x.OrderGuid == orderBasic.OrderGuid && x.OrderStatus == "Cart");
@@ -70,9 +91,15 @@ namespace Shoppite.Infrastructure.Repository
             return check;
         }
 
-        public async Task UpdateOrder(OrderBasic orderBasic)
+        public async Task<List<OrderBasic>> GetProductListBYOrder(OrderBasic orderBasic)
         {
             var check = await _dbContext.OrderBasic.Where(x => x.OrderGuid == orderBasic.OrderGuid && x.OrderStatus == "Cart" && x.UserName == orderBasic.UserName).ToListAsync();
+            return check;
+        }
+
+        public async Task UpdateOrder(OrderBasic orderBasic)
+        {
+            var check = await _dbContext.OrderBasic.Where(x => x.OrderGuid == orderBasic.OrderGuid && x.OrderStatus == "Cart").ToListAsync();
 
             foreach (var order in check)
             {
@@ -122,6 +149,58 @@ namespace Shoppite.Infrastructure.Repository
             await _dbContext.SaveChangesAsync();
         }
 
+        public async Task CancelOrder(OrderBasic orderBasic)
+        {
+            var check = await _dbContext.OrderBasic.Where(x => x.OrderGuid == orderBasic.OrderGuid && x.OrderStatus == "Cart" ).ToListAsync();
+
+            foreach (var order in check)
+            {
+                order.OrderStatus = "Cancelled";
+                order.ReferenceId = "COD";
+                order.PaymentMode = "Cash On Delivery";
+                order.LastOrderStatus = "Cancelled";
+                order.InsertDate = DateTime.Now;
+
+                _dbContext.OrderBasic.Update(order);
+
+                var Inventory = await _dbContext.ProductBasic.Where(x => x.ProductId == order.ProductId && x.OrgId == order.OrgId).FirstOrDefaultAsync();
+
+                if (Inventory != null)
+                {
+                    var local = _dbContext.Set<ProductBasic>().Local.FirstOrDefault(x => x.ProductId.Equals(Inventory.ProductId));
+                    if (local != null)
+                    {
+                        _dbContext.Entry(local).State = EntityState.Detached;
+                    }
+                    Inventory.Qty = Inventory.Qty + order.Qty;
+
+                    _dbContext.Entry(Inventory).State = EntityState.Modified;
+                }
+                await _dbContext.SaveChangesAsync();
+            }
+
+            var getOrderMster = await _dbContext.OrderMaster.Where(x => x.OrderGuid == orderBasic.OrderGuid).FirstOrDefaultAsync();
+            if (getOrderMster != null)
+            {
+                var StatusCheck = await _dbContext.OrderStatus.FirstOrDefaultAsync(x => x.OrderId == getOrderMster.OrderMasterId);
+                if (StatusCheck == null)
+                {
+                    OrderStatus orderStatus = new OrderStatus
+                    {
+                        OrderId = getOrderMster.OrderMasterId,
+                        OrderStatus1 = "Cancelled",
+                        StatusDate = DateTime.Now,
+                        Remarks = string.Empty,
+                        Insertby = DateTime.Now.ToString(),
+                        OrgId = getOrderMster.OrgId,
+
+                    };
+                    _dbContext.OrderStatus.Add(orderStatus);
+                }
+            }
+            await _dbContext.SaveChangesAsync();
+        }
+
         public async Task UpdateOrderQty(OrderBasic orderBasic)
         {
             var check = await _dbContext.OrderBasic.Where(x => x.OrderGuid == orderBasic.OrderGuid && x.OrderStatus == "Cart" && x.UserName == orderBasic.UserName && x.ProductId == orderBasic.ProductId).FirstOrDefaultAsync();
@@ -152,7 +231,7 @@ namespace Shoppite.Infrastructure.Repository
             return find;
         }
 
-        public async Task<f_getproduct_CartDetails_By_Orgid> CheckProdInCart(int orgId, string ProductName, string Username)
+        public async Task<f_getproduct_CartDetails_By_Orgid> CheckProdInCart(int orgId, string ProductName, string Username,int SpecId)
         {
             string sql = "select * from f_getproduct_CartDetails_By_Orgid(@Orgid)";
 
@@ -161,8 +240,19 @@ namespace Shoppite.Infrastructure.Repository
                 // Create parameters    
                 new SqlParameter { ParameterName = "@Orgid", Value = orgId }
             };
-            var Filter =  await _dbContext.Set<f_getproduct_CartDetails_By_Orgid>().FromSqlRaw(sql, parms.ToArray()).Where(x=>x.UserName == Username && x.ProductName == ProductName).FirstOrDefaultAsync();
+            var Filter =  await _dbContext.Set<f_getproduct_CartDetails_By_Orgid>().FromSqlRaw(sql, parms.ToArray()).Where(x=>x.UserName == Username && x.ProductName == ProductName && x.SpecificationId == SpecId).FirstOrDefaultAsync();
             return Filter;
+        }
+        public async Task<(int, string,string)> GetVendorContactDetails(Guid OrderGuid)
+        {
+            var result = await (from o in _dbContext.OrderMaster
+                         join p in _dbContext.UsersProfile on o.OrgId equals p.OrgId
+                         join or in _dbContext.Organization on p.OrgId equals or.Id
+                         where p.Type == "vendor" && o.OrderGuid == OrderGuid
+                         select new { o.OrderMasterId, p.ContactNumber,or.OrgName }).FirstOrDefaultAsync();
+
+            
+            return (result.OrderMasterId.Value, result.ContactNumber,result.OrgName);
         }
     }
 }

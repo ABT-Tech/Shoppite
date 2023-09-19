@@ -13,7 +13,7 @@ namespace Shoppite.Application.Interfaces
         public Task<MainModel> GetCategoryBy_Org(int orgid);
         Task<MainModel> _Getproducts_By_NewArrivals(int orgid);
         Task<MainModel> Sp_Getcat(int orgid);
-        Task<MainModel> Get_Product_By_Cat(int ID);
+        Task<MainModel> Get_Product_By_Cat(int ID, int OrgId);
         Task<MainModel> CategoryMaster(int orgid);
         Task<List<ProductDetailModel>> Get_Recently_Product(string id, int orgid);
         Task<List<F_getproducts_By_BrandIdModel>> GetProductsByBrand(int OrgId, int BrandId);

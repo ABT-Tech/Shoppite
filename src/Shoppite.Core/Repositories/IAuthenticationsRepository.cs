@@ -12,6 +12,9 @@ namespace Shoppite.Core.Repositories
         Task<Logo> Get_Logo(int orgid);
         Task<Users> RegisterDetail(string userName, string password, string email, int orgId);
         Task<Users> ForgotPass(string email, string password, int orgId);
+        Task<Users> Get_Exist_Login_Data(string email, string phone);
+        Task<Users> AddExistsUser(Users userLogin, int orgId);
+        Task Get_Exist_UserProfile_Data(Users userLogin, int orgid);
     }
 }
     

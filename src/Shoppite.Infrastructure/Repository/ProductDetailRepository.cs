@@ -210,13 +210,21 @@
         /// <returns>The <see cref="Task"/>.</returns>
         public async Task AddToCart(OrderBasic productDetailModel)
         {
+            await _dbContext.OrderBasic.AddAsync(productDetailModel);
+   
+            await _dbContext.SaveChangesAsync();
+        }
+
+
+        public async Task UpdateAddToCart(OrderBasic productDetailModel)
+        {
             //await _dbContext.SaveChangesAsync();
 
-            var Inventory = await _dbContext.OrderBasic.Where(x => x.ProductId == productDetailModel.ProductId && x.UserName == productDetailModel.UserName &&x.OrderGuid == productDetailModel.OrderGuid).FirstOrDefaultAsync();
+            var Inventory = await _dbContext.OrderBasic.Where(x => x.ProductId == productDetailModel.ProductId && x.UserName == productDetailModel.UserName && x.OrderGuid == productDetailModel.OrderGuid && x.OrderVariationId == productDetailModel.OrderVariationId).FirstOrDefaultAsync();
 
             if (Inventory != null)
             {
-                var local = _dbContext.Set<OrderBasic>().Local.FirstOrDefault(x => x.ProductId.Equals(Inventory.ProductId) && x.OrderGuid.Equals(Inventory.OrderGuid) && x.UserName.Equals(Inventory.UserName));
+                var local = _dbContext.Set<OrderBasic>().Local.FirstOrDefault(x => x.ProductId.Equals(Inventory.ProductId) && x.OrderGuid.Equals(Inventory.OrderGuid) && x.UserName.Equals(Inventory.UserName) && x.OrderVariationId.Equals(Inventory.OrderVariationId));
                 if (local != null)
                 {
                     _dbContext.Entry(local).State = EntityState.Detached;
@@ -251,6 +259,58 @@
         public Task<OrderBasic> updateCart()
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<List<ProductVariant>> GetProductVarient(int orgid, Guid id, string username)
+        {
+            return await _dbContext.ProductVariant.Where(x => x.OrgId == orgid && x.ProductGuid == id).ToListAsync();
+        }
+
+        public async Task<List<SP_GetProductDetails>> GetProductVarient(Guid guid, int orgid,int SpecId)
+        {
+            string sql = "EXEC SP_GetProductDetails @OrgId, @ProductGUID, @SpecificationId";
+            List<SqlParameter> sqlParameters = new List<SqlParameter>
+            {
+                new SqlParameter{ParameterName = "@OrgId",Value = orgid},
+                new SqlParameter{ParameterName = "@ProductGUID",Value = guid},
+                new SqlParameter{ParameterName = "@SpecificationId",Value = SpecId}
+            };
+            return await _dbContext.Set<SP_GetProductDetails>().FromSqlRaw(sql, sqlParameters.ToArray()).ToListAsync();           
+        }
+
+        public async Task<List<SP_GetProductSpecifications>> SP_GetProductSpecifications(Guid id, int orgid)
+        {
+            string Sql = "EXEC SP_GetProductSpecifications @OrgId,@ProductGUID";
+
+            List<SqlParameter> sqlParameters = new List<SqlParameter>
+            {
+                new SqlParameter{ParameterName = "@OrgId",Value = orgid},
+                new SqlParameter{ParameterName = "@ProductGUID",Value = id}
+            };
+            return await _dbContext.Set<SP_GetProductSpecifications>().FromSqlRaw(Sql, sqlParameters.ToArray()).ToListAsync();
+        }
+
+        public async Task<ProductSpecification> get_Product_SpecId(Guid? productGuid, int? orgId, int specId)
+        {
+            var get_Product_SpecId = await _dbContext.ProductSpecification.Where(X => X.ProductGuid == productGuid && X.SpecificationId == specId && X.OrgId == orgId).FirstOrDefaultAsync();
+            return get_Product_SpecId;
+        }
+
+        public async Task<OrderVariation> Add_Order_Varient(OrderVariation orderVariation)
+        {
+            var check = await _dbContext.OrderVariation.Where(x => x.OrderGuid == orderVariation.OrderGuid && x.ProductSpecificationId == orderVariation.ProductSpecificationId && x.OrgId == orderVariation.OrgId).FirstOrDefaultAsync();
+            if(check == null)
+            {
+               await _dbContext.OrderVariation.AddAsync(orderVariation);
+            }
+            await _dbContext.SaveChangesAsync();
+
+            return await _dbContext.OrderVariation.Where(x => x.OrderGuid == orderVariation.OrderGuid && x.ProductSpecificationId == orderVariation.ProductSpecificationId && x.OrgId == orderVariation.OrgId).FirstOrDefaultAsync();
+        }
+
+        public async Task<OrderVariation> Get_Order_Varient(OrderVariation orderVariation)
+        {
+            return await _dbContext.OrderVariation.Where(x => x.OrderGuid == orderVariation.OrderGuid && x.ProductSpecificationId == orderVariation.ProductSpecificationId && x.OrgId == orderVariation.OrgId).FirstOrDefaultAsync();
         }
     }
 }

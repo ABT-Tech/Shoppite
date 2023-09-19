@@ -40,6 +40,7 @@ namespace Shoppite.Application.Models
         public string UserName { get; set; }
         public string status { get; set; }
         public Nullable<int> totalpick { get; set; }
+        public Boolean IsDefault { get; set; }
 
     }
 }

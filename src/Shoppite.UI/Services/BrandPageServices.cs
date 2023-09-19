@@ -40,9 +40,9 @@ namespace Shoppite.UI.Services
             return await _BrandService._Getproducts_By_NewArrivals(orgid);
         }
 
-        public async Task<MainModel> Get_Product_By_Cat(int ID)
+        public async Task<MainModel> Get_Product_By_Cat(int ID , int OrgId)
         {
-            return await _BrandService.Get_Product_By_Cat(ID);
+            return await _BrandService.Get_Product_By_Cat(ID,OrgId);
         }
 
         public async Task<MainModel> Sp_Getcat(int orgid)

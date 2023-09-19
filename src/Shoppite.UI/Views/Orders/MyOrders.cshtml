@@ -4,19 +4,15 @@
 </div>
 <!-- Start wishlists page area -->
 <div class="wishlists-page-area">
-    <div class="container">
+    <div class="container-fluid">
         <select class="pendingOrders form-select-sm" style="float:right">
             <option value="1">All Orders</option>
             <option value="2">Pending Orders</option>
             <option value="3">Delivered Orders</option>
             <option value="4">Cancelled Orders</option>
         </select>
-
         <div class="row col-lg-12">
             <h4 class="cart-title">My Orders</h4>
-            @*<div class="wishlist-permalink">
-                <p><a href="#"></a></p>
-            </div>*@
             <div class="wishlist-product">
                 @await Html.PartialAsync("_AllOrders", Model)
             </div>
@@ -64,5 +60,4 @@
             });
         }
     });
-
 </script>

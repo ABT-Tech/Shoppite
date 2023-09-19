@@ -1,12 +1,11 @@
-﻿
-@model Shoppite.Application.Models.CategoryMasterModel
+﻿@model Shoppite.Application.Models.CategoryMasterModel
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Shooppy - Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <!-- Start mega menu area -->
 <div class="megamenu-area">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-8">
                 <div class="megamenu">
@@ -17,7 +16,7 @@
                                 <div class="megamenudown-mini home-ve">
                                     <div class="mega-top">
                                         <div class="mega-item-menu">
-                                            <a class="title" href="#"><span>Home variyation</span></a>
+                                            <a class="title" href="#"><span>Home variation</span></a>
                                             <a href="index-2.html"><span>Home2</span></a>
                                             <a href="index-3.html"><span>Home3</span></a>
                                             <a href="index-4.html"><span>Home4</span></a>
@@ -25,9 +24,7 @@
                                     </div>
                                 </div>
                             </li>
-
                            @await Html.PartialAsync("_Categories", Model)
-                       
                            @await  Html.PartialAsync("_MoreCategories", Model)
                             @*<li>
                                 <select asp-for="CategoryId" asp-items="@(new SelectList(Model.Categories,"CategoryId","CategoryName"))">
@@ -42,9 +39,9 @@
                 <div class="search-box">
                     <form method="get" action="#" id="searchbox-eleyas">
                         <p>
-                            <input type="text" value="" placeholder="You keyword..." name="search_query">
+                            <input type="text" value="" placeholder="Your Keyword..." name="search_query">
                             <button class="button-search" name="submit_search" type="submit">
-                                <span><i class="fa fa-search"></i></span>
+                                <span><i class="fa fa-search"></i></span> 
                             </button>
                         </p>
                     </form>
@@ -89,11 +86,9 @@
             </div>
 
         </li>*@
-
                         </ul>
                     </nav>
                 </div>
-                
             </div>
         </div>
     </div>
@@ -101,7 +96,7 @@
 <!-- End mega menu area -->
 <!-- Start mobile menu -->
 <div class="mobile-menu-area">
-    <div class="container">
+    <div class="container-fluid">
         <div class="mobile-menu clearfix">
             <nav id="dropdown">
                 <ul class="nav">
@@ -271,7 +266,7 @@
                 <div class="mobile-search-box">
                     <form method="get" action="#" id="searchbox">
                         <p>
-                            <input type="text" value="" placeholder="You keyword..." name="search_query">
+                            <input type="text" value="" placeholder="Your keyword..." name="search_query">
                             <button class="button-search" name="submit_search" type="submit">
                                 <span><i class="fa fa-search"></i></span>
                             </button>
@@ -285,7 +280,7 @@
 <!-- End mobile menu -->
 <!-- Start slider area -->
 <div class="slider-area">
-    <div class="container">
+    <div class="container-fluid">
         <div class="slider">
             <div id="container">
                 <!-- Nivo slider Demo 35 -->
@@ -303,7 +298,7 @@
 <!-- End slider area -->
 <!-- Start baner area -->
 <div class="baner-area">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">      
                 @await Html.PartialAsync("_BottomBanner", Model)
         </div>
@@ -312,7 +307,7 @@
 <!-- End baner area -->
 <!-- Start tab and carosel area -->
 <div id="content" class="tabandcarosel-area">
-    <div class="container">
+    <div class="container-fluid">
         <div class="tab-product-wrap">
             <div class="row">
                 <!-- Start tab menu area -->
@@ -361,7 +356,7 @@
                 <!-- Start tab content area -->
                 <div class="col-lg-9 col-md-8">
                     <div class="tab-contant-aera">
-                        @await Html.PartialAsync("_HorizontalBanner", Model)
+                       @* @await Html.PartialAsync("_HorizontalBanner", Model)*@
                         <div id="my-tab-content" class="tab-content jump">
                             <!-- Start tab 1 -->
                             <div class="tab-pane active" id="tab1">
@@ -369,7 +364,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/faded-short-sleeves-tshirt1.jpg" alt="Product image">
+                                                <img src="img/product/faded-short-sleeves-tshirt1.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -406,7 +401,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/blouse1.jpg" alt="Product image">
+                                                <img src="img/product/blouse1.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -443,7 +438,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-dress1.jpg" alt="Product image">
+                                                <img src="img/product/printed-dress1.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -480,7 +475,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-dress2.jpg" alt="Product image">
+                                                <img src="img/product/printed-dress2.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -517,7 +512,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-summer-dress1.jpg" alt="Product image">
+                                                <img src="img/product/printed-summer-dress1.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -554,7 +549,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-summer-dress2.jpg" alt="Product image">
+                                                <img src="img/product/printed-summer-dress2.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -591,7 +586,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-chiffon-dress3.jpg" alt="Product image">
+                                                <img src="img/product/printed-chiffon-dress3.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -628,7 +623,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/faded-short-sleeves-tshirt.jpg" alt="Product image">
+                                                <img src="img/product/faded-short-sleeves-tshirt.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -657,7 +652,7 @@
                                                     <li><a href="#"><i class="fa fa-external-link"></i></a></li>
                                                     <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
                                                     <li><a href="#"><i class="fa fa-bar-chart"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>  
                                                 </ul>
                                             </div>
                                         </div>
@@ -665,7 +660,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/blouse.jpg" alt="Product image">
+                                                <img src="img/product/blouse.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -702,7 +697,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-dress3.jpg" alt="Product image">
+                                                <img src="img/product/printed-dress3.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -739,7 +734,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-dress.jpg" alt="Product image">
+                                                <img src="img/product/printed-dress.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -776,7 +771,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-summer-dress3.jpg" alt="Product image">
+                                                <img src="img/product/printed-summer-dress3.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -813,7 +808,8 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-summer-dress.jpg" alt="Product image">
+                                                <img src="img/product/printed-summer-dress.jpg" loading="lazy" alt="Product image">
+                                          
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -850,7 +846,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-chiffon-dress.jpg" alt="Product image">
+                                                <img src="img/product/printed-chiffon-dress.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -893,7 +889,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-summer-dress1.jpg" alt="Product image">
+                                                <img src="img/product/printed-summer-dress1.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -930,7 +926,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-summer-dress2.jpg" alt="Product image">
+                                                <img src="img/product/printed-summer-dress2.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -967,7 +963,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-chiffon-dress3.jpg" alt="Product image">
+                                                <img src="img/product/printed-chiffon-dress3.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -1004,7 +1000,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/faded-short-sleeves-tshirt.jpg" alt="Product image">
+                                                <img src="img/product/faded-short-sleeves-tshirt.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -1041,7 +1037,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/faded-short-sleeves-tshirt1.jpg" alt="Product image">
+                                                <img src="img/product/faded-short-sleeves-tshirt1.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -1078,7 +1074,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/blouse1.jpg" alt="Product image">
+                                                <img src="img/product/blouse1.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -1115,7 +1111,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-dress1.jpg" alt="Product image">
+                                                <img src="img/product/printed-dress1.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -1152,7 +1148,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-dress2.jpg" alt="Product image">
+                                                <img src="img/product/printed-dress2.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -1189,7 +1185,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/blouse.jpg" alt="Product image">
+                                                <img src="img/product/blouse.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -1226,7 +1222,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-dress3.jpg" alt="Product image">
+                                                <img src="img/product/printed-dress3.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -1263,7 +1259,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-dress.jpg" alt="Product image">
+                                                <img src="img/product/printed-dress.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -1300,7 +1296,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-summer-dress3.jpg" alt="Product image">
+                                                <img src="img/product/printed-summer-dress3.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -1337,7 +1333,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-summer-dress.jpg" alt="Product image">
+                                                <img src="img/product/printed-summer-dress.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -1374,7 +1370,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-chiffon-dress.jpg" alt="Product image">
+                                                <img src="img/product/printed-chiffon-dress.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -1417,7 +1413,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-chiffon-dress3.jpg" alt="Product image">
+                                                <img src="img/product/printed-chiffon-dress3.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -1454,7 +1450,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/faded-short-sleeves-tshirt.jpg" alt="Product image">
+                                                <img src="img/product/faded-short-sleeves-tshirt.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -1491,7 +1487,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/blouse.jpg" alt="Product image">
+                                                <img src="img/product/blouse.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -1528,7 +1524,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-dress3.jpg" alt="Product image">
+                                                <img src="img/product/printed-dress3.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -1565,7 +1561,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-dress.jpg" alt="Product image">
+                                                <img src="img/product/printed-dress.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -1602,7 +1598,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/faded-short-sleeves-tshirt1.jpg" alt="Product image">
+                                                <img src="img/product/faded-short-sleeves-tshirt1.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -1639,7 +1635,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/blouse1.jpg" alt="Product image">
+                                                <img src="img/product/blouse1.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -1676,7 +1672,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-dress1.jpg" alt="Product image">
+                                                <img src="img/product/printed-dress1.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -1713,7 +1709,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-dress2.jpg" alt="Product image">
+                                                <img src="img/product/printed-dress2.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -1750,7 +1746,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-summer-dress1.jpg" alt="Product image">
+                                                <img src="img/product/printed-summer-dress1.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -1787,7 +1783,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-summer-dress2.jpg" alt="Product image">
+                                                <img src="img/product/printed-summer-dress2.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -1824,7 +1820,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-summer-dress3.jpg" alt="Product image">
+                                                <img src="img/product/printed-summer-dress3.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -1861,7 +1857,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-summer-dress.jpg" alt="Product image">
+                                                <img src="img/product/printed-summer-dress.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -1898,7 +1894,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-chiffon-dress.jpg" alt="Product image">
+                                                <img src="img/product/printed-chiffon-dress.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -1941,7 +1937,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-dress.jpg" alt="Product image">
+                                                <img src="img/product/printed-dress.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -1978,7 +1974,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-summer-dress3.jpg" alt="Product image">
+                                                <img src="img/product/printed-summer-dress3.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -2015,7 +2011,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-summer-dress.jpg" alt="Product image">
+                                                <img src="img/product/printed-summer-dress.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -2052,7 +2048,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-chiffon-dress.jpg" alt="Product image">
+                                                <img src="img/product/printed-chiffon-dress.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -2089,7 +2085,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/faded-short-sleeves-tshirt1.jpg" alt="Product image">
+                                                <img src="img/product/faded-short-sleeves-tshirt1.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -2126,7 +2122,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/blouse1.jpg" alt="Product image">
+                                                <img src="img/product/blouse1.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -2163,7 +2159,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-dress1.jpg" alt="Product image">
+                                                <img src="img/product/printed-dress1.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -2200,7 +2196,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="#">
-                                                <img src="~/img/product/printed-dress2.jpg" alt="Product image">
+                                                <img src="img/product/printed-dress2.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -2237,7 +2233,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="#">
-                                                <img src="~/img/product/printed-summer-dress1.jpg" alt="Product image">
+                                                <img src="img/product/printed-summer-dress1.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -2274,7 +2270,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-summer-dress2.jpg" alt="Product image">
+                                                <img src="img/product/printed-summer-dress2.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -2311,7 +2307,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-chiffon-dress3.jpg" alt="Product image">
+                                                <img src="img/product/printed-chiffon-dress3.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -2348,7 +2344,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/faded-short-sleeves-tshirt.jpg" alt="Product image">
+                                                <img src="img/product/faded-short-sleeves-tshirt.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -2385,7 +2381,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/blouse.jpg" alt="Product image">
+                                                <img src="img/product/blouse.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -2422,7 +2418,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-dress3.jpg" alt="Product image">
+                                                <img src="img/product/printed-dress3.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -2465,7 +2461,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-dress2.jpg" alt="Product image">
+                                                <img src="img/product/printed-dress2.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -2502,7 +2498,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-summer-dress1.jpg" alt="Product image">
+                                                <img src="img/product/printed-summer-dress1.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -2539,7 +2535,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-summer-dress2.jpg" alt="Product image">
+                                                <img src="img/product/printed-summer-dress2.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -2576,7 +2572,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-chiffon-dress3.jpg" alt="Product image">
+                                                <img src="img/product/printed-chiffon-dress3.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -2613,7 +2609,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/faded-short-sleeves-tshirt1.jpg" alt="Product image">
+                                                <img src="img/product/faded-short-sleeves-tshirt1.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -2650,7 +2646,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/blouse1.jpg" alt="Product image">
+                                                <img src="img/product/blouse1.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -2687,7 +2683,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-dress1.jpg" alt="Product image">
+                                                <img src="img/product/printed-dress1.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -2724,7 +2720,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/faded-short-sleeves-tshirt.jpg" alt="Product image">
+                                                <img src="img/product/faded-short-sleeves-tshirt.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -2761,7 +2757,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/blouse.jpg" alt="Product image">
+                                                <img src="img/product/blouse.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -2798,7 +2794,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-dress3.jpg" alt="Product image">
+                                                <img src="img/product/printed-dress3.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -2835,7 +2831,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-dress.jpg" alt="Product image">
+                                                <img src="img/product/printed-dress.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -2872,7 +2868,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-summer-dress3.jpg" alt="Product image">
+                                                <img src="img/product/printed-summer-dress3.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -2909,7 +2905,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-summer-dress.jpg" alt="Product image">
+                                                <img src="img/product/printed-summer-dress.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -2946,7 +2942,7 @@
                                     <div class="product-item">
                                         <div class="top-item">
                                             <a href="single-product.html">
-                                                <img src="~/img/product/printed-chiffon-dress.jpg" alt="Product image">
+                                                <img src="img/product/printed-chiffon-dress.jpg" loading="lazy" alt="Product image">
                                             </a>
                                             <div class="top-cocial">
                                                 <p>
@@ -2994,7 +2990,7 @@
 <!-- End tab and carosel area -->
 <!-- Start new product area -->
 <div class="new-product-area">
-    <div class="container">
+    <div class="container-fluid">
         <!-- Start product title -->
         <div class="new-product-title">
             <h4><span>New products</span></h4>
@@ -3006,7 +3002,7 @@
                 <div class="product-item">
                     <div class="top-item">
                         <a href="single-product.html">
-                            <img src="~/img/product/faded-short-sleeves-tshirt1.jpg" alt="Product image">
+                            <img src="img/product/faded-short-sleeves-tshirt1.jpg" loading="lazy" alt="Product image">
                         </a>
                         <div class="top-cocial">
                             <p>
@@ -3043,7 +3039,7 @@
                 <div class="product-item">
                     <div class="top-item">
                         <a href="single-product.html">
-                            <img src="~/img/product/blouse1.jpg" alt="Product image">
+                            <img src="img/product/blouse1.jpg" loading="lazy" alt="Product image">
                         </a>
                         <div class="top-cocial">
                             <p>
@@ -3080,7 +3076,7 @@
                 <div class="product-item">
                     <div class="top-item">
                         <a href="single-product.html">
-                            <img src="~/img/product/printed-dress1.jpg" alt="Product image">
+                            <img src="img/product/printed-dress1.jpg" loading="lazy" alt="Product image">
                         </a>
                         <div class="top-cocial">
                             <p>
@@ -3117,7 +3113,7 @@
                 <div class="product-item">
                     <div class="top-item">
                         <a href="single-product.html">
-                            <img src="~/img/product/printed-dress2.jpg" alt="Product image">
+                            <img src="img/product/printed-dress2.jpg" loading="lazy" alt="Product image">
                         </a>
                         <div class="top-cocial">
                             <p>
@@ -3154,7 +3150,7 @@
                 <div class="product-item">
                     <div class="top-item">
                         <a href="single-product.html">
-                            <img src="~/img/product/printed-summer-dress1.jpg" alt="Product image">
+                            <img src="img/product/printed-summer-dress1.jpg" loading="lazy" alt="Product image">
                         </a>
                         <div class="top-cocial">
                             <p>
@@ -3191,7 +3187,7 @@
                 <div class="product-item">
                     <div class="top-item">
                         <a href="single-product.html">
-                            <img src="~/img/product/printed-summer-dress2.jpg" alt="Product image">
+                            <img src="img/product/printed-summer-dress2.jpg" loading="lazy" alt="Product image">
                         </a>
                         <div class="top-cocial">
                             <p>
@@ -3228,7 +3224,7 @@
                 <div class="product-item">
                     <div class="top-item">
                         <a href="single-product.html">
-                            <img src="~/img/product/printed-chiffon-dress3.jpg" alt="Product image">
+                            <img src="img/product/printed-chiffon-dress3.jpg" loading="lazy" alt="Product image">
                         </a>
                         <div class="top-cocial">
                             <p>
@@ -3265,7 +3261,7 @@
                 <div class="product-item">
                     <div class="top-item">
                         <a href="single-product.html">
-                            <img src="~/img/product/faded-short-sleeves-tshirt.jpg" alt="Product image">
+                            <img src="img/product/faded-short-sleeves-tshirt.jpg" loading="lazy" alt="Product image">
                         </a>
                         <div class="top-cocial">
                             <p>
@@ -3302,7 +3298,7 @@
                 <div class="product-item">
                     <div class="top-item">
                         <a href="#">
-                            <img src="~/img/product/blouse.jpg" alt="Product image">
+                            <img src="img/product/blouse.jpg" loading="lazy" alt="Product image">
                         </a>
                         <div class="top-cocial">
                             <p>
@@ -3339,7 +3335,7 @@
                 <div class="product-item">
                     <div class="top-item">
                         <a href="#">
-                            <img src="~/img/product/printed-dress3.jpg" alt="Product image">
+                            <img src="img/product/printed-dress3.jpg" loading="lazy" alt="Product image">
                         </a>
                         <div class="top-cocial">
                             <p>
@@ -3376,7 +3372,7 @@
                 <div class="product-item">
                     <div class="top-item">
                         <a href="single-product.html">
-                            <img src="~/img/product/printed-dress.jpg" alt="Product image">
+                            <img src="img/product/printed-dress.jpg" loading="lazy" alt="Product image">
                         </a>
                         <div class="top-cocial">
                             <p>
@@ -3413,7 +3409,7 @@
                 <div class="product-item">
                     <div class="top-item">
                         <a href="single-product.html">
-                            <img src="~/img/product/printed-summer-dress3.jpg" alt="Product image">
+                            <img src="img/product/printed-summer-dress3.jpg" loading="lazy" alt="Product image">
                         </a>
                         <div class="top-cocial">
                             <p>
@@ -3450,7 +3446,7 @@
                 <div class="product-item">
                     <div class="top-item">
                         <a href="single-product.html">
-                            <img src="~/img/product/printed-summer-dress.jpg" alt="Product image">
+                            <img src="img/product/printed-summer-dress.jpg" loading="lazy" alt="Product image">
                         </a>
                         <div class="top-cocial">
                             <p>
@@ -3487,7 +3483,7 @@
                 <div class="product-item">
                     <div class="top-item">
                         <a href="single-product.html">
-                            <img src="~/img/product/printed-chiffon-dress.jpg" alt="Product image">
+                            <img src="img/product/printed-chiffon-dress.jpg" loading="lazy" alt="Product image">
                         </a>
                         <div class="top-cocial">
                             <p>
@@ -3529,7 +3525,7 @@
 <!-- End new product area -->
 <!-- Start top selar area -->
 <div class="top-selar-area">
-    <div class="container">
+    <div class="container-fluid">
         <!-- Start product title -->
         <div class="new-product-title">
             <h4><span>Top sellers</span></h4>
@@ -3544,7 +3540,7 @@
                         <div class="top-sell-item">
                             <div class="item-image pull-left">
                                 <a href="single-product.html">
-                                    <img src="~/img/top-sell/faded-short-sleeves-tshirt1.jpg" alt="">
+                                    <img src="img/top-sell/faded-short-sleeves-tshirt1.jpg" loading="lazy" alt="">
                                 </a>
                             </div>
                             <div class="top-slee-details">
@@ -3565,7 +3561,7 @@
                         <div class="top-sell-item">
                             <div class="item-image pull-left">
                                 <a href="single-product.html">
-                                    <img src="~/img/top-sell/blous1e.jpg" alt="top sell product">
+                                    <img src="img/top-sell/blous1e.jpg" loading="lazy" alt="top sell product">
                                 </a>
                             </div>
                             <div class="top-slee-details">
@@ -3586,7 +3582,7 @@
                         <div class="top-sell-item">
                             <div class="item-image pull-left">
                                 <a href="single-product.html">
-                                    <img src="~/img/top-sell/printed-summer-dress1.jpg" alt="top sell product">
+                                    <img src="img/top-sell/printed-summer-dress1.jpg" loading="lazy" alt="top sell product">
                                 </a>
                             </div>
                             <div class="top-slee-details">
@@ -3609,7 +3605,7 @@
                         <div class="top-sell-item">
                             <div class="item-image pull-left">
                                 <a href="single-product.html">
-                                    <img src="~/img/top-sell/printed-summer-dress2.jpg" alt="top sell product">
+                                    <img src="img/top-sell/printed-summer-dress2.jpg" loading="lazy" alt="top sell product">
                                 </a>
                             </div>
                             <div class="top-slee-details">
@@ -3630,7 +3626,7 @@
                         <div class="top-sell-item">
                             <div class="item-image pull-left">
                                 <a href="single-product.html">
-                                    <img src="~/img/top-sell/printed-dress1.jpg" alt="top sell product">
+                                    <img src="img/top-sell/printed-dress1.jpg" loading="lazy" alt="top sell product">
                                 </a>
                             </div>
                             <div class="top-slee-details">
@@ -3651,7 +3647,7 @@
                         <div class="top-sell-item">
                             <div class="item-image pull-left">
                                 <a href="single-product.html">
-                                    <img src="~/img/top-sell/printed-dress2.jpg" alt="top sell product">
+                                    <img src="img/top-sell/printed-dress2.jpg" loading="lazy" alt="top sell product">
                                 </a>
                             </div>
                             <div class="top-slee-details">
@@ -3674,7 +3670,7 @@
                         <div class="top-sell-item">
                             <div class="item-image pull-left">
                                 <a href="single-product.html">
-                                    <img src="~/img/top-sell/printed-dress3.jpg" alt="top sell product">
+                                    <img src="img/top-sell/printed-dress3.jpg" loading="lazy" alt="top sell product">
                                 </a>
                             </div>
                             <div class="top-slee-details">
@@ -3695,7 +3691,7 @@
                         <div class="top-sell-item">
                             <div class="item-image pull-left">
                                 <a href="single-product.html">
-                                    <img src="~/img/top-sell/blouse.jpg" alt="top sell product">
+                                    <img src="img/top-sell/blouse.jpg" loading="lazy" alt="top sell product">
                                 </a>
                             </div>
                             <div class="top-slee-details">
@@ -3716,7 +3712,7 @@
                         <div class="top-sell-item">
                             <div class="item-image pull-left">
                                 <a href="single-product.html">
-                                    <img src="~/img/top-sell/faded-short-sleeves-tshirt.jpg" alt="top sell product">
+                                    <img src="img/top-sell/faded-short-sleeves-tshirt.jpg" loading="lazy" alt="top sell product">
                                 </a>
                             </div>
                             <div class="top-slee-details">
@@ -3739,7 +3735,7 @@
                         <div class="top-sell-item">
                             <div class="item-image pull-left">
                                 <a href="single-product.html">
-                                    <img src="~/img/top-sell/printed-chiffon-dress1.jpg" alt="top sell product">
+                                    <img src="img/top-sell/printed-chiffon-dress1.jpg" loading="lazy" alt="top sell product">
                                 </a>
                             </div>
                             <div class="top-slee-details">
@@ -3760,7 +3756,7 @@
                         <div class="top-sell-item">
                             <div class="item-image pull-left">
                                 <a href="single-product.html">
-                                    <img src="~/img/top-sell/printed-chiffon-dress2.jpg" alt="top sell product">
+                                    <img src="img/top-sell/printed-chiffon-dress2.jpg" loading="lazy" alt="top sell product">
                                 </a>
                             </div>
                             <div class="top-slee-details">
@@ -3781,7 +3777,7 @@
                         <div class="top-sell-item">
                             <div class="item-image pull-left">
                                 <a href="single-product.html">
-                                    <img src="~/img/top-sell/printed-summer-dress.jpg" alt="top sell product">
+                                    <img src="img/top-sell/printed-summer-dress.jpg" loading="lazy" alt="top sell product">
                                 </a>
                             </div>
                             <div class="top-slee-details">
@@ -3808,28 +3804,28 @@
 <!-- End top selar area -->
 <!-- Start static bolg area -->
 <div class="static-blog-area">
-    <div class="container">
+    <div class="container-fluid">
         <div class="image-static">
             <div class="row">
                 <div class="col-md-4">
                     <div class="static-blog-image">
-                        <a href="#"><img src="~/img/static-blog/banner_img3.jpg" alt=""></a>
+                        <a href="#"><img src="img/static-blog/banner_img3.jpg" loading="lazy" alt=""></a>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="static-blog-image">
-                        <a href="#"><img src="~/img/static-blog/banner_img4.jpg" alt=""></a>
+                        <a href="#"><img src="img/static-blog/banner_img4.jpg" loading="lazy" alt=""></a>
                     </div>
                     <div class="static-blog-image">
-                        <a href="#"><img src="~/img/static-blog/banner_img5.jpg" alt=""></a>
+                        <a href="#"><img src="img/static-blog/banner_img5.jpg" loading="lazy" alt=""></a>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="static-blog-image">
-                        <a href="#"><img src="~/img/static-blog/banner_img6.jpg" alt=""></a>
+                        <a href="#"><img src="img/static-blog/banner_img6.jpg" loading="lazy" alt=""></a>
                     </div>
                     <div class="static-blog-image">
-                        <a href="#"><img src="~/img/static-blog/banner_img7.jpg" alt=""></a>
+                        <a href="#"><img src="img/static-blog/banner_img7.jpg" loading="lazy" alt=""></a>
                     </div>
                 </div>
             </div>
@@ -3839,7 +3835,7 @@
 <!-- End static bolg area -->
 <!-- Start theme fetured area -->
 <div class="theme-fetured-area">
-    <div class="container">
+    <div class="container-fluid">
         <div class="theme-fetured-title">
             <h4>template features</h4>
         </div>
@@ -3880,32 +3876,32 @@
 <!-- End theme fetured area -->
 <!-- Start brand logo area -->
 <div class="brand-logo-area">
-    <div class="container">
+    <div class="container-fluid">
         <div class="brand-logo">
             <div class="producttabcarosel pos-logo-slide owl-carousel">
                 <div class="carosel-lo">
-                    <a href="#"><img src="~/img/brand-logo/1.jpg" alt=""></a>
+                    <a href="#"><img src="img/brand-logo/1.jpg" loading="lazy" alt=""></a>
                 </div>
                 <div class="carosel-lo">
-                    <a href="#"><img src="~/img/brand-logo/2.jpg" alt=""></a>
+                    <a href="#"><img src="img/brand-logo/2.jpg" loading="lazy" alt=""></a>
                 </div>
                 <div class="carosel-lo">
-                    <a href="#"><img src="~/img/brand-logo/3.jpg" alt=""></a>
+                    <a href="#"><img src="img/brand-logo/3.jpg" loading="lazy" alt=""></a>
                 </div>
                 <div class="carosel-lo">
-                    <a href="#"><img src="~/img/brand-logo/4.jpg" alt=""></a>
+                    <a href="#"><img src="img/brand-logo/4.jpg" loading="lazy" alt=""></a>
                 </div>
                 <div class="carosel-lo">
-                    <a href="#"><img src="~/img/brand-logo/5.jpg" alt=""></a>
+                    <a href="#"><img src="img/brand-logo/5.jpg" loading="lazy" alt=""></a>
                 </div>
                 <div class="carosel-lo">
-                    <a href="#"><img src="~/img/brand-logo/6.jpg" alt=""></a>
+                    <a href="#"><img src="img/brand-logo/6.jpg" loading="lazy" alt=""></a>
                 </div>
                 <div class="carosel-lo">
-                    <a href="#"><img src="~/img/brand-logo/7.jpg" alt=""></a>
+                    <a href="#"><img src="img/brand-logo/7.jpg" loading="lazy" alt=""></a>
                 </div>
                 <div class="carosel-lo">
-                    <a href="#"><img src="~/img/brand-logo/8.jpg" alt=""></a>
+                    <a href="#"><img src="img/brand-logo/8.jpg" loading="lazy" alt=""></a>
                 </div>
             </div>
         </div>
