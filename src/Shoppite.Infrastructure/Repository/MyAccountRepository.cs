@@ -80,13 +80,13 @@ namespace Shoppite.Infrastructure.Repository
             var ProfileFind = await _dbContext.UsersProfile.FirstOrDefaultAsync(x => x.UserName == findUser.Email && x.OrgId == orgid);
             return ProfileFind.ProfileId;
         }
-        public async Task AddAddressDetails(MyAccountDetails myaccount)
+        public async Task AddAddressDetails(UserAddress myaccount)
         {
             if (myaccount.Id == 0)
             {
                 var UserName = _httpContext.HttpContext.User.Identity.Name;
                 var UserId = _dbContext.Users.FirstOrDefault(u => u.Email == UserName && u.OrgId == myaccount.OrgId);
-                MyAccountDetails accountDetails = new MyAccountDetails();
+                UserAddress accountDetails = new UserAddress();
                 accountDetails.FirstName = myaccount.FirstName;
                 accountDetails.LastName = myaccount.LastName;
                 accountDetails.Landmark = myaccount.Landmark;
@@ -103,11 +103,11 @@ namespace Shoppite.Infrastructure.Repository
                 accountDetails.OrgId = myaccount.OrgId;
                 accountDetails.UserId = UserId.UserId;
 
-                _dbContext.MyAccountDetails.Add(accountDetails);
+                _dbContext.UserAddress.Add(accountDetails);
             }
             else
             {
-                MyAccountDetails details = await _dbContext.MyAccountDetails.FindAsync(myaccount.Id);
+                UserAddress details = await _dbContext.UserAddress.FindAsync(myaccount.Id);
                 details.FirstName = myaccount.FirstName;
                 details.LastName = myaccount.LastName;
                 details.Landmark = myaccount.Landmark;
@@ -131,23 +131,23 @@ namespace Shoppite.Infrastructure.Repository
             }
             await  _dbContext.SaveChangesAsync();
         }
-        public async Task<List<MyAccountDetails>> GetAddressDetail(int orgId)
+        public async Task<List<UserAddress>> GetAddressDetail(int orgId)
         {
             var UserName = _httpContext.HttpContext.User.Identity.Name;
-            var Id = _dbContext.Users.FirstOrDefault(u => u.Email == UserName&&u.OrgId==orgId);
-            var q = (from myaccount in _dbContext.MyAccountDetails
+            var Id = _dbContext.Users.FirstOrDefault(u => u.Email == UserName);
+            var q = (from myaccount in _dbContext.UserAddress
                      join userdetail in _dbContext.Users on myaccount.UserId equals userdetail.UserId                    
-                     where myaccount.OrgId == orgId && myaccount.UserId==Id.UserId
+                     where myaccount.UserId==Id.UserId
                      select myaccount).ToList();
             return q;
 
         }
 
-        public async Task<MyAccountDetails> GetAddressdetailBYId(int orgId, int Id)
+        public async Task<UserAddress> GetAddressdetailBYId(int orgId, int Id)
         {
             var UserName = _httpContext.HttpContext.User.Identity.Name;
             var GetUserId = _dbContext.Users.FirstOrDefault(u => u.Email == UserName && u.OrgId == orgId);
-            var q = (from myaccount in _dbContext.MyAccountDetails
+            var q = (from myaccount in _dbContext.UserAddress
                      join userdetail in _dbContext.Users on myaccount.UserId equals userdetail.UserId
                      where myaccount.OrgId == orgId && myaccount.UserId == GetUserId.UserId && myaccount.Id==Id
                      select myaccount).FirstOrDefault();
@@ -155,11 +155,11 @@ namespace Shoppite.Infrastructure.Repository
         }
         public async Task DeleteAddressDetail(int orgId, int Id)
         {
-            var deltecategory = await _dbContext.MyAccountDetails.FindAsync(Id);
+            var deltecategory = await _dbContext.UserAddress.FindAsync(Id);
 
             if (deltecategory != null)
             {
-                _dbContext.MyAccountDetails.Remove(deltecategory);
+                _dbContext.UserAddress.Remove(deltecategory);
                 await _dbContext.SaveChangesAsync();
             }
         }

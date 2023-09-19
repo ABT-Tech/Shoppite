@@ -18,7 +18,7 @@ namespace Shoppite.Application.Models
         public string Ip { get; set; }
         public int? OrgId { get; set; }
         public int? SpecificationId { get; set; }
-        public string SpecificationName { get; set; }
+       // public string SpecificationName { get; set; }
         public string AttributeName { get; set; }
     }
 }

@@ -92,7 +92,7 @@ namespace Shoppite.UI.Controllers
             brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
             brands.Categories = await _categoryPageService.GetCategories(OrgId);
             brands.MiddelBanner = await _categoryPageService.GetMiddelBannerImage(OrgId);
-            brands.ProductCount = await _categoryPageService.GetProductCount(OrgId);
+           // brands.ProductCount = await _categoryPageService.GetProductCount(OrgId);
            // brands.SP_GetSimilarProducts = await _categoryPageService.GetSimilarProducts(CategoryId, BrandId, OrgId);
             brands.Product_specification = await _categoryPageService.GetAllProductByCategory(CategoryId, OrgId);
             if (User.Identity.Name != null)

@@ -94,7 +94,7 @@ namespace Shoppite.Application.Mapper
             CreateMap<VendorContactDetails, (int,string,string)>().ReverseMap();
             CreateMap<SP_GetSimilarProducts, SP_GetSimilarProductsModel>().ReverseMap();
             CreateMap<SP_GetCategoryWiseProductCount, SP_GetCategoryWiseProductCount_Model>().ReverseMap();
-            CreateMap<MyAccountDetails, MyAccountDetailsModel>().ReverseMap();
+            CreateMap<UserAddress, MyAccountDetailsModel>().ReverseMap();
 
         }
     }

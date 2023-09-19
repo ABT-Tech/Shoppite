@@ -58,13 +58,13 @@
                                     </label>
                                 </div>
                                 <span id="cat_@item.CategoryId" class="totalavailability">
-                                    @foreach (var count in Model.ProductCount)
+                                   @* @foreach (var count in Model.ProductCount)
                                     {
                                         if (item.CategoryId == count.Category_Id)
                                         {
                                             @count.ProductCount
                                         }                                     
-                                    }
+                                    }*@
                                 </span>
                             </div>
                         }

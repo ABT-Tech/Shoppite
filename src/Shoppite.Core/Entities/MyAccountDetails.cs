@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Shoppite.Core.Entities
 {
-    public class MyAccountDetails
+    public class UserAddress
     {
         public int Id { get; set; }
         public string FirstName { get; set; }

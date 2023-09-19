@@ -76,11 +76,11 @@ namespace Shoppite.Infrastructure.Repository
         public async Task<List<F_getproducts_By_CatId>> GetAllProductByCategory(string CategoryId,int Orgid)
         {
      
-            string sql = "select * from f_getproducts_By_CatID_ProductList(@ID,@OrgId)";
+            string sql = "exec SP_getproducts_By_CatID_ProductList @ID";
             List<SqlParameter> parms = new List<SqlParameter>
             {
                 new SqlParameter { ParameterName = "@ID", Value = CategoryId },
-                new SqlParameter { ParameterName = "@OrgId", Value = Orgid }
+              //  new SqlParameter { ParameterName = "@OrgId", Value = Orgid }
 
 
             };

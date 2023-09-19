@@ -111,7 +111,7 @@ namespace Shoppite.Infrastructure.Data
         public virtual DbSet<SP_GetProductSpecifications> SP_GetProductSpecifications { get; set; }
         public virtual DbSet<WhatsAppMessages> WhatsAppMessages { get; set; }
         public virtual DbSet<SP_GetSimilarProducts> SP_GetSimilarProducts { get; set; }
-        public virtual DbSet<MyAccountDetails> MyAccountDetails { get; set; }
+        public virtual DbSet<UserAddress> UserAddress { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -578,7 +578,7 @@ namespace Shoppite.Infrastructure.Data
                     .HasMaxLength(50);
             });
 
-            modelBuilder.Entity<MyAccountDetails>(entity =>
+            modelBuilder.Entity<UserAddress>(entity =>
             {
                 entity.HasKey(e => e.Id);
 

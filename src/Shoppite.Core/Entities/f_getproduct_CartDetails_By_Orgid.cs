@@ -21,7 +21,7 @@ namespace Shoppite.Core.Entities
         public int? BasicQty { get; set; }
         public int? SpecificationId {get; set;}
         public int? ProductSpecificationId { get; set; }
-        public String SpecificationName { get; set; }
+     //   public String SpecificationName { get; set; }
         public String AttributeName { get; set; }
     }
 }
