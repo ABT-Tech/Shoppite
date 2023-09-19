@@ -156,9 +156,9 @@ namespace Shoppite.Application.Services
             var mapped = ObjectMapper.Mapper.Map<List<CategoryMasterModel>>(image);
             return mapped;
         }
-        public async Task<List<SP_GetSimilarProductsModel>> GetSimilarProducts(string CategoryId,int BrandId,int orgId)
+        public async Task<List<SP_GetSimilarProductsModel>> GetSimilarProducts(int CategoryId,int BrandId)
         {
-            var similarProducts = await _categoryRepository.GetSimilarProducts(CategoryId,BrandId,orgId);
+            var similarProducts = await _categoryRepository.GetSimilarProducts(CategoryId, BrandId);
             var mapped = ObjectMapper.Mapper.Map<List<SP_GetSimilarProductsModel>>(similarProducts);
             return mapped;
         }

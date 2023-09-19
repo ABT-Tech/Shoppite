@@ -89,9 +89,9 @@ namespace Shoppite.Web.Services
             var mapped = _mapper.Map<List<CategoryMasterModel>>(image);
             return mapped;
         }
-        public async Task<List<SP_GetSimilarProductsModel>> GetSimilarProducts(string CategoryID,int BrandId,int orgId)
+        public async Task<List<SP_GetSimilarProductsModel>> GetSimilarProducts(int CategoryID,int BrandId)
         {
-            var similarProducts = await _categoryService.GetSimilarProducts(CategoryID, BrandId,orgId);
+            var similarProducts = await _categoryService.GetSimilarProducts(CategoryID, BrandId);
             var mapped = _mapper.Map<List<SP_GetSimilarProductsModel>>(similarProducts);
             return mapped;
         }

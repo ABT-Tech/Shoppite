@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     int Categorycount = 0;
-    Categorycount= Model.Product_specification.Count;
+    Categorycount = Model.Product_specification.Count;
 }
 
 <!--gifbannerSection-start-->
@@ -47,7 +47,7 @@
                         <h6 class="m-2 mt-2 filterheading text-left">CATEGORIES</h6>
                     </div>
                     <div class="categoriesfilter-checkbox">
-                        @foreach (var item in Model.Categories.Where(x => x.ParentCategoryId != 0 & x.IsPublished==true))
+                        @foreach (var item in Model.Categories.Where(x => x.ParentCategoryId != 0 & x.IsPublished == true))
                         {
                             <div class="d-flex justify-content-between categoriescount">
                                 <div class="form-check">
@@ -59,12 +59,12 @@
                                 </div>
                                 <span id="cat_@item.CategoryId" class="totalavailability">
                                     @*@foreach (var count in Model.ProductCount)
-                                    {
-                                        if (item.CategoryId == count.Category_Id)
                                         {
-                                            @count.ProductCount
-                                        }                                     
-                                    }*@
+                                            if (item.CategoryId == count.Category_Id)
+                                            {
+                                                @count.ProductCount
+                                            }
+                                        }*@
                                 </span>
                             </div>
                         }
@@ -1042,7 +1042,7 @@
                         </div>
                     </section>
                     <!--gifbannerSection-end-->
-                    @await Html.PartialAsync("_ProductsByAttributes", Model)                                  
+                    @await Html.PartialAsync("_ProductsByAttributes", Model)
                     <!--gifbannerSection-start-->
                     <section class="section section-sm section-first bg-default text-center">
                         <div class="container-fluid">
@@ -1119,8 +1119,8 @@
                         </div>
                     </div>
 
-                   
-                   
+
+
                     <div class="col-6 col-lg-3 col-md-4">
                         <div class="wrapper">
                             <div class="card products-listcard"
@@ -1226,23 +1226,37 @@
         function getCategoryID() {
             const urlParams = new URLSearchParams(location.search);
             for (const [key, value] of urlParams) {
-                console.log(key);
-                console.log(value);
+              //  console.log(key);
+              //  console.log(value);
                 return key + '=' + value
             }
         }
+     
+        
+        $(document).on('click', '.Imagestochange', function () {
+            var imgID = $(this).attr('id');
+            //  var imgID = $(this).prop('id');
+            console.log(imgID);
+            console.log(typeof (imgID)) ;
+            var Imageid = "main-image_" + imgID;
+            var image_container = document.getElementById(Imageid);
+            let imgSrc = $(this).attr('src');
+            image_container.src = imgSrc;
+        });
 
         //TO Get similar Products
-        $('.similaprobutton').click(function () {
+        $(document).on('click', '.similaprobutton', function () {
+            //your code here
             var href = $(this).attr('href'); //get action value form URL
-                $.ajax({
-                    url: href,
-                    type: 'GET',
-                    success: function (data) {
-                        $('.prolistsimilarlayout').html(data);
-                    }
-                });
-            })
+            $.ajax({
+                url: href,
+                type: 'GET',
+                success: function (data) {
+                    $('.prolistsimilarlayout').html(data);
+                }
+            });
+        });
+            
 
     //Pie chart for Number of Products Category Wise
     $.ajax({
@@ -1253,7 +1267,7 @@
         dataType: "json",
         success: function (response) {
             successFunc(response);
-        },
+        }
     });
 
         function successFunc(jsondata) {
@@ -1270,8 +1284,6 @@
                     data[e.subcategoryDetails[i].categoryName] = e.subcategoryDetails[i].productsDetails.length;
                 }
             })
-            console.log(greaterArr);
-            console.log(numOfProducts);
         }
 
         //Remove All Filter
@@ -1280,7 +1292,7 @@
             if (ele.checked) {
             } else {
                 for (var i = 0; i < checkboxes.length; i++) {
-                    console.log(i)
+                //    console.log(i)
                     if (checkboxes[i].type == 'checkbox') {
                         checkboxes[i].checked = false; //unselecting checkboxes
                     }
@@ -1300,9 +1312,9 @@
         var data = getCategoryID();
         var seasoning = '', tempArray = [];
 
-        $('input[name="SpecificationName[]"]:checked').each(function () {
-            tempArray.push($(this).val());
-        })
+     $('input[name="SpecificationName[]"]:checked').each(function () {
+         tempArray.push($(this).val());
+     });
         if (tempArray.length !== 0) {
             seasoning += 'SpecificationName=' + tempArray.toString();
             tempArray = [];
@@ -1337,77 +1349,25 @@
             var data = getCategoryID();
             window.history.replaceState(null, null, "?" + data + '&sort=' + sortingvalue);
 
-           @* if (sortingvalue == "WhatsNew") {
-            var url='@Url.Action("_RecentlyAddredProducts", "Home")';
-                $(".producresults").load(url, { data });
-            }*@
         });
 
         $('input[type="checkbox"][name="CategoryName[]"]').on("change", function () {
-            if (this.checked) {
-                var selectedCategories = $('input[type="checkbox"][name="CategoryName[]"]:checked').map(function () {
-                    return $(this).val();
-                    console.log(typeof (selectedCategories));
-                }).get();
-                var data = getCategoryID();
 
-                var categories = data + ',' + selectedCategories;
-                window.history.replaceState(null, null, "?" +categories);
-                $.ajax({
-                    url: '@Url.Action("_ProductsByAttribute", "Home")' + '?' + data + ',' + selectedCategories,
-                    type: "GET",                  
-                    success: function (data) {
-                        $(".producresults").html(data);
-                    }
-                });
-            }
-            else {
-                var data = getCategoryID();
-                url = location.href;
-                const splitbyquestionmark = url.split("?");
-                console.log(splitbyquestionmark);
+                   var data = getCategoryID();
 
-                const params = new URLSearchParams('?' + splitbyquestionmark);
+              var catId = '', temp_Array = [];
 
-                console.log(params.get('SpecificationName'));
-                var specification = params.get('SpecificationName')
-                var name = 'SpecificationName=' + specification;
-                console.log(data);
-                if (name != '') {
-                    $.ajax({
-                        url: '@Url.Action("_ProductsByAttribute", "Home")' + '?' + data + '&' + name,
-                        type: "GET",
-                        success: function (data) {
-                            $(".producresults").html(data);
-                        }
-                    });
-                } else {
-                    $.ajax({
-                    url: '@Url.Action("_ProductsByAttribute", "Home")' + '?' + data,
-                    type: "GET",
-                    success: function (data) {
-                        $(".producresults").html(data);
-                    }
-                });
-                }
-            }
-
-        });
-    @* $(".category").click(function () {
-      var data = getCategoryID();
-        var seasoning = '', tempArray = [];
-
-        $('input[name="CategoryName[]"]:checked').each(function () {
-            tempArray.push($(this).val());
+            $('input[name="CategoryName[]"]:checked').each(function () {
+            temp_Array.push($(this).val());
         })
-        if (tempArray.length !== 0) {
-            seasoning += ',' + tempArray.toString();
-            tempArray = [];
+        if (temp_Array.length !== 0) {
+            catId += 'CatId=' + temp_Array.toString();
+            temp_Array = [];
         }
-        window.history.replaceState(null, null, "?" + data + '' + seasoning);
-        if (seasoning != '') {
+            window.history.replaceState(null, null, "?" + data + '&' + catId);
+            if (catId != '') {
             $.ajax({
-                url: '@Url.Action("_ProductsByAttribute", "Home")' + '?' + data +seasoning,
+                url: '@Url.Action("_ProductsByAttribute", "Home")' + '?' + data + '&' + catId,
                 type: "GET",
                 success: function (data) {
                     $(".producresults").html(data);
@@ -1424,6 +1384,35 @@
                     }
                 });
         }
-    });*@
+
+           @* else {
+                var data = getCategoryID();
+                url = location.href;
+                const splitbyquestionmark = url.split("?");
+                const params = new URLSearchParams('?' + splitbyquestionmark);
+
+                var specification = params.get('SpecificationName')
+                var name = 'SpecificationName=' + specification;
+                if (name != '') {
+                    $.ajax({
+                        url: '@Url.Action("_ProductsByAttribute", "Home")' + '?' + data + '&' + name,
+                        type: "GET",
+                        success: function (data) {
+                            $(".producresults").html(data);
+                        }
+                    });
+                } else {
+                    $.ajax({
+                        url: '@Url.Action("_ProductsByAttribute", "Home")' + '?' + data,
+                        type: "GET",
+                        success: function (data) {
+                            $(".producresults").html(data);
+                        }
+                    });
+                }
+
+            }*@
+
+        });
     </script>
 }

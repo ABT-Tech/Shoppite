@@ -23,7 +23,7 @@ namespace Shoppite.Core.Repositories
         Task<CategoryMaster> FindChaildCat(int? childCatId, string childCatname, int? catId);
         Task<List<AdsDetail>> GetCategoryBannerImage(int orgId);
         Task<List<AdsDetail>> GetLeftBanner(int orgId);
-        Task<List<SP_GetSimilarProducts>> GetSimilarProducts(string CategoryId, int BrandId, int OrgId);
+        Task<List<SP_GetSimilarProducts>> GetSimilarProducts(int CategoryId, int BrandId);
         Task<List<F_getproducts_By_CatId>> GetProductsByCategoryInProductList(int CategoryId,int Orgid);
         Task<List<SP_GetCategoryWiseProductCount>> GetProductCount(int OrgId);
 

@@ -104,17 +104,31 @@ namespace Shoppite.UI.Controllers
             return View(brands);
         }
         [HttpGet]
-        public async Task<IActionResult> _ProductsByAttribute(string CategoryId, string SpecificationName)
+        public async Task<IActionResult> _ProductsByAttribute(string CategoryId, string SpecificationName,string CatId)
         {
             //var catid=Convert.ToInt32(CategoryId);
             int OrgId = _commonHelper.GetOrgID(HttpContext);
             MainModel model = new MainModel();
-            if(SpecificationName!=null & SpecificationName!="null")
+            if(SpecificationName!=null)
             {
+                
+                    CategoryId +=","+CatId;
+                if (CatId == null)
+                {
+                    CategoryId = CategoryId.Replace(",", "");
+                    //CatId.Trim(CatId);
+                }
                 model.Product_specification = await _categoryPageService.GetAllProductByAttribute(CategoryId, SpecificationName);
             }
             else
             {
+                
+                    CategoryId +=","+ CatId;           
+                if(CatId==null)
+                {
+                    CategoryId = CategoryId.Replace(",", "");
+                    //CatId.Trim(CatId);
+                }
                 model.Product_specification = await _categoryPageService.GetAllProductByCategory(CategoryId);
             }
             return PartialView(model);
@@ -176,11 +190,12 @@ namespace Shoppite.UI.Controllers
             await _wishlistPageService.AddtowhishList(mainModel);
             return RedirectToAction("AllProducts", new { CategoryId = CategoryId });
         }
-        public async Task<IActionResult> _SimilarProduct(string CategoryId,int BrandId)
+        public async Task<IActionResult> _SimilarProduct(int CategoryId,int BrandId)
         {
+           //var catId= Convert.ToString(CategoryId);
             MainModel model = new MainModel();
             int OrgId = _commonHelper.GetOrgID(HttpContext);
-            model.SP_GetSimilarProducts = await _categoryPageService.GetSimilarProducts(CategoryId, BrandId, OrgId);
+            model.SP_GetSimilarProducts = await _categoryPageService.GetSimilarProducts(CategoryId, BrandId);
             return PartialView(model);
         }
 

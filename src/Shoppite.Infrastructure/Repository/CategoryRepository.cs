@@ -85,13 +85,13 @@ namespace Shoppite.Infrastructure.Repository
             List<SqlParameter> parms = new List<SqlParameter>
             { 
                 // Create parameters    
-                new SqlParameter { ParameterName = "@OrgId", Value = orgID }
+                new SqlParameter { ParameterName = "@OrgId", Value = 0 }
             };
             return await _dbContext.Set<SP_GetSpecificationData_AttributName>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
         }
         public async Task<List<f_getproducts_By_CatID_SpecificationName>> GetAllProductByAttribute(string CategoryId, string SpecificationName)
         {
-            string sql = "select * from f_getproducts_By_CatID_SpecificationName(@ID,@Name)";
+            string sql = "exec SP_getproducts_By_CatID_SpecificationName @ID,@Name";
             List<SqlParameter> parms = new List<SqlParameter>
             {
                 new SqlParameter { ParameterName = "@ID", Value = CategoryId },
@@ -147,13 +147,13 @@ namespace Shoppite.Infrastructure.Repository
                      select ad_detail).ToList().TakeLast(1);
             return q.ToList();
         }
-        public async Task<List<SP_GetSimilarProducts>> GetSimilarProducts(string CategoryId,int BrandId, int Orgid)
+        public async Task<List<SP_GetSimilarProducts>> GetSimilarProducts(int CategoryId,int BrandId)
         {
-            string sql = "exec SP_GetSimilarProducts_ProductList @OrgId,@CategoryId,@BrandId";
+            string sql = "exec SP_GetSimilarProducts_ProductList @CategoryId,@BrandId";
             List<SqlParameter> parms = new List<SqlParameter>
             { 
                 // Create parameters    
-                new SqlParameter { ParameterName = "@OrgId", Value = Orgid },
+              
                 new SqlParameter { ParameterName = "@CategoryId", Value = CategoryId },
                 new SqlParameter { ParameterName = "@BrandId", Value = BrandId }
             };

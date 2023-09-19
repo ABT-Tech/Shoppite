@@ -2927,24 +2927,25 @@ a.buy-btn{
   font-weight: 600;
   color: #76777E;
 }
-.colorfilter-color-aqua{
+.colorfilter-color-Aqua{
   width: 20px;
   height: 20px;
   background-color: aqua;
   border: 1px solid #76777E;
   border-radius: 50%;
 }
-.colorfilter-color-red{
-  width: 20px;
-  height: 20px;
-  background-color: red;
-  border: 1px solid #76777E;
-  border-radius: 50%;
-}
+
 .colorfilter-color-Purple {
     width: 20px;
     height: 20px;
     background-color: purple;
+    border: 1px solid #76777E;
+    border-radius: 50%;
+}
+.colorfilter-color-Pink {
+    width: 20px;
+    height: 20px;
+    background-color: #FF0080;
     border: 1px solid #76777E;
     border-radius: 50%;
 }
@@ -2955,13 +2956,7 @@ a.buy-btn{
     border: 1px solid #76777E;
     border-radius: 50%;
 }
-.colorfilter-color-black{
-  width: 20px;
-  height: 20px;
-  background-color: black;
-  border: 1px solid #76777E;
-  border-radius: 50%;
-}
+
 .colorfilter-color-Black {
     width: 20px;
     height: 20px;
@@ -2997,26 +2992,55 @@ a.buy-btn{
     border: 1px solid #76777E;
     border-radius: 50%;
 }
-.colorfilter-color-white{
+.colorfilter-color-White{
   width: 20px;
   height: 20px;
   background-color: white;
   border: 1px solid #76777E;
   border-radius: 50%;
 }
-.colorfilter-color-green{
-  width: 20px;
-  height: 20px;
-  background-color: green;
-  border: 1px solid #76777E;
-  border-radius: 50%;
+.colorfilter-color-Brown {
+    width: 20px;
+    height: 20px;
+    background-color: brown;
+    border: 1px solid #76777E;
+    border-radius: 50%;
 }
-.colorfilter-color-yellow{
-  width: 20px;
-  height: 20px;
-  background-color: yellow;
-  border: 1px solid #76777E;
-  border-radius: 50%;
+.colorfilter-color-LimeGreen {
+    width: 20px;
+    height: 20px;
+    background-color: limegreen;
+    border: 1px solid #76777E;
+    border-radius: 50%;
+}
+.colorfilter-color-Navy {
+    width: 20px;
+    height: 20px;
+    background-color: navy;
+    border: 1px solid #76777E;
+    border-radius: 50%;
+}
+.colorfilter-color-Green {
+    width: 20px;
+    height: 20px;
+    background-color: green;
+    border: 1px solid #76777E;
+    border-radius: 50%;
+}
+
+.colorfilter-color-Orange {
+    width: 20px;
+    height: 20px;
+    background-color: #FD7F20;
+    border: 1px solid #76777E;
+    border-radius: 50%;
+}
+.colorfilter-color-Yellow {
+    width: 20px;
+    height: 20px;
+    background-color: yellow;
+    border: 1px solid #76777E;
+    border-radius: 50%;
 }
 .colorfilter-color-Blue{
   width: 20px;

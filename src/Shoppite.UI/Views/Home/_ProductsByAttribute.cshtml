@@ -1,6 +1,6 @@
 ﻿@model Shoppite.Application.Models.MainModel
                     <!--productslist-single-products-Section-start-->
-@foreach (var product in Model.Product_specification.Take(8))
+@foreach (var product in Model.Product_specification.Take(200))
 {
     <div class="col-6 col-lg-3 col-md-4 ">
         <div class="wrapper">
@@ -80,7 +80,7 @@
                 <div class="thumbnail text-center">
                     @foreach (var images in product.ProductList.Split(','))
                     {
-                        <img onclick="change_image(this)" src="@images" width="30"
+                        <img  class="Imagestochange" id="@product.ProductId" src="@images" width="30"
                              height="30">
                     }
                 </div>
