@@ -79,5 +79,6 @@ namespace Shoppite.Application.Models
         public List<SP_GetSimilarProductsModel> SP_GetSimilarProducts { get; set; }
         public MyAccountDetailsModel myAccountDetails { get; set; }
         public List<MyAccountDetailsModel> addressDetail { get; set; }
+        public UserCoverImageModel CoverImageModel { get; set; }
     }
 }

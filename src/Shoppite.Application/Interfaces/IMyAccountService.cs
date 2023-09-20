@@ -8,7 +8,7 @@ namespace Shoppite.Application.Interfaces
 {
    public  interface IMyAccountService
     {
-        Task<f_Get_MyAccount_Data_Model> GetMyAccountDetail(int orgId,int profileid);
+        Task<f_Get_MyAccount_Data_Model> GetMyAccountDetail(int profileid);
         Task UpdateMyAccountDetail(MainModel myaccount);
         Task<MainModel> GetProfileByProfileId(int profileid);
         Task ChangePassword(MainModel model);
@@ -17,5 +17,6 @@ namespace Shoppite.Application.Interfaces
         Task<List<MyAccountDetailsModel>> GetAddressDetail(int orgId);
         Task<MyAccountDetailsModel> GetAddressdetailBYId(int orgId ,int Id);
         Task DeleteAddressDetail(int orgId, int Id);
+        Task UpdateCoverImage(UserCoverImageModel myaccount);
     }
 }

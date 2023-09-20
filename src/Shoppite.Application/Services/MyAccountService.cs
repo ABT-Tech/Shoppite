@@ -24,9 +24,9 @@ namespace Shoppite.Application.Services
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _accessor = accessor;
         }
-        public async Task<f_Get_MyAccount_Data_Model> GetMyAccountDetail(int orgId,int profileid)
+        public async Task<f_Get_MyAccount_Data_Model> GetMyAccountDetail(int profileid)
         {
-            var myAccount_Data = await _myAccountRepository.GetMyAccountDetail(orgId,profileid);
+            var myAccount_Data = await _myAccountRepository.GetMyAccountDetail(profileid);
             var mapped = ObjectMapper.Mapper.Map<f_Get_MyAccount_Data_Model>(myAccount_Data);
             return mapped;
         }
@@ -74,6 +74,12 @@ namespace Shoppite.Application.Services
         public async Task DeleteAddressDetail(int orgId, int Id)
         {
             await _myAccountRepository.DeleteAddressDetail(orgId, Id);
+        }
+        public async Task UpdateCoverImage(UserCoverImageModel coverImage)
+        {
+            var mapped = ObjectMapper.Mapper.Map<UsersProfile>(coverImage);
+            await _myAccountRepository.UpdateCoverImage(mapped);
+           // await _myAccountRepository.UpdateCoverImage(coverImage);
         }
     }
 }

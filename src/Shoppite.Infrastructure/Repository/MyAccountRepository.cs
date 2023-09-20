@@ -23,15 +23,17 @@ namespace Shoppite.Infrastructure.Repository
             _httpContext = httpContext;
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
-        public async Task<f_Get_MyAccount_Data> GetMyAccountDetail(int orgId,int profileid)
+        public async Task<f_Get_MyAccount_Data> GetMyAccountDetail(int profileid)
         {
-            string sql = "select * from f_Get_MyAccount_Data(@orgid,@profileid)";
+            string sql = "exec  SP_Get_MyAccount_Data @profileid";
             List<SqlParameter> parms = new List<SqlParameter>
             {
-                new SqlParameter { ParameterName = "@orgid", Value = orgId },
+                //new SqlParameter { ParameterName = "@orgid", Value = orgId },
                  new SqlParameter { ParameterName = "@profileid", Value = profileid }
             };
-            return await _dbContext.Set<f_Get_MyAccount_Data>().FromSqlRaw(sql, parms.ToArray()).FirstOrDefaultAsync();
+            List<f_Get_MyAccount_Data> myResult = await _dbContext.Set<f_Get_MyAccount_Data>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
+            return myResult.FirstOrDefault();
+           // return await _dbContext.Set<f_Get_MyAccount_Data>().FromSqlRaw(sql, parms.ToArray()).FirstOrDefaultAsync();
         }
         public async Task UpdateMyAccountDetail(UsersProfile myaccount)
         {
@@ -162,6 +164,20 @@ namespace Shoppite.Infrastructure.Repository
                 _dbContext.UserAddress.Remove(deltecategory);
                 await _dbContext.SaveChangesAsync();
             }
+        }
+        public async Task UpdateCoverImage(UsersProfile myaccount)
+        {
+            var UserEmail = _httpContext.HttpContext.User.Identity.Name;
+            UsersProfile details = await _dbContext.UsersProfile.FirstOrDefaultAsync(x => x.UserName == UserEmail && x.OrgId == myaccount.OrgId);
+            details.CoverImage = myaccount.CoverImage;
+
+            if (myaccount != null)
+            {
+                _dbContext.Entry(details).State = EntityState.Detached;
+            }
+            _dbContext.Entry(details).State = EntityState.Modified;
+
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

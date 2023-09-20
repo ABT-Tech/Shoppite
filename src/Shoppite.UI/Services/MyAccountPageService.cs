@@ -17,9 +17,9 @@ namespace Shoppite.UI.Services
             _myAccountService = myAccountService ?? throw new ArgumentNullException(nameof(myAccountService));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
-        public async Task<f_Get_MyAccount_Data_Model> GetMyAccountDetail(int orgId,int profileid)
+        public async Task<f_Get_MyAccount_Data_Model> GetMyAccountDetail(int profileid)
         {
-            var myaccount = await _myAccountService.GetMyAccountDetail(orgId, profileid);
+            var myaccount = await _myAccountService.GetMyAccountDetail(profileid);
             return myaccount;
         }
         public async Task UpdateMyAccountDetail(MainModel myaccount)
@@ -57,5 +57,9 @@ namespace Shoppite.UI.Services
         {
             await _myAccountService.DeleteAddressDetail(orgId, Id);
         }
+        public async Task UpdateCoverImage(UserCoverImageModel coverImage)
+        {
+            await _myAccountService.UpdateCoverImage(coverImage);
+        }     
     }
 }

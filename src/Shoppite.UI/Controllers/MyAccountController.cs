@@ -1,19 +1,21 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿
+using ImageProcessor;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Shoppite.Application.Models;
-using Shoppite.UI.Extensions;
 using Shoppite.UI.Helpers;
 using Shoppite.UI.Interfaces;
 using Shoppite.Web.Interfaces;
+using ShoppiteVendor.UI.Helpers;
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Shoppite.UI.Controllers
-{  
+{
     public class MyAccountController : Controller
     {
         private EncryptionHelper eh = new EncryptionHelper();
@@ -23,7 +25,9 @@ namespace Shoppite.UI.Controllers
         private readonly IMyAccountPageService _myAccountPageService;
         private readonly ILogger<MyAccountController> _logger;
         private readonly ICommonHelper _commonHelper;
-        public MyAccountController(IConfiguration config,IBrandPageServices brandPageServices, IMyAccountPageService myAccountPageServices, ICategoryPageService categoryPageService, ILogger<MyAccountController> logger, IWishlistPageService productPageService, IHttpContextAccessor accessor, ICommonHelper commonHelper)
+        private readonly IHostingEnvironment _hostingEnvironment;
+
+        public MyAccountController(IHostingEnvironment hostingEnvironment, IConfiguration config, IBrandPageServices brandPageServices, IMyAccountPageService myAccountPageServices, ICategoryPageService categoryPageService, ILogger<MyAccountController> logger, IWishlistPageService productPageService, IHttpContextAccessor accessor, ICommonHelper commonHelper)
         {
             _myAccountPageService = myAccountPageServices ?? throw new ArgumentNullException(nameof(myAccountPageServices));
             _categoryPageService = categoryPageService ?? throw new ArgumentNullException(nameof(categoryPageService));
@@ -31,23 +35,24 @@ namespace Shoppite.UI.Controllers
             _logger = logger ?? throw new ArgumentNullException();
             _commonHelper = commonHelper;
             _config = config;
+            _hostingEnvironment = hostingEnvironment;
         }
         [HttpGet]
-        public async Task<IActionResult> myAccount(int profileId,int CategoryId,int Id)
+        public async Task<IActionResult> myAccount(int profileId, int CategoryId, int Id)
         {
             int OrgId = _commonHelper.GetOrgID(HttpContext);
-            int Profileid = await _myAccountPageService.GetProfileId(User.Identity.Name,OrgId);
+            int Profileid = await _myAccountPageService.GetProfileId(User.Identity.Name, OrgId);
             var brands = await _brandPageService.GetBrands(OrgId);
             brands.Categories = await _categoryPageService.GetCategories();
             brands.CategoryMaster = await _categoryPageService.DisplayLogo(OrgId);
             brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
-            brands.Myaccount = await _myAccountPageService.GetMyAccountDetail(OrgId, Profileid);
+            brands.Myaccount = await _myAccountPageService.GetMyAccountDetail(Profileid);
             brands.addressDetail = await _myAccountPageService.GetAddressDetail(OrgId);
             brands.myAccountDetails = await _myAccountPageService.GetAddressdetailBYId(OrgId, Id);
             return View(brands);
         }
         [HttpPost]
-        public async Task<IActionResult> myAccount(MainModel model,MyAccountDetailsModel details)
+        public async Task<IActionResult> myAccount(MainModel model, MyAccountDetailsModel details,UserCoverImageModel coverImageModel)
         {
             int OrgId = _commonHelper.GetOrgID(HttpContext);
             if (ModelState.IsValid)
@@ -56,19 +61,29 @@ namespace Shoppite.UI.Controllers
                 {
                     model.myAccountDetails.OrgId = OrgId;
                     await _myAccountPageService.AddAddressDetails(model.myAccountDetails);
-                }              
+                }
 
+                if (details != null)
+                {
+                    await _myAccountPageService.AddAddressDetails(details);
+                }
             }
+            if (model.CoverImageModel.ProfileImage != null)
+            {
+                model.CoverImageModel.CoverImage = await UploadBrandImage(model.CoverImageModel);
+                await _myAccountPageService.UpdateCoverImage(model.CoverImageModel);
+            }
+            
             int Profileid = await _myAccountPageService.GetProfileId(User.Identity.Name, OrgId);
-            model.Myaccount = await _myAccountPageService.GetMyAccountDetail(OrgId, Profileid);
-            model.addressDetail=  await _myAccountPageService.GetAddressDetail(OrgId);
+            model.Myaccount = await _myAccountPageService.GetMyAccountDetail(Profileid);
+            model.addressDetail = await _myAccountPageService.GetAddressDetail(OrgId);
             return View(model);
         }
         [HttpGet]
         public async Task<IActionResult> Address_delete(int Id)
         {
             int OrgId = _commonHelper.GetOrgID(HttpContext);
-            await _myAccountPageService.DeleteAddressDetail(OrgId,Id);
+            await _myAccountPageService.DeleteAddressDetail(OrgId, Id);
             return RedirectToAction("myAccount");
         }
 
@@ -76,71 +91,119 @@ namespace Shoppite.UI.Controllers
         public async Task<IActionResult> EditProfile(int CategoryId)
         {
             int OrgId = _commonHelper.GetOrgID(HttpContext);
-            int Profileid = await _myAccountPageService.GetProfileId(User.Identity.Name,OrgId);
-            var brands=await _myAccountPageService.GetProfileByProfileId(Profileid);
+            int Profileid = await _myAccountPageService.GetProfileId(User.Identity.Name, OrgId);
+            var brands = await _myAccountPageService.GetProfileByProfileId(Profileid);
             brands.CategoryMaster = await _categoryPageService.DisplayLogo(OrgId);
             brands.Categories = await _categoryPageService.GetCategories();
             brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
-            brands.Myaccount = await _myAccountPageService.GetMyAccountDetail(OrgId, Profileid);
+            brands.Myaccount = await _myAccountPageService.GetMyAccountDetail(Profileid);
             return View(brands);
         }
         [HttpPost]
-        public async Task<IActionResult> EditProfile(MainModel account)
+        public async Task<IActionResult> EditProfile(MainModel account, UserCoverImageModel coverImageModel)
         {
-            //int OrgId = commonHelper.GetOrgID(HttpContext);
-            //account.OrgId = OrgId;
-            // account.ProfileId = await _myAccountPageService.GetProfileId(User.Identity.Name);
+            int OrgId = _commonHelper.GetOrgID(HttpContext);
+            account.OrgId = OrgId;
+             account.CoverImageModel.ProfileId = await _myAccountPageService.GetProfileId(User.Identity.Name,OrgId);
 
 
-                if (account.ProfileImage != null)
-                {
-                    account.CoverImage = await UploadProfileImage(account);
-                }
-                await _myAccountPageService.UpdateMyAccountDetail(account);
-            
-                return View(account);
+           
+
+            //  await _myAccountPageService.UpdateMyAccountDetail(account);
+
+            return View(account);
         }
         [HttpGet]
         public async Task<IActionResult> ChangePassword(int CategoryId, int ProfileId)
         {
             int OrgId = _commonHelper.GetOrgID(HttpContext);
-            int Profileid = await _myAccountPageService.GetProfileId(User.Identity.Name,OrgId);
+            int Profileid = await _myAccountPageService.GetProfileId(User.Identity.Name, OrgId);
             var brands = await _myAccountPageService.GetProfileByProfileId(Profileid);
             brands.CategoryMaster = await _categoryPageService.DisplayLogo(OrgId);
             brands.Categories = await _categoryPageService.GetCategories();
             brands.ProductsDetails = await _categoryPageService.GetProductList(OrgId);
-            brands.Myaccount = await _myAccountPageService.GetMyAccountDetail(OrgId, Profileid);
+            brands.Myaccount = await _myAccountPageService.GetMyAccountDetail(Profileid);
             return View(brands);
         }
         [HttpPost]
         public async Task<IActionResult> ChangePassword(MainModel model)
         {
-             // string Password = model.Password;             \\
+            // string Password = model.Password;             \\
             // string encryptedpassword = eh.Encrypt(Password);\\
-           //  model.Password = encryptedpassword;              \\
-          // model.UserId = 2116;                                \\
+            //  model.Password = encryptedpassword;              \\
+            // model.UserId = 2116;                                \\
             await _myAccountPageService.ChangePassword(model);
             return View(model);
         }
-        private async Task<string> UploadProfileImage(MainModel account)
+        /* private async Task<string> UploadProfileImage(MainModel account)
+         {
+             int OrgId = _commonHelper.GetOrgID(HttpContext);
+             string filepath = null;
+             try
+             {
+                 AWS_Helper aws = new AWS_Helper(_config);
+                 if (account.ProfileImage != null)
+                 {
+                     filepath = _config.GetSection("AWSAppSettings")["awsfolderkey"] + OrgId + _config.GetSection("AWSAppSettings")["awscoverimages_Profile"];
+                     await aws.uploadfile(account.ProfileImage, filepath);
+                 }
+                 return _config.GetSection("AWSAppSettings")["AwsMain_Link"] + filepath + account.ProfileImage.FileName;
+             }
+             catch (Exception e)
+             {
+                 throw e;
+             }
+         }*/
+        private async Task<string> UploadBrandImage(UserCoverImageModel account)
         {
-            int OrgId = _commonHelper.GetOrgID(HttpContext);
-            string filepath = null;
+            account.OrgId = _commonHelper.GetOrgID(HttpContext);
+            string brandIcon = null;
             try
             {
-                AWS_Helper aws = new AWS_Helper(_config);
+                string Brands = string.Empty;
+                AWS_Helper aws = new AWS_Helper(_config, _hostingEnvironment);
+                //brands.ProfileImage = ChangeIformBrand(brands);
+                Brands = _config.GetSection("AWSAppSettings")["awsfolderkey"] + account.OrgId + _config.GetSection("AWSAppSettings")["awscoverimages_Profile"];
                 if (account.ProfileImage != null)
                 {
-                    filepath = _config.GetSection("AWSAppSettings")["awsfolderkey"] + OrgId + _config.GetSection("AWSAppSettings")["awscoverimages_Profile"];
-                    await aws.uploadfile(account.ProfileImage, filepath);
+                    brandIcon = Brands + "File_" + Path.GetFileNameWithoutExtension(account.ProfileImage.FileName) + '_' + DateTime.Now.ToString("yyyyMMddHHmm") + Path.GetExtension(account.ProfileImage.FileName);
+                    return await aws.uploadfile(account.ProfileImage, Brands);
                 }
-                return _config.GetSection("AWSAppSettings")["AwsMain_Link"] + filepath + account.ProfileImage.FileName;
+                return _config.GetSection("AWSAppSettings")["AwsMain_Link"] + brandIcon;
             }
             catch (Exception e)
             {
                 throw e;
             }
         }
+        /* public IFormFile ChangeIformIcon(MainModel model)
+         {
+             string imagesPath = Path.Combine(_hostingEnvironment.WebRootPath, "Images");
+             string webPFileName = Path.GetFileNameWithoutExtension(model.ProfileImage.FileName) + ".webp";
+             string WebpImagePath = Path.Combine(imagesPath, webPFileName);
 
+             if (!Directory.Exists(imagesPath))
+             {
+                 Directory.CreateDirectory(imagesPath);
+             }
+             var ms = new MemoryStream();
+
+             using (var webpImageStream = new FileStream(WebpImagePath, FileMode.Create))
+             {
+                 using (ImageFactory imageFactory = new ImageFactory(preserveExifData: true))
+                 {
+                     imageFactory.Load(model.ProfileImage.OpenReadStream())
+                        .Format(new WebPFormat())
+                        .Quality(100)
+                        .Brightness(5)
+                        .GaussianSharpen(5)
+                        .Saturation(5)
+                        .Save(webpImageStream);
+                 }
+                 webpImageStream.CopyTo(ms);
+             }
+             System.IO.File.Delete(WebpImagePath);
+             return new FormFile(ms, 0, ms.Length, "name", webPFileName);
+         }*/
     }
 }
