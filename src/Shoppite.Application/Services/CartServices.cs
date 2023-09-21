@@ -26,15 +26,15 @@ namespace Shoppite.Application.Services
             _accessor = accessor;
         }
 
-        public async Task<CartModel> Orderbasic(int orgid)
+        public async Task<CartModel> Orderbasic(string UserName)
         {
             if (_accessor.HttpContext.User.Identity.IsAuthenticated)
             {
                 string userName = _accessor.HttpContext.User.Identity.Name.ToString();
 
                 CartModel orderbasic = new CartModel();
-                var Orderbasic = await _CartRepository.OrderBasic(orgid);
-                orderbasic.F_Getproduct_CartDetails_By_Orgids = ObjectMapper.Mapper.Map<List<f_getproduct_CartDetails_By_OrgidModel>>(Orderbasic).Where(x => x.UserName == userName).ToList();
+                var Orderbasic = await _CartRepository.OrderBasic(UserName);
+                orderbasic.F_Getproduct_CartDetails_By_Orgids = ObjectMapper.Mapper.Map<List<SP_GetCartDetailsByUserModel>>(Orderbasic).Where(x => x.UserName == userName).ToList();
                 //var filter = orderbasic.F_Getproduct_CartDetails_By_Orgids.Where(x => x.UserName == userName).ToList();
                 return orderbasic;
 

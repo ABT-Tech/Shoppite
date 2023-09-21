@@ -19,16 +19,16 @@ namespace Shoppite.Infrastructure.Repository
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
-        public async Task<List<f_getproduct_CartDetails_By_Orgid>> OrderBasic(int orgid)
+        public async Task<List<SP_GetCartDetailsByUser>> OrderBasic(string UserName)
         {
-            string sql = "select * from f_getproduct_CartDetails_By_Orgid(@Orgid)";
+            string sql = "Exec SP_GetCartDetailsByUser";
 
             List<SqlParameter> parms = new List<SqlParameter>
             { 
                 // Create parameters    
-                new SqlParameter { ParameterName = "@Orgid", Value = orgid }
+                //new SqlParameter { ParameterName = "@Orgid", Value = orgid }
             };
-            return await _dbContext.Set<f_getproduct_CartDetails_By_Orgid>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
+            return await _dbContext.Set<SP_GetCartDetailsByUser>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
         }
         public async Task<OrderBasic> DeleteAsync(int id)
         {

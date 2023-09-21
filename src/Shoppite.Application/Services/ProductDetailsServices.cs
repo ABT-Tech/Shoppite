@@ -457,6 +457,7 @@
                         OrderVariation orderVariation = new OrderVariation()
                         {
                             OrderGuid = CartCheck.OrderGuid,
+                            OrderId=(int)CartCheck.OrderId,
                             ProductSpecificationId = get_Product_SpecId.ProductSpecificationId,
                             OrgId = productDetailModel.ProductBasicModel.OrgId
                         };
@@ -508,6 +509,7 @@
                             OrderVariation orderVariation = new OrderVariation()
                             {
                                 OrderGuid = orderBasic.OrderGuid,
+                                OrderId=orderBasic.OrderId,
                                 ProductSpecificationId = get_Product_SpecId.ProductSpecificationId,
                                 OrgId = orderBasic.OrgId
                             };

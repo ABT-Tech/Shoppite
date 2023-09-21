@@ -34,17 +34,18 @@
         /// Defines the _commonHelper.
         /// </summary>
         private readonly IConfiguration _configuration;
-
+        private IHttpContextAccessor _accessor;
         /// <summary>
         /// Initializes a new instance of the <see cref="CartController"/> class.
         /// </summary>
         /// <param name="cartPageServices">The cartPageServices<see cref="ICartPageServices"/>.</param>
         /// <param name="commonHelper">The commonHelper<see cref="ICommonHelper"/>.</param>
-        public CartController(ICartPageServices cartPageServices, ICommonHelper commonHelper, IConfiguration configuration)
+        public CartController(ICartPageServices cartPageServices, ICommonHelper commonHelper, IConfiguration configuration, IHttpContextAccessor accessor)
         {
             _cartPageService = cartPageServices ?? throw new ArgumentNullException(nameof(cartPageServices));
             _commonHelper = commonHelper;
             _configuration = configuration;
+            _accessor = accessor;
         }
 
         /// <summary>
@@ -54,8 +55,9 @@
         [Shoppite.UI.Extensions.Authorize]
         public async Task<IActionResult> Cart()
         {
+            string userName = _accessor.HttpContext.User.Identity.Name.ToString();
             int orgid = _commonHelper.GetOrgID(HttpContext);
-            var cartlist = await _cartPageService.OrderBasic(orgid);
+            var cartlist = await _cartPageService.OrderBasic(userName);
             foreach (var swap in cartlist.F_Getproduct_CartDetails_By_Orgids)
             {
                 if (swap.Qty > swap.BasicQty)

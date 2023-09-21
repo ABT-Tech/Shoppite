@@ -9,7 +9,7 @@ namespace Shoppite.Core.Repositories
 {
    public interface ICartRepository
     {
-        Task<List<f_getproduct_CartDetails_By_Orgid>> OrderBasic(int orgid);
+        Task<List<SP_GetCartDetailsByUser>> OrderBasic(string UserName);
         Task<OrderBasic> DeleteAsync(int id);
         Task SaveAddress(OrderShipping orderShipping);
         Task<OrderBasic> CheckOrder(OrderBasic orderBasic);

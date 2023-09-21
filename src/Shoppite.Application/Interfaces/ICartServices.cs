@@ -9,7 +9,7 @@ namespace Shoppite.Application.Interfaces
 {
     public interface ICartServices
     {
-        Task<CartModel> Orderbasic(int orgid);
+        Task<CartModel> Orderbasic(string UserName);
         Task<CartModel> Delete(int id);
         Task SaveAddress(CartModel cartModel);
         Task UpdateOrder(Guid guid);

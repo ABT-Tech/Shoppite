@@ -20,9 +20,9 @@ namespace Shoppite.UI.Services
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public async Task<CartModel> OrderBasic(int orgid)
+        public async Task<CartModel> OrderBasic(string UserName)
         {
-            return await _CartService.Orderbasic(orgid);
+            return await _CartService.Orderbasic(UserName);
         }
         public async Task<CartModel> DeleteAysnc(int id)
         {

@@ -112,7 +112,7 @@ namespace Shoppite.Infrastructure.Data
         public virtual DbSet<WhatsAppMessages> WhatsAppMessages { get; set; }
         public virtual DbSet<SP_GetSimilarProducts> SP_GetSimilarProducts { get; set; }
         public virtual DbSet<UserAddress> UserAddress { get; set; }
-
+        public virtual DbSet<SP_GetCartDetailsByUser> CartDetailsByUsers { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -1483,6 +1483,10 @@ namespace Shoppite.Infrastructure.Data
                 entity.HasNoKey();
             });
             modelBuilder.Entity<SP_GetCategoryWiseProductCount>(entity =>
+            {
+                entity.HasNoKey();
+            });
+            modelBuilder.Entity<SP_GetCartDetailsByUser>(entity =>
             {
                 entity.HasNoKey();
             });

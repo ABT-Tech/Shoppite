@@ -8,7 +8,7 @@ namespace Shoppite.UI.Interfaces
 {
    public interface ICartPageServices
     {
-        Task<CartModel>OrderBasic(int orgid);
+        Task<CartModel>OrderBasic(string UserName);
         Task<CartModel> DeleteAysnc(int id);
         Task SaveAddress(CartModel cartModel);
         //Task UpdateOrder(CheckOutModel checkOut);
