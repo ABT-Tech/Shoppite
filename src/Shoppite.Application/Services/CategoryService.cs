@@ -178,5 +178,17 @@ namespace Shoppite.Application.Services
             var mapped = ObjectMapper.Mapper.Map<List<SP_GetCategoryWiseProductCount_Model>>(Count);
             return mapped;
         }
+        public async Task<List<CategoryMasterModel>> GetCategoriesByParent(int? CategoryId)
+        {
+            var categories = await _categoryRepository.GetCategoriesByParent( CategoryId);
+            var mapped = ObjectMapper.Mapper.Map<List<CategoryMasterModel>>(categories);
+            return mapped;
+        }
+        public async Task<CategoryMasterModel> GetparentName(int? CategoryId)
+        {
+            var categories = await _categoryRepository.GetparentName(CategoryId);
+            var mapped = ObjectMapper.Mapper.Map<CategoryMasterModel>(categories);
+            return mapped;
+        }
     }
 }

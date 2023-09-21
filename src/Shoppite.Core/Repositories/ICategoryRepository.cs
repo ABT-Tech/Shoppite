@@ -26,6 +26,7 @@ namespace Shoppite.Core.Repositories
         Task<List<SP_GetSimilarProducts>> GetSimilarProducts(int CategoryId, int BrandId);
         Task<List<F_getproducts_By_CatId>> GetProductsByCategoryInProductList(int CategoryId,int Orgid);
         Task<List<SP_GetCategoryWiseProductCount>> GetProductCount(int OrgId);
-
+        Task<List<CategoryMaster>> GetCategoriesByParent(int? CategoryId);
+        Task<CategoryMaster> GetparentName(int? CategoryId);
     }
 }

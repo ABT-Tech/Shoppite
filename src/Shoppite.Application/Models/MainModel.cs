@@ -80,5 +80,7 @@ namespace Shoppite.Application.Models
         public MyAccountDetailsModel myAccountDetails { get; set; }
         public List<MyAccountDetailsModel> addressDetail { get; set; }
         public UserCoverImageModel CoverImageModel { get; set; }
+        public CategoryMasterModel ParentDetails { get; set; }
+        public List<CategoryMasterModel> GetcategoriesByParent { get; set; }
     }
 }

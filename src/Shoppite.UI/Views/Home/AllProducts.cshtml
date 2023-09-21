@@ -25,9 +25,11 @@
         <!--productslist-heading-Section-start-->
         <div class="col-12 headingframalignment ">
             <div class="headingfram mt-4 mb-4">
-                <h1 class="sectionmainheading">Men's T Shirts</h1>
-                <p class="sectionsubheading">2835 Items</p>
-            </div>
+                
+                    <h1 class="sectionmainheading">@Model.ParentDetails.CategoryName</h1>
+
+                    <p class="sectionsubheading">2835 Items</p>
+                </div>
         </div>
         <!--productslist-heading-Section-end-->
 
@@ -47,8 +49,9 @@
                         <h6 class="m-2 mt-2 filterheading text-left">CATEGORIES</h6>
                     </div>
                     <div class="categoriesfilter-checkbox">
-                        @foreach (var item in Model.Categories.Where(x => x.ParentCategoryId != 0 & x.IsPublished == true))
+                        @foreach (var item in Model.GetcategoriesByParent.Where(x => x.IsPublished == true))
                         {
+                           // var parent = Model.Categories.Where(x => x.ParentCategoryId== item.ParentCategoryId).First();
                             <div class="d-flex justify-content-between categoriescount">
                                 <div class="form-check">
                                     <input class="form-check-input border-black border-1 rounded category" type="checkbox" name="CategoryName[]"
@@ -991,7 +994,7 @@
                 <!--productslist-filter-mobileviews-Section-end-->
                 <!--productslist-filter-sortby-Section-start-->
                 <div class="col-12 sortbylargescreenprolist headingdiv uperfilter">
-                    <h6 class="mt-3 filterheading">Men T-shirts</h6>
+                    <h6 class="mt-3 filterheading">@Model.ParentDetails.CategoryName</h6>
                     <div class="sortdropdown">
                         <label for="sortvalue">Sort By:</label>
                         <select class="sortvalue" name="sortvalue" id="sortvalue">

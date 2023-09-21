@@ -68,7 +68,7 @@ namespace Shoppite.UI.Controllers
                     await _myAccountPageService.AddAddressDetails(details);
                 }
             }
-            if (model.CoverImageModel.ProfileImage != null)
+            if (model.CoverImageModel != null)
             {
                 model.CoverImageModel.CoverImage = await UploadBrandImage(model.CoverImageModel);
                 await _myAccountPageService.UpdateCoverImage(model.CoverImageModel);

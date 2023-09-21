@@ -99,7 +99,9 @@ namespace Shoppite.UI.Controllers
             {
               brands.Wishlists = await _wishlistPageService.GetWishList(User.Identity.Name, OrgId);
             }
-
+            var cateId = Convert.ToInt32(CategoryId);
+            brands.GetcategoriesByParent = await _categoryPageService.GetCategoriesByParent(cateId);
+            brands.ParentDetails = await _categoryPageService.GetparentName(cateId);
             brands.Attributes = await _categoryPageService.GetAllAttributes(OrgId);
             brands.AllCategories = await _categoryPageService.GetAllCategories(OrgId);
             return View(brands);

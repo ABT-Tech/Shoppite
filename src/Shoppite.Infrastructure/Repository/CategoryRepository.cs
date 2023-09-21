@@ -178,5 +178,15 @@ namespace Shoppite.Infrastructure.Repository
             };
             return await _dbContext.Set<SP_GetCategoryWiseProductCount>().FromSqlRaw(sql, parms.ToArray()).ToListAsync();
         }
+        public async Task<List<CategoryMaster>> GetCategoriesByParent(int? CategoryId)
+        {
+            var parentcategory =await _dbContext.CategoryMaster.FirstOrDefaultAsync(x => x.CategoryId == CategoryId);
+            return await _dbContext.CategoryMaster.Where(x =>x.ParentCategoryId==parentcategory.ParentCategoryId).ToListAsync();
+        }
+        public async Task<CategoryMaster> GetparentName(int? CategoryId)
+        {
+            var parentcategory = await _dbContext.CategoryMaster.FirstOrDefaultAsync(x => x.CategoryId == CategoryId);
+            return await _dbContext.CategoryMaster.Where(x => x.CategoryId == parentcategory.ParentCategoryId).FirstOrDefaultAsync();
+        }
     }   
 }

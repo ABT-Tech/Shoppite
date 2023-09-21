@@ -31,12 +31,12 @@ namespace Shoppite.Infrastructure.Repository
         }
         public async Task AddWishList(CustomerWishlist wishlist, int ProductId, int? SpecificationId)
         {
-            CustomerWishlist cuswishlist = _dbContext.CustomerWishlist.FirstOrDefault(u => u.WishlistId == ProductId && u.UserName == wishlist.UserName && u.OrgId == wishlist.OrgId);
+            CustomerWishlist cuswishlist =await _dbContext.CustomerWishlist.FirstOrDefaultAsync(u => u.ProductId == ProductId && u.UserName == wishlist.UserName && u.OrgId == wishlist.OrgId);
 
             if (cuswishlist != null)
             {
                 _dbContext.CustomerWishlist.Remove(cuswishlist);
-                _dbContext.SaveChanges();
+                await  _dbContext.SaveChangesAsync();
             }           
         }
         public async Task<List<f_order_masterDetails>> GetMyOrders(string username,int Orgid)

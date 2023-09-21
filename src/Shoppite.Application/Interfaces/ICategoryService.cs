@@ -21,5 +21,7 @@ namespace Shoppite.Application.Interfaces
         Task<List<CategoryMasterModel>> GetLeftBanner(int orgId);
         Task<List<SP_GetSimilarProductsModel>> GetSimilarProducts(int CategoryId, int BrandId);
         Task<List<SP_GetCategoryWiseProductCount_Model>> GetProductCount(int OrgId);
+        Task<List<CategoryMasterModel>> GetCategoriesByParent(int? CategoryId);
+        Task<CategoryMasterModel> GetparentName(int? CategoryId);
     }
 }
