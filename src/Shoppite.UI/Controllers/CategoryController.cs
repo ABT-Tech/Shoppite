@@ -27,13 +27,9 @@ namespace Shoppite.UI.Controllers
          }*/
         public async Task<ActionResult> Index()
         {
-            
-            return View();
+           var category= await _categoryPageService.GetCategories();           
+            return View(category);
         }
-       /* public async Task<ActionResult> AllCAtegories()
-        {
-         
-            return View();
-        }*/
+       
     }
 }
