@@ -25,18 +25,11 @@ namespace Shoppite.UI.Controllers
 
              return View();
          }*/
-        /*public async Task<ActionResult> Index(int CategoryId)
+        public async Task<ActionResult> Index()
         {
-            var orgid = commonHelper.GetOrgID(HttpContext);
-            var model = new CategoryMasterModel();
-            model = await _categoryPageService.DisplayLogo(orgid);
-            model.BottomBanner = await _categoryPageService.GetMiddelBannerImage(orgid);
-            model.TopBanner = await _categoryPageService.GetTopBannerImage(orgid);
-            model.ProductsDetails = await _categoryPageService.GetProductList(orgid);
-            model.Categories= await _categoryPageService.GetCategories(CategoryId);
-            model.HorizontalBanner = await _categoryPageService.GetHorizontalBanner(orgid);
-            return View(model);
-        }*/
+            
+            return View();
+        }
        /* public async Task<ActionResult> AllCAtegories()
         {
          
