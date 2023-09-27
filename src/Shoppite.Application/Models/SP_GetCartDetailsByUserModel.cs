@@ -18,5 +18,6 @@ namespace Shoppite.Application.Models
         public string UserName { get; set; }
         public decimal? DeliveryFees { get; set; }
         public Boolean WishlistedProduct { get; set; }
+        public Guid OrderGuid { get; set; }
     }
 }

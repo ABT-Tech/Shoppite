@@ -30,7 +30,7 @@
                     @if (Model.F_Getproduct_CartDetails_By_Orgids != null)
                     {
                         @foreach (var cartlist in Model.F_Getproduct_CartDetails_By_Orgids)
-                        {
+                        {<input type="hidden" value="@cartlist.OrderGuid" class="HidenGuid" />
                             <div class="card cartitemmobview" style="border-radius: 10px;">
                                 <div class="card-body d-flex p-0 col-12 col-md-12 col-lg-12">
                                     <div class="col-lg-2 p-0">
@@ -552,7 +552,7 @@
                                 <h5 class="font-weight-bold"></h5>
                             </li>
                             <p class="totalsave">You will save ₹6987.8 on this order</p>
-                        </ul><a asp-action="Checkout" class="btn btn-dark rounded-pill py-2 btn-block">Procceed to checkout</a>
+                        </ul><a onclick="GetOrder();" class="btn btn-dark rounded-pill py-2 btn-block">Procceed to checkout</a>
                     </div>
                     <!-- ordersummarysection-end -->
                 </div>
@@ -566,8 +566,8 @@
 <!-- jquery -->
 @section Scripts{
     <script>
-        $('#CouponApply').click(function (e) {        
-           
+        $('#CouponApply').click(function (e) {
+
             $.notify("Coupon Applied Successfully");
 
         });
@@ -654,7 +654,7 @@
             });
 
         });
-        
+
     var arr = [];
     var count;
     $(document).ready(function (id) {
@@ -723,20 +723,17 @@
         });
 
     function GetOrder() {
-        var ar = [];
-        var dataBunch = [];
-        var tab = $("#myTable > tbody > tr").each(function () {
-            $(this).find('td');
-        });
-        for (var i = 0; i < tab.length; i++) {
-            ar.push({ "Guid": tab[i].children[0].children[2].value, "Qty": tab[i].cells[2].children[0].children[1].value, "ProductId": tab[i].cells[0].children[0].value });
-        }
+       
+        var ar = JSON.parse('@Html.Raw(Json.Serialize(Model.F_Getproduct_CartDetails_By_Orgids.Select(x=>new {Guid = x.OrderGuid, Qty = x.Qty, ProductId = x.ProductId})))');
+       // console.log(ar);
         var makeString = JSON.stringify({ar});
+        console.log(makeString);
+
         $.ajax({
             type: "POST",
             url: '@Url.Action("AddToCheck", "Cart")',
             dataType: 'JSON',
-            data: makeString,
+            data: JSON.stringify(jsonChildren),
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 window.location = "/Cart/CheckOut?orderid=" + $('.HidenGuid').val()

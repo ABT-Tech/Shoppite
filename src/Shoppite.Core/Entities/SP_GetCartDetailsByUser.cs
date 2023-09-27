@@ -17,5 +17,6 @@ namespace Shoppite.Core.Entities
         public string UserName { get; set; }
         public String AttributeName { get; set; }
         public decimal? DeliveryFees { get; set; }
+        public Guid OrderGuid { get; set; }
     }
 }
