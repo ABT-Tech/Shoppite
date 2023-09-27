@@ -97,6 +97,7 @@ namespace Shoppite.Application.Mapper
             CreateMap<UserAddress, MyAccountDetailsModel>().ReverseMap();
             CreateMap<UsersProfile,UserCoverImageModel>().ReverseMap();
             CreateMap<SP_GetCartDetailsByUser,SP_GetCartDetailsByUserModel>().ReverseMap();
+            CreateMap<CouponModel, Coupon>().ReverseMap();
         }
     }
 }

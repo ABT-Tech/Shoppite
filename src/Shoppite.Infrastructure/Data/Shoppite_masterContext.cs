@@ -113,6 +113,7 @@ namespace Shoppite.Infrastructure.Data
         public virtual DbSet<SP_GetSimilarProducts> SP_GetSimilarProducts { get; set; }
         public virtual DbSet<UserAddress> UserAddress { get; set; }
         public virtual DbSet<SP_GetCartDetailsByUser> CartDetailsByUsers { get; set; }
+        public virtual DbSet<Coupon> Coupons { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -411,7 +412,15 @@ namespace Shoppite.Infrastructure.Data
 
                 entity.Property(e => e.Status).HasMaxLength(50);
             });
+            modelBuilder.Entity<Coupon>(entity =>
+            {
+                entity.ToTable("Coupan");
 
+                entity.Property(e => e.CouponId).HasColumnName("CoupanId");
+
+                entity.Property(e => e.CouponCode).HasColumnName("CoupanCode").HasMaxLength(50);
+                
+            });
             modelBuilder.Entity<Currency>(entity =>
             {
                 entity.Property(e => e.CurrencyName)

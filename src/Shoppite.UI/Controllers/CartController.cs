@@ -9,6 +9,7 @@
     using Shoppite.UI.Extensions;
     using Shoppite.UI.Helpers;
     using Shoppite.UI.Interfaces;
+    using Shoppite.Web.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Dynamic;
@@ -35,17 +36,21 @@
         /// </summary>
         private readonly IConfiguration _configuration;
         private IHttpContextAccessor _accessor;
+        private IWishlistPageService _wishlistPageService;
+        private IMyAccountPageService _myAccountPageService;
         /// <summary>
         /// Initializes a new instance of the <see cref="CartController"/> class.
         /// </summary>
         /// <param name="cartPageServices">The cartPageServices<see cref="ICartPageServices"/>.</param>
         /// <param name="commonHelper">The commonHelper<see cref="ICommonHelper"/>.</param>
-        public CartController(ICartPageServices cartPageServices, ICommonHelper commonHelper, IConfiguration configuration, IHttpContextAccessor accessor)
+        public CartController(IMyAccountPageService myAccountPageService,ICartPageServices cartPageServices, ICommonHelper commonHelper, IConfiguration configuration, IHttpContextAccessor accessor, IWishlistPageService wishlistPageService)
         {
             _cartPageService = cartPageServices ?? throw new ArgumentNullException(nameof(cartPageServices));
             _commonHelper = commonHelper;
             _configuration = configuration;
+            _wishlistPageService = wishlistPageService;
             _accessor = accessor;
+            _myAccountPageService = myAccountPageService;
         }
 
         /// <summary>
@@ -53,11 +58,14 @@
         /// </summary>
         /// <returns>The <see cref="Task{IActionResult}"/>.</returns>
         [Shoppite.UI.Extensions.Authorize]
-        public async Task<IActionResult> Cart()
+        public async Task<IActionResult> Cart(int CouponId)
         {
             string userName = _accessor.HttpContext.User.Identity.Name.ToString();
             int orgid = _commonHelper.GetOrgID(HttpContext);
             var cartlist = await _cartPageService.OrderBasic(userName);
+            cartlist.WishlistModel= await _wishlistPageService.GetWishList(userName,orgid);
+            cartlist.CouponDetails = await _myAccountPageService.GetCouponDetails();
+            cartlist.couponModel = await _myAccountPageService.GetCouponDetailsByCouponId(CouponId);
             foreach (var swap in cartlist.F_Getproduct_CartDetails_By_Orgids)
             {
                 if (swap.Qty > swap.BasicQty)

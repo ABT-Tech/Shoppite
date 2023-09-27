@@ -18,5 +18,7 @@ namespace Shoppite.Web.Interfaces
         Task<MyAccountDetailsModel> GetAddressdetailBYId(int OrgId,int Id);
         Task DeleteAddressDetail(int orgId, int Id);
         Task UpdateCoverImage(UserCoverImageModel myaccount);
+        Task<List<CouponModel>> GetCouponDetails();
+        Task<CouponModel> GetCouponDetailsByCouponId(int CouponId);
     }
 }

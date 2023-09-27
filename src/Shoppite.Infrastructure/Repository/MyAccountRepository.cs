@@ -179,5 +179,15 @@ namespace Shoppite.Infrastructure.Repository
 
             await _dbContext.SaveChangesAsync();
         }
+        public async Task<List<Coupon>> GetCouponDetails()
+        {
+            var couponsDetail = await _dbContext.Coupons.ToListAsync();
+            return couponsDetail;
+        }
+        public async Task<Coupon> GetCouponDetailsByCouponId(int CouponId)
+        {
+            var getCouponCode = await _dbContext.Coupons.FirstOrDefaultAsync(x => x.CouponId == CouponId);
+            return getCouponCode;
+        }
     }
 }

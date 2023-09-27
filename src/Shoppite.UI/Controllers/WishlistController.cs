@@ -53,7 +53,9 @@ namespace Shoppite.UI.Controllers
             wishlist.OrgId = OrgId;
             wishlist.Ip = ipadresss;
             wishlist.UserName = userName;
-            await _productWishListService.AddWishList(wishlist, id,SpecificationId);
+            wishlist.ProductId = id;
+            await _productWishListService.AddtowhishList(wishlist);
+            //await _productWishListService.AddWishList(wishlist, id,SpecificationId);
             wishlist.Wishlists = await _productWishListService.GetWishList(userName, OrgId);
             return View(wishlist);
         }

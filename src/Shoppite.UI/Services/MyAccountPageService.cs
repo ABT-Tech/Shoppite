@@ -60,6 +60,16 @@ namespace Shoppite.UI.Services
         public async Task UpdateCoverImage(UserCoverImageModel coverImage)
         {
             await _myAccountService.UpdateCoverImage(coverImage);
-        }     
+        }
+        public async Task<List<CouponModel>> GetCouponDetails()
+        {
+            var coupons = await _myAccountService.GetCouponDetails();
+            return coupons;
+        }
+        public async Task<CouponModel> GetCouponDetailsByCouponId(int CouponId)
+        {
+            var coupons = await _myAccountService.GetCouponDetailsByCouponId(CouponId);
+            return coupons;
+        }
     }
 }

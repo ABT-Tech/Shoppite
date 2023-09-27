@@ -17,5 +17,8 @@ namespace Shoppite.Application.Models
         public bool IsPaytm { get; set; }
         public List<Customer_WishlistModel> WishlistModel { get; set; }
         public bool IsPaytmClicked { get; set; }
+        public List<CouponModel> CouponDetails { get; set; }
+        public bool WishListed { get; set; }
+        public CouponModel couponModel { get; set; }
     }
 }

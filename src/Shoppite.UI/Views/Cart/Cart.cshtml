@@ -2,6 +2,8 @@
 @{
     ViewData["Title"] = "Cart Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    decimal? totalProductPrice = 0M, totalCartAmount = 0M, totalDeliveryfees = 0M;
+    var LoggeddInUsername = Context.User.Identity.Name;
 }
 <!--gifbannerSection-start-->
 <section class="section section-sm section-first bg-default text-center">
@@ -23,7 +25,7 @@
                 <div class="col-12 text-center" style="margin: 0px 0px 25px 0px;">
                     <h1 class="sectionmainheading">MY BAG</h1>
                 </div>
-                <div class="col-lg-12 p-5 rounded shadow-sm mb-5 cartbackgrd">
+                <div id="cartitems" class="col-lg-12 p-5 rounded shadow-sm mb-5 cartbackgrd">
                     <!-- productcartsection-start -->
                     @if (Model.F_Getproduct_CartDetails_By_Orgids != null)
                     {
@@ -35,21 +37,34 @@
                                         <img src="@cartlist.CoverImage" alt="" width="200" height="auto"
                                              class="img-fluid rounded shadow-sm">
                                         <div class="col-lg-12 m-4 mobselectqunty">
-                                            <span class="font-weight-bold">Quantity:</span> <select name="subject"
-                                                                                                    id="subject" class="border-0">
-                                                <option value="" selected="selected">1</option>
-                                                <option value="" selected="selected">2</option>
-                                                <option value="" selected="selected">3</option>
-                                                <option value="" selected="selected">4</option>
-                                                <option value="" selected="selected">5</option>
-                                            </select>
+                                            <span class="font-weight-bold">Quantity:</span> @*<select name="subject"
+                                                                                                        id="subject" class="border-0">
+                                                    <option class="quant" value="" selected="selected">1</option>
+                                                    <option value="" selected="selected">2</option>
+                                                    <option value="" selected="selected">3</option>
+                                                    <option value="" selected="selected">4</option>
+                                                    <option value="" selected="selected">5</option>
+                                                </select>*@
+                                            <div class="input-group">
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus" data-field="">
+                                                        <span class="glyphicon glyphicon-minus"></span>
+                                                    </button>
+                                                </span>
+                                                <input type="text" id="quantity" name="quantity" class="form-control input-number" value="10" min="1" max="100">
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
+                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                    </button>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-10 mobfontlayout" style="line-height: 24px;">
                                         <p class="card-title font-weight-bold m-0">
                                             @cartlist.ProductName
                                         </p>
-                                        <p class="font-weight-bold m-0">
+                                        <p class="font-weight-bold m-0 price" data-price="@cartlist.Price">
                                             ₹@cartlist.Price <span class="text-decoration-line-through"
                                                                    style="color: darkgrey;">₹</span> <span class="ml-1 text-success">
                                                 35%
@@ -66,9 +81,22 @@
                                         <div class="row border-top border-black border-2 displayviewqunty">
                                             <div class="col-lg-12 m-2 d-flex justify-content-between">
                                                 <div class="">
+                                                    @* <div class="input-group">
+                                                            <span class="input-group-btn">
+                                                                <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus" data-field="">
+                                                                    <span class="glyphicon glyphicon-minus"></span>
+                                                                </button>
+                                                            </span>
+                                                            <input type="text" id="quantity" name="quantity" class="form-control input-number" value="10" min="1" max="100">
+                                                            <span class="input-group-btn">
+                                                                <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
+                                                                    <span class="glyphicon glyphicon-plus"></span>
+                                                                </button>
+                                                            </span>
+                                                        </div>*@
                                                     <span class="font-weight-bold">Quantity:</span> <select name="subject"
                                                                                                             id="subject" class="m-0 border-0">
-                                                        <option value="" selected="selected">1</option>
+                                                        <option class="quant" value="@cartlist.Qty" selected="selected">@cartlist.Qty</option>
                                                         <option value="" selected="selected">2</option>
                                                         <option value="" selected="selected">3</option>
                                                         <option value="" selected="selected">4</option>
@@ -76,29 +104,23 @@
                                                     </select>
                                                 </div>
                                                 <div class="">
-                                                    @if (Model.WishlistModel != null)
+
+                                                    @if (cartlist.WishlistedProduct == true)
                                                     {
-                                                        @for (int i = 0; i < Model.WishlistModel.Count; i++)
-                                                        {
-                                                            if (cartlist.ProductId == Model.WishlistModel[i].ProductId)
-                                                            {
-                                                                <a href="#" class="m-2 hovertextlayout"
-                                                                   style="color: #000000; font-weight: 700;">
-                                                                    <i class="fa fa-heart font-weight-bold" style="color:red;" aria-hidden="true"></i>
-                                                                    Move to Whishlist
-                                                                </a>
-                                                            }
-                                                        }
+                                                        <a class="m-2 hovertextlayout wishlistedproduct" asp-action="Wishlist" asp-controller="Wishlist" data-product="@cartlist.ProductId"
+                                                           style="color: #000000; font-weight: 700;">
+                                                            <i class="fa fa-heart font-weight-bold" style="color:red;" aria-hidden="true"></i>
+                                                            WishListed
+                                                        </a>
                                                     }
                                                     else
                                                     {
-                                                        <a href="#" class="m-2 hovertextlayout"
+                                                        <a class="m-2 hovertextlayout wishlistedproduct" asp-action="Wishlist" asp-controller="Wishlist" data-product="@cartlist.ProductId"
                                                            style="color: #000000; font-weight: 700;">
                                                             <i class="fa fa-heart font-weight-bold" aria-hidden="true"></i>
                                                             Move to Whishlist
                                                         </a>
                                                     }
-
 
                                                     <span class="m-2 font-weight-bold">|</span>
                                                     <a class="m-2 hovertextlayout deleteme" data-bs-toggle="modal" data-bs-target="#removefromcart" href="/Cart/DeleteProduct/?id=@cartlist.OrderId"
@@ -199,7 +221,7 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <input type="text" placeholder="Search coupon"
+                                        <input type="text" placeholder="Search coupon" id="search"
                                                aria-describedby="button-addon3" class="form-control border-0">
                                         <button id="button-addon3" type="button"
                                                 class="btn btn-dark px-4 rounded-pill"
@@ -209,117 +231,54 @@
                                         <p style="border-top: 1px solid  #000000;"></p>
 
                                         <div id="faq">
-                                            <ul>
-                                                <li style="background-color: #E6E8FA;">
-                                                    <input type="checkbox" id="vehicle1" name="vehicle1"
-                                                           value="Bike" style="margin: 17px;">
-                                                    <label for="vehicle1" class="modelcouponsticket">
-                                                        SHOOPPY500
-                                                    </label><br>
-                                                    <p class="modelcardtotalsave">
-                                                        Save ₹500
-                                                    </p>
-                                                    <p>
-                                                        Rs.500 Off on Minimum Purchase of Rs.3500
-                                                        <br>
-                                                        Expire on:10th june 2023 | 12:00am
-                                                    </p>
-                                                </li>
-                                                <li style="background-color: #aed4f0;">
-                                                    <input type="checkbox" id="vehicle1" name="vehicle1"
-                                                           value="Bike" style="margin: 17px;">
-                                                    <label for="vehicle1" class="modelcouponsticket">
-                                                        SHOOPPY500
-                                                    </label><br>
-                                                    <p class="modelcardtotalsave">
-                                                        Save ₹500
-                                                    </p>
-                                                    <p>
-                                                        Rs.500 Off on Minimum Purchase of Rs.3500
-                                                        <br>
-                                                        Expire on:10th june 2023 | 12:00am
-                                                    </p>
-                                                </li>
-                                                <li style="background-color: #E6E8FA;">
-                                                    <input type="checkbox" id="vehicle1" name="vehicle1"
-                                                           value="Bike" style="margin: 17px;">
-                                                    <label for="vehicle1" class="modelcouponsticket">
-                                                        SHOOPPY500
-                                                    </label><br>
-                                                    <p class="modelcardtotalsave">
-                                                        Save ₹500
-                                                    </p>
-                                                    <p>
-                                                        Rs.500 Off on Minimum Purchase of Rs.3500
-                                                        <br>
-                                                        Expire on:10th june 2023 | 12:00am
-                                                    </p>
-                                                </li>
-                                                <li style="background-color: #aed4f0;">
-                                                    <input type="checkbox" id="vehicle1" name="vehicle1"
-                                                           value="Bike" style="margin: 17px;">
-                                                    <label for="vehicle1" class="modelcouponsticket">
-                                                        SHOOPPY500
-                                                    </label><br>
-                                                    <p class="modelcardtotalsave">
-                                                        Save ₹500
-                                                    </p>
-                                                    <p>
-                                                        Rs.500 Off on Minimum Purchase of Rs.3500
-                                                        <br>
-                                                        Expire on:10th june 2023 | 12:00am
-                                                    </p>
-                                                </li>
-                                                <li style="background-color: #E6E8FA;">
-                                                    <input type="checkbox" id="vehicle1" name="vehicle1"
-                                                           value="Bike" style="margin: 17px;">
-                                                    <label for="vehicle1" class="modelcouponsticket">
-                                                        SHOOPPY500
-                                                    </label><br>
-                                                    <p class="modelcardtotalsave">
-                                                        Save ₹500
-                                                    </p>
-                                                    <p>
-                                                        Rs.500 Off on Minimum Purchase of Rs.3500
-                                                        <br>
-                                                        Expire on:10th june 2023 | 12:00am
-                                                    </p>
-                                                </li>
-                                                <li style="background-color: #aed4f0;">
-                                                    <input type="checkbox" id="vehicle1" name="vehicle1"
-                                                           value="Bike" style="margin: 17px;">
-                                                    <label for="vehicle1" class="modelcouponsticket">
-                                                        SHOOPPY500
-                                                    </label><br>
-                                                    <p class="modelcardtotalsave">
-                                                        Save ₹500
-                                                    </p>
-                                                    <p>
-                                                        Rs.500 Off on Minimum Purchase of Rs.3500
-                                                        <br>
-                                                        Expire on:10th june 2023 | 12:00am
-                                                    </p>
-                                                </li>
-                                                <li style="background-color: #E6E8FA">
-                                                    <input type="checkbox" id="vehicle1" name="vehicle1"
-                                                           value="Bike" style="margin: 17px;">
-                                                    <label for="vehicle1" class="modelcouponsticket">
-                                                        SHOOPPY500
-                                                    </label><br>
-                                                    <p class="modelcardtotalsave">
-                                                        Save ₹500
-                                                    </p>
-                                                    <p>
-                                                        Rs.500 Off on Minimum Purchase of Rs.3500
-                                                        <br>
-                                                        Expire on:10th june 2023 | 12:00am
-                                                    </p>
-                                                </li>
+                                            <ul class="list">
+                                                @for (var i = 0; i < Model.CouponDetails.Count; i++)
+                                                {
+                                                    if (i % 2 == 0)
+                                                    {
+                                                        <li style="background-color: #E6E8FA;">
+                                                            <input class="check" type="checkbox" onclick="CouponCheck(this)" id="@Model.CouponDetails[i].CouponId" name="Coupon" 
+                                                                   value="@Model.CouponDetails[i].CouponId" style="margin: 17px;">
+                                                            <label for="vehicle1" class="modelcouponsticket">
+                                                                @Model.CouponDetails[i].CouponCode
+                                                            </label><br>
+                                                            <p class="modelcardtotalsave">
+                                                                Save ₹500
+                                                            </p>
+                                                            <p>
+                                                                Rs.500 Off on Minimum Purchase of Rs.3500
+                                                                <br>
+                                                                Expire on:10th june 2023 | 12:00am
+                                                            </p>
+                                                        </li>
+                                                    }
+                                                    else
+                                                    {
+                                                        <li style="background-color: #aed4f0;">
+                                                            <input type="checkbox" id="@Model.CouponDetails[i].CouponId" name="Coupon" value="@Model.CouponDetails[i].CouponId"
+                                                                    style="margin: 17px;">
+                                                            <label for="vehicle1" class="modelcouponsticket">
+                                                                @Model.CouponDetails[i].CouponCode
+
+                                                            </label><br>
+                                                            <p class="modelcardtotalsave">
+                                                                Save ₹500
+                                                            </p>
+                                                            <p>
+                                                                Rs.500 Off on Minimum Purchase of Rs.3500
+                                                                <br>
+                                                                Expire on:10th june 2023 | 12:00am
+                                                            </p>
+                                                        </li>
+
+                                                    }
+
+                                                }
                                             </ul>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="buttonapplyalignment">Apply</button>
+                                        <button type="button" id="CouponApply"    data-dismiss="modal" aria-label="Close" class="buttonapplyalignment">Apply</button>
                                     </div>
                                 </div>
                             </div>
@@ -414,7 +373,7 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Check Pincode</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <button type="button" id="pincodeclose" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
@@ -422,11 +381,12 @@
                                     <div class="main-search-input-wrap">
                                         <div class="main-search-input fl-wrap mb-4">
                                             <div class="main-search-input-item">
-                                                <input class="pincodesearchbar" type="text" value=""
+                                                <input maxlength="6" class="pincodesearchbar" type="text" id="pincode" value=""
                                                        placeholder="Search Products...">
                                             </div>
-                                            <button class="main-search-button">Check</button>
+                                            <button class="main-search-button" id="checkPincode">Check</button>
                                         </div>
+                                        <span id="DelieveryArea" style="color:#cc071e;"></span>
                                     </div>
                                 </div>
                             </div>
@@ -547,13 +507,32 @@
                         </p>
                         <ul class="list-unstyled mb-4">
                             <li class="d-flex justify-content-between py-3 border-bottom">
-                                <strong class="text-muted">Bag Total</strong><strong>₹390.00</strong>
+                                <strong class="text-muted">Bag Total</strong>
+                                <strong>
+                                    @if (Model.F_Getproduct_CartDetails_By_Orgids != null)
+                                    {
+                                        @for (int i = 0; i < Model.F_Getproduct_CartDetails_By_Orgids.Count; i++)
+                                        {
+                                            totalProductPrice += Model.F_Getproduct_CartDetails_By_Orgids[i].Price * Model.F_Getproduct_CartDetails_By_Orgids[i].Qty;
+                                        }
+                                    }
+
+                                    ₹@totalProductPrice
+                                </strong>
                             </li>
                             <li class="d-flex justify-content-between py-3 border-bottom">
                                 <strong class="text-muted">
                                     Shipping Charge and
                                     handling
-                                </strong><strong>₹10.00</strong>
+                                </strong><strong>
+                                    @if (Model.F_Getproduct_CartDetails_By_Orgids != null)
+                                    {
+                                        @for (int i = 0; i < Model.F_Getproduct_CartDetails_By_Orgids.Count; i++)
+                                        {
+                                            totalDeliveryfees += Model.F_Getproduct_CartDetails_By_Orgids[i].DeliveryFees;
+                                        }
+                                    }₹@totalDeliveryfees
+                                </strong>
                             </li>
                             <li class="d-flex justify-content-between py-3 border-bottom">
                                 <strong class="text-muted">Bag Subtotal </strong><strong>₹390.00</strong>
@@ -570,10 +549,10 @@
                             </li>
                             <li class="d-flex justify-content-between py-3 border-bottom">
                                 <strong class="text-muted">Total Amount</strong>
-                                <h5 class="font-weight-bold">₹400.00</h5>
+                                <h5 class="font-weight-bold"></h5>
                             </li>
                             <p class="totalsave">You will save ₹6987.8 on this order</p>
-                        </ul><a href="checkoutselectaddresspage.html" class="btn btn-dark rounded-pill py-2 btn-block">Procceed to checkout</a>
+                        </ul><a asp-action="Checkout" class="btn btn-dark rounded-pill py-2 btn-block">Procceed to checkout</a>
                     </div>
                     <!-- ordersummarysection-end -->
                 </div>
@@ -587,6 +566,95 @@
 <!-- jquery -->
 @section Scripts{
     <script>
+        $('#CouponApply').click(function (e) {        
+           
+            $.notify("Coupon Applied Successfully");
+
+        });
+
+        function CouponCheck(ckType) {
+            var ckName = document.getElementsByName(ckType.name);
+            var checked = document.getElementById(ckType.id);
+
+            if (checked.checked) {
+                for (var i = 0; i < ckName.length; i++) {
+
+                    if (!ckName[i].checked) {
+                        ckName[i].disabled = true;
+                    } else {
+                        ckName[i].disabled = false;
+                    }
+                }
+            }
+            else {
+                for (var i = 0; i < ckName.length; i++) {
+                    ckName[i].disabled = false;
+                }
+            }
+        }
+
+        $('.wishlistedproduct').click(function (e)
+        {
+            e.preventDefault();
+            var el = $(this),
+                icon = el.find('i'),
+                id = el.data("product")
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Wishlist", "Wishlist")',
+                    data: {
+                        "id": id
+                    },
+                    success: function (data) {
+                        window.location.reload();
+                    }
+                });
+        });
+
+        $('#pincodeclose').click(function () {
+            $('#DelieveryArea').text("");
+        });
+
+        $('#checkPincode').click(function () {
+
+            var pincode = document.getElementById('pincode').value;
+            const settings = {
+                async: true,
+                crossDomain: true,
+                url: 'https://india-pincode-with-latitude-and-longitude.p.rapidapi.com/api/v1/pincode/' + pincode + '/validate',
+                method: 'GET',
+                headers: {
+                    'X-RapidAPI-Key': '49fa1006a7msh3d532711c967795p15f8c6jsnf4d730b3e93a',
+                    'X-RapidAPI-Host': 'india-pincode-with-latitude-and-longitude.p.rapidapi.com'
+                }
+            };
+            $.ajax(settings).done(function (response) {
+               // console.log(response);
+                if (response.valid == false) {
+                    $('#DelieveryArea').text("Invalid Pincode,please enter a valid pincode.");
+
+                }
+                else {
+                    const settings = {
+                        async: true,
+                        crossDomain: true,
+                        url: 'https://india-pincode-with-latitude-and-longitude.p.rapidapi.com/api/v1/pincode/' + pincode,
+                        method: 'GET',
+                        headers: {
+                            'X-RapidAPI-Key': '49fa1006a7msh3d532711c967795p15f8c6jsnf4d730b3e93a',
+                            'X-RapidAPI-Host': 'india-pincode-with-latitude-and-longitude.p.rapidapi.com'
+                        }
+                    };
+
+                    $.ajax(settings).done(function (response) {
+                      //  console.log(response);
+                        $('#DelieveryArea').text("Delivery Area " + response[0].area);
+                    });
+                }
+            });
+
+        });
+        
     var arr = [];
     var count;
     $(document).ready(function (id) {
@@ -619,7 +687,7 @@
         function update() {
             var sum = 0.0;
             var quantity;
-            $('#myTable > tbody  > tr').each(function () {
+            $('#cartitems').each(function () {
                 quantity = $(this).find('.quant').val();
                 var price = parseFloat($(this).find('.price').attr('data-price').replace(',', '.'));
                 var amount = (quantity * price);
@@ -640,11 +708,20 @@
 
         });
     });
+        $("#search").on("keyup", function () {
+            var value = $(this).val().toLowerCase().trim();
+            var v = value.split("%");
+            $(".list li").each(function (j, k) {
+                var s = true;
+                $.each(v, function (i, x) {
+                    if (s) {
+                        s = $(k).text().toLowerCase().indexOf(x) > -1;
+                    }
+                });
+                $(this).toggle(s);
+            });
+        });
 
-
-    function GetDelete(id) {
-        document.getElementById("btnContinueDelete").href = "/Cart/DeleteProduct/" + id;
-    }
     function GetOrder() {
         var ar = [];
         var dataBunch = [];

@@ -18,5 +18,7 @@ namespace Shoppite.Core.Repositories
         Task<UserAddress> GetAddressdetailBYId(int orgId,int Id);
         Task DeleteAddressDetail(int orgId, int Id);
         Task UpdateCoverImage(UsersProfile myaccount);
+        Task<List<Coupon>> GetCouponDetails();
+        Task<Coupon> GetCouponDetailsByCouponId(int CouponId);
     }
 }

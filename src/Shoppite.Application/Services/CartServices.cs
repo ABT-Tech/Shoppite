@@ -19,11 +19,13 @@ namespace Shoppite.Application.Services
         private readonly ICartRepository _CartRepository;
         private readonly IAppLogger<CartServices> _logger;
         private IHttpContextAccessor _accessor;
-        public CartServices(ICartRepository CartRepository, IAppLogger<CartServices> appLogger, IHttpContextAccessor accessor)
+        private readonly IWishlistRepository _wishlistRepository;
+        public CartServices(IWishlistRepository wishlistRepository,ICartRepository CartRepository, IAppLogger<CartServices> appLogger, IHttpContextAccessor accessor)
         {
             _CartRepository = CartRepository ?? throw new ArgumentNullException(nameof(CartRepository));
             _logger = appLogger ?? throw new ArgumentNullException(nameof(appLogger));
             _accessor = accessor;
+            _wishlistRepository = wishlistRepository;
         }
 
         public async Task<CartModel> Orderbasic(string UserName)
@@ -35,6 +37,26 @@ namespace Shoppite.Application.Services
                 CartModel orderbasic = new CartModel();
                 var Orderbasic = await _CartRepository.OrderBasic(UserName);
                 orderbasic.F_Getproduct_CartDetails_By_Orgids = ObjectMapper.Mapper.Map<List<SP_GetCartDetailsByUserModel>>(Orderbasic).Where(x => x.UserName == userName).ToList();
+
+
+
+                var whishlistdetail = await _wishlistRepository.GetWishList(userName, 69);
+
+
+              orderbasic.WishlistModel=ObjectMapper.Mapper.Map<List<Customer_WishlistModel>>(whishlistdetail).Where(x => x.UserName == userName).ToList();
+
+                for(int i=0; i< orderbasic.F_Getproduct_CartDetails_By_Orgids.Count; i++)
+                {
+                    for(int j=0;j< orderbasic.WishlistModel.Count;j++)
+                    {
+                        if(orderbasic.F_Getproduct_CartDetails_By_Orgids[i].ProductId==orderbasic.WishlistModel[j].ProductId)
+                        {
+                            orderbasic.F_Getproduct_CartDetails_By_Orgids[i].WishlistedProduct = true;
+                        }
+      
+                    }
+
+                }
                 //var filter = orderbasic.F_Getproduct_CartDetails_By_Orgids.Where(x => x.UserName == userName).ToList();
                 return orderbasic;
 

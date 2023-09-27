@@ -4,273 +4,693 @@
     ViewData["Title"] = "Cart Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<!-- Favicon
-       ============================================ -->
-<link rel="shortcut icon" type="image/x-icon" href="~/img/favicon.ico">
-<!-- Fonts  -->
-<link href='https://fonts.googleapis.com/css?family=Raleway:400,500,600,700,300,800' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-<!-- CSS  -->
-<!-- Bootstrap CSS
-============================================ -->
-<link rel="stylesheet" href="~/css/bootstrap.min.css">
-<!-- owl.carousel CSS
-============================================ -->
-<link rel="stylesheet" href="~/css/owl.carousel.css">
-<!-- nivo slider CSS
-============================================ -->
-<link rel="stylesheet" href="~/css/nivo-slider.css">
-<!-- font-awesome.min CSS
-============================================ -->
-<link rel="stylesheet" href="css/font-awesome.min.css">
-<!-- jquery.fancybox CSS
-============================================ -->
-<link rel="stylesheet" href="~/css/fancb/jquery.fancybox.css">
-<!-- meanmenu.min CSS
-============================================ -->
-<link rel="stylesheet" href="~/css/meanmenu.min.css">
-<!-- animate CSS
-============================================ -->
-<link rel="stylesheet" href="~/css/animate.css">
-<!-- normalize CSS
-============================================ -->
-<link rel="stylesheet" href="~/css/normalize.css">
-<!-- main CSS
-============================================ -->
-<link rel="stylesheet" href="~/css/main.css">
-<!-- style CSS
-============================================ -->
-<link rel="stylesheet" href="~/style.css">
-<!-- responsive CSS
-============================================ -->
-<link rel="stylesheet" href="~/css/responsive.css">
-<style>
-    .SaveBtn {
-        background: #ff5b5a;
-        color: #fff;
-        border: none;
-        display: block;
-        height: 30px;
-        /*line-height: 31px;*/
-        margin-bottom: 20px;
-        margin-left: 4px;
-        text-align: center;
-        text-decoration: none;
-        text-transform: uppercase;
-        width: 115px;
-        border-radius: 10px;
-    }
-        .SaveBtn:hover {
-            background: #363636;
-            color: #fff;
-        }
-    .SavePaymentBtn {
-        background: #fff;
-        color: #fff;
-        border: 1px solid lightgray;
-        display: block;
-        height: 30px;
-        /*line-height: 31px;*/
-        margin-bottom: 20px;
-        margin-left: 4px;
-        text-align: center;
-        text-decoration: none;
-        text-transform: uppercase;
-        width: 115px;
-        border-radius: 10px;
-    }
-        .SavePaymentBtn:hover {
-            background: #eae1e1;
-            color: #fff;
-        }
-    .makeover {
-        width: 220px;
-        border-radius: 40px;
-    }
-</style>
-<div class="main-area">
-    <!-- Start checkout page area -->
-    <div class="checkout-page-area">
-        <div class="container-fluid">
-            <div class="breadcrumb">
-                <a title="Return to Home" href="/" class="home" name="homelink">Home</a>
-                <span class="navigation-pipe"><i class="fa fa-angle-right"></i></span>
-                checkout
-            </div>
-            <!-- Start checkout content -->
-            <div class="checkout-content-area">
-                <h4 class="cart-title">CHECKOUT</h4>
-                <div class="checkout-content">
-                    <div class="row">
-                        <div class="col-lg-9 col-md-12 mb-5">
-                            <form asp-action="MakePaymentRequest" id="myForm" asp-controller="Cart" enctype="multipart/form-data" method="post" class=" pt-2 text-capitalize">
-                                <input type="hidden" asp-for="OrderBasicModel.OrderGuid" />
 
-                                <div id="accordion" class="panel-group">
-                                    <div class="panel datainputs sauget-accordion">
-
-                                        <div id="headingOne" class="panel-heading" data-toggle="collapse" data-parent="#accordion" data-target="#collapse1">
-                                            <h4 class="panel-title">
-                                                <a class="accordion-toggle" id="Billing_Info" style="display:flex;">
-                                                    <span style=" width: 29px; padding: 6px 17px 0px 11px; font-size: 15px; margin-right: 25px; }">1</span>  Billing Information
-                                                </a>
-
-                                            </h4>
+    <!--orderdetails-section-start-->
+    <div class="container-fluid rounded bg-white mt-5 mb-5">
+        <div class="row">
+            <div class="col-12 col-lg-8 col-md-12 border-right">
+                <div class="tab-content" id="nav-tabContent">
+                    <!--orderdetails-section-start-->
+                    <div class="tab-pane show active" id="list-profileinfo" role="tabpanel"
+                         aria-labelledby="list-profileinfo-list">
+                        <div class="p-3 py-5">
+                            <div class="align-items-center mb-4">
+                                <h4 class="font-weight-bold">Select Delivery Address</h4>
+                            </div>
+                            <div class="" style="border: 2px solid #aed4f0; border-radius: 10px;">
+                                <h6 class="text-left font-weight-bold ml-4 mt-3">Default Address</h6>
+                                <!--single-checkoutselectaddress-defaultadd-section-start-->
+                                <div class="row mt-2 pt-3 mr-3 ml-3"
+                                     style="border: 2px solid #aed4f0; border-radius: 10px;">
+                                    <div class="d-flex">
+                                        <div>
+                                            <input type="radio" id="Defaultadd" name="fav_language" value="Defaultadd">
                                         </div>
-                                        <div id="collapse1" class="panel-collapse collapse" style="">
-                                            <div class="panel-body">
-                                                <div class="content-info">
-                                                    <div class="row ">
-                                                        <div class="col-sm-6 mx-auto">
-                                                            <div class="form-group m-1">
-                                                                <label class="control-label">First Name</label>
-                                                                <input asp-for="OrderShippingModel.FirstName" name="OrderShippingModel.FirstName" id="FirstName" required="required" class="form-control"
-                                                                       data-val="true" data-val-required="FirstName  is required" />
-                                                                <span asp-validation-for="OrderShippingModel.FirstName" class="text-danger field-valiation-error"
-                                                                      data-valmsg-for="FirstName" data-valmsg-replace="true"></span>
+                                        <div class="ml-3" for="Defaultadd">
+                                            <div class="d-flex">
+                                                <h6 class="selectaddressname font-weight-bold mr-3">
+                                                    <i class="fa fa-user mr-2"></i>Soham
+                                                    Vegda
+                                                </h6>
+                                                <p class="statushomeoffice"><i class="fa fa-home"></i> Home</p>
+                                            </div>
+                                            <p>
+                                                <i class="fa fa-location mr-2"></i> Lorem ipsum dolor, sit amet
+                                                consectetur
+                                                adipisicing elit. Exercitationem, minima? Rerum necessitatibus accusamus
+                                                maiores
+                                                magnam.
+                                            </p>
+                                            <p>
+                                                <i class="fa fa-mobile mr-2"></i> <span class="font-weight-bold">
+                                                    Mobile
+                                                    Number:-
+                                                </span> 8542659876
+                                            </p>
+                                            <div class="d-flex justify-content-start mb-3">
+                                                <div class="mt-4 mr-5 ">
+                                                    <button class="ordertrackcanbutton p-2" type="button">
+                                                        <i class="fa fa-trash mr-2"></i> Remove
+                                                    </button>
+                                                </div>
+                                                <div class="mt-4">
+                                                    <button class="ordertrackcanbutton p-2" type="button"
+                                                            data-toggle="modal" data-target="#selectaddresseditmodel">
+                                                        <i class="fa fa-edit mr-2"></i> Edit
+                                                    </button>
+                                                </div>
+                                                <!--single-checkoutselectaddress-defaultadd-editaddmodel-section-start-->
+                                                <!-- Modal -->
+                                                <div class="modal" id="selectaddresseditmodel" tabindex="-1"
+                                                     role="dialog" aria-labelledby="exampleModalLabel"
+                                                     aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title font-weight-bold"
+                                                                    id="exampleModalLabel">
+                                                                    <i class="fa fa-edit mr-2"></i> Change
+                                                                    Your Address
+                                                                </h5>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                        aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-sm-6 mx-auto">
-                                                            <div class="form-group m-1">
-                                                                <label class="control-label">Last Name</label>
-                                                                <input asp-for="OrderShippingModel.LastName" name="OrderShippingModel.LastName" required="required" id="LastName" class="form-control" 
-                                                                       data-val="true" data-val-required="LastName  is required" />
-                                                                <span asp-validation-for="OrderShippingModel.LastName"  class="text-danger field-valiation-error"
-                                                                      data-valmsg-for="LastName" data-valmsg-replace="true"></span>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-sm-6 mx-auto">
-                                                            <div class="form-group m-1">
-                                                                <label class="control-label">Street</label>
-                                                                <input asp-for="OrderShippingModel.Street" name="OrderShippingModel.Street" required="required" id="Street" class="form-control"
-                                                                       data-val="true" data-val-required="Street  is required" />
-                                                                <span asp-validation-for="OrderShippingModel.Street"  class="text-danger field-valiation-error"
-                                                                      data-valmsg-for="Street" data-valmsg-replace="true"></span>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-sm-6 mx-auto">
-                                                            <div class="form-group m-1">
-                                                                <label class="control-label">City</label>
-                                                                <input asp-for="OrderShippingModel.City" name="OrderShippingModel.City" required="required" id="City" class="form-control"
-                                                                       data-val="true" data-val-required="City name is required" />
-                                                                <span asp-validation-for="OrderShippingModel.City"  class="text-danger field-valiation-error"
-                                                                      data-valmsg-for="City" data-valmsg-replace="true"></span>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-sm-6 mx-auto">
-                                                            <div class="form-group m-1">
-                                                                <label class="control-label">Phone Number</label>
-                                                                <input asp-for="OrderShippingModel.Phone" name="OrderShippingModel.Phone" id="Phone" required="required" class="form-control"
-                                                                       data-val="true" data-val-required="Phone Number is required" />
-                                                                <span asp-validation-for="OrderShippingModel.Phone"  class="text-danger field-valiation-error"
-                                                                      data-valmsg-for="Phone" data-valmsg-replace="true"></span>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-sm-6 mx-auto">
-                                                            <div class="form-group m-1">
-                                                                <label class="control-label">Zipcode</label>
-                                                                <input asp-for="OrderShippingModel.Zipcode" name="OrderShippingModel.Zipcode" required="required" id="Zipcode" class="form-control "
-                                                                       data-val="true" data-val-required="Zipcode  is required" />
-                                                                <span asp-validation-for="OrderShippingModel.Zipcode"  class="text-danger field-valiation-error"
-                                                                      data-valmsg-for="Zipcode" data-valmsg-replace="true"></span>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-sm-6 mx-auto">
-                                                            <div class="form-group m-1">
-                                                                <label class="control-label">Address</label>
-                                                                <textarea asp-for="OrderShippingModel.Address" name="OrderShippingModel.Address" required="required" id="Address" class="form-control"
-                                                                          data-val="true" data-val-required="Address is required"></textarea>
-                                                                <span asp-validation-for="OrderShippingModel.Address"  class="text-danger field-valiation-error"
-                                                                      data-valmsg-for="Address" data-valmsg-replace="true"></span>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-sm-6 mx-auto">
-                                                            <div class="form-group m-1">
-                                                                <label class="control-label">Email</label>
-                                                                <input type="email" asp-for="OrderShippingModel.Email" name="OrderShippingModel.Email" required="required" id="Email" class="form-control input-validation-error"
-                                                                       data-val="true" data-val-required="Email is required" />
-                                                                <span asp-validation-for="OrderShippingModel.Email"  class="text-danger field-valiation-error"
-                                                                      data-valmsg-for="Email" data-valmsg-replace="true"></span>
-                                                            </div>
-                                                        </div>
-
-                                                        <input type="hidden" asp-for="OrderShippingModel.FirstName" />
-                                                        <input type="hidden" asp-for="OrderShippingModel.LastName" />
-                                                        <input type="hidden" asp-for="OrderShippingModel.Street" />
-                                                        <input type="hidden" asp-for="OrderShippingModel.City" />
-                                                        <input type="hidden" asp-for="OrderShippingModel.Phone" />
-                                                        <input type="hidden" asp-for="OrderShippingModel.Zipcode" />
-                                                        <input type="hidden" asp-for="OrderShippingModel.Address" />
-                                                        <input type="hidden" asp-for="OrderShippingModel.Email" />
-                                                        <input type="hidden" asp-for="IsPaytm" />
-                                                        <input type="hidden" asp-for="IsPaytmClicked" />
-
-                                                        <div class="col-12">
-                                                            <div class="form-group">
-                                                                <button type="button" style="width:auto;" id="Proceed_to_Next" class="SaveBtn" onclick="document.getElementById('Target').click()">Proceed to Next</button>
+                                                            <div class="modal-body">
+                                                                <div aria-labelledby="headingOne">
+                                                                    <div class="panel-body">
+                                                                        <div class="row pt-3 pb-3">
+                                                                            <div class="col-md-6">
+                                                                                <label class="labels font-weight-bold">
+                                                                                    First
+                                                                                    Name
+                                                                                </label><input type="text"
+                                                                                               class="form-control"
+                                                                                               placeholder="First Name" value="">
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <label class="labels font-weight-bold">
+                                                                                    Last
+                                                                                    Name
+                                                                                </label><input type="text"
+                                                                                               class="form-control" value=""
+                                                                                               placeholder="Last Name">
+                                                                            </div>
+                                                                            <div class="col-md-12 mt-2">
+                                                                                <label class="labels font-weight-bold">
+                                                                                    Flat,
+                                                                                    House no.,
+                                                                                    Building, Company,
+                                                                                    Apartment
+                                                                                </label><input type="text"
+                                                                                               class="form-control"
+                                                                                               placeholder="Enter Your Address"
+                                                                                               value="">
+                                                                            </div>
+                                                                            <div class="col-md-12 mt-2">
+                                                                                <label class="labels font-weight-bold">
+                                                                                    Area,
+                                                                                    Street,
+                                                                                    Sector,
+                                                                                    Village
+                                                                                </label><input type="text"
+                                                                                               class="form-control"
+                                                                                               placeholder="Enter Your Address"
+                                                                                               value="">
+                                                                            </div>
+                                                                            <div class="col-md-12 mt-2">
+                                                                                <label class="labels font-weight-bold">Landmark</label><input type="text" class="form-control"
+                                                                                                                                              placeholder="E.g near Apollo Hospital"
+                                                                                                                                              value="">
+                                                                            </div>
+                                                                            <div class="col-md-6 mt-2">
+                                                                                <label class="labels font-weight-bold">Town/City</label><input type="text" class="form-control"
+                                                                                                                                               placeholder="Enter Your Town/City"
+                                                                                                                                               value="">
+                                                                            </div>
+                                                                            <div class="col-md-6 mt-2">
+                                                                                <label class="labels font-weight-bold">State</label><input type="" class="form-control"
+                                                                                                                                           placeholder="Enter Your State"
+                                                                                                                                           value="">
+                                                                            </div>
+                                                                            <div class="col-md-6 mt-2">
+                                                                                <label class="labels font-weight-bold">Pincode</label><input type="text" class="form-control"
+                                                                                                                                             placeholder="Enter Your Area Pincode"
+                                                                                                                                             value="">
+                                                                            </div>
+                                                                            <div class="col-md-6 mt-2">
+                                                                                <label class="labels font-weight-bold">
+                                                                                    Email
+                                                                                    ID
+                                                                                </label><input type="email"
+                                                                                               class="form-control" value=""
+                                                                                               placeholder="Enter Your Email Id">
+                                                                            </div>
+                                                                            <div class="col-md-6 mt-2">
+                                                                                <label class="labels font-weight-bold">
+                                                                                    Mobile
+                                                                                    Number
+                                                                                </label><input type="text"
+                                                                                               class="form-control"
+                                                                                               placeholder="Enter Your Mobile Number"
+                                                                                               value="">
+                                                                            </div>
+                                                                            <div class="col-md-6 mt-2">
+                                                                                <label class="labels font-weight-bold">
+                                                                                    Alternate
+                                                                                    Mobile
+                                                                                </label><input type="text"
+                                                                                               class="form-control"
+                                                                                               placeholder="Enter Your Alternate Mobile"
+                                                                                               value="">
+                                                                            </div>
+                                                                            <div class="col-md-6 mt-2">
+                                                                                <label class="labels font-weight-bold">
+                                                                                    Type
+                                                                                    of Address
+                                                                                </label><br>
+                                                                                <input type="radio" id="Home"
+                                                                                       name="fav_language" value="Home">
+                                                                                <label for="Home"
+                                                                                       class="font-weight-bold mr-2">Home</label>
+                                                                                <input type="radio" id="Office"
+                                                                                       name="fav_language" value="Office">
+                                                                                <label for="Office"
+                                                                                       class="font-weight-bold mr-2">Office</label>
+                                                                            </div>
+                                                                            <p class="mt-3">
+                                                                                Is your office open on
+                                                                                weekends?
+                                                                            </p>
+                                                                            <div class="col-md-6">
+                                                                                <input type="checkbox" id="weekends1"
+                                                                                       name="vehicle1" value="Bike">
+                                                                                <label class="font-weight-bold"
+                                                                                       for="weekends1">
+                                                                                    Open on
+                                                                                    Saturday
+                                                                                </label><br>
+                                                                                <input type="checkbox" id="weekends"
+                                                                                       name="vehicle2" value="Car">
+                                                                                <label class="font-weight-bold"
+                                                                                       for="weekends">
+                                                                                    Open on
+                                                                                    Sunday
+                                                                                </label><br>
+                                                                            </div>
+                                                                            <div class="col-md-12 mt-3">
+                                                                                <input type="checkbox" id="defaddress"
+                                                                                       name="defaddress"
+                                                                                       value="defaddress">
+                                                                                <label class="font-weight-bold"
+                                                                                       for="defaddress"
+                                                                                       style="font-size: 13px;">
+                                                                                    Make this
+                                                                                    as my default address
+                                                                                </label><br>
+                                                                            </div>
+                                                                            <div class="col-md-12 text-center mt-2">
+                                                                                <div class="mt-4">
+                                                                                    <button class="profilesaveeditbutton p-2"
+                                                                                            type="button">
+                                                                                        Save
+                                                                                        Address
+                                                                                    </button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                </div>
+                                                <!--single-checkoutselectaddress-defaultadd-editaddmodel-section-end-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--single-checkoutselectaddress-defaultadd-section-end-->
+                                <!--single-checkoutselectaddress-saveaddress-section-start-->
+                                <h6 class="text-left font-weight-bold ml-4 mt-3">OTHER ADDRESS</h6>
+                                <div class="row mt-2 pt-3 pb-3 mr-3 ml-3 mb-4"
+                                     style="border: 2px solid #aed4f0; border-radius: 10px;">
+                                    <div class="d-flex mt-3" style="border-bottom: 1px solid #aed4f0;">
+                                        <div>
+                                            <input type="radio" id="Defaultadd" name="fav_language" value="Defaultadd">
+                                        </div>
+                                        <div class="ml-3" for="Defaultadd">
+                                            <div class="d-flex">
+                                                <h6 class="selectaddressname font-weight-bold mr-3">
+                                                    <i class="fa fa-user mr-2"></i>Soham
+                                                    Vegda
+                                                </h6>
+                                                <p class="statushomeoffice"><i class="fa fa-home"></i> Home</p>
+                                            </div>
+                                            <p>
+                                                <i class="fa fa-location mr-2"></i> Lorem ipsum dolor, sit amet
+                                                consectetur
+                                                adipisicing elit. Exercitationem, minima? Rerum necessitatibus accusamus
+                                                maiores
+                                                magnam.
+                                            </p>
+                                            <p>
+                                                <i class="fa fa-mobile mr-2"></i> <span class="font-weight-bold">
+                                                    Mobile
+                                                    Number:-
+                                                </span> 8542659876
+                                            </p>
+                                            <div class="d-flex justify-content-start mb-3">
+                                                <div class="mt-4 mr-5 ">
+                                                    <button class="ordertrackcanbutton p-2" type="button">
+                                                        <i class="fa fa-trash mr-2"></i> Remove
+                                                    </button>
+                                                </div>
+                                                <div class="mt-4">
+                                                    <button class="ordertrackcanbutton p-2" type="button"
+                                                            data-toggle="modal" data-target="#selectaddresseditmodel">
+                                                        <i class="fa fa-edit mr-2"></i> Edit
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex mt-3" style="border-bottom: 1px solid #aed4f0;">
+                                        <div>
+                                            <input type="radio" id="Defaultadd" name="fav_language" value="Defaultadd">
+                                        </div>
+                                        <div class="ml-3" for="Defaultadd">
+                                            <div class="d-flex">
+                                                <h6 class="selectaddressname font-weight-bold mr-3">
+                                                    <i class="fa fa-user mr-2"></i>Soham
+                                                    Vegda
+                                                </h6>
+                                                <p class="statushomeoffice"><i class="fa fa-chair"></i> Work</p>
+                                            </div>
+                                            <p>
+                                                <i class="fa fa-location mr-2"></i> Lorem ipsum dolor, sit amet
+                                                consectetur
+                                                adipisicing elit. Exercitationem, minima? Rerum necessitatibus accusamus
+                                                maiores
+                                                magnam.
+                                            </p>
+                                            <p>
+                                                <i class="fa fa-mobile mr-2"></i> <span class="font-weight-bold">
+                                                    Mobile
+                                                    Number:-
+                                                </span> 8542659876
+                                            </p>
+                                            <div class="d-flex justify-content-start mb-3">
+                                                <div class="mt-4 mr-5 ">
+                                                    <button class="ordertrackcanbutton p-2" type="button">
+                                                        <i class="fa fa-trash mr-2"></i> Remove
+                                                    </button>
+                                                </div>
+                                                <div class="mt-4">
+                                                    <button class="ordertrackcanbutton p-2" type="button"
+                                                            data-toggle="modal" data-target="#selectaddresseditmodel">
+                                                        <i class="fa fa-edit mr-2"></i> Edit
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex mt-3" style="border-bottom: 1px solid #aed4f0;">
+                                        <div>
+                                            <input type="radio" id="Defaultadd" name="fav_language" value="Defaultadd">
+                                        </div>
+                                        <div class="ml-3" for="Defaultadd">
+                                            <div class="d-flex">
+                                                <h6 class="selectaddressname font-weight-bold mr-3">
+                                                    <i class="fa fa-user mr-2"></i>Soham
+                                                    Vegda
+                                                </h6>
+                                                <p class="statushomeoffice"><i class="fa fa-home"></i> Home</p>
+                                            </div>
+                                            <p>
+                                                <i class="fa fa-location mr-2"></i> Lorem ipsum dolor, sit amet
+                                                consectetur
+                                                adipisicing elit. Exercitationem, minima? Rerum necessitatibus accusamus
+                                                maiores
+                                                magnam.
+                                            </p>
+                                            <p>
+                                                <i class="fa fa-mobile mr-2"></i> <span class="font-weight-bold">
+                                                    Mobile
+                                                    Number:-
+                                                </span> 8542659876
+                                            </p>
+                                            <div class="d-flex justify-content-start mb-3">
+                                                <div class="mt-4 mr-5 ">
+                                                    <button class="ordertrackcanbutton p-2" type="button">
+                                                        <i class="fa fa-trash mr-2"></i> Remove
+                                                    </button>
+                                                </div>
+                                                <div class="mt-4">
+                                                    <button class="ordertrackcanbutton p-2" type="button"
+                                                            data-toggle="modal" data-target="#selectaddresseditmodel">
+                                                        <i class="fa fa-edit mr-2"></i> Edit
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex mt-3" style="border-bottom: 1px solid #aed4f0;">
+                                        <div>
+                                            <input type="radio" id="Defaultadd" name="fav_language" value="Defaultadd">
+                                        </div>
+                                        <div class="ml-3" for="Defaultadd">
+                                            <div class="d-flex">
+                                                <h6 class="selectaddressname font-weight-bold mr-3">
+                                                    <i class="fa fa-user mr-2"></i>Soham
+                                                    Vegda
+                                                </h6>
+                                                <p class="statushomeoffice"><i class="fa fa-chair"></i> Work</p>
+                                            </div>
+                                            <p>
+                                                <i class="fa fa-location mr-2"></i> Lorem ipsum dolor, sit amet
+                                                consectetur
+                                                adipisicing elit. Exercitationem, minima? Rerum necessitatibus accusamus
+                                                maiores
+                                                magnam.
+                                            </p>
+                                            <p>
+                                                <i class="fa fa-mobile mr-2"></i> <span class="font-weight-bold">
+                                                    Mobile
+                                                    Number:-
+                                                </span> 8542659876
+                                            </p>
+                                            <div class="d-flex justify-content-start mb-3">
+                                                <div class="mt-4 mr-5 ">
+                                                    <button class="ordertrackcanbutton p-2" type="button">
+                                                        <i class="fa fa-trash mr-2"></i> Remove
+                                                    </button>
+                                                </div>
+                                                <div class="mt-4">
+                                                    <button class="ordertrackcanbutton p-2" type="button"
+                                                            data-toggle="modal" data-target="#selectaddresseditmodel">
+                                                        <i class="fa fa-edit mr-2"></i> Edit
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex mt-3" style="border-bottom: 1px solid #aed4f0;">
+                                        <div>
+                                            <input type="radio" id="Defaultadd" name="fav_language" value="Defaultadd">
+                                        </div>
+                                        <div class="ml-3" for="Defaultadd">
+                                            <div class="d-flex">
+                                                <h6 class="selectaddressname font-weight-bold mr-3">
+                                                    <i class="fa fa-user mr-2"></i>Soham
+                                                    Vegda
+                                                </h6>
+                                                <p class="statushomeoffice"><i class="fa fa-home"></i> Home</p>
+                                            </div>
+                                            <p>
+                                                <i class="fa fa-location mr-2"></i> Lorem ipsum dolor, sit amet
+                                                consectetur
+                                                adipisicing elit. Exercitationem, minima? Rerum necessitatibus accusamus
+                                                maiores
+                                                magnam.
+                                            </p>
+                                            <p>
+                                                <i class="fa fa-mobile mr-2"></i> <span class="font-weight-bold">
+                                                    Mobile
+                                                    Number:-
+                                                </span> 8542659876
+                                            </p>
+                                            <div class="d-flex justify-content-start mb-3">
+                                                <div class="mt-4 mr-5 ">
+                                                    <button class="ordertrackcanbutton p-2" type="button">
+                                                        <i class="fa fa-trash mr-2"></i> Remove
+                                                    </button>
+                                                </div>
+                                                <div class="mt-4">
+                                                    <button class="ordertrackcanbutton p-2" type="button"
+                                                            data-toggle="modal" data-target="#selectaddresseditmodel">
+                                                        <i class="fa fa-edit mr-2"></i> Edit
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="container bg-white mt-3 ">
+                                        <div class="panel-group " id="accordion" role="tablist"
+                                             aria-multiselectable="true">
+                                            <div class="panel panel-default ">
+                                                <div class="" role="tab" id="headingOne">
+                                                    <h4 class="panel-title">
+                                                        <a class="addaddresstitle text-danger" role="button"
+                                                           data-toggle="collapse" data-parent="#accordion"
+                                                           href="#collapseOne" aria-expanded="true"
+                                                           aria-controls="collapseOne">
+                                                            + Add a new address
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
+                                                     aria-labelledby="headingOne">
+                                                    <div class="panel-body">
+                                                        <div class="row pt-3 pb-3">
+                                                            <div class="col-md-6">
+                                                                <label class="labels font-weight-bold">
+                                                                    First
+                                                                    Name
+                                                                </label><input type="text" class="form-control"
+                                                                               placeholder="First Name" value="">
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label class="labels font-weight-bold">
+                                                                    Last
+                                                                    Name
+                                                                </label><input type="text" class="form-control"
+                                                                               value="" placeholder="Last Name">
+                                                            </div>
+                                                            <div class="col-md-12 mt-2">
+                                                                <label class="labels font-weight-bold">
+                                                                    Flat, House no.,
+                                                                    Building, Company, Apartment
+                                                                </label><input type="text" class="form-control"
+                                                                               placeholder="Enter Your Address" value="">
+                                                            </div>
+                                                            <div class="col-md-12 mt-2">
+                                                                <label class="labels font-weight-bold">
+                                                                    Area, Street,
+                                                                    Sector,
+                                                                    Village
+                                                                </label><input type="text"
+                                                                               class="form-control"
+                                                                               placeholder="Enter Your Address" value="">
+                                                            </div>
+                                                            <div class="col-md-12 mt-2">
+                                                                <label class="labels font-weight-bold">Landmark</label><input type="text" class="form-control"
+                                                                                                                              placeholder="E.g near Apollo Hospital" value="">
+                                                            </div>
+                                                            <div class="col-md-6 mt-2">
+                                                                <label class="labels font-weight-bold">Town/City</label><input type="text" class="form-control"
+                                                                                                                               placeholder="Enter Your Town/City" value="">
+                                                            </div>
+                                                            <div class="col-md-6 mt-2">
+                                                                <label class="labels font-weight-bold">State</label><input type="" class="form-control"
+                                                                                                                           placeholder="Enter Your State" value="">
+                                                            </div>
+                                                            <div class="col-md-6 mt-2">
+                                                                <label class="labels font-weight-bold">Pincode</label><input type="text" class="form-control"
+                                                                                                                             placeholder="Enter Your Area Pincode" value="">
+                                                            </div>
+                                                            <div class="col-md-6 mt-2">
+                                                                <label class="labels font-weight-bold">
+                                                                    Email
+                                                                    ID
+                                                                </label><input type="email" class="form-control"
+                                                                               value="" placeholder="Enter Your Email Id">
+                                                            </div>
+                                                            <div class="col-md-6 mt-2">
+                                                                <label class="labels font-weight-bold">
+                                                                    Mobile
+                                                                    Number
+                                                                </label><input type="text"
+                                                                               class="form-control"
+                                                                               placeholder="Enter Your Mobile Number" value="">
+                                                            </div>
+                                                            <div class="col-md-6 mt-2">
+                                                                <label class="labels font-weight-bold">
+                                                                    Alternate
+                                                                    Mobile
+                                                                </label><input type="text"
+                                                                               class="form-control"
+                                                                               placeholder="Enter Your Alternate Mobile" value="">
+                                                            </div>
+                                                            <div class="col-md-6 mt-2">
+                                                                <label class="labels font-weight-bold">
+                                                                    Type of Address
+                                                                </label><br>
+                                                                <input type="radio" id="Home" name="fav_language"
+                                                                       value="Home">
+                                                                <label for="Home"
+                                                                       class="font-weight-bold mr-2">Home</label>
+                                                                <input type="radio" id="Office" name="fav_language"
+                                                                       value="Office">
+                                                                <label for="Office"
+                                                                       class="font-weight-bold mr-2">Office</label>
+                                                            </div>
+                                                            <p class="mt-3">Is your office open on weekends?</p>
+                                                            <div class="col-md-6">
+                                                                <input type="checkbox" id="weekends1" name="vehicle1"
+                                                                       value="Bike">
+                                                                <label class="font-weight-bold" for="weekends1">
+                                                                    Open on
+                                                                    Saturday
+                                                                </label><br>
+                                                                <input type="checkbox" id="weekends" name="vehicle2"
+                                                                       value="Car">
+                                                                <label class="font-weight-bold" for="weekends">
+                                                                    Open on
+                                                                    Sunday
+                                                                </label><br>
+                                                            </div>
+                                                            <div class="col-md-12 mt-3">
+                                                                <input type="checkbox" id="defaddress" name="defaddress"
+                                                                       value="defaddress">
+                                                                <label class="font-weight-bold" for="defaddress"
+                                                                       style="font-size: 13px;">
+                                                                    Make this
+                                                                    as my default address
+                                                                </label><br>
+                                                            </div>
+                                                            <div class="col-md-12 text-center mt-2">
+                                                                <div class="mt-4">
+                                                                    <button class="profilesaveeditbutton p-2"
+                                                                            type="button">
+                                                                        Save
+                                                                        Address
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                <div class="panel paytmbtn  sauget-accordion mb-5">
-                                    <div id="headingFour" class="panel-heading" data-toggle="collapse" data-parent="#accordion" data-target="#collapse3">
-                                        <h4 class="panel-title">
-                                            <a class="accordion-toggle " id="Target" style="display:flex;">
-                                                <span style=" width: 29px; padding: 6px 17px 0px 11px; font-size: 15px; margin-right: 25px; }">2</span> Payment Information
-                                            </a>
-
-                                        </h4>
-                                    </div>
-                                    <div id="collapse3" class="panel-collapse collapse">
-                                        <div class="panel-body">
-                                            <div class="content-info">
-                                                @if (Model.IsPaytm)
-                                                {
-                                                    <button style="width:auto;margin:15px;height:100%;" id="paytm-btn-click" class="SavePaymentBtn"><img src="~/images/Payment.gif" style="height:50px" alt="buttonpng" border="0" /></button>
-                                                }
-                                                <button id="cashondeliverybtn" style="width: auto; margin: 15px; height: 100%;" type="submit" class="SavePaymentBtn"><img src="~/images/cash-on-delivery-icon-14.jpg" style="height:50px" alt="buttonpng" border="0" /></button>
-
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                              
-                            </form>
-                        </div>
-                        <div class="col-lg-3 col-md-12">
-                            <div class="checkout-sidebar">
-                                <h4>CHECKOUT PROGRESS</h4>
-                                <ul>
-                                    @*<li><a href="#">Billing Address</a></li>*@
-                                    <li><a href="#" name="shipaddlink">Shipping Address</a></li>
-                                    @*<li><a href="#">Shiping Method</a></li>*@
-                                    <li><a href="#" name="paymentmethodlink">Payment Method</a></li>
-                                </ul>
+                                </div>
+                                <!--single-checkoutselectaddress-saveaddress-section-end-->
                             </div>
                         </div>
                     </div>
-                    <!-- End checkout content -->
+                    <!--orderdetails-section-end-->
                 </div>
             </div>
-            <!-- End checkout page area -->
+            <div class="col-12 col-lg-4 col-md-12 align-items-center">
+                <!--single-checkoutselectaddress-deliveryestimation-section-start-->
+                <div>
+                    <div>
+                        <h6 class="font-weight-bold">Delivery Estimation</h6>
+                    </div>
+                    <div class="d-flex">
+                        <div class="deliveryestimationdiv mt-3">
+                            <img class="deliveryestimationimg" src="img/productdetailsimage1.jpeg">
+                        </div>
+                        <div class="ml-3 mt-2 orderdetails">
+                            <p class="m-0 font-weight-bold deliveryestimationitemheading">
+                                Jack & Jones Navy Blue
+                                Cotton Slim Fit Polo
+                                T-Shirt
+                            </p>
+                            <div class="m-0 pb-3">
+                                <p class="m-0 mb-1 deliveryestimationattributes">
+                                    XXl | Blue
+                                </p>
+                                <p class="m-0 mb-1 deliveryestimationattributes">₹ 679</p>
+                                <p class="m-0 mb-1 font-weight-bold deliveryestimationattributes">Estimated Delivery by 12 JUL 2023</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="deliveryestimationdiv mt-3">
+                            <img class="deliveryestimationimg" src="img/productdetailsimage1.jpeg">
+                        </div>
+                        <div class="ml-3 mt-2 orderdetails">
+                            <p class="m-0 font-weight-bold deliveryestimationitemheading">
+                                Jack & Jones Navy Blue
+                                Cotton Slim Fit Polo
+                                T-Shirt
+                            </p>
+                            <div class="m-0 pb-3">
+                                <p class="m-0 mb-1 deliveryestimationattributes">
+                                    XXl | Blue
+                                </p>
+                                <p class="m-0 mb-1 deliveryestimationattributes">₹ 679</p>
+                                <p class="m-0 mb-1 font-weight-bold deliveryestimationattributes">Estimated Delivery by 12 JUL 2023</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--single-checkoutselectaddress-deliveryestimation-section-end-->
+                <!--single-checkoutselectaddress-pricedetails-section-start-->
+                <div class="mt-3">
+                    <div>
+                        <h6 class="font-weight-bold">Price Details</h6>
+                    </div>
+                    <div class="mt-4">
+                        <div class="d-flex justify-content-between">
+                            <p class="font-weight-bold">Bag Total</p>
+                            <p class="font-weight-bold">₹2499</p>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <p class="font-weight-bold">Discount on Bag</p>
+                            <p class="font-weight-bold">₹499</p>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <p class="font-weight-bold">
+                                Shipping Charge and
+                                handling
+                            </p>
+                            <p class="font-weight-bold">₹99</p>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <p class="font-weight-bold text-danger" style="font-size: 18px;">
+                                Total
+                                Amount
+                            </p>
+                            <p class="font-weight-bold text-danger" style="font-size: 18px;">₹2499</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 text-center mt-2 mb-5">
+                    <div class="mt-4">
+                        <button class="w-100 deliveryaddresscontinuebutton p-2"
+                                type="button">
+                            <a href="checkoutpaymentpage.html" class="checkoutcontinuedeliverybutton">Continue</a>
+                        </button>
+                    </div>
+                </div>
+                <!--single-checkoutselectaddress-pricedetails-section-end-->
+                <!--usefullinks-section-start-->
+                <div class="d-flex justify-content-between align-items-center mt-5 mb-4">
+                    <h5 class="text-right font-weight-bold">Useful Links <i class="fa fa-link"></i></h5>
+                </div>
+                <div class="d-flex justify-content-between" style="border-bottom: 1px solid #aed4f0;">
+                    <p class="font-weight-bold ml-2">Privacy Policy</p>
+                    <p class="font-weight-bold mr-3"><i class="fa fa-chevron-right"></i></p>
+                </div>
+                <div class="d-flex justify-content-between mt-3" style="border-bottom: 1px solid #aed4f0;">
+                    <p class="font-weight-bold ml-2">Terms & Conditions</p>
+                    <p class="font-weight-bold mr-3"><i class="fa fa-chevron-right"></i></p>
+                </div>
+                <!--usefullinks-section-end-->
+            </div>
         </div>
     </div>
-</div>
+    <!--orderdetails-section-end-->
+    </div>
+    </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+
+    <!--footerSection-end-->
 
 <script>
     // Change styles according to panels state
@@ -278,7 +698,7 @@
     $('.panel').on('show.bs.collapse hide.bs.collapse', function () {
 
         $(this).toggleClass("paytmbtn datainputs");
-       // $(this).find(".indicator").toggleClass("glyphicon-chevron-right glyphicon-chevron-down");
+        // $(this).find(".indicator").toggleClass("glyphicon-chevron-right glyphicon-chevron-down");
     })
 
     // Initialize collapsibles
@@ -322,7 +742,7 @@
                 if (!current.hasClass("in")) {
                     current.collapse("show");
                 }
-                
+
                 return false;
             }
 

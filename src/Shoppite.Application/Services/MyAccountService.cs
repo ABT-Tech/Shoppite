@@ -81,5 +81,18 @@ namespace Shoppite.Application.Services
             await _myAccountRepository.UpdateCoverImage(mapped);
            // await _myAccountRepository.UpdateCoverImage(coverImage);
         }
+        public async Task<List<CouponModel>> GetCouponDetails()
+        {
+            var coupondetails = await _myAccountRepository.GetCouponDetails();
+            var mapped = ObjectMapper.Mapper.Map<List<CouponModel>>(coupondetails);
+            return mapped;
+        }
+        public async Task<CouponModel> GetCouponDetailsByCouponId(int Id)
+        {
+            var couponcodedetail = await _myAccountRepository.GetCouponDetailsByCouponId(Id);
+            var mapped = ObjectMapper.Mapper.Map<CouponModel>(couponcodedetail);
+            return mapped;
+        }
+        
     }
 }

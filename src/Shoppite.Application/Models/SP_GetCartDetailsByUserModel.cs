@@ -16,6 +16,7 @@ namespace Shoppite.Application.Models
         public int? BasicQty { get; set; }
         public String AttributeName { get; set; }
         public string UserName { get; set; }
-        public int UserId { get; set; }
+        public decimal? DeliveryFees { get; set; }
+        public Boolean WishlistedProduct { get; set; }
     }
 }
